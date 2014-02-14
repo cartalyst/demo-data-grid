@@ -13,7 +13,7 @@
  * @version    2.0.0
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011 - 2013, Cartalyst LLC
+ * @copyright  (c) 2011-2014, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -25,8 +25,8 @@
 	var defaults = {
 			source: null,
 			dividend: 1,
-			threshold: 100,
-			throttle: 100,
+			threshold: 50,
+			throttle: 50,
 			paginationType: 'single',
 			sortClasses: {
 				asc: 'asc',
@@ -190,7 +190,10 @@
 
 			this.$body.on('click', '[data-sort]'+this.grid, function(){
 
-				_this.$results.empty(); //safty
+				if(_this.opt.paginationType === 'infinite')
+				{
+					_this.$results.empty(); //safty
+				}
 				_this._extractSortsFromClick($(this) , $(this).data('sort'));
 
 			});
@@ -206,7 +209,10 @@
 			this.$filters.on('click', '> *', function(e) {
 
 				e.preventDefault();
-				_this.$results.empty(); //safty
+				if(_this.opt.paginationType === 'infinite')
+				{
+					_this.$results.empty(); //safty
+				}
 				_this._removeFilters($(this).index());
 
 			});
@@ -371,6 +377,12 @@
 				value: $input.val()
 			});
 
+			// Safety
+			if(this.opt.paginationType === 'infinite')
+			{
+				this.$results.empty();
+			}
+
 			// Reset
 			$input.val('').data('old', '');
 			this._goToPage(1);
@@ -421,6 +433,12 @@
 						value: curr,
 						type: 'live'
 					});
+				}
+
+				// Safety
+				if(_this.opt.paginationType === 'infinite')
+				{
+					_this.$results.empty();
 				}
 
 				$input.data('old', curr);
@@ -476,7 +494,7 @@
 			else
 			{
 				// get the oppsite class from which is set
-				var remove = currentSort.direction === 'asc' ? 'desc' : 'asc';
+				var remove = currentSort.direction === 'asc' ? this.opt.sortClasses.desc : this.opt.sortClasses.asc;
 
 				el.removeClass(remove);
 
@@ -742,13 +760,27 @@
 				base += page;
 			}
 
-			if (this._checkIE() < 9)
+			if (this._checkIE() <= 9)
 			{
 				window.location.hash = base;
 			}
 			else
 			{
-				var defaultURI = window.location.origin + window.location.pathname;
+				var defaultURI = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+
+				if( window.location.href.indexOf('?') > -1 )
+				{
+					console.log('true');
+					var indexOfQuery = window.location.href.indexOf('?');
+					var indexOfHash = window.location.href.indexOf('#');
+
+					if( indexOfHash > -1 ) {
+						defaultURI += window.location.href.slice( indexOfQuery, indexOfHash);
+					}else{
+						defaultURI += window.location.href.substr(indexOfQuery);
+					}
+				}
 
 				window.history.pushState(null, null, defaultURI +'#'+ base);
 			}
@@ -1033,7 +1065,7 @@
 
 					params = {
 						pageStart: perPage === 0 ? 0 : ( i === 1 ? 1 : (perPage * (i - 1) + 1)),
-						pageLimit: i === 1 ? perPage : ( pagi.totalCount < (perPage * i)) ? pagi.totalCount : perPage * 1,
+						pageLimit: i === 1 ? perPage : (pagi.totalCount < this.opt.throttle && i === this.opt.dividend) ? pagi.totalCount : perPage * i,
 						nextPage: next,
 						prevPage: prev,
 						page: i,
@@ -1131,6 +1163,12 @@
 			this.$filters.empty();
 
 			// Updated
+			$(this).trigger('dg:update');
+
+		},
+
+		_refresh: function() {
+
 			$(this).trigger('dg:update');
 
 		},
