@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="main" id="table-tmpl">
+<script type="text/template" data-grid="single" id="table-tmpl">
 
 	<% _.each(results, function(r) { %>
 

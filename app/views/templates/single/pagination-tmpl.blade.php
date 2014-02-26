@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="main" id="data-grid_pagination-tmpl">
+<script type="text/template" data-grid="single" id="pagination-tmpl">
 
 	<% _.each(pagination, function(p) { %>
 
@@ -10,7 +10,7 @@
 
 					<% if (p.prevPage !== null) { %>
 
-						<li><a data-grid="main" data-page="<%= p.prevPage %>"><i class="fa fa-chevron-left"></i></a></li>
+						<li><a data-grid="single" data-page="<%= p.prevPage %>"><i class="fa fa-chevron-left"></i></a></li>
 
 					<% } else { %>
 
@@ -20,7 +20,7 @@
 
 					<% if (p.nextPage !== null) { %>
 
-						<li><a data-grid="main" data-page="<%= p.nextPage %>"><i class="fa fa-chevron-right"></i></a></li>
+						<li><a data-grid="single" data-page="<%= p.nextPage %>"><i class="fa fa-chevron-right"></i></a></li>
 
 					<% } else { %>
 
