@@ -13,12 +13,9 @@ Single Pagination
 	$(function(){
 
 		//Setup DataGrid
-		$.datagrid('main', '.table', '.pagination', '.applied-filters', {
-			dividend: 10,
-			threshold: 20,
-			throttle: 500,
+		$.datagrid('single', '.table', '.pagination', '.applied-filters', {
 			loader: '.loading',
-			paginationType: 'multiple',
+			paginationType: 'single',
 			defaultSort: {
 				column: 'city',
 				direction: 'asc'
@@ -45,10 +42,10 @@ Single Pagination
 
 @section('menu')
 <ul class="menu">
-	<li><a href="{{ URL::to('') }}" class="btn active">Single</a></li>
-	<li><a href="{{ URL::to('') }}" class="btn">Multiple Standard</a></li>
-	<li><a href="{{ URL::to('') }}" class="btn">Multiple Advanced</a></li>
-	<li><a href="{{ URL::to('list') }}" class="btn">Infinite</a></li>
+	<li><a href="{{ URL::to('/') }}" class="btn active">Single</a></li>
+	<li><a href="{{ URL::to('/multiple-standard') }}" class="btn">Multiple Standard</a></li>
+	<li><a href="{{ URL::to('/multiple-advanced') }}" class="btn">Multiple Advanced</a></li>
+	<li><a href="{{ URL::to('/infinite') }}" class="btn">Infinite</a></li>
 </ul>
 @stop
 
@@ -65,17 +62,17 @@ Single Pagination
 
 <label for="threshold">
 	Threshold <br>
-	<input type="text" name="threshold" value="20" disabled class="disabled" data-grid="main" data-opt="threshold">
+	<input type="text" name="threshold" value="20" disabled class="disabled" data-grid="single" data-opt="threshold">
 </label>
 
 <label for="dividend">
 	Dividend <br>
-	<input type="text" name="dividend" value="10" disabled class="disabled" data-grid="main" data-opt="dividend">
+	<input type="text" name="dividend" value="10" disabled class="disabled" data-grid="single" data-opt="dividend">
 </label>
 
 <label for="throttle">
 	Throttle <br>
-	<input type="text" name="throttle" value="500" disabled class="disabled" data-grid="main" data-opt="throttle">
+	<input type="text" name="throttle" value="500" disabled class="disabled" data-grid="single" data-opt="throttle">
 </label>
 @stop
 
@@ -83,7 +80,7 @@ Single Pagination
 
 <div class="cf">
 
-	<form data-search data-grid="main" class="search">
+	<form data-search data-grid="single" class="search">
 
 		<div class="select">
 
@@ -107,19 +104,19 @@ Single Pagination
 
 </div>
 
-<ul class="applied-filters" data-grid="main"></ul>
+<ul class="applied-filters" data-grid="single"></ul>
 
 <section class="content cf">
 
 	<div class="grid">
 
-		<table class="table" data-source="{{ URL::to('source') }}" data-grid="main">
+		<table class="table" data-source="{{ URL::to('source') }}" data-grid="single">
 			<thead>
 				<tr>
-					<th data-sort="country" data-grid="main" class="sortable">Country</th>
-					<th data-sort="subdivision" data-grid="main" class="sortable">Subdivision</th>
-					<th data-sort="city" data-grid="main" class="sortable">City</th>
-					<th data-sort="population" data-grid="main" class="sortable">Population</th>
+					<th data-sort="country" data-grid="single" class="sortable">Country</th>
+					<th data-sort="subdivision" data-grid="single" class="sortable">Subdivision</th>
+					<th data-sort="city" data-grid="single" class="sortable">City</th>
+					<th data-sort="population" data-grid="single" class="sortable">Population</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -128,13 +125,13 @@ Single Pagination
 
 	</div>
 
-	<div class="pagination" data-grid="main"></div>
+	<div class="pagination" data-grid="single"></div>
 
 </section>
 
-	@include('templates/main/main-results-tmpl')
-	@include('templates/main/main-pagination-tmpl')
-	@include('templates/main/main-filters-tmpl')
-	@include('templates/main/main-no-results-tmpl')
+	@include('templates/single/results-tmpl')
+	@include('templates/single/pagination-tmpl')
+	@include('templates/single/filters-tmpl')
+	@include('templates/single/no-results-tmpl')
 
 @stop
