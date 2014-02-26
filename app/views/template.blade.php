@@ -4,7 +4,7 @@
 		<title>@yield('title')</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/reset.css') }}" >
-		<link rel="stylesheet" href="{{ URL::asset('assets/css/frames.css') }}" >
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}" >
 
 		@yield('styles')
 
@@ -13,7 +13,8 @@
 
 
 		<div class="frame-synopsis">
-			<h1>@yield('title')tst</h1>
+			<h1>Data Grid</h1>
+			<h2>@yield('title')</h2>
 
 			@yield('menu')
 
@@ -21,9 +22,9 @@
 
 
 
-			<p class="documentation">Documentation is King!<br>Read it <a href="http://docs.cartalyst.com/data-grid" title="Cartalyst Data Grid Documentation">Here</a></p>
+			<p class="documentation">Documentation is King!<br>Read it <a href="https://cartalyst.com/manual/data-grid" title="Cartalyst Data Grid Documentation">Here</a></p>
 
-			<p class="requirements">Data Grid requires <a href="http://tempojs.com/" target="_blank">Tempojs</a> v2.0.0 or later &amp; <a href="http://jquery.com/" target="_blank">jQuery</a> v1.8.3 or later to run.</p>
+			<p class="requirements">Data Grid requires <a href="http://underscorejs.org/" target="_blank">Underscore.js</a> v1.5.2 or later &amp; <a href="http://jquery.com/" target="_blank">jQuery</a> v1.8.3 or later to run.</p>
 
 		</div>
 

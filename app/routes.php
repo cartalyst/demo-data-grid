@@ -13,13 +13,24 @@
 
 Route::get('/', function()
 {
-	return View::make('table');
+	return View::make('single');
 });
 
-Route::get('list', function()
+Route::get('multiple-advanced', function()
 {
-	return View::make('list');
+	return View::make('multiple-standard');
 });
+
+Route::get('multiple-advanced', function()
+{
+	return View::make('multiple-advanced');
+});
+
+Route::get('infinite', function()
+{
+	return View::make('infinite');
+});
+
 
 Route::get('source', function()
 {
