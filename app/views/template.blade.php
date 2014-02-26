@@ -13,7 +13,7 @@
 
 
 		<div class="frame-synopsis">
-			<h1>@yield('title')</h1>
+			<h1>@yield('title')tst</h1>
 
 			@yield('menu')
 

@@ -41,8 +41,9 @@ Data Grid
 
 @section('menu')
 <ul class="menu">
-	<li><a href="{{ URL::to('') }}">Table</a></li>
-	<li><a href="{{ URL::to('list') }}" class="active">List</a></li>
+	<li><a href="{{ URL::to('') }}" class="btn">Standard</a></li>
+	<li><a href="{{ URL::to('') }}" class="btn">Advanced</a></li>
+	<li><a href="{{ URL::to('list') }}" class="btn active">List</a></li>
 </ul>
 @stop
 
