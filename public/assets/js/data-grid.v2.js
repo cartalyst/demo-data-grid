@@ -277,14 +277,20 @@
 				if(_this.opt.paginationType === 'infinite')
 				{
 					_this.$results.empty();
+
+					_this.pagi.pageIdx = 1;
 				}
 
 				_this._extractFiltersFromClick($(this).data('filter'), $(this).data('label'), $(this).data('operator'));
 
 			});
 
-			$('.datePicker'+this.grid+','+this.grid+' .datePicker').on('change.dp', function(e) {
-				_this._rangeFilter();
+			$('.datePicker').on('change.dp', function(e) {
+
+				_this._removeRangeFilters($(this));
+
+				_this._rangeFilter($(this));
+
 			});
 
 			this.$filters.on('click', '> *', function(e) {
@@ -354,28 +360,6 @@
 		},
 
 		_applyFilter: function(filters) {
-
-			var without = [];
-
-			// Apply filters to our global array.
-			this.appliedFilters.push(filters);
-
-			// Create A New Array Without any livesearch items
-			for (var i = 0; i < this.appliedFilters.length; i++)
-			{
-				if (this.appliedFilters[i].type !== 'live')
-				{
-					without.push(this.appliedFilters[i]);
-				}
-			}
-
-			// Render Our Filters
-			this.$filters.html(this.tmpl['filters']({ filters: without }));
-
-			this._triggerEvent('filters');
-		},
-
-		_applyRangeFilter: function(filters) {
 
 			var without = [];
 
@@ -457,6 +441,10 @@
 						parsedRoute = parsedRoute.splice(0, (parsedRoute.length - 1));
 
 						_this._extractPageFromRoute(lastItem);
+					}
+					else
+					{
+						_this.pagi.pageIdx = 1;
 					}
 
 					if ((/desc/g.test(nextItem)) || (/asc/g.test(nextItem)))
@@ -694,14 +682,14 @@
 
 		},
 
-		_extractRangeFilters: function(el)
+		_extractRangeFilters: function(filter)
 		{
-			var startDateFilter = $('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').data('range-filter');
+			var curFilter = filter.find('[data-range-filter]').data('range-filter');
 
-			var startVal = $('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').val();
-			var endVal = $('[data-range-end]'+this.grid+','+this.grid+' '+'[data-range-end]').val();
-
-			var startLabel = $('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').data('label');
+			var startDateFilter = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('range-filter');
+			var startVal = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').val();
+			var endVal = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]').val();
+			var startLabel = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('label');
 
 			var filterData = {
 				column: startDateFilter,
@@ -711,97 +699,7 @@
 				type: 'range'
 			};
 
-			this._applyRangeFilter(filterData);
-
-			// $(this).trigger('dg:update');
-
-			// this._goToPage(1);
-
-		},
-
-		_extractComplexFilters: function(colC, valC, co, label) {
-
-			this._applyFilter({
-				column: colC,
-				value: valC,
-				operator: co,
-				label: label
-			});
-
-			// $(this).trigger('dg:update');
-
-			// this._goToPage(1);
-
-		},
-
-		_extractRangeFiltersFromClick: function(filters, labels, colS, valS, colE, valE, labelS, labelE) {
-
-			var _this = this;
-			var rect = [];
-
-			var filtersArr = filters.split(', ');
-
-			for (var i = 0; i < filtersArr.length; i++)
-			{
-				var filter = filtersArr[i].split(':');
-
-				if (_this._searchForValue(filter[1], this.appliedFilters) > -1)
-				{
-					return true;
-				}
-
-				if (typeof labels !== 'undefined')
-				{
-					var labelsArr = labels.split(', ');
-
-					if (typeof labelsArr[i] !== 'undefined')
-					{
-						var label = labelsArr[i].split(':');
-
-						// Return -1 if no match else return index at match
-						var key = _this._indexOf(filter, label[0]);
-
-						// Map Filter that is equal to the returned key
-						// to the label value for renaming
-						filter[key] = label[1];
-
-						_this._applyFilter({
-							column: filter[0],
-							value: filter[1],
-							mask: (key === 0 ? 'column' : 'value'),
-							maskOrg: label[0]
-						});
-					}
-					else
-					{
-						_this._applyFilter({
-							column: filter[0],
-							value: filter[1]
-						});
-					}
-				}
-				else
-				{
-
-					_this._applyFilter({
-						column: colS,
-						value: valS,
-						operator: '>',
-						label: labelS
-					});
-
-					_this._applyFilter({
-						column: colE,
-						value: valE,
-						operator: '<',
-						label: labelE
-					});
-				}
-			}
-
-			$(this).trigger('dg:update');
-
-			this._goToPage(1);
+			this._applyFilter(filterData);
 
 		},
 
@@ -979,19 +877,13 @@
 				// Check to  make sure filter isn't already set
 				if (_this._searchForValue( filters[1], _this.appliedFilters) === -1)
 				{
-					var startco = $('[data-range-start]').data('operator');
-					var endco = $('[data-range-end]').data('operator');
+					var start = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('range-filter');
+					var end = $('[data-range-end][data-range-filters="' + filters[0] + '"]').data('range-filter');
 
-					var start = $('[data-range-start]').data('range-filter');
-					var end = $('[data-range-end]').data('range-filter');
+					var startLabel = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('label');
 
-					var startLabel = $('[data-range-start]').data('label');
-					var endLabel = $('[data-range-end]').data('label');
-
-					if (filters[0] === start || filters[0] === end && ! _this.rangeFilter)
+					if (filters[0] === start)
 					{
-						_this.rangeFilter = true;
-
 						var filterData = {
 							column: routeArr[i].split(this.opt.delimiter)[0],
 							from: routeArr[i].split(this.opt.delimiter)[1],
@@ -1000,7 +892,7 @@
 							type: 'range'
 						};
 
-						_this._applyRangeFilter(filterData);
+						_this._applyFilter(filterData);
 					}
 					else
 					{
@@ -1375,8 +1267,6 @@
 
 		_ajaxFetchResults: function() {
 
-			console.log('fetch results');
-
 			var _this = this;
 
 			this._loading();
@@ -1684,6 +1574,21 @@
 
 		},
 
+		_removeRangeFilters: function(filter)
+		{
+			var startDateFilter = filter.find('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').data('range-filter');
+			var endDateFilter = filter.find('[data-range-end]'+this.grid+','+this.grid+' '+'[data-range-end]').data('range-filter');
+
+			for (var i = 0; i < this.appliedFilters.length; i++)
+			{
+				if (this.appliedFilters[i].type === 'range' && (this.appliedFilters[i].column === startDateFilter || this.appliedFilters[i].column === endDateFilter))
+				{
+					this.appliedFilters.splice(i, 1);
+				}
+			};
+
+		},
+
 		_removeFilters: function(idx) {
 
 			this.appliedFilters.splice(idx, 1);
@@ -1718,14 +1623,18 @@
 
 		},
 
-		_rangeFilter: function()
+		_rangeFilter: function(filter)
 		{
-			var startVal = $('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').val();
-			var endVal = $('[data-range-end]'+this.grid+','+this.grid+' '+'[data-range-end]').val()
+			var curFilter = filter.find('[data-range-filter]').data('range-filter');
+
+			var startVal = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').val();
+			var endVal = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]').val()
 
 			if (startVal && endVal)
 			{
-				this._extractRangeFilters();
+				this._extractRangeFilters(filter);
+
+				this._refresh();
 			}
 		},
 
