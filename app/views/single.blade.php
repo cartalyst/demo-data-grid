@@ -5,7 +5,7 @@ Single Pagination
 @stop
 
 @section('styles')
-<link rel="stylesheet" href="{{ URL::asset('assets/css/table.css') }}" >
+<link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
 @stop
 
 @section('scripts')
@@ -14,6 +14,7 @@ Single Pagination
 
 		//Setup DataGrid
 		$.datagrid('single', '.table', '.pagination', '.applied-filters', {
+			throttle: 20,
 			loader: '.loading',
 			paginationType: 'single',
 			defaultSort: {
