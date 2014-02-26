@@ -3,7 +3,9 @@
 	<head>
 		<title>@yield('title')</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/reset.css') }}" >
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/font-awesome.min.css') }}" >
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}" >
 
 		@yield('styles')
