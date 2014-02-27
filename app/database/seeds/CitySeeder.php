@@ -13,6 +13,8 @@ class CitySeeder extends Seeder {
 
 		foreach ($lines as $line)
 		{
+			$int = rand(320528968,1361994568);
+
 			$city = new City(array(
 				'country'                   => $line[0],
 				'subdivision'              => $line[1],
@@ -20,6 +22,7 @@ class CitySeeder extends Seeder {
 				'population'               => $line[3],
 				'country_code'             => $line[4],
 				'country_subdivision_code' => $line[5],
+				'created_at'               => date("Y-m-d H:i:s", $int),
 			));
 
 			$city->save();
