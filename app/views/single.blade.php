@@ -14,7 +14,9 @@ Single Pagination
 
 		//Setup DataGrid
 		$.datagrid('single', '.table', '.pagination', '.applied-filters', {
+			dividend: 1,
 			throttle: 20,
+			threshold: 20,
 			loader: '.loading',
 			paginationType: 'single',
 			defaultSort: {
@@ -61,19 +63,19 @@ Single Pagination
 	<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
 </label>
 
+<label for="dividend">
+	Dividend <br>
+	<input type="text" name="dividend" value="1" disabled class="disabled" data-grid="single" data-opt="dividend">
+</label>
+
 <label for="threshold">
 	Threshold <br>
 	<input type="text" name="threshold" value="20" disabled class="disabled" data-grid="single" data-opt="threshold">
 </label>
 
-<label for="dividend">
-	Dividend <br>
-	<input type="text" name="dividend" value="10" disabled class="disabled" data-grid="single" data-opt="dividend">
-</label>
-
 <label for="throttle">
 	Throttle <br>
-	<input type="text" name="throttle" value="500" disabled class="disabled" data-grid="single" data-opt="throttle">
+	<input type="text" name="throttle" value="20" disabled class="disabled" data-grid="single" data-opt="throttle">
 </label>
 @stop
 
@@ -124,9 +126,11 @@ Single Pagination
 			</tbody>
 		</table>
 
+		<div class="pagination clearfix" data-grid="single"></div>
+
 	</div>
 
-	<div class="pagination" data-grid="single"></div>
+
 
 </section>
 
