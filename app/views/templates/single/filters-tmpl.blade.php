@@ -6,13 +6,25 @@
 
 			<a href="#" class="remove-filter">
 
-				<% if (f.column === 'all') { %>
+				<% if (f.from !== undefined && f.to !== undefined) { %>
 
-					<%= f.value %>
+					<%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') + ' - ' + moment(f.to).format('MMM DD, YYYY') %></em>
+
+				<% } else if (f.operator !== null) { %>
+
+					<%= f.column + ' ' + f.operator %> <em><%= f.value %></em>
 
 				<% } else { %>
 
-					<%= f.value %> in <em><%= f.column %></em>
+					<% if (f.column === 'all') { %>
+
+						<%= f.value %>
+
+					<% } else { %>
+
+						<%= f.value %> {{{ trans('general.in') }}} <em><%= f.column %></em>
+
+					<% } %>
 
 				<% } %>
 

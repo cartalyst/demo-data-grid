@@ -300,12 +300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a49ec3dfd71d57fa32181e26ca2b99a5e14a4f4b"
+                "reference": "a7056b8d740e19d3d26716daad8af222e46a357a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a49ec3dfd71d57fa32181e26ca2b99a5e14a4f4b",
-                "reference": "a49ec3dfd71d57fa32181e26ca2b99a5e14a4f4b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a7056b8d740e19d3d26716daad8af222e46a357a",
+                "reference": "a7056b8d740e19d3d26716daad8af222e46a357a",
                 "shasum": ""
             },
             "require": {
@@ -409,7 +409,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-02-27 20:14:50"
+            "time": "2014-02-27 21:15:26"
         },
         {
             "name": "monolog/monolog",
@@ -526,32 +526,32 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "dev-master",
+            "version": "0.9.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "74efea91d1476cb7cb7f2899ed949ecf9570a9f4"
+                "reference": "118f28344daf154e47e73e79779a60bc7430a40f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/74efea91d1476cb7cb7f2899ed949ecf9570a9f4",
-                "reference": "74efea91d1476cb7cb7f2899ed949ecf9570a9f4",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/118f28344daf154e47e73e79779a60bc7430a40f",
+                "reference": "118f28344daf154e47e73e79779a60bc7430a40f",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "php": ">=5.3"
+                "php": ">=5.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "0.9-dev"
                 }
             },
             "autoload": {
-                "files": [
-                    "lib/bootstrap.php"
-                ]
+                "psr-0": {
+                    "PHPParser": "lib/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -567,7 +567,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2014-02-21 17:19:28"
+            "time": "2014-02-12 19:19:48"
         },
         {
             "name": "patchwork/utf8",

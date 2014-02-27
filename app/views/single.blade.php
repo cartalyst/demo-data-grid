@@ -5,10 +5,16 @@ Single Pagination
 @stop
 
 @section('styles')
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
+<link rel="stylesheet" href="{{ URL::asset('assets/css/datepicker.css') }}" >
 @stop
 
 @section('scripts')
+
+<script src="{{ URL::asset('assets/js/moment.js') }}"></script>
+<script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
+
 <script>
 	$(function(){
 
@@ -25,11 +31,12 @@ Single Pagination
 			},
 			callback: function(obj){
 
-				console.log(obj);
-
 				//Leverage the Callback to show total counts or filtered count
-				$('#filtered').val(obj.filteredCount);
-				$('#total').val(obj.totalCount);
+				$('#total').val(obj.pagi.filteredCount);
+				$('#filtered').val(obj.pagi.totalCount);
+				$('#dividend').val(obj.opt.dividend);
+				$('#threshold').val(obj.opt.threshold);
+				$('#throttle').val(obj.opt.throttle);
 
 			}
 		});
@@ -39,6 +46,11 @@ Single Pagination
 			$('.options').find('li').text($('.hidden-select option:selected').text());
 		});
 	});
+
+	$('.datePicker').datetimepicker({
+		pickTime: false
+	});
+
 </script>
 
 @stop
@@ -65,21 +77,49 @@ Single Pagination
 
 <label for="dividend">
 	Dividend <br>
-	<input type="text" name="dividend" value="1" disabled class="disabled" data-grid="single" data-opt="dividend">
+	<input type="text" name="dividend" value="" disabled class="disabled" data-grid="single" data-opt="dividend" id="dividend">
 </label>
 
 <label for="threshold">
 	Threshold <br>
-	<input type="text" name="threshold" value="20" disabled class="disabled" data-grid="single" data-opt="threshold">
+	<input type="text" name="threshold" value="" disabled class="disabled" data-grid="single" data-opt="threshold" id="threshold">
 </label>
 
 <label for="throttle">
 	Throttle <br>
-	<input type="text" name="throttle" value="20" disabled class="disabled" data-grid="single" data-opt="throttle">
+	<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
 </label>
 @stop
 
 @section('content')
+
+<div class="row">
+	<div class="col-sm-3 text-right">
+		<div class="form-group">
+			<div class="input-group datePicker" data-grid="single" data-range-filter>
+
+				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-start data-range-filter="created_at" data-label="Created At" data-grid="single" placeholder="Start Date">
+
+				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-3 text-right">
+		<div class="form-group">
+			<div class="input-group datePicker" data-grid="single" data-range-filter>
+
+				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-filter="created_at" data-label="Created At" data-range-end data-grid="single" placeholder="End Date">
+
+				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
 
 <div class="cf">
 

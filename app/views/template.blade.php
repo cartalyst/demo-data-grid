@@ -42,7 +42,7 @@
 
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="{{ URL::asset('assets/js/underscore.js') }}"></script>
-		<script src="{{ URL::asset('assets/js/data-grid.js') }}"></script>
+		<script src="{{ URL::asset('assets/js/data-grid.v2.js') }}"></script>
 		<script>
 		// document.write( '<scr' + 'ipt src="assets/js/' + Math.PI.toString().slice(0,7) + '.js?auto"></s' + 'cript>' );
 		</script>

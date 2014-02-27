@@ -145,6 +145,11 @@
 				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v 1.5.2 or later to run!');
 			}
 
+			if (typeof window.moment === 'undefined')
+			{
+				throw new Error('Moment is not defined. DataGrid Requires Moment.js v 2.4.0 or later to run!');
+			}
+
 			// Set _ templates interpolate
 			_.templateSettings = {
 				evaluate    : this.opt.templateSettings.evaluate,
@@ -696,10 +701,24 @@
 			var endVal = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]').val();
 			var startLabel = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('label');
 
+			var dateFormat = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('format');
+
+			var dbFormat = 'YYYY-MM-DD';
+
+			var column = startDateFilter;
+			var from   = startVal;
+			var to     = endVal;
+
+			if (dateFormat !== null && dateFormat !== undefined)
+			{
+				from   = moment(from).format(dbFormat);
+				to     = moment(to).format(dbFormat);
+			}
+
 			var filterData = {
 				column: startDateFilter,
-				from: startVal,
-				to: endVal,
+				from: from,
+				to: to,
 				label: startLabel,
 				type: 'range'
 			};
@@ -883,16 +902,28 @@
 				if (_this._searchForValue( filters[1], _this.appliedFilters) === -1)
 				{
 					var start = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('range-filter');
-					var end = $('[data-range-end][data-range-filters="' + filters[0] + '"]').data('range-filter');
-
 					var startLabel = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('label');
+
+					var dateFormat = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('format');
+
+					var dbFormat = 'YYYY-MM-DD';
+
+					var column = routeArr[i].split(this.opt.delimiter)[0];
+					var from   = routeArr[i].split(this.opt.delimiter)[1];
+					var to     = routeArr[i].split(this.opt.delimiter)[2];
+
+					if (dateFormat !== null && dateFormat !== undefined)
+					{
+						from   = moment(from).format(dbFormat);
+						to     = moment(to).format(dbFormat);
+					}
 
 					if (filters[0] === start)
 					{
 						var filterData = {
-							column: routeArr[i].split(this.opt.delimiter)[0],
-							from: routeArr[i].split(this.opt.delimiter)[1],
-							to: routeArr[i].split(this.opt.delimiter)[2],
+							column: column,
+							from: from,
+							to: to,
 							label: startLabel,
 							type: 'range'
 						};
@@ -1388,9 +1419,13 @@
 						{
 							filter[this.appliedFilters[i].column] = '|' + this.appliedFilters[i].operator + this.appliedFilters[i].value + '|';
 						}
-						else if (this.appliedFilters[i].type !== undefined && this.appliedFilters[i].type !== 'live')
+						else if (this.appliedFilters[i].type === 'range')
 						{
-							filter[this.appliedFilters[i].column] = '|' + '>' + this.appliedFilters[i].from + '|' + '<' + this.appliedFilters[i].to +'|';
+							var dbFormat = 'YYYY-MM-DD';
+							var from     = moment(this.appliedFilters[i].from).format(dbFormat);
+							var to       = moment(this.appliedFilters[i].to).format(dbFormat);
+
+							filter[this.appliedFilters[i].column] = '|' + '>' + from + '|' + '<' + to +'|';
 						}
 						else
 						{

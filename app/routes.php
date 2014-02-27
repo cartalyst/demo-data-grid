@@ -62,5 +62,6 @@ Route::get('source', function()
 		'population',
 		'country_code',
 		'country_subdivision_code',
+		'created_at',
 	));
 });
