@@ -469,6 +469,11 @@
 
 						_this._extractSortsFromRoute(str);
 					}
+					else
+					{
+						_this.currentSort.direction = '';
+						_this.currentSort.column = '';
+					}
 
 					// Build Array For Filters
 					if (parsedRoute.length !== 0 )
@@ -489,11 +494,11 @@
 			});
 
 			// Initial default sort
-			if (_.isEmpty(routes) && this.opt.defaultSort.column !== undefined && this.opt.defaultSort.direction !== undefined)
+			if (_.isEmpty(routes) && this.opt.defaultSort.hasOwnProperty('column') && this.opt.defaultSort.hasOwnProperty('direction'))
 			{
 				var str = this.opt.defaultSort.column+this.opt.delimiter+this.opt.defaultSort.direction;
 
-				_this._extractSortsFromRoute(str);
+				this._extractSortsFromRoute(str);
 			}
 
 			$(this).trigger('dg:update');
@@ -1356,7 +1361,7 @@
 						}
 						else
 						{
-							if (this.appliedFilters[i].operator !== undefined)
+							if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== null)
 							{
 								filter[this.appliedFilters[i].column] = '|' + this.appliedFilters[i].operator + this.appliedFilters[i].maskOrg + '|';
 								params.filters.push(filter);
