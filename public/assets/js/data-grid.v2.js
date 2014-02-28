@@ -701,7 +701,7 @@
 			var endVal = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]').val();
 			var startLabel = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('label');
 
-			var dateFormat = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('format');
+			var dateFormat = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data(this.opt.dateFormatAttribute);
 
 			var dbFormat = 'YYYY-MM-DD';
 
@@ -904,7 +904,7 @@
 					var start = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('range-filter');
 					var startLabel = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('label');
 
-					var dateFormat = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('format');
+					var dateFormat = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data(this.opt.dateFormatAttribute);
 
 					var dbFormat = 'YYYY-MM-DD';
 
