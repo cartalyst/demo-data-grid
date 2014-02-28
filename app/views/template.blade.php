@@ -6,6 +6,7 @@
 
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/font-awesome.min.css') }}" >
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-tour.min.css') }}" >
 
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}" >
 
@@ -50,6 +51,7 @@
 
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="{{ URL::asset('assets/js/bootstrap-tour.min.js') }}"></script>
 		<script src="{{ URL::asset('assets/js/underscore.js') }}"></script>
 		<script src="{{ URL::asset('assets/js/data-grid.v2.js') }}"></script>
 		<script>
