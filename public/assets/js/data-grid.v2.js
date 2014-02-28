@@ -214,6 +214,7 @@
 
 				_this.$filters.empty();
 				_this.appliedFilters = [];
+				_this.$body.find('[data-range-filter]'+_this.grid).find('input').val('');
 
 				routeArr = _.compact(routeArr);
 
@@ -227,6 +228,7 @@
 					_this.$body.find('[data-sort]'+_this.grid).removeClass(_this.opt.sortClasses.desc);
 					_this.$body.find('[data-search]'+_this.grid).find('input').val('');
 					_this.$body.find('[data-search]'+_this.grid).find('select').prop('selectedIndex', 0);
+					_this.$body.find('[data-range-filter]'+_this.grid).find('input').val('');
 
 					// Filters
 					_this.appliedFilters = [];
@@ -917,6 +919,9 @@
 						from   = moment(from).format(dbFormat);
 						to     = moment(to).format(dbFormat);
 					}
+
+					$('[data-range-start][data-range-filter="' + filters[0] + '"]').val(moment(from).format(dateFormat));
+					$('[data-range-end][data-range-filter="' + filters[0] + '"]').val(moment(to).format(dateFormat));
 
 					if (filters[0] === start)
 					{
@@ -1631,6 +1636,11 @@
 
 		_removeFilters: function(idx) {
 
+			if (this.appliedFilters[idx].type === 'range')
+			{
+				this.$body.find('[data-range-filter="' + this.appliedFilters[idx].column + '"]'+this.grid+','+this.grid+' '+'[data-range-filter="' + this.appliedFilters[idx].column + '"]').val('');
+			}
+
 			this.appliedFilters.splice(idx, 1);
 
 			// TODO: See about removing this
@@ -1649,8 +1659,6 @@
 				var filter = $(this).find(':selected').data('filter');
 				var label = $(this).find(':selected').data('label');
 				var operator = $(this).find(':selected').data('operator');
-
-				this.appliedFilters = [];
 
 				if (filter !== undefined) {
 					_this._extractFiltersFromClick(filter, label, operator);
@@ -1704,6 +1712,7 @@
 			this.$body.find('[data-sort]'+this.grid).removeClass(this.opt.sortClasses.desc);
 			this.$body.find('[data-search]'+this.grid).find('input').val('');
 			this.$body.find('[data-search]'+this.grid).find('select').prop('selectedIndex', 0);
+			this.$body.find('[data-range-filter]'+_this.grid).find('input').val('');
 
 			// Filters
 			this.appliedFilters = [];

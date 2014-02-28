@@ -32,8 +32,8 @@ Single Pagination
 			callback: function(obj){
 
 				//Leverage the Callback to show total counts or filtered count
-				$('#total').val(obj.pagi.filteredCount);
-				$('#filtered').val(obj.pagi.totalCount);
+				$('#total').val(obj.pagi.totalCount);
+				$('#filtered').val(obj.pagi.filteredCount);
 				$('#dividend').val(obj.opt.dividend);
 				$('#threshold').val(obj.opt.threshold);
 				$('#throttle').val(obj.opt.throttle);

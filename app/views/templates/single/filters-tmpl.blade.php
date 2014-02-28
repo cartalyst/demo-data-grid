@@ -10,7 +10,7 @@
 
 					<%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') + ' - ' + moment(f.to).format('MMM DD, YYYY') %></em>
 
-				<% } else if (f.operator !== null) { %>
+				<% } else if (f.operator !== undefined) { %>
 
 					<%= f.column + ' ' + f.operator %> <em><%= f.value %></em>
 
@@ -22,7 +22,7 @@
 
 					<% } else { %>
 
-						<%= f.value %> {{{ trans('general.in') }}} <em><%= f.column %></em>
+						<%= f.value %> in <em><%= f.column %></em>
 
 					<% } %>
 
