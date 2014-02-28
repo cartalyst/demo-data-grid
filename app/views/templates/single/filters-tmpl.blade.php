@@ -2,9 +2,7 @@
 
 	<% _.each(filters, function(f) { %>
 
-		<li>
-
-			<a href="#" class="remove-filter">
+			<a href="#" class="btn btn-default remove-filter">
 
 				<% if (f.from !== undefined && f.to !== undefined) { %>
 
@@ -28,11 +26,9 @@
 
 				<% } %>
 
-				<span class="close">&times;</span>
+				<span><i class="fa fa-minus-square-o"></i></span>
 
 			</a>
-
-		</li>
 
 	<% }); %>
 

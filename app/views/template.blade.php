@@ -4,41 +4,45 @@
 		<title>@yield('title')</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="stylesheet" href="{{ URL::asset('assets/css/reset.css') }}" >
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/font-awesome.min.css') }}" >
+
 		<link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}" >
+
+		<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
 
 		@yield('styles')
 
 	</head>
 	<body>
 
+		<div class="container-fluid data-grid-demo">
+			<div class="row">
 
-		<div class="frame-synopsis">
-			<h1>Data Grid</h1>
-			<h2>@yield('title')</h2>
+				<aside class="col-md-3">
 
-			@yield('menu')
+					<h1>Data Grid</h1>
+					<h2>@yield('title')</h2>
 
-			<p>Powerful &amp; Simple; Easily filter large data sources, create beautiful JSON responses, and build paginated result sets.</p>
+					@yield('menu')
 
+					<p>Powerful &amp; Simple; Easily filter large data sources, create beautiful JSON responses, and build paginated result sets.</p>
 
+					<p class="documentation">Documentation is King!<br>Read it <a href="https://cartalyst.com/manual/data-grid" title="Cartalyst Data Grid Documentation">Here</a></p>
 
-			<p class="documentation">Documentation is King!<br>Read it <a href="https://cartalyst.com/manual/data-grid" title="Cartalyst Data Grid Documentation">Here</a></p>
+					<p class="requirements">Data Grid requires <a href="http://underscorejs.org/" target="_blank">Underscore.js</a> v1.5.2 or later &amp; <a href="http://jquery.com/" target="_blank">jQuery</a> v1.8.3 or later to run.</p>
 
-			<p class="requirements">Data Grid requires <a href="http://underscorejs.org/" target="_blank">Underscore.js</a> v1.5.2 or later &amp; <a href="http://jquery.com/" target="_blank">jQuery</a> v1.8.3 or later to run.</p>
+				</aside>
 
-		</div>
+				<div class="content col-md-9">
 
-		<div class="frame-content">
+					@yield('content')
 
-			<h1>City Population</h1>
-			<div class="settings">
-				@yield('settings')
+				</div>
+
 			</div>
-			@yield('content')
-
 		</div>
+
 
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="{{ URL::asset('assets/js/underscore.js') }}"></script>

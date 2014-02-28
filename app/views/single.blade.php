@@ -5,7 +5,6 @@ Single Pagination
 @stop
 
 @section('styles')
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
 <link rel="stylesheet" href="{{ URL::asset('assets/css/datepicker.css') }}" >
 @stop
@@ -19,7 +18,7 @@ Single Pagination
 	$(function(){
 
 		//Setup DataGrid
-		$.datagrid('single', '.table', '.pagination', '.applied-filters', {
+		$.datagrid('single', '.table', '#pagination', '.applied-filters', {
 			dividend: 1,
 			throttle: 20,
 			threshold: 20,
@@ -56,7 +55,7 @@ Single Pagination
 @stop
 
 @section('menu')
-<ul class="menu">
+<ul class="navigator">
 	<li><a href="{{ URL::to('/') }}" class="btn active">Single</a></li>
 	<li><a href="{{ URL::to('/multiple-standard') }}" class="btn">Multiple Standard</a></li>
 	<li><a href="{{ URL::to('/multiple-advanced') }}" class="btn">Multiple Advanced</a></li>
@@ -64,37 +63,47 @@ Single Pagination
 </ul>
 @stop
 
-@section('settings')
-<label for="total">
-	Total <br>
-	<input type="text" name="total" value="" disabled class="disabled" id="total">
-</label>
-
-<label for="filtered">
-	Filtered <br>
-	<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
-</label>
-
-<label for="dividend">
-	Dividend <br>
-	<input type="text" name="dividend" value="" disabled class="disabled" data-grid="single" data-opt="dividend" id="dividend">
-</label>
-
-<label for="threshold">
-	Threshold <br>
-	<input type="text" name="threshold" value="" disabled class="disabled" data-grid="single" data-opt="threshold" id="threshold">
-</label>
-
-<label for="throttle">
-	Throttle <br>
-	<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
-</label>
-@stop
-
 @section('content')
 
 <div class="row">
-	<div class="col-sm-3 text-right">
+
+	<div class="col-md-5">
+		<h1>City Populations</h1>
+	</div>
+	<div class="col-md-7">
+		<div class="settings pull-right">
+			<label for="total">
+				Total <br>
+				<input type="text" name="total" value="" disabled class="disabled" id="total">
+			</label>
+
+			<label for="filtered">
+				Filtered <br>
+				<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
+			</label>
+
+			<label for="dividend">
+				Dividend <br>
+				<input type="text" name="dividend" value="" disabled class="disabled" data-grid="single" data-opt="dividend" id="dividend">
+			</label>
+
+			<label for="threshold">
+				Threshold <br>
+				<input type="text" name="threshold" value="" disabled class="disabled" data-grid="single" data-opt="threshold" id="threshold">
+			</label>
+
+			<label for="throttle">
+				Throttle <br>
+				<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
+			</label>
+		</div>
+	</div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-md-2">
 		<div class="form-group">
 			<div class="input-group datePicker" data-grid="single" data-range-filter>
 
@@ -105,8 +114,7 @@ Single Pagination
 			</div>
 		</div>
 	</div>
-
-	<div class="col-sm-3 text-right">
+	<div class="col-md-2">
 		<div class="form-group">
 			<div class="input-group datePicker" data-grid="single" data-range-filter>
 
@@ -117,43 +125,43 @@ Single Pagination
 			</div>
 		</div>
 	</div>
+	<div class="col-md-8">
+
+		<form data-search data-grid="single" class="search">
+
+			<div class="select">
+
+				<select name="column" class="hidden-select">
+					<option value="all">All</option>
+					<option value="subdivision">Subdivision</option>
+					<option value="city">City</option>
+				</select>
+				<ul class="options">
+					<li>All</li>
+				</ul>
+
+			</div>
+
+			<input type="text" name="filter" placeholder="Search" class="search-input">
+
+			<div class="loading"> Loading &hellip;</div>
+
+			<button class='search-btn'>Apply Filter</button>
+		</form>
+	</div>
 
 </div>
 
-
-<div class="cf">
-
-	<form data-search data-grid="single" class="search">
-
-		<div class="select">
-
-			<select name="column" class="hidden-select">
-				<option value="all">All</option>
-				<option value="subdivision">Subdivision</option>
-				<option value="city">City</option>
-			</select>
-			<ul class="options">
-				<li>All</li>
-			</ul>
-
-		</div>
-
-		<input type="text" name="filter" placeholder="Filter All" class="search-input">
-
-		<div class="loading"> Loading &hellip;</div>
-
-		<button class='search-btn'>Add</button>
-	</form>
-
+<div class="row">
+	<div class="col-md-12">
+		<div class="applied-filters" data-grid="single"></div>
+	</div>
 </div>
 
-<ul class="applied-filters" data-grid="single"></ul>
+<div class="row">
+	<div class="col-md-12">
 
-<section class="content cf">
-
-	<div class="grid">
-
-		<table class="table" data-source="{{ URL::to('source') }}" data-grid="single">
+		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="single">
 			<thead>
 				<tr>
 					<th data-sort="country" data-grid="single" class="sortable">Country</th>
@@ -166,17 +174,16 @@ Single Pagination
 			</tbody>
 		</table>
 
-		<div class="pagination clearfix" data-grid="single"></div>
 
 	</div>
+</div>
 
+<footer id="pagination" class="row" data-grid="single"></footer>
 
-
-</section>
 
 	@include('templates/single/results-tmpl')
 	@include('templates/single/pagination-tmpl')
 	@include('templates/single/filters-tmpl')
 	@include('templates/single/no-results-tmpl')
 
-@stop
+	@stop
