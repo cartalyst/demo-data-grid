@@ -27,7 +27,7 @@ $(function(){
 		threshold: 20,
 		loader: '.loading',
 		paginationType: 'single',
-		defaultSort: {
+		sort: {
 			column: 'city',
 			direction: 'asc'
 		},

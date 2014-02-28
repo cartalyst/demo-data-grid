@@ -33,7 +33,7 @@
 				desc: 'desc'
 			},
 			delimiter: ':',
-			defaultSort: {},
+			sort: {},
 			templateSettings : {
 				evaluate    : /<%([\s\S]+?)%>/g,
 				interpolate : /<%=([\s\S]+?)%>/g,
@@ -86,7 +86,7 @@
 			// Source
 			_this.source = _this.$results.data('source') || _this.opt.source;
 
-			// Safty Check
+			// Safety Check
 			if (_this.$results.get(0).tagName.toLowerCase() === 'table')
 			{
 				_this.$results = $(results + this.grid).find('tbody');
@@ -463,11 +463,11 @@
 
 						_this._extractSortsFromRoute(lastItem);
 					}
-					else if (_this.opt.defaultSort.hasOwnProperty('column') &&
-							_this.opt.defaultSort.hasOwnProperty('direction'))
+					else if (_this.opt.sort.hasOwnProperty('column') &&
+							_this.opt.sort.hasOwnProperty('direction'))
 					{
 						// Convert Object to string
-						var str = _this.opt.defaultSort.column+_this.opt.delimiter+_this.opt.defaultSort.direction;
+						var str = _this.opt.sort.column+_this.opt.delimiter+_this.opt.sort.direction;
 
 						_this._extractSortsFromRoute(str);
 					}
@@ -496,9 +496,9 @@
 			});
 
 			// Initial default sort
-			if (_.isEmpty(routes) && this.opt.defaultSort.hasOwnProperty('column') && this.opt.defaultSort.hasOwnProperty('direction'))
+			if (_.isEmpty(routes) && this.opt.sort.hasOwnProperty('column') && this.opt.sort.hasOwnProperty('direction'))
 			{
-				var str = this.opt.defaultSort.column+this.opt.delimiter+this.opt.defaultSort.direction;
+				var str = this.opt.sort.column+this.opt.delimiter+this.opt.sort.direction;
 
 				this._extractSortsFromRoute(str);
 			}
@@ -1097,7 +1097,6 @@
 				}
 
 				// #!/grid/column-value/column-sort
-				// var base    = '/'+_this.key;
 				var filters = _this._buildFilterFragment();
 				var sort    = _this._buildSortFragment();
 				var page    = _this._buildPageFragment();
@@ -1174,7 +1173,6 @@
 						}
 
 						// #!/grid/column-value/column-sort
-						// var base    = '/'+_this.key;
 						var filters = _this._buildFilterFragment();
 						var sort    = _this._buildSortFragment();
 						var page    = _this._buildPageFragment();
@@ -1297,7 +1295,7 @@
 
 			if (this.currentSort.column !== null && this.currentSort.direction !== '')
 			{
-				if (this.currentSort.column !== this.opt.defaultSort.column || this.currentSort.direction !== this.opt.defaultSort.direction)
+				if (this.currentSort.column !== this.opt.sort.column || this.currentSort.direction !== this.opt.sort.direction)
 				{
 					sortFragment += '/'+this.currentSort.column+this.opt.delimiter+this.currentSort.direction;
 
@@ -1437,8 +1435,8 @@
 							}
 							else
 							{
-								var from     = this.appliedFilters[i].from;
-								var to       = this.appliedFilters[i].to;
+								var from = this.appliedFilters[i].from;
+								var to   = this.appliedFilters[i].to;
 							}
 
 							filter[this.appliedFilters[i].column] = '|' + '>' + from + '|' + '<' + to +'|';
