@@ -1772,16 +1772,64 @@
 		},
 
 
+		/**
+		 * Returns the dividend.
+		 *
+		 * @return int
+		 */
+		getDividend : function()
+		{
+			return this.opt.dividend;
+		},
+
+		/**
+		 * Sets the dividend.
+		 *
+		 * @param  int  value
+		 * @return void
+		 */
 		setDividend : function(value)
 		{
 			this.opt.dividend = value;
 		},
 
+		/**
+		 * Returns the throttle.
+		 *
+		 * @return int
+		 */
+		getThrottle : function()
+		{
+			return this.opt.throttle;
+		},
+
+		/**
+		 * Sets the throttle.
+		 *
+		 * @param  int  value
+		 * @return void
+		 */
 		setThrottle : function(value)
 		{
 			this.opt.throttle = value;
 		},
 
+		/**
+		 * Returns the threshold.
+		 *
+		 * @return int
+		 */
+		getThreshold : function()
+		{
+			return this.opt.threshold;
+		},
+
+		/**
+		 * Sets the threshold.
+		 *
+		 * @param  int  value
+		 * @return void
+		 */
 		setThreshold : function(value)
 		{
 			this.opt.threshold = value;
