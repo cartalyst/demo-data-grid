@@ -31,6 +31,7 @@ Single Pagination
 			column: 'city',
 			direction: 'asc'
 		},
+		scroll: '.table',
 		callback: function(obj) {
 
 			// Leverage the Callback to show total counts or filtered count
@@ -47,12 +48,6 @@ Single Pagination
 	$('.hidden-select').change(function() {
 
 		$('.options').find('li').text($('.hidden-select option:selected').text());
-
-	});
-
-	$('#pagination').on('click', 'a', function() {
-
-		$(document.body).animate({ scrollTop: $('.table').offset().top }, 200);
 
 	});
 
