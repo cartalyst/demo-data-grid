@@ -21,7 +21,11 @@
 
 	'use strict';
 
-	// Overwritable Values
+	/**
+	 * Default settings
+	 *
+	 * @var array
+	 */
 	var defaults = {
 		source: null,
 		dividend: 1,
@@ -109,14 +113,28 @@
 
 	DataGrid.prototype = {
 
+		/**
+		 * Initializes the Data Grid.
+		 *
+		 * @return void
+		 */
 		init: function() {
 
-			this._addEventListeners();
+			// Initialize the event listeners
+			this.events();
 
-			this._checkHash();
+			this.checkHash();
 
 		},
 
+		/**
+		 * Checks the Data Grid dependencies.
+		 *
+		 * @param  string  results
+		 * @param  string  pagination
+		 * @param  string  filters
+		 * @return void
+		 */
 		checkDependencies: function (results, pagination, filters) {
 
 			if (typeof window._ === 'undefined')
@@ -127,18 +145,14 @@
 			var grid = this.grid;
 
 			// Set _ templates interpolate
-			_.templateSettings = {
-				evaluate    : this.opt.templateSettings.evaluate,
-				interpolate : this.opt.templateSettings.interpolate,
-				escape      : this.opt.templateSettings.escape
-			};
+			_.templateSettings = this.opt.templateSettings;
 
 			// Build Template Selectors based on classes set
-			results     = $('#'+results.substr(1)+'-tmpl' + grid);
-			pagination  = $('#'+pagination.substr(1)+'-tmpl' + grid);
-			filters     = $('#'+filters.substr(1)+'-tmpl' + grid);
+			results     = $('#' + results.substr(1) + '-tmpl' + grid);
+			pagination  = $('#' + pagination.substr(1) + '-tmpl' + grid);
+			filters     = $('#' + filters.substr(1) + '-tmpl' + grid);
 
-			// Cache Underscore Templates
+			// Cache the Underscore Templates
 			this.tmpl = {
 				results:    _.template(results.html()),
 				pagination: _.template(pagination.html()),
@@ -148,7 +162,13 @@
 
 		},
 
-		_checkIE: function() {
+		/**
+		 * Check the Internet Explorer version.
+		 *
+		 * @return mixed
+		 */
+		checkIE: function() {
+
 			var undef,
 				v = 3,
 				div = document.createElement('div'),
@@ -160,27 +180,36 @@
 			);
 
 			return v > 4 ? v : undef;
+
 		},
 
-		_checkHash: function() {
+		checkHash: function() {
 
-			var newPath = window.location.hash;
-				newPath = String(newPath.slice(3));
+			var newPath = String(window.location.hash.slice(3));
 
 			if (newPath === '')
 			{
 				newPath = defaultHash;
 			}
 
-			this._handleHashChange(newPath);
+			this.handleHashChange(newPath);
 
 		},
 
-		_addEventListeners: function() {
+		/**
+		 * Initializes all the event listeners.
+		 *
+		 * @return void
+		 */
+		events: function() {
 
 			var self = this;
 
-			$(this).on('dg:update', this._ajaxFetchResults);
+			var grid = self.grid;
+
+			var options = self.opt;
+
+			$(this).on('dg:update', this.fetchResults);
 
 			$(window).on('hashchange', function() {
 
@@ -189,22 +218,24 @@
 				var routeArr = hash.split('/');
 
 				self.$filters.empty();
+
 				self.appliedFilters = [];
-				self.$body.find('[data-range-filter]'+self.grid+','+self.grid+' [data-range-filter]').find('input').val('');
+
+				self.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]').find('input').val('');
 
 				routeArr = _.compact(routeArr);
 
 				if ( ! _.isEmpty(routeArr))
 				{
-					self._updateOnHash(routeArr);
+					self.updateOnHash(routeArr);
 				}
 				else
 				{
-					self.$body.find('[data-sort]'+self.grid).removeClass(self.opt.sortClasses.asc);
-					self.$body.find('[data-sort]'+self.grid).removeClass(self.opt.sortClasses.desc);
-					self.$body.find('[data-search]'+self.grid).find('input').val('');
-					self.$body.find('[data-search]'+self.grid).find('select').prop('selectedIndex', 0);
-					self.$body.find('[data-range-filter]'+self.grid+','+self.grid+' [data-range-filter]').find('input').val('');
+					self.$body.find('[data-sort]' + grid).removeClass(options.sortClasses.asc);
+					self.$body.find('[data-sort]' + grid).removeClass(options.sortClasses.desc);
+					self.$body.find('[data-search]' + grid).find('input').val('');
+					self.$body.find('[data-search]' + grid).find('select').prop('selectedIndex', 0);
+					self.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]').find('input').val('');
 
 					// Filters
 					self.appliedFilters = [];
@@ -219,12 +250,13 @@
 
 					// Remove all rendered content
 
-					if (self.opt.paginationType === 'infinite')
+					if (options.paginationType === 'infinite')
 					{
 						self.$results.empty();
 					}
 
 					self.$filters.empty();
+
 					self.$pagination.empty();
 
 					$(self).trigger('dg:update');
@@ -232,9 +264,9 @@
 
 			});
 
-			this.$body.on('click', '[data-sort]'+this.grid, function(){
+			this.$body.on('click', '[data-sort]' + grid, function(){
 
-				if (self.opt.paginationType === 'infinite')
+				if (options.paginationType === 'infinite')
 				{
 					self.$results.empty();
 				}
@@ -243,13 +275,13 @@
 
 			});
 
-			this.$body.on('click', '[data-filter]'+this.grid, function(e) {
+			this.$body.on('click', '[data-filter]'+ grid, function(e) {
 
 				e.preventDefault();
 
-				if (self.opt.scroll && $(this).data('scroll') !== null)
+				if (options.scroll && $(this).data('scroll') !== null)
 				{
-					$(document.body).animate({ scrollTop: $(self.opt.scroll).offset().top }, 200);
+					$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
 				}
 
 				if ($(this).data('single-filter') !== undefined)
@@ -257,7 +289,7 @@
 					self.appliedFilters = [];
 				}
 
-				if(self.opt.paginationType === 'infinite')
+				if(options.paginationType === 'infinite')
 				{
 					self.$results.empty();
 
@@ -268,7 +300,7 @@
 
 			});
 
-			var dateRangeEl = this.$body.find('[data-range-filter]'+this.grid+','+this.grid+' '+'[data-range-filter]');
+			var dateRangeEl = this.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]');
 
 			$(dateRangeEl).on('change', function(e) {
 
@@ -284,20 +316,20 @@
 
 				self._removeFilters($(this).index());
 
-				if(self.opt.paginationType === 'infinite')
+				if(options.paginationType === 'infinite')
 				{
 					self.$results.empty();
 				}
 
-				self.$body.find('[data-select-filter]'+self.grid).find('option:eq(0)').prop('selected', true);
+				self.$body.find('[data-select-filter]' + grid).find('option:eq(0)').prop('selected', true);
 
 				$(self).trigger('dg:update');
 
 			});
 
-			self._selectFilter($('[data-select-filter]'+this.grid));
+			self._selectFilter($('[data-select-filter]' + grid));
 
-			this.$body.on('change', '[data-select-filter]'+this.grid, function(){
+			this.$body.on('change', '[data-select-filter]' + grid, function(){
 
 				$(this).unbind('change');
 
@@ -309,9 +341,9 @@
 
 				e.preventDefault();
 
-				if (self.opt.scroll)
+				if (options.scroll)
 				{
-					$(document.body).animate({ scrollTop: $(self.opt.scroll).offset().top }, 200);
+					$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
 				}
 
 				self._handlePageChange($(this));
@@ -319,15 +351,16 @@
 			});
 
 			this.$pagination.on('click', '[data-throttle]', function(e) {
+
 				e.preventDefault();
 
-				self.opt.throttle += pagi.baseTrottle;
+				options.throttle += pagi.baseTrottle;
 
 				$(self).trigger('dg:update');
 
 			});
 
-			this.$body.on('submit keyup', '[data-search]'+this.grid, function(e){
+			this.$body.on('submit keyup', '[data-search]' + grid, function(e){
 
 				e.preventDefault();
 
@@ -380,17 +413,17 @@
 
 		},
 
-		_handleHashChange: function(hash) {
+		handleHashChange: function(hash) {
 
 			var routeArr = hash.split('/');
 
 			routeArr = _.compact(routeArr);
 
-			this._updateOnHash(routeArr);
+			this.updateOnHash(routeArr);
 
 		},
 
-		_updateOnHash: function(routeArr) {
+		updateOnHash: function(routeArr) {
 
 			var curIndex = _.indexOf(routeArr, this.key);
 
@@ -628,17 +661,32 @@
 
 		},
 
-		_setSortDirection: function(el) {
+		/**
+		 * Sets the sort direction on the given element.
+		 *
+		 * @param  object  el
+		 * @return void
+		 */
+		setSortDirection: function(el) {
+
+			var grid = this.grid;
+
+			var options = this.opt;
+
+			var $el = $('[data-sort]' + grid + ',' + grid + ' [data-sort]');
+
+			var ascClass = options.sortClasses.asc;
+			var descClass = options.sortClasses.desc;
 
 			// Remove All Classes from other sorts
-			$('[data-sort]'+this.grid+','+this.grid+' [data-sort]').not(el).removeClass(this.opt.sortClasses.asc);
-			$('[data-sort]'+this.grid+','+this.grid+' [data-sort]').not(el).removeClass(this.opt.sortClasses.desc);
+			$el.not(el).removeClass(ascClass);
+			$el.not(el).removeClass(descClass);
 
 			if (this.currentSort.index === 3)
 			{
-				el.removeClass(this.opt.sortClasses.asc);
+				el.removeClass(ascClass);
 
-				el.removeClass(this.opt.sortClasses.desc);
+				el.removeClass(descClass);
 
 				// reset our sorting index back to 0
 				// and set the column to nothing
@@ -648,11 +696,11 @@
 			else
 			{
 				// get the oppsite class from which is set
-				var remove = this.currentSort.direction === 'asc' ? this.opt.sortClasses.desc : this.opt.sortClasses.asc;
+				var remove = this.currentSort.direction === 'asc' ? descClass : ascClass;
 
 				el.removeClass(remove);
 
-				el.addClass(this.opt.sortClasses[this.currentSort.direction]);
+				el.addClass(options.sortClasses[this.currentSort.direction]);
 			}
 
 		},
@@ -815,7 +863,7 @@
 				this.currentSort.direction = direction;
 			}
 
-			this._setSortDirection(el);
+			this.setSortDirection(el);
 			$(this).trigger('dg:update');
 
 		},
@@ -995,7 +1043,7 @@
 
 		_indexOf: function(array, item) {
 
-			if (this._checkIE() < 9)
+			if (this.checkIE() < 9)
 			{
 				if (array === null)
 				{
@@ -1030,7 +1078,7 @@
 			this.currentSort.column = sort[0];
 			this.currentSort.direction = sort[1];
 
-			this._setSortDirection(
+			this.setSortDirection(
 				$(
 					'[data-sort^="' + sort[0] + '"]' + this.grid + ','+
 					this.grid + ' [data-sort="' + sort[0] + '"]'
@@ -1104,7 +1152,7 @@
 					base = '#!/' + this.key + base;
 				}
 
-				if (self._checkIE() <= 9)
+				if (self.checkIE() <= 9)
 				{
 					window.location.hash = base;
 				}
@@ -1189,7 +1237,7 @@
 							base = '#!/' + curRoutes + base;
 						}
 
-						if (self._checkIE() <= 9)
+						if (self.checkIE() <= 9)
 						{
 							window.location.hash = base;
 						}
@@ -1290,11 +1338,16 @@
 
 		},
 
-		_ajaxFetchResults: function() {
+		/**
+		 * Grabs all the results from the server.
+		 *
+		 * @return void
+		 */
+		fetchResults: function() {
 
 			var self = this;
 
-			this._loading();
+			this.loading();
 
 			$.ajax({
 				url: self.source,
@@ -1343,7 +1396,7 @@
 			})
 			.error(function(jqXHR, textStatus, errorThrown) {
 
-				console.log('_ajaxFetchResults' + jqXHR.status, errorThrown);
+				console.log('fetchResults' + jqXHR.status, errorThrown);
 
 			});
 
@@ -1689,8 +1742,19 @@
 
 		},
 
-		_loading: function() {
-			this.$body.find(this.grid+this.opt.loader+','+this.grid+' '+this.opt.loader).fadeIn();
+		/**
+		 * Shows the loading bar.
+		 *
+		 * @return void
+		 */
+		loading: function() {
+
+			var grid = this.grid;
+
+			var loader = this.opt.loader;
+
+			this.$body.find(grid + loader + ',' + grid + ' ' + loader).fadeIn();
+
 		},
 
 		_stopLoading: function() {
