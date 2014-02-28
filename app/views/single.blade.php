@@ -1,14 +1,17 @@
 @extends('template')
 
+{{-- Page title --}}
 @section('title')
 Single Pagination
 @stop
 
+{{-- Inline styles --}}
 @section('styles')
 <link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
 <link rel="stylesheet" href="{{ URL::asset('assets/css/datepicker.css') }}" >
 @stop
 
+{{-- Inline scripts --}}
 @section('scripts')
 
 <script src="{{ URL::asset('assets/js/moment.js') }}"></script>
@@ -54,15 +57,21 @@ Single Pagination
 
 @stop
 
+{{-- Page content --}}
 @section('content')
 
 <div class="row">
 
 	<div class="col-md-5">
+
 		<h1>City Populations</h1>
+
 	</div>
+
 	<div class="col-md-7">
+
 		<div class="settings pull-right">
+
 			<label for="total">
 				Total <br>
 				<input type="text" name="total" value="" disabled class="disabled" id="total">
@@ -87,7 +96,9 @@ Single Pagination
 				Throttle <br>
 				<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
 			</label>
+
 		</div>
+
 	</div>
 
 </div>
@@ -95,27 +106,37 @@ Single Pagination
 <div class="row">
 
 	<div class="col-md-2">
+
 		<div class="form-group">
+
 			<div class="input-group datePicker" data-grid="single" data-range-filter>
 
 				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-start data-range-filter="created_at" data-label="Created At" data-grid="single" placeholder="Start Date">
 
-				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				<span class="input-group-addon" style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
 
 			</div>
+
 		</div>
+
 	</div>
+
 	<div class="col-md-2">
+
 		<div class="form-group">
+
 			<div class="input-group datePicker" data-grid="single" data-range-filter>
 
 				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-filter="created_at" data-label="Created At" data-range-end data-grid="single" placeholder="End Date">
 
-				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				<span class="input-group-addon" style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
 
 			</div>
+
 		</div>
+
 	</div>
+
 	<div class="col-md-8">
 
 		<form data-search data-grid="single" class="search">
@@ -127,6 +148,7 @@ Single Pagination
 					<option value="subdivision">Subdivision</option>
 					<option value="city">City</option>
 				</select>
+
 				<ul class="options">
 					<li>All</li>
 				</ul>
@@ -135,21 +157,27 @@ Single Pagination
 
 			<input type="text" name="filter" placeholder="Search" class="search-input">
 
-			<div class="loading"> Loading &hellip;</div>
+			<div class="loading">Loading &hellip;</div>
 
 			<button class='search-btn'>Apply Filter</button>
+
 		</form>
 	</div>
 
 </div>
 
 <div class="row">
+
 	<div class="col-md-12">
+
 		<div class="applied-filters" data-grid="single"></div>
+
 	</div>
+
 </div>
 
 <div class="row">
+
 	<div class="col-md-12">
 
 		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="single">
@@ -161,20 +189,18 @@ Single Pagination
 					<th data-sort="population" data-grid="single" class="sortable">Population</th>
 				</tr>
 			</thead>
-			<tbody>
-			</tbody>
+			<tbody></tbody>
 		</table>
 
-
 	</div>
+
 </div>
 
 <footer id="pagination" class="row" data-grid="single"></footer>
 
+@include('templates/single/results-tmpl')
+@include('templates/single/pagination-tmpl')
+@include('templates/single/filters-tmpl')
+@include('templates/single/no-results-tmpl')
 
-	@include('templates/single/results-tmpl')
-	@include('templates/single/pagination-tmpl')
-	@include('templates/single/filters-tmpl')
-	@include('templates/single/no-results-tmpl')
-
-	@stop
+@stop
