@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:cartalyst/data-grid.git",
-                "reference": "bd4070902f49b2c430ea875856976ab2a4e2a5e6"
+                "reference": "6aedb25877c2f0f9700c50e0e140c2b0718830d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/bd4070902f49b2c430ea875856976ab2a4e2a5e6",
-                "reference": "bd4070902f49b2c430ea875856976ab2a4e2a5e6",
+                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/6aedb25877c2f0f9700c50e0e140c2b0718830d7",
+                "reference": "6aedb25877c2f0f9700c50e0e140c2b0718830d7",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 "source": "https://github.com/cartalyst/data-grid/tree/develop",
                 "issues": "https://github.com/cartalyst/data-grid/issues"
             },
-            "time": "2014-02-14 18:05:45"
+            "time": "2014-02-28 14:33:42"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -300,12 +300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a7056b8d740e19d3d26716daad8af222e46a357a"
+                "reference": "8dbb5f32c56af36d0749698c8fc9ba15005184eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a7056b8d740e19d3d26716daad8af222e46a357a",
-                "reference": "a7056b8d740e19d3d26716daad8af222e46a357a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/8dbb5f32c56af36d0749698c8fc9ba15005184eb",
+                "reference": "8dbb5f32c56af36d0749698c8fc9ba15005184eb",
                 "shasum": ""
             },
             "require": {
@@ -409,7 +409,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-02-27 21:15:26"
+            "time": "2014-02-28 14:10:51"
         },
         {
             "name": "monolog/monolog",
@@ -1397,12 +1397,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "dc857d7c75fb90422c51aff51a94f1089b0fbf63"
+                "reference": "a46e71fa4dab095f1e8dd7da044cfc5f1ff24d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/dc857d7c75fb90422c51aff51a94f1089b0fbf63",
-                "reference": "dc857d7c75fb90422c51aff51a94f1089b0fbf63",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/a46e71fa4dab095f1e8dd7da044cfc5f1ff24d2f",
+                "reference": "a46e71fa4dab095f1e8dd7da044cfc5f1ff24d2f",
                 "shasum": ""
             },
             "require": {
@@ -1461,7 +1461,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-24 16:20:54"
+            "time": "2014-02-28 14:10:50"
         },
         {
             "name": "symfony/process",
