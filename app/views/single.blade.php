@@ -54,15 +54,6 @@ Single Pagination
 
 @stop
 
-@section('menu')
-<ul class="navigator">
-	<li><a href="{{ URL::to('/') }}" class="btn active">Single</a></li>
-	<li><a href="{{ URL::to('/multiple-standard') }}" class="btn">Multiple Standard</a></li>
-	<li><a href="{{ URL::to('/multiple-advanced') }}" class="btn">Multiple Advanced</a></li>
-	<li><a href="{{ URL::to('/infinite') }}" class="btn">Infinite</a></li>
-</ul>
-@stop
-
 @section('content')
 
 <div class="row">

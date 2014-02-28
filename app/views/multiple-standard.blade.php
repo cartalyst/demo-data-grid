@@ -43,15 +43,6 @@ Data Grid
 
 @stop
 
-@section('menu')
-<ul class="menu">
-	<li><a href="{{ URL::to('') }}" class="btn active">Single</a></li>
-	<li><a href="{{ URL::to('') }}" class="btn">Multiple Standard</a></li>
-	<li><a href="{{ URL::to('') }}" class="btn">Multiple Advanced</a></li>
-	<li><a href="{{ URL::to('list') }}" class="btn">Infinite</a></li>
-</ul>
-@stop
-
 @section('settings')
 <label for="total">
 	Total <br>
