@@ -18,7 +18,7 @@ Single Pagination
 <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 
 <script>
-$(function(){
+	$(function(){
 
 	// Setup DataGrid
 	var grid = $.datagrid('single', '.table', '#pagination', '.applied-filters', {
@@ -64,31 +64,31 @@ $(function(){
 	/**
 	 * DEMO ONLY EVENTS
 	 */
-	$('[data-opt]').on('change', function() {
+	 $('[data-opt]').on('change', function() {
 
-		var opt = $(this).data('opt'),
-			val = $(this).val();
+	 	var opt = $(this).data('opt'),
+	 	val = $(this).val();
 
-		switch(opt)
-		{
-			case 'dividend':
-				grid.setDividend(val);
-			break;
+	 	switch(opt)
+	 	{
+	 		case 'dividend':
+	 		grid.setDividend(val);
+	 		break;
 
-			case 'throttle':
-				grid.setThrottle(val);
-			break;
+	 		case 'throttle':
+	 		grid.setThrottle(val);
+	 		break;
 
-			case 'threshold':
-				grid.setThreshold(val);
-			break;
-		}
+	 		case 'threshold':
+	 		grid.setThreshold(val);
+	 		break;
+	 	}
 
-		grid._refresh();
+	 	grid._refresh();
+
+	 });
 
 	});
-
-});
 </script>
 
 @stop
@@ -133,6 +133,23 @@ $(function(){
 <div class="row">
 
 	<div class="col-md-2">
+		<!-- Split button -->
+		<div class="btn-group">
+		<button type="button" class="btn btn-default">Examples</button>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" data-filter="population:10000" data-operator=">" data-grid="single">Population > 10000</a></li>
+				<li><a href="#" data-filter="population:5000" data-operator="<" data-grid="single">Population < 5000</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Separated link</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-2">
 
 		<div class="form-group">
 
@@ -164,7 +181,7 @@ $(function(){
 
 	</div>
 
-	<div class="col-md-8">
+	<div class="col-md-6">
 
 		<form data-search data-grid="single" class="search">
 
