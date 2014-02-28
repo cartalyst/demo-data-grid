@@ -83,7 +83,7 @@ Single Pagination
 	 		break;
 	 	}
 
-	 	grid._refresh();
+	 	grid.refresh();
 
 	 });
 
