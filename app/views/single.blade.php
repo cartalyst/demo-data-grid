@@ -7,8 +7,8 @@ Single Pagination
 
 {{-- Inline styles --}}
 @section('styles')
-<link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
-<link rel="stylesheet" href="{{ URL::asset('assets/css/datepicker.css') }}" >
+<link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('assets/css/datepicker.css') }}">
 @stop
 
 {{-- Inline scripts --}}
@@ -31,9 +31,9 @@ $(function(){
 			column: 'city',
 			direction: 'asc'
 		},
-		callback: function(obj){
+		callback: function(obj) {
 
-			//Leverage the Callback to show total counts or filtered count
+			// Leverage the Callback to show total counts or filtered count
 			$('#total').val(obj.pagi.totalCount);
 			$('#filtered').val(obj.pagi.filteredCount);
 			$('#dividend').val(obj.opt.dividend);
@@ -44,8 +44,10 @@ $(function(){
 	});
 
 	// Text Binding
-	$('.hidden-select').change(function(){
+	$('.hidden-select').change(function() {
+
 		$('.options').find('li').text($('.hidden-select option:selected').text());
+
 	});
 
 	$('#pagination').on('click', 'a', function() {
@@ -54,10 +56,12 @@ $(function(){
 
 	});
 
+	// Date Picker
 	$('.datePicker').datetimepicker({
 		pickTime: false
 	});
 
+	// Tooltip
 	$('[data-toggle="tooltip"]').tooltip();
 
 
