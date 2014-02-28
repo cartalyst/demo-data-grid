@@ -13,7 +13,7 @@ class CitySeeder extends Seeder {
 
 		foreach ($lines as $line)
 		{
-			$int = rand(320528968,1361994568);
+			$int = rand(1356998400, time());
 
 			$city = new City(array(
 				'country'                   => $line[0],
