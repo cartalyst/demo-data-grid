@@ -287,7 +287,7 @@
 
 			});
 
-			$('.datePicker').on('change.dp', function(e) {
+			$('[data-range-filter]').on('change.dp', function(e) {
 
 				_this._removeRangeFilters($(this));
 
