@@ -23,28 +23,28 @@
 
 	// Overwritable Values
 	var defaults = {
-			source: null,
-			dividend: 1,
-			threshold: 50,
-			throttle: 50,
-			paginationType: 'single',
-			sortClasses: {
-				asc: 'asc',
-				desc: 'desc'
-			},
-			delimiter: ':',
-			dateFormatAttribute : 'format',
-			sort: {},
-			templateSettings : {
-				evaluate    : /<%([\s\S]+?)%>/g,
-				interpolate : /<%=([\s\S]+?)%>/g,
-				escape      : /<%-([\s\S]+?)%>/g
-			},
-			scroll: null,
-			searchTimeout: 800,
-			loader: undefined,
-			callback: undefined
-		};
+		source: null,
+		dividend: 1,
+		threshold: 50,
+		throttle: 50,
+		paginationType: 'single',
+		sortClasses: {
+			asc: 'asc',
+			desc: 'desc'
+		},
+		delimiter: ':',
+		dateFormatAttribute : 'format',
+		sort: {},
+		templateSettings : {
+			evaluate    : /<%([\s\S]+?)%>/g,
+			interpolate : /<%=([\s\S]+?)%>/g,
+			escape      : /<%-([\s\S]+?)%>/g
+		},
+		scroll: null,
+		searchTimeout: 800,
+		loader: undefined,
+		callback: undefined
+	};
 
 	// Hash Settings
 	var route = '';
@@ -56,57 +56,60 @@
 
 	function DataGrid(grid, results, pagination, filters, options) {
 
-		var _this = this;
-			_this.key = grid;
-			_this.grid = '[data-grid="'+_this.key+'"]';
+		var self = this;
+			self.key = grid;
+			self.grid = '[data-grid="' + grid + '"]';
 
-			_this.appliedFilters = [];
+		self.appliedFilters = [];
 
-			_this.currentSort = {
-				column: null,
-				direction: null,
-				index: 0
-			};
+		self.currentSort = {
+			column: null,
+			direction: null,
+			index: 0
+		};
 
-			_this.pagi = {
-				pageIdx: 1,
-				totalCount: null,
-				filteredCount: null,
-				baseTrottle: null
-			};
+		self.pagi = {
+			pageIdx: 1,
+			totalCount: null,
+			filteredCount: null,
+			baseTrottle: null
+		};
 
-			// Our Main Elements
-			_this.$results      = $(results + _this.grid);
-			_this.$pagination   = $(pagination + _this.grid);
-			_this.$filters      = $(filters + _this.grid);
-			_this.$body         = $(document.body);
+		// Our Main Elements
+		self.$results    = $(results + self.grid);
+		self.$pagination = $(pagination + self.grid);
+		self.$filters    = $(filters + self.grid);
+		self.$body       = $(document.body);
 
-			// Options
-			_this.opt = $.extend({}, defaults, options);
+		// Options
+		self.opt = $.extend({}, defaults, options);
 
-			// Source
-			_this.source = _this.$results.data('source') || _this.opt.source;
+		// Source
+		self.source = self.$results.data('source') || self.opt.source;
 
-			// Safety Check
-			if (_this.$results.get(0).tagName.toLowerCase() === 'table')
-			{
-				_this.$results = $(results + this.grid).find('tbody');
-			}
+		// Safety Check
+		if (self.$results.get(0).tagName.toLowerCase() === 'table')
+		{
+			self.$results = $(results + self.grid).find('tbody');
+		}
 
-			// Setup Default Hash
-			defaultHash = _this.key;
-			// Setup Base Throttle
-			this.pagi.baseTrottle = _this.opt.throttle;
+		// Setup Default Hash
+		defaultHash = grid;
 
-		this._checkDependencies(results, pagination, filters);
+		// Setup Base Throttle
+		self.pagi.baseTrottle = self.opt.throttle;
 
-		this._init();
+		// Check our dependencies
+		self.checkDependencies(results, pagination, filters);
+
+		// Initialize Data Grid
+		self.init();
 
 	}
 
 	DataGrid.prototype = {
 
-		_init: function() {
+		init: function() {
 
 			this._addEventListeners();
 
@@ -114,37 +117,14 @@
 
 		},
 
-		_checkRangeFilters: function() {
-
-			var _this = this;
-
-			$.each($('[data-range-filter]'+this.grid+','+this.grid+' '+'[data-range-filter]'), function(e)
-			{
-				var key = $(this).data('range-filter');
-
-				for (var i = 0; i < _this.appliedFilters.length; i++)
-				{
-
-					if (_this._searchForKey(key, _this.appliedFilters) !== -1)
-					{
-						if ($(this).data('operator') === _this.appliedFilters[i].operator)
-						{
-							$(this).val(_this.appliedFilters[i].value);
-						}
-					}
-
-				}
-
-			});
-
-		},
-
-		_checkDependencies: function (results, pagination, filters) {
+		checkDependencies: function (results, pagination, filters) {
 
 			if (typeof window._ === 'undefined')
 			{
 				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v 1.5.2 or later to run!');
 			}
+
+			var grid = this.grid;
 
 			// Set _ templates interpolate
 			_.templateSettings = {
@@ -154,16 +134,16 @@
 			};
 
 			// Build Template Selectors based on classes set
-			results     = $('#'+results.substr(1)+'-tmpl' + this.grid);
-			pagination  = $('#'+pagination.substr(1)+'-tmpl' + this.grid);
-			filters     = $('#'+filters.substr(1)+'-tmpl' + this.grid);
+			results     = $('#'+results.substr(1)+'-tmpl' + grid);
+			pagination  = $('#'+pagination.substr(1)+'-tmpl' + grid);
+			filters     = $('#'+filters.substr(1)+'-tmpl' + grid);
 
 			// Cache Underscore Templates
 			this.tmpl = {
 				results:    _.template(results.html()),
 				pagination: _.template(pagination.html()),
 				filters:    _.template(filters.html()),
-				empty:      _.template($('#no-results-tmpl'+ this.grid).html())
+				empty:      _.template($('#no-results-tmpl'+ grid).html())
 			};
 
 		},
@@ -198,7 +178,7 @@
 
 		_addEventListeners: function() {
 
-			var _this = this;
+			var self = this;
 
 			$(this).on('dg:update', this._ajaxFetchResults);
 
@@ -208,58 +188,58 @@
 
 				var routeArr = hash.split('/');
 
-				_this.$filters.empty();
-				_this.appliedFilters = [];
-				_this.$body.find('[data-range-filter]'+_this.grid+','+_this.grid+' [data-range-filter]').find('input').val('');
+				self.$filters.empty();
+				self.appliedFilters = [];
+				self.$body.find('[data-range-filter]'+self.grid+','+self.grid+' [data-range-filter]').find('input').val('');
 
 				routeArr = _.compact(routeArr);
 
 				if ( ! _.isEmpty(routeArr))
 				{
-					_this._updateOnHash(routeArr);
+					self._updateOnHash(routeArr);
 				}
 				else
 				{
-					_this.$body.find('[data-sort]'+_this.grid).removeClass(_this.opt.sortClasses.asc);
-					_this.$body.find('[data-sort]'+_this.grid).removeClass(_this.opt.sortClasses.desc);
-					_this.$body.find('[data-search]'+_this.grid).find('input').val('');
-					_this.$body.find('[data-search]'+_this.grid).find('select').prop('selectedIndex', 0);
-					_this.$body.find('[data-range-filter]'+_this.grid+','+_this.grid+' [data-range-filter]').find('input').val('');
+					self.$body.find('[data-sort]'+self.grid).removeClass(self.opt.sortClasses.asc);
+					self.$body.find('[data-sort]'+self.grid).removeClass(self.opt.sortClasses.desc);
+					self.$body.find('[data-search]'+self.grid).find('input').val('');
+					self.$body.find('[data-search]'+self.grid).find('select').prop('selectedIndex', 0);
+					self.$body.find('[data-range-filter]'+self.grid+','+self.grid+' [data-range-filter]').find('input').val('');
 
 					// Filters
-					_this.appliedFilters = [];
+					self.appliedFilters = [];
 
 					// Sort
-					_this.currentSort.index = 0;
-					_this.currentSort.direction = '';
-					_this.currentSort.column = '';
+					self.currentSort.index = 0;
+					self.currentSort.direction = '';
+					self.currentSort.column = '';
 
 					// Pagination
-					_this.pagi.pageIdx = 1;
+					self.pagi.pageIdx = 1;
 
 					// Remove all rendered content
 
-					if (_this.opt.paginationType === 'infinite')
+					if (self.opt.paginationType === 'infinite')
 					{
-						_this.$results.empty();
+						self.$results.empty();
 					}
 
-					_this.$filters.empty();
-					_this.$pagination.empty();
+					self.$filters.empty();
+					self.$pagination.empty();
 
-					$(_this).trigger('dg:update');
+					$(self).trigger('dg:update');
 				}
 
 			});
 
 			this.$body.on('click', '[data-sort]'+this.grid, function(){
 
-				if (_this.opt.paginationType === 'infinite')
+				if (self.opt.paginationType === 'infinite')
 				{
-					_this.$results.empty();
+					self.$results.empty();
 				}
 
-				_this._extractSortsFromClick($(this) , $(this).data('sort'));
+				self._extractSortsFromClick($(this) , $(this).data('sort'));
 
 			});
 
@@ -267,24 +247,24 @@
 
 				e.preventDefault();
 
-				if (_this.opt.scroll && $(this).data('scroll') !== null)
+				if (self.opt.scroll && $(this).data('scroll') !== null)
 				{
-					$(document.body).animate({ scrollTop: $(_this.opt.scroll).offset().top }, 200);
+					$(document.body).animate({ scrollTop: $(self.opt.scroll).offset().top }, 200);
 				}
 
 				if ($(this).data('single-filter') !== undefined)
 				{
-					_this.appliedFilters = [];
+					self.appliedFilters = [];
 				}
 
-				if(_this.opt.paginationType === 'infinite')
+				if(self.opt.paginationType === 'infinite')
 				{
-					_this.$results.empty();
+					self.$results.empty();
 
-					_this.pagi.pageIdx = 1;
+					self.pagi.pageIdx = 1;
 				}
 
-				_this._extractFiltersFromClick($(this).data('filter'), $(this).data('label'), $(this).data('operator'));
+				self._extractFiltersFromClick($(this).data('filter'), $(this).data('label'), $(this).data('operator'));
 
 			});
 
@@ -292,9 +272,9 @@
 
 			$(dateRangeEl).on('change', function(e) {
 
-				_this._removeRangeFilters($(this));
+				self._removeRangeFilters($(this));
 
-				_this._rangeFilter($(this));
+				self._rangeFilter($(this));
 
 			});
 
@@ -302,26 +282,26 @@
 
 				e.preventDefault();
 
-				_this._removeFilters($(this).index());
+				self._removeFilters($(this).index());
 
-				if(_this.opt.paginationType === 'infinite')
+				if(self.opt.paginationType === 'infinite')
 				{
-					_this.$results.empty();
+					self.$results.empty();
 				}
 
-				_this.$body.find('[data-select-filter]'+_this.grid).find('option:eq(0)').prop('selected', true);
+				self.$body.find('[data-select-filter]'+self.grid).find('option:eq(0)').prop('selected', true);
 
-				$(_this).trigger('dg:update');
+				$(self).trigger('dg:update');
 
 			});
 
-			_this._selectFilter($('[data-select-filter]'+this.grid));
+			self._selectFilter($('[data-select-filter]'+this.grid));
 
 			this.$body.on('change', '[data-select-filter]'+this.grid, function(){
 
 				$(this).unbind('change');
 
-				_this._selectFilter($(this));
+				self._selectFilter($(this));
 
 			});
 
@@ -329,21 +309,21 @@
 
 				e.preventDefault();
 
-				if (_this.opt.scroll)
+				if (self.opt.scroll)
 				{
-					$(document.body).animate({ scrollTop: $(_this.opt.scroll).offset().top }, 200);
+					$(document.body).animate({ scrollTop: $(self.opt.scroll).offset().top }, 200);
 				}
 
-				_this._handlePageChange($(this));
+				self._handlePageChange($(this));
 
 			});
 
 			this.$pagination.on('click', '[data-throttle]', function(e) {
 				e.preventDefault();
 
-				_this.opt.throttle += pagi.baseTrottle;
+				self.opt.throttle += pagi.baseTrottle;
 
-				$(_this).trigger('dg:update');
+				$(self).trigger('dg:update');
 
 			});
 
@@ -353,11 +333,11 @@
 
 				if (e.type === 'submit')
 				{
-					_this._handleSearchOnSubmit($(this));
+					self._handleSearchOnSubmit($(this));
 				}
 				else if (e.type === 'keyup' && e.keyCode !== 13)
 				{
-					_this._handleLiveSearch($(this));
+					self._handleLiveSearch($(this));
 				}
 
 			});
@@ -420,11 +400,11 @@
 
 			var routes = _.compact(curRoute.split('grid/'));
 
-			var _this = this;
+			var self = this;
 
-			if (_this.opt.paginationType === 'infinite')
+			if (self.opt.paginationType === 'infinite')
 			{
-				_this.$results.empty();
+				self.$results.empty();
 			}
 
 			_.each(routes, function(route)
@@ -433,7 +413,7 @@
 
 				parsedRoute = _.compact(parsedRoute);
 
-				if (parsedRoute[0] === _this.key)
+				if (parsedRoute[0] === self.key)
 				{
 					// Build Array For Sorts
 					var lastItem = parsedRoute[(parsedRoute.length - 1)];
@@ -445,11 +425,11 @@
 						// Remove Page From parsedRoute
 						parsedRoute = parsedRoute.splice(0, (parsedRoute.length - 1));
 
-						_this._extractPageFromRoute(lastItem);
+						self._extractPageFromRoute(lastItem);
 					}
 					else
 					{
-						_this.pagi.pageIdx = 1;
+						self.pagi.pageIdx = 1;
 					}
 
 					if ((/desc/g.test(nextItem)) || (/asc/g.test(nextItem)))
@@ -457,43 +437,43 @@
 						// Remove Sort From parsedRoute
 						parsedRoute = parsedRoute.splice(0, (parsedRoute.length - 1));
 
-						_this._extractSortsFromRoute(nextItem);
+						self._extractSortsFromRoute(nextItem);
 					}
 					else if ((/desc/g.test(lastItem)) || (/asc/g.test(lastItem)))
 					{
 						// Remove Sort From parsedRoute
 						parsedRoute = parsedRoute.splice(0, (parsedRoute.length - 1));
 
-						_this._extractSortsFromRoute(lastItem);
+						self._extractSortsFromRoute(lastItem);
 					}
-					else if (_this.opt.sort.hasOwnProperty('column') &&
-							_this.opt.sort.hasOwnProperty('direction'))
+					else if (self.opt.sort.hasOwnProperty('column') &&
+							self.opt.sort.hasOwnProperty('direction'))
 					{
 						// Convert Object to string
-						var str = _this.opt.sort.column+_this.opt.delimiter+_this.opt.sort.direction;
+						var str = self.opt.sort.column+self.opt.delimiter+self.opt.sort.direction;
 
-						_this._extractSortsFromRoute(str);
+						self._extractSortsFromRoute(str);
 					}
 					else
 					{
-						_this.currentSort.direction = '';
-						_this.currentSort.column = '';
+						self.currentSort.direction = '';
+						self.currentSort.column = '';
 					}
 
 					// Build Array For Filters
 					if (parsedRoute.length !== 0 )
 					{
 						// We Must Reset then rebuild.
-						_this.appliedFilters = [];
+						self.appliedFilters = [];
 
-						_this._extractFiltersFromRoute(parsedRoute);
+						self._extractFiltersFromRoute(parsedRoute);
 					}
 					else
 					{
 						// Reset Applied Filters if none are set via the hash
-						_this.appliedFilters = [];
+						self.appliedFilters = [];
 
-						_this.$filters.empty();
+						self.$filters.empty();
 					}
 				}
 			});
@@ -566,7 +546,7 @@
 
 			var rect = [];
 			var column = 'all';
-			var _this = this;
+			var self = this;
 
 			if (isSearchActive)
 			{
@@ -590,19 +570,19 @@
 				var old = $input.data('old');
 
 				// Remove the old term from the applied filters
-				for (var i = 0; i < _this.appliedFilters.length; i++)
+				for (var i = 0; i < self.appliedFilters.length; i++)
 				{
 
-					if(_this.appliedFilters[i].value === old)
+					if(self.appliedFilters[i].value === old)
 					{
-						_this.appliedFilters.splice(i, 1);
+						self.appliedFilters.splice(i, 1);
 					}
 
 				}
 
 				if (curr.length > 0)
 				{
-					_this._applyFilter({
+					self._applyFilter({
 						column: column,
 						value: curr,
 						type: 'live'
@@ -610,16 +590,16 @@
 				}
 
 				// Safety
-				if(_this.opt.paginationType === 'infinite')
+				if(self.opt.paginationType === 'infinite')
 				{
-					_this.$results.empty();
+					self.$results.empty();
 				}
 
 				$input.data('old', curr);
 
-				_this._goToPage(1);
+				self._goToPage(1);
 
-				$(_this).trigger('dg:update');
+				$(self).trigger('dg:update');
 
 			}, this.opt.searchTimeout);
 
@@ -729,7 +709,7 @@
 
 		_extractFiltersFromClick: function(filters, labels, operator) {
 
-			var _this = this;
+			var self = this;
 			var rect = [];
 
 			var filtersArr = filters.split(', ');
@@ -738,7 +718,7 @@
 			{
 				var filter = filtersArr[i].split(':');
 
-				if (_this._searchForValue(filter[1], _this.appliedFilters) > -1)
+				if (self._searchForValue(filter[1], self.appliedFilters) > -1)
 				{
 					return true;
 				}
@@ -752,13 +732,13 @@
 						var label = labelsArr[i].split(':');
 
 						// Return -1 if no match else return index at match
-						var key = _this._indexOf(filter, label[0]);
+						var key = self._indexOf(filter, label[0]);
 
 						// Map Filter that is equal to the returned key
 						// to the label value for renaming
 						filter[key] = label[1];
 
-						_this._applyFilter({
+						self._applyFilter({
 							column: filter[0],
 							value: filter[1],
 							mask: (key === 0 ? 'column' : 'value'),
@@ -768,7 +748,7 @@
 					}
 					else
 					{
-						_this._applyFilter({
+						self._applyFilter({
 							column: filter[0],
 							value: filter[1],
 							operator: operator
@@ -777,7 +757,7 @@
 				}
 				else
 				{
-					_this._applyFilter({
+					self._applyFilter({
 						column: filter[0],
 						value: filter[1],
 						operator: operator
@@ -842,7 +822,7 @@
 
 		_extractFiltersFromRoute: function(routeArr) {
 
-			var _this = this;
+			var self = this;
 
 			routeArr = routeArr.splice(1);
 
@@ -862,7 +842,7 @@
 						$(labels[x]).data('label').indexOf( filters[1] ) !== -1 )
 					{
 						var matchedLabel = $(labels[x]).data('label').split(':');
-						var key = _this._indexOf(filters, matchedLabel[0]);
+						var key = self._indexOf(filters, matchedLabel[0]);
 
 						// Map Filter that is equal to the returned key
 						// to the label value for renaming
@@ -870,22 +850,22 @@
 
 
 						// Check to make sure filter isn't already set.
-						if (_this._searchForValue( filters[1], _this.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
+						if (self._searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
 						{
 							// if its not already set, lets set the filter
-							_this._applyFilter({
+							self._applyFilter({
 								column: filters[0],
 								value: filters[1],
 								mask: (key === 0 ? 'column' : 'value'),
 								maskOrg: matchedLabel[0]
 							});
 						}
-						else if (_this._searchForValue( filters[1], _this.appliedFilters) === -1 && $(labels[x]).data('operator') !== '')
+						else if (self._searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') !== '')
 						{
 							var operator = $(labels[x]).data('operator');
 
 							// if its not already set, lets set the filter
-							_this._applyFilter({
+							self._applyFilter({
 								column: filters[0],
 								value: filters[1],
 								operator: operator,
@@ -899,7 +879,7 @@
 				}
 
 				// Check to  make sure filter isn't already set
-				if (_this._searchForValue( filters[1], _this.appliedFilters) === -1)
+				if (self._searchForValue( filters[1], self.appliedFilters) === -1)
 				{
 					var start = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('range-filter');
 					var startLabel = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('label');
@@ -939,16 +919,16 @@
 							type: 'range'
 						};
 
-						_this._applyFilter(filterData);
+						self._applyFilter(filterData);
 					}
 					else
 					{
-						var filterEl = $('[data-filter="' +  filters.join(_this.opt.delimiter) + '"]');
+						var filterEl = $('[data-filter="' +  filters.join(self.opt.delimiter) + '"]');
 
 						if ( filterEl.data('operator') !== '' && filterEl.data('operator') !== undefined)
 						{
 							// If its not already set, lets set the filter
-							_this._applyFilter({
+							self._applyFilter({
 								column: routeArr[i].split(this.opt.delimiter)[0],
 								value: routeArr[i].split(this.opt.delimiter)[1],
 								operator: filterEl.data('operator')
@@ -957,7 +937,7 @@
 						else
 						{
 							// If its not already set, lets set the filter
-							_this._applyFilter({
+							self._applyFilter({
 								column: routeArr[i].split(this.opt.delimiter)[0],
 								value: routeArr[i].split(this.opt.delimiter)[1],
 							});
@@ -1067,7 +1047,7 @@
 
 			var routes = _.compact(curHash.split('grid/'));
 
-			var _this = this;
+			var self = this;
 
 			var base = '';
 
@@ -1080,7 +1060,7 @@
 				var key = parsedRoute[0];
 
 				// hash exists
-				if (key === _this.key)
+				if (key === self.key)
 				{
 					rtIndex = _.indexOf(routes, route);
 				}
@@ -1096,13 +1076,13 @@
 				{
 					curRoutes = 'grid/' + curRoutes;
 
-					base = curRoutes +'grid/' + _this.key;
+					base = curRoutes +'grid/' + self.key;
 				}
 
 				// #!/grid/column-value/column-sort
-				var filters = _this._buildFilterFragment();
-				var sort    = _this._buildSortFragment();
-				var page    = _this._buildPageFragment();
+				var filters = self._buildFilterFragment();
+				var sort    = self._buildSortFragment();
+				var page    = self._buildPageFragment();
 
 				if (filters.length > 1)
 				{
@@ -1114,7 +1094,7 @@
 					base += sort;
 				}
 
-				if (_this.pagi.pageIdx > 1 && page !== undefined)
+				if (self.pagi.pageIdx > 1 && page !== undefined)
 				{
 					base += page + '/';
 				}
@@ -1124,7 +1104,7 @@
 					base = '#!/' + this.key + base;
 				}
 
-				if (_this._checkIE() <= 9)
+				if (self._checkIE() <= 9)
 				{
 					window.location.hash = base;
 				}
@@ -1145,7 +1125,7 @@
 						}
 					}
 
-					_this._handlePush(defaultURI, base);
+					self._handlePush(defaultURI, base);
 				}
 			}
 			// Update existing hash
@@ -1159,7 +1139,7 @@
 					var key = parsedRoute[0];
 
 					// hash exists
-					if (key === _this.key)
+					if (key === self.key)
 					{
 						rtIndex = _.indexOf(routes, route);
 
@@ -1172,13 +1152,13 @@
 						{
 							curRoutes = 'grid/' + curRoutes;
 
-							base = curRoutes +'grid/' + _this.key;
+							base = curRoutes +'grid/' + self.key;
 						}
 
 						// #!/grid/column-value/column-sort
-						var filters = _this._buildFilterFragment();
-						var sort    = _this._buildSortFragment();
-						var page    = _this._buildPageFragment();
+						var filters = self._buildFilterFragment();
+						var sort    = self._buildSortFragment();
+						var page    = self._buildPageFragment();
 
 						if (filters.length > 1)
 						{
@@ -1190,14 +1170,14 @@
 							base += sort;
 						}
 
-						if (_this.pagi.pageIdx > 1 && page !== undefined)
+						if (self.pagi.pageIdx > 1 && page !== undefined)
 						{
 							base += page + '/';
 						}
 
 						if (base !== '')
 						{
-							base = _this.key + base;
+							base = self.key + base;
 						}
 
 						if (rtIndex === 0)
@@ -1209,7 +1189,7 @@
 							base = '#!/' + curRoutes + base;
 						}
 
-						if (_this._checkIE() <= 9)
+						if (self._checkIE() <= 9)
 						{
 							window.location.hash = base;
 						}
@@ -1230,7 +1210,7 @@
 								}
 							}
 
-							_this._handlePush(defaultURI, base);
+							self._handlePush(defaultURI, base);
 						}
 
 					}
@@ -1312,53 +1292,53 @@
 
 		_ajaxFetchResults: function() {
 
-			var _this = this;
+			var self = this;
 
 			this._loading();
 
 			$.ajax({
-				url: _this.source,
+				url: self.source,
 				dataType : 'json',
-				data: _this._buildAjaxURI()
+				data: self._buildAjaxURI()
 			})
 			.done(function(response) {
 
-				if (_this.pagi.pageIdx > response.pages_count)
+				if (self.pagi.pageIdx > response.pages_count)
 				{
-					_this.pagi.pageIdx = response.pages_count;
-					$(_this).trigger('dg:update');
+					self.pagi.pageIdx = response.pages_count;
+					$(self).trigger('dg:update');
 					return false;
 				}
 
-				_this.pagi.filteredCount = response.filtered_count;
-				_this.pagi.totalCount = response.total_count;
+				self.pagi.filteredCount = response.filtered_count;
+				self.pagi.totalCount = response.total_count;
 
 				// Keep infinite results to append load more
-				if(_this.opt.paginationType !== 'infinite')
+				if(self.opt.paginationType !== 'infinite')
 				{
-					_this.$results.empty();
+					self.$results.empty();
 				}
 
-				if (_this.opt.paginationType === 'single' || _this.opt.paginationType === 'multiple')
+				if (self.opt.paginationType === 'single' || self.opt.paginationType === 'multiple')
 				{
-					_this.$results.html(_this.tmpl['results'](response));
+					self.$results.html(self.tmpl['results'](response));
 				}
 				else
 				{
-					_this.$results.append(_this.tmpl['results'](response));
+					self.$results.append(self.tmpl['results'](response));
 				}
 
-				_this.$pagination.html(_this.tmpl['pagination'](_this._buildPagination(response)));
+				self.$pagination.html(self.tmpl['pagination'](self._buildPagination(response)));
 
 				if ( ! response.results.length)
 				{
-					_this.$results.html(_this.tmpl['empty']());
+					self.$results.html(self.tmpl['empty']());
 				}
 
-				_this._stopLoading();
+				self._stopLoading();
 
-				_this._updatedCurrentHash();
-				_this._callback();
+				self._updatedCurrentHash();
+				self._callback();
 
 			})
 			.error(function(jqXHR, textStatus, errorThrown) {
@@ -1371,7 +1351,7 @@
 
 		_buildAjaxURI: function() {
 
-			var _this = this;
+			var self = this;
 
 			var params = {};
 				params.filters      = [];
@@ -1462,7 +1442,7 @@
 
 		_buildPagination: function(json) {
 
-			var _this = this;
+			var self = this;
 			var rect;
 
 			var page = json.page,
@@ -1473,15 +1453,15 @@
 			switch (this.opt.paginationType)
 			{
 				case 'single' :
-					rect = _this._buildSinglePagination(page, next, prev, total);
+					rect = self._buildSinglePagination(page, next, prev, total);
 				break;
 
 				case 'multiple' :
-					rect = _this._buildMultiplePagination(page, next, prev, total);
+					rect = self._buildMultiplePagination(page, next, prev, total);
 				break;
 
 				case 'infinite' :
-					rect = _this._buildInfinitePagination(page, next, prev, total);
+					rect = self._buildInfinitePagination(page, next, prev, total);
 				break;
 			}
 
@@ -1664,7 +1644,7 @@
 
 		_selectFilter: function(el)
 		{
-			var _this = this;
+			var self = this;
 
 			this.$body.find('[data-select-filter]'+this.grid).on('change', function() {
 
@@ -1673,11 +1653,11 @@
 				var operator = $(this).find(':selected').data('operator');
 
 				if (filter !== undefined) {
-					_this._extractFiltersFromClick(filter, label, operator);
+					self._extractFiltersFromClick(filter, label, operator);
 				} else {
-					_this._reset();
+					self._reset();
 
-					$(_this).trigger('dg:update');
+					$(self).trigger('dg:update');
 				}
 			});
 
@@ -1724,7 +1704,7 @@
 			this.$body.find('[data-sort]'+this.grid).removeClass(this.opt.sortClasses.desc);
 			this.$body.find('[data-search]'+this.grid).find('input').val('');
 			this.$body.find('[data-search]'+this.grid).find('select').prop('selectedIndex', 0);
-			this.$body.find('[data-range-filter]'+_this.grid+','+_this.grid+' [data-range-filter]').find('input').val('');
+			this.$body.find('[data-range-filter]'+self.grid+','+self.grid+' [data-range-filter]').find('input').val('');
 
 			// Filters
 			this.appliedFilters = [];
