@@ -139,7 +139,7 @@
 
 			if (typeof window._ === 'undefined')
 			{
-				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v 1.5.2 or later to run!');
+				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v1.5.2 or later to run!');
 			}
 
 			var grid = this.grid;
@@ -163,7 +163,7 @@
 		},
 
 		/**
-		 * Check the Internet Explorer version.
+		 * Checks the Internet Explorer version.
 		 *
 		 * @return mixed
 		 */
@@ -231,33 +231,7 @@
 				}
 				else
 				{
-					self.$body.find('[data-sort]' + grid).removeClass(options.sortClasses.asc);
-					self.$body.find('[data-sort]' + grid).removeClass(options.sortClasses.desc);
-					self.$body.find('[data-search]' + grid).find('input').val('');
-					self.$body.find('[data-search]' + grid).find('select').prop('selectedIndex', 0);
-					self.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]').find('input').val('');
-
-					// Filters
-					self.appliedFilters = [];
-
-					// Sort
-					self.currentSort.index = 0;
-					self.currentSort.direction = '';
-					self.currentSort.column = '';
-
-					// Pagination
-					self.pagi.pageIdx = 1;
-
-					// Remove all rendered content
-
-					if (options.paginationType === 'infinite')
-					{
-						self.$results.empty();
-					}
-
-					self.$filters.empty();
-
-					self.$pagination.empty();
+					self.reset();
 
 					$(self).trigger('dg:update');
 				}
@@ -279,10 +253,7 @@
 
 				e.preventDefault();
 
-				if (options.scroll && $(this).data('scroll') !== null)
-				{
-					$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
-				}
+				self.applyScroll();
 
 				if ($(this).data('single-filter') !== undefined)
 				{
@@ -304,7 +275,7 @@
 
 			$(dateRangeEl).on('change', function(e) {
 
-				self._removeRangeFilters($(this));
+				self.removeRangeFilters($(this));
 
 				self._rangeFilter($(this));
 
@@ -314,7 +285,7 @@
 
 				e.preventDefault();
 
-				self._removeFilters($(this).index());
+				self.removeFilters($(this).index());
 
 				if(options.paginationType === 'infinite')
 				{
@@ -341,10 +312,7 @@
 
 				e.preventDefault();
 
-				if (options.scroll)
-				{
-					$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
-				}
+				self.applyScroll();
 
 				self._handlePageChange($(this));
 
@@ -377,7 +345,8 @@
 
 		},
 
-		_applyFilter: function(filters) {
+
+		applyFilter: function(filters) {
 
 			var without = [];
 
@@ -411,6 +380,22 @@
 			// Render Our Filters
 			this.$filters.html(this.tmpl['filters']({ filters: without }));
 
+		},
+
+		removeFilters: function(idx) {
+
+			if (this.appliedFilters[idx].type === 'range')
+			{
+				this.$body.find('[data-range-filter="' + this.appliedFilters[idx].column + '"]'+this.grid+','+this.grid+' '+'[data-range-filter="' + this.appliedFilters[idx].column + '"]').val('');
+			}
+
+			this.appliedFilters.splice(idx, 1);
+
+			// TODO: See about removing this
+			this.$filters.html( this.tmpl['filters']({ filters: this.appliedFilters }));
+			this._goToPage(1);
+
+			this.triggerEvent('removeFilter');
 		},
 
 		handleHashChange: function(hash) {
@@ -557,7 +542,7 @@
 				this.appliedFilters.splice(idx, 1);
 			}
 
-			this._applyFilter({
+			this.applyFilter({
 				column: column,
 				value: $input.val()
 			});
@@ -615,7 +600,7 @@
 
 				if (curr.length > 0)
 				{
-					self._applyFilter({
+					self.applyFilter({
 						column: column,
 						value: curr,
 						type: 'live'
@@ -743,15 +728,13 @@
 				to     = moment(to).format(dbFormat);
 			}
 
-			var filterData = {
+			this.applyFilter({
 				column: startDateFilter,
 				from: from,
 				to: to,
 				label: startLabel,
 				type: 'range'
-			};
-
-			this._applyFilter(filterData);
+			});
 
 		},
 
@@ -786,7 +769,7 @@
 						// to the label value for renaming
 						filter[key] = label[1];
 
-						self._applyFilter({
+						self.applyFilter({
 							column: filter[0],
 							value: filter[1],
 							mask: (key === 0 ? 'column' : 'value'),
@@ -796,7 +779,7 @@
 					}
 					else
 					{
-						self._applyFilter({
+						self.applyFilter({
 							column: filter[0],
 							value: filter[1],
 							operator: operator
@@ -805,7 +788,7 @@
 				}
 				else
 				{
-					self._applyFilter({
+					self.applyFilter({
 						column: filter[0],
 						value: filter[1],
 						operator: operator
@@ -901,7 +884,7 @@
 						if (self._searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
 						{
 							// if its not already set, lets set the filter
-							self._applyFilter({
+							self.applyFilter({
 								column: filters[0],
 								value: filters[1],
 								mask: (key === 0 ? 'column' : 'value'),
@@ -913,7 +896,7 @@
 							var operator = $(labels[x]).data('operator');
 
 							// if its not already set, lets set the filter
-							self._applyFilter({
+							self.applyFilter({
 								column: filters[0],
 								value: filters[1],
 								operator: operator,
@@ -967,7 +950,7 @@
 							type: 'range'
 						};
 
-						self._applyFilter(filterData);
+						self.applyFilter(filterData);
 					}
 					else
 					{
@@ -976,7 +959,7 @@
 						if ( filterEl.data('operator') !== '' && filterEl.data('operator') !== undefined)
 						{
 							// If its not already set, lets set the filter
-							self._applyFilter({
+							self.applyFilter({
 								column: routeArr[i].split(this.opt.delimiter)[0],
 								value: routeArr[i].split(this.opt.delimiter)[1],
 								operator: filterEl.data('operator')
@@ -985,7 +968,7 @@
 						else
 						{
 							// If its not already set, lets set the filter
-							self._applyFilter({
+							self.applyFilter({
 								column: routeArr[i].split(this.opt.delimiter)[0],
 								value: routeArr[i].split(this.opt.delimiter)[1],
 							});
@@ -1347,7 +1330,7 @@
 
 			var self = this;
 
-			this.loading();
+			this.showLoader();
 
 			$.ajax({
 				url: self.source,
@@ -1388,7 +1371,7 @@
 					self.$results.html(self.tmpl['empty']());
 				}
 
-				self._stopLoading();
+				self.hideLoader();
 
 				self._updatedCurrentHash();
 				self._callback();
@@ -1664,10 +1647,13 @@
 
 		},
 
-		_removeRangeFilters: function(filter)
-		{
-			var startDateFilter = this.$body.find('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').data('range-filter');
-			var endDateFilter = this.$body.find('[data-range-end]'+this.grid+','+this.grid+' '+'[data-range-end]').data('range-filter');
+		removeRangeFilters: function(filter) {
+
+			var grid = this.grid;
+
+			var startDateFilter = this.$body.find('[data-range-start]' + grid + ',' + grid + ' [data-range-start]').data('range-filter');
+
+			var endDateFilter = this.$body.find('[data-range-end]' + grid + ',' + grid + ' [data-range-end]').data('range-filter');
 
 			for (var i = 0; i < this.appliedFilters.length; i++)
 			{
@@ -1679,21 +1665,6 @@
 
 		},
 
-		_removeFilters: function(idx) {
-
-			if (this.appliedFilters[idx].type === 'range')
-			{
-				this.$body.find('[data-range-filter="' + this.appliedFilters[idx].column + '"]'+this.grid+','+this.grid+' '+'[data-range-filter="' + this.appliedFilters[idx].column + '"]').val('');
-			}
-
-			this.appliedFilters.splice(idx, 1);
-
-			// TODO: See about removing this
-			this.$filters.html( this.tmpl['filters']({ filters: this.appliedFilters }));
-			this._goToPage(1);
-
-			this._triggerEvent('removeFilter');
-		},
 
 		_selectFilter: function(el)
 		{
@@ -1708,7 +1679,7 @@
 				if (filter !== undefined) {
 					self._extractFiltersFromClick(filter, label, operator);
 				} else {
-					self._reset();
+					self.reset();
 
 					$(self).trigger('dg:update');
 				}
@@ -1727,7 +1698,7 @@
 			{
 				this._extractRangeFilters(filter);
 
-				this._refresh();
+				this.refresh();
 			}
 		},
 
@@ -1747,7 +1718,7 @@
 		 *
 		 * @return void
 		 */
-		loading: function() {
+		showLoader: function() {
 
 			var grid = this.grid;
 
@@ -1757,18 +1728,38 @@
 
 		},
 
-		_stopLoading: function() {
-			this.$body.find(this.grid+this.opt.loader+','+this.grid+' '+this.opt.loader).fadeOut();
+		/**
+		 * Hides the loading bar.
+		 *
+		 * @return void
+		 */
+		hideLoader: function() {
+
+			var grid = this.grid;
+
+			var loader = this.opt.loader;
+
+			this.$body.find(grid + loader + ',' + grid + ' ' + loader).fadeOut();
+
 		},
 
-		_reset: function() {
+		/**
+		 * Resets Data Grid.
+		 *
+		 * @return void
+		 */
+		reset: function() {
+
+			var grid = this.grid;
+
+			var options = this.opt;
 
 			// Elements
-			this.$body.find('[data-sort]'+this.grid).removeClass(this.opt.sortClasses.asc);
-			this.$body.find('[data-sort]'+this.grid).removeClass(this.opt.sortClasses.desc);
-			this.$body.find('[data-search]'+this.grid).find('input').val('');
-			this.$body.find('[data-search]'+this.grid).find('select').prop('selectedIndex', 0);
-			this.$body.find('[data-range-filter]'+self.grid+','+self.grid+' [data-range-filter]').find('input').val('');
+			this.$body.find('[data-sort]'+ grid).removeClass(options.sortClasses.asc);
+			this.$body.find('[data-sort]'+ grid).removeClass(options.sortClasses.desc);
+			this.$body.find('[data-search]'+ grid).find('input').val('');
+			this.$body.find('[data-search]'+ grid).find('select').prop('selectedIndex', 0);
+			this.$body.find('[data-range-filter]' + grid + ',' + grid +' [data-range-filter]').find('input').val('');
 
 			// Filters
 			this.appliedFilters = [];
@@ -1788,7 +1779,12 @@
 
 		},
 
-		_refresh: function() {
+		/**
+		 * Refreshes Data Grid
+		 *
+		 * @return void
+		 */
+		refresh: function() {
 
 			$(this).trigger('dg:update');
 
@@ -1805,19 +1801,42 @@
 
 		},
 
-		_triggerEvent: function(name)
+		/**
+		 * Fires an event.
+		 *
+		 * @param  string  name
+		 * @return void
+		 */
+		triggerEvent: function(name)
 		{
-			var callbackObject = this;
+			var callback = this;
 
-			if (this.opt.events !== undefined)
+			var events = this.opt.events;
+
+			if (events !== undefined)
 			{
-				if ($.isFunction(this.opt.events[name]))
+				if ($.isFunction(events[name]))
 				{
-					this.opt.events[name](callbackObject);
+					events[name](callback);
 				}
 			}
 		},
 
+		/**
+		 * Applies the scroll feature animation.
+		 *
+		 * @return void
+		 */
+		applyScroll : function() {
+
+			var options = this.opt;
+
+			if (options.scroll)
+			{
+				$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
+			}
+
+		},
 
 		/**
 		 * Returns the dividend.
