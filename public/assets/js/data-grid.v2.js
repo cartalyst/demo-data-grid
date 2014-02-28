@@ -33,6 +33,7 @@
 				desc: 'desc'
 			},
 			delimiter: ':',
+			dateFormatAttribute : 'format',
 			sort: {},
 			templateSettings : {
 				evaluate    : /<%([\s\S]+?)%>/g,
@@ -209,7 +210,7 @@
 
 				_this.$filters.empty();
 				_this.appliedFilters = [];
-				_this.$body.find('[data-range-filter]'+_this.grid).find('input').val('');
+				_this.$body.find('[data-range-filter]'+_this.grid+','+_this.grid+' [data-range-filter]').find('input').val('');
 
 				routeArr = _.compact(routeArr);
 
@@ -223,7 +224,7 @@
 					_this.$body.find('[data-sort]'+_this.grid).removeClass(_this.opt.sortClasses.desc);
 					_this.$body.find('[data-search]'+_this.grid).find('input').val('');
 					_this.$body.find('[data-search]'+_this.grid).find('select').prop('selectedIndex', 0);
-					_this.$body.find('[data-range-filter]'+_this.grid).find('input').val('');
+					_this.$body.find('[data-range-filter]'+_this.grid+','+_this.grid+' [data-range-filter]').find('input').val('');
 
 					// Filters
 					_this.appliedFilters = [];
@@ -287,7 +288,9 @@
 
 			});
 
-			$('.datePicker').on('change.dp', function(e) {
+			var dateRangeEl = this.$body.find('[data-range-filter]'+this.grid+','+this.grid+' '+'[data-range-filter]');
+
+			$(dateRangeEl).on('change', function(e) {
 
 				_this._removeRangeFilters($(this));
 
@@ -691,14 +694,14 @@
 
 		_extractRangeFilters: function(filter)
 		{
-			var curFilter = filter.find('[data-range-filter]').data('range-filter');
+			var curFilter = filter.find('[data-range-filter]').data('range-filter') || filter.data('range-filter');
 
 			var startDateFilter = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('range-filter');
 			var startVal = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').val();
 			var endVal = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]').val();
 			var startLabel = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('label');
 
-			var dateFormat = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('format');
+			var dateFormat = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data(this.opt.dateFormatAttribute);
 
 			var dbFormat = 'YYYY-MM-DD';
 
@@ -901,7 +904,7 @@
 					var start = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('range-filter');
 					var startLabel = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('label');
 
-					var dateFormat = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('format');
+					var dateFormat = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data(this.opt.dateFormatAttribute);
 
 					var dbFormat = 'YYYY-MM-DD';
 
@@ -915,7 +918,7 @@
 						to     = moment(to).format(dbFormat);
 					}
 
-					if (window.moment !== undefined)
+					if (window.moment !== undefined && dateFormat)
 					{
 						$('[data-range-start][data-range-filter="' + filters[0] + '"]').val(moment(from).format(dateFormat));
 						$('[data-range-end][data-range-filter="' + filters[0] + '"]').val(moment(to).format(dateFormat));
@@ -1630,8 +1633,8 @@
 
 		_removeRangeFilters: function(filter)
 		{
-			var startDateFilter = filter.find('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').data('range-filter');
-			var endDateFilter = filter.find('[data-range-end]'+this.grid+','+this.grid+' '+'[data-range-end]').data('range-filter');
+			var startDateFilter = this.$body.find('[data-range-start]'+this.grid+','+this.grid+' '+'[data-range-start]').data('range-filter');
+			var endDateFilter = this.$body.find('[data-range-end]'+this.grid+','+this.grid+' '+'[data-range-end]').data('range-filter');
 
 			for (var i = 0; i < this.appliedFilters.length; i++)
 			{
@@ -1682,10 +1685,10 @@
 
 		_rangeFilter: function(filter)
 		{
-			var curFilter = filter.find('[data-range-filter]').data('range-filter');
+			var curFilter = filter.find('[data-range-filter]').data('range-filter') || filter.data('range-filter');
 
-			var startVal = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').val();
-			var endVal = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]').val()
+			var startVal = this.$body.find('[data-range-start][data-range-filter^="' + curFilter + '"]').val();
+			var endVal = this.$body.find('[data-range-end][data-range-filter^="' + curFilter + '"]').val()
 
 			if (startVal && endVal)
 			{
@@ -1721,7 +1724,7 @@
 			this.$body.find('[data-sort]'+this.grid).removeClass(this.opt.sortClasses.desc);
 			this.$body.find('[data-search]'+this.grid).find('input').val('');
 			this.$body.find('[data-search]'+this.grid).find('select').prop('selectedIndex', 0);
-			this.$body.find('[data-range-filter]'+_this.grid).find('input').val('');
+			this.$body.find('[data-range-filter]'+_this.grid+','+_this.grid+' [data-range-filter]').find('input').val('');
 
 			// Filters
 			this.appliedFilters = [];
@@ -1772,16 +1775,64 @@
 		},
 
 
+		/**
+		 * Returns the dividend.
+		 *
+		 * @return int
+		 */
+		getDividend : function()
+		{
+			return this.opt.dividend;
+		},
+
+		/**
+		 * Sets the dividend.
+		 *
+		 * @param  int  value
+		 * @return void
+		 */
 		setDividend : function(value)
 		{
 			this.opt.dividend = value;
 		},
 
+		/**
+		 * Returns the throttle.
+		 *
+		 * @return int
+		 */
+		getThrottle : function()
+		{
+			return this.opt.throttle;
+		},
+
+		/**
+		 * Sets the throttle.
+		 *
+		 * @param  int  value
+		 * @return void
+		 */
 		setThrottle : function(value)
 		{
 			this.opt.throttle = value;
 		},
 
+		/**
+		 * Returns the threshold.
+		 *
+		 * @return int
+		 */
+		getThreshold : function()
+		{
+			return this.opt.threshold;
+		},
+
+		/**
+		 * Sets the threshold.
+		 *
+		 * @param  int  value
+		 * @return void
+		 */
 		setThreshold : function(value)
 		{
 			this.opt.threshold = value;
