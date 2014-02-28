@@ -5,7 +5,7 @@ Data Grid
 @stop
 
 @section('styles')
-<link rel="stylesheet" href="{{ URL::asset('assets/css/table.css') }}" >
+<link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
 @stop
 
 @section('scripts')
@@ -13,23 +13,24 @@ Data Grid
 	$(function(){
 
 		//Setup DataGrid
-		$.datagrid('main', '.table', '.pagination', '.applied-filters', {
+		$.datagrid('main', '.table', '#pagination', '.applied-filters', {
 			dividend: 10,
 			threshold: 20,
 			throttle: 500,
 			loader: '.loading',
-			paginationType: 'multiple',
-			defaultSort: {
+			paginationType: 'single',
+			sort: {
 				column: 'city',
 				direction: 'asc'
 			},
 			callback: function(obj){
 
-				console.log(obj);
-
 				//Leverage the Callback to show total counts or filtered count
-				$('#filtered').val(obj.filteredCount);
-				$('#total').val(obj.totalCount);
+				$('#total').val(obj.pagi.totalCount);
+				$('#filtered').val(obj.pagi.filteredCount);
+				$('#dividend').val(obj.opt.dividend);
+				$('#threshold').val(obj.opt.threshold);
+				$('#throttle').val(obj.opt.throttle);
 
 			}
 		});
@@ -43,68 +44,95 @@ Data Grid
 
 @stop
 
-@section('settings')
-<label for="total">
-	Total <br>
-	<input type="text" name="total" value="" disabled class="disabled" id="total">
-</label>
-
-<label for="filtered">
-	Filtered <br>
-	<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
-</label>
-
-<label for="threshold">
-	Threshold <br>
-	<input type="text" name="threshold" value="20" disabled class="disabled" data-grid="main" data-opt="threshold">
-</label>
-
-<label for="dividend">
-	Dividend <br>
-	<input type="text" name="dividend" value="10" disabled class="disabled" data-grid="main" data-opt="dividend">
-</label>
-
-<label for="throttle">
-	Throttle <br>
-	<input type="text" name="throttle" value="500" disabled class="disabled" data-grid="main" data-opt="throttle">
-</label>
-@stop
-
+{{-- Page content --}}
 @section('content')
 
-<div class="cf">
+<h1>Single Standdard Pagination</h1>
 
-	<form data-search data-grid="main" class="search">
+<hr>
 
-		<div class="select">
+<div class="row placeholders">
 
-			<select name="column" class="hidden-select">
-				<option value="all">All</option>
-				<option value="subdivision">Subdivision</option>
-				<option value="city">City</option>
-			</select>
-			<ul class="options">
-				<li>All</li>
-			</ul>
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="total" value="" disabled class="disabled" id="total">
+		<h4>Total</h4>
+		<span class="text-muted">Results returned from query</span>
+	</div>
 
-		</div>
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
+		<h4>Filtered</h4>
+		<span class="text-muted">Results after filters applied.</span>
+	</div>
 
-		<input type="text" name="filter" placeholder="Filter All" class="search-input">
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="throttle" value="" data-grid="main" data-opt="throttle" id="throttle">
+		<h4>Throttle</h4>
+		<span class="text-muted">Maxmim results on a single page.</span>
+	</div>
 
-		<div class="loading"> Loading &hellip;</div>
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" data-grid="main" data-opt="threshold" id="threshold" class="disabled" disabled>
+		<h4>Threshold</h4>
+		<span class="text-muted">Minimum results before paginating.</span>
+	</div>
 
-		<button class='search-btn'>Add</button>
-	</form>
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="main" data-opt="dividend" id="dividend" class="disabled" disabled>
+		<h4>Dividend</h4>
+		<span class="text-muted">Maximum "pages" to divide results by.</span>
+	</div>
 
 </div>
 
-<ul class="applied-filters" data-grid="main"></ul>
+<hr>
 
-<section class="content cf">
+<div class="row">
 
-	<div class="grid">
+	<div class="col-md-12">
 
-		<table class="table" data-source="{{ URL::to('source') }}" data-grid="main">
+		<form data-search data-grid="main" class="search">
+
+			<div class="select">
+
+				<select name="column" class="hidden-select">
+					<option value="all">All</option>
+					<option value="subdivision">Subdivision</option>
+					<option value="city">City</option>
+				</select>
+
+				<ul class="options">
+					<li>All</li>
+				</ul>
+
+			</div>
+
+			<input type="text" name="filter" placeholder="Search" class="search-input">
+
+			<div class="loading">Loading &hellip;</div>
+
+			<button class='search-btn'>Apply Filter</button>
+
+		</form>
+	</div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-md-12">
+
+		<div class="applied-filters" data-grid="main"></div>
+
+	</div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-md-12">
+
+		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="main">
 			<thead>
 				<tr>
 					<th data-sort="country" data-grid="main" class="sortable">Country</th>
@@ -113,19 +141,18 @@ Data Grid
 					<th data-sort="population" data-grid="main" class="sortable">Population</th>
 				</tr>
 			</thead>
-			<tbody>
-			</tbody>
+			<tbody></tbody>
 		</table>
 
 	</div>
 
-	<div class="pagination" data-grid="main"></div>
+</div>
 
-</section>
+<footer id="pagination" class="row text-center" data-grid="main"></footer>
 
-	@include('templates/main/main-results-tmpl')
-	@include('templates/main/main-pagination-tmpl')
-	@include('templates/main/main-filters-tmpl')
-	@include('templates/main/main-no-results-tmpl')
+@include('templates/standard/main-results-tmpl')
+@include('templates/standard/main-pagination-tmpl')
+@include('templates/standard/main-filters-tmpl')
+@include('templates/standard/main-no-results-tmpl')
 
 @stop

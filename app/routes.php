@@ -16,7 +16,7 @@ Route::get('/', function()
 	return View::make('single');
 });
 
-Route::get('multiple-advanced', function()
+Route::get('multiple-standard', function()
 {
 	return View::make('multiple-standard');
 });

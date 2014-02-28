@@ -2,25 +2,33 @@
 
 	<% _.each(filters, function(f) { %>
 
-		<li>
+			<a href="#" class="btn btn-default remove-filter">
 
-			<a href="#" class="remove-filter">
+				<% if (f.from !== undefined && f.to !== undefined) { %>
 
-				<% if (f.column === 'all') { %>
+					<%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') + ' - ' + moment(f.to).format('MMM DD, YYYY') %></em>
 
-					<%= f.value %>
+				<% } else if (f.operator !== undefined) { %>
+
+					<%= f.column + ' ' + f.operator %> <em><%= f.value %></em>
 
 				<% } else { %>
 
-					<%= f.value %> in <em><%= f.column %></em>
+					<% if (f.column === 'all') { %>
+
+						<%= f.value %>
+
+					<% } else { %>
+
+						<%= f.value %> in <em><%= f.column %></em>
+
+					<% } %>
 
 				<% } %>
 
-				<span class="close">&times;</span>
+				<span><i class="fa fa-minus-square-o"></i></span>
 
 			</a>
-
-		</li>
 
 	<% }); %>
 
