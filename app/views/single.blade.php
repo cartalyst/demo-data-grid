@@ -101,31 +101,37 @@ $(function(){
 <hr>
 
 <div class="row placeholders">
+
 	<div class="col-xs-6 col-sm-3 placeholder">
 		<input type="text" name="total" value="" disabled class="disabled" id="total">
 		<h4>Total</h4>
 		<span class="text-muted">Results returned from query</span>
 	</div>
+
 	<div class="col-xs-6 col-sm-3 placeholder">
 		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
 		<h4>Filtered</h4>
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold" class="disabled" disabled>
-		<h4>Threshold</h4>
-		<span class="text-muted">Minimum results before paginating.</span>
-	</div>
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend" class="disabled" disabled>
-		<h4>Dividend</h4>
-		<span class="text-muted">Maximum "pages" to divide results by.</span>
-	</div>
+
 	<div class="col-xs-6 col-sm-2 placeholder">
 		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maxmim results on a single page.</span>
 	</div>
+
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold" class="disabled" disabled>
+		<h4>Threshold</h4>
+		<span class="text-muted">Minimum results before paginating.</span>
+	</div>
+
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend" class="disabled" disabled>
+		<h4>Dividend</h4>
+		<span class="text-muted">Maximum "pages" to divide results by.</span>
+	</div>
+
 </div>
 
 <hr>
@@ -138,7 +144,7 @@ $(function(){
 
 			<div class="input-group datePicker" data-grid="single" data-range-filter>
 
-				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-start data-range-filter="created_at" data-label="Created At" data-grid="single" placeholder="Start Date">
+				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-start data-range-filter="created_at" data-label="Created At" placeholder="Start Date">
 
 				<span class="input-group-addon" style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
 
@@ -154,7 +160,7 @@ $(function(){
 
 			<div class="input-group datePicker" data-grid="single" data-range-filter>
 
-				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-filter="created_at" data-label="Created At" data-range-end data-grid="single" placeholder="End Date">
+				<input type="text" data-format="DD MMM, YYYY" disabled class="form-control" data-range-end data-range-filter="created_at" data-label="Created At" placeholder="End Date">
 
 				<span class="input-group-addon" style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
 
