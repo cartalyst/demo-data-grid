@@ -18,7 +18,7 @@ Single Pagination
 <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 
 <script>
-$(function(){
+	$(function(){
 
 	// Setup DataGrid
 	$.datagrid('single', '.table', '#pagination', '.applied-filters', {
@@ -57,6 +57,8 @@ $(function(){
 	$('.datePicker').datetimepicker({
 		pickTime: false
 	});
+
+		$('[data-toggle="tooltip"]').tooltip();
 });
 </script>
 
@@ -65,48 +67,39 @@ $(function(){
 {{-- Page content --}}
 @section('content')
 
-<div class="row">
+<h1>Single Pagination</h1>
 
-	<div class="col-md-5">
+<hr>
 
-		<h1>City Populations</h1>
-
+<div class="row placeholders">
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="total" value="" disabled class="disabled" id="total">
+		<h4>Total</h4>
+		<span class="text-muted">Results returned from query</span>
 	</div>
-
-	<div class="col-md-7">
-
-		<div class="settings pull-right">
-
-			<label for="total">
-				Total <br>
-				<input type="text" name="total" value="" disabled class="disabled" id="total">
-			</label>
-
-			<label for="filtered">
-				Filtered <br>
-				<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
-			</label>
-
-			<label for="dividend">
-				Dividend <br>
-				<input type="text" name="dividend" value="" disabled class="disabled" data-grid="single" data-opt="dividend" id="dividend">
-			</label>
-
-			<label for="threshold">
-				Threshold <br>
-				<input type="text" name="threshold" value="" disabled class="disabled" data-grid="single" data-opt="threshold" id="threshold">
-			</label>
-
-			<label for="throttle">
-				Throttle <br>
-				<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
-			</label>
-
-		</div>
-
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
+		<h4>Filtered</h4>
+		<span class="text-muted">Results after filters applied.</span>
 	</div>
-
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" disabled class="disabled" data-grid="single" data-opt="threshold" id="threshold">
+		<h4>Threshold</h4>
+		<span class="text-muted">Minimum results before paginating.</span>
+	</div>
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" disabled class="disabled" data-grid="single" data-opt="dividend" id="dividend">
+		<h4>Dividend</h4>
+		<span class="text-muted">Maximum "pages" to divide results by.</span>
+	</div>
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
+		<h4>Throttle</h4>
+		<span class="text-muted">Maxmim results on a single page.</span>
+	</div>
 </div>
+
+<hr>
 
 <div class="row">
 

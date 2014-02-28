@@ -11,19 +11,19 @@ body,html, .container-fluid {
     padding:0;
 }
 
-.row
+.base
 {
     height: 100%;
     display: table-row;
 }
-.col-md-3, .col-md-9
+.sidebar, .page
 {
     display: table-cell;
     float: none;
     padding:16px;
 }
 
-h1{
+.sidebar h1{
 	color:#faf8f2;
 	font-weight:500;
 	margin-bottom: 16px;
@@ -32,13 +32,7 @@ h1{
 	font-weight: 700;
 }
 
-h2{
-	color:#faf8f2;
-	margin-bottom: 16px;
-	font-size: 20px;
-	line-height: 20px;
-	font-weight: 300;
-}
+
 
 aside {
 
@@ -146,9 +140,9 @@ aside .requirements {
 	font-size:12px;
 }
 
-.header {
-	border-bottom:1px solid #ddd;
-	margin:32px 0;
+
+.page .placeholders {
+	text-align: center;
 }
 
 #pagination .pagination {
@@ -168,7 +162,7 @@ aside .requirements {
 	color:#443e40;
 }
 
-.settings input{
+.placeholders input{
 	width:80px;
 	padding:8px;
 
@@ -179,22 +173,11 @@ aside .requirements {
 	border-radius: 4px;
 }
 
-.settings .disabled{
+.placeholders .disabled{
 	background-color:#f7f7f7;
 	color:#999;
 }
-.content header {
-	padding:0;
-	margin: 0 0 24px 0;
-}
-.content h1{
-	color:#443e40;
-}
 
-.content .description {
-	font-style: italic;
-	color: #999;
-}
 
 
 .applied-filters {

@@ -16,13 +16,12 @@
 	</head>
 	<body>
 
-		<div class="container-fluid data-grid-demo">
-			<div class="row">
+		<div class="container-fluid">
+			<div class="base">
 
-				<aside class="col-md-3">
+				<aside class="col-md-3 sidebar">
 
 					<h1>Data Grid</h1>
-					<h2>@yield('title')</h2>
 
 					<ul class="navigator">
 						<li><a href="{{ URL::to('/') }}" class="btn{{ Request::is('/') ? ' active' : null }}">Single</a></li>
@@ -39,7 +38,7 @@
 
 				</aside>
 
-				<div class="content col-md-9">
+				<div class="col-md-9 page">
 
 					@yield('content')
 
@@ -50,6 +49,7 @@
 
 
 		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="{{ URL::asset('assets/js/underscore.js') }}"></script>
 		<script src="{{ URL::asset('assets/js/data-grid.v2.js') }}"></script>
 		<script>
