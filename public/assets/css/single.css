@@ -55,12 +55,16 @@
 	margin-bottom:16px;
 }
 
+.table th[class*=sortable] {
+	cursor: pointer;
+}
+
 .table th[class*=sortable]:after {
 	content:" \25B2\25BC";
 	font-size:8px;
 	color:#2d2d2d;
 	font-weight:normal !important;
-	line-height:1em
+	line-height:1em;
 }
 
 .table th.sortable.asc:after {
