@@ -706,7 +706,7 @@
 			var from   = startVal;
 			var to     = endVal;
 
-			if (dateFormat !== null && dateFormat !== undefined)
+			if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
 			{
 				from   = moment(from).format(dbFormat);
 				to     = moment(to).format(dbFormat);
@@ -909,14 +909,22 @@
 					var from   = routeArr[i].split(this.opt.delimiter)[1];
 					var to     = routeArr[i].split(this.opt.delimiter)[2];
 
-					if (dateFormat !== null && dateFormat !== undefined)
+					if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
 					{
 						from   = moment(from).format(dbFormat);
 						to     = moment(to).format(dbFormat);
 					}
 
-					$('[data-range-start][data-range-filter="' + filters[0] + '"]').val(moment(from).format(dateFormat));
-					$('[data-range-end][data-range-filter="' + filters[0] + '"]').val(moment(to).format(dateFormat));
+					if (window.moment !== undefined)
+					{
+						$('[data-range-start][data-range-filter="' + filters[0] + '"]').val(moment(from).format(dateFormat));
+						$('[data-range-end][data-range-filter="' + filters[0] + '"]').val(moment(to).format(dateFormat));
+					}
+					else
+					{
+						$('[data-range-start][data-range-filter="' + filters[0] + '"]').val(from);
+						$('[data-range-end][data-range-filter="' + filters[0] + '"]').val(to);
+					}
 
 					if (filters[0] === start)
 					{
@@ -1421,9 +1429,17 @@
 						}
 						else if (this.appliedFilters[i].type === 'range')
 						{
-							var dbFormat = 'YYYY-MM-DD';
-							var from     = moment(this.appliedFilters[i].from).format(dbFormat);
-							var to       = moment(this.appliedFilters[i].to).format(dbFormat);
+							if (window.moment !== undefined)
+							{
+								var dbFormat = 'YYYY-MM-DD';
+								var from     = moment(this.appliedFilters[i].from).format(dbFormat);
+								var to       = moment(this.appliedFilters[i].to).format(dbFormat);
+							}
+							else
+							{
+								var from     = this.appliedFilters[i].from;
+								var to       = this.appliedFilters[i].to;
+							}
 
 							filter[this.appliedFilters[i].column] = '|' + '>' + from + '|' + '<' + to +'|';
 						}
