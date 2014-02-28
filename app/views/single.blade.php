@@ -112,12 +112,12 @@ $(function(){
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold">
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold" class="disabled" disabled>
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
 	</div>
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend" class="disabled" disabled>
 		<h4>Dividend</h4>
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>
