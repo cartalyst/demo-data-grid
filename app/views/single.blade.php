@@ -18,41 +18,46 @@ Single Pagination
 <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 
 <script>
-	$(function(){
+$(function(){
 
-		//Setup DataGrid
-		$.datagrid('single', '.table', '#pagination', '.applied-filters', {
-			dividend: 1,
-			throttle: 20,
-			threshold: 20,
-			loader: '.loading',
-			paginationType: 'single',
-			defaultSort: {
-				column: 'city',
-				direction: 'asc'
-			},
-			callback: function(obj){
+	// Setup DataGrid
+	$.datagrid('single', '.table', '#pagination', '.applied-filters', {
+		dividend: 1,
+		throttle: 20,
+		threshold: 20,
+		loader: '.loading',
+		paginationType: 'single',
+		defaultSort: {
+			column: 'city',
+			direction: 'asc'
+		},
+		callback: function(obj){
 
-				//Leverage the Callback to show total counts or filtered count
-				$('#total').val(obj.pagi.totalCount);
-				$('#filtered').val(obj.pagi.filteredCount);
-				$('#dividend').val(obj.opt.dividend);
-				$('#threshold').val(obj.opt.threshold);
-				$('#throttle').val(obj.opt.throttle);
+			//Leverage the Callback to show total counts or filtered count
+			$('#total').val(obj.pagi.totalCount);
+			$('#filtered').val(obj.pagi.filteredCount);
+			$('#dividend').val(obj.opt.dividend);
+			$('#threshold').val(obj.opt.threshold);
+			$('#throttle').val(obj.opt.throttle);
 
-			}
-		});
+		}
+	});
 
-		//Text Binding
-		$('.hidden-select').change(function(){
-			$('.options').find('li').text($('.hidden-select option:selected').text());
-		});
+	// Text Binding
+	$('.hidden-select').change(function(){
+		$('.options').find('li').text($('.hidden-select option:selected').text());
+	});
+
+	$('#pagination').on('click', 'a', function() {
+
+		$(document.body).animate({ scrollTop: $('.table').offset().top }, 200);
+
 	});
 
 	$('.datePicker').datetimepicker({
 		pickTime: false
 	});
-
+});
 </script>
 
 @stop

@@ -1,6 +1,5 @@
 <script type="text/template" data-grid="single" id="pagination-tmpl">
 
-
 	<% _.each(pagination, function(p) { %>
 
 		<div class="col-md-8">
@@ -15,7 +14,7 @@
 
 				<% } else { %>
 
-					<li class="disabled"><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+					<li class="disabled"><span><i class="fa fa-chevron-left"></i></span></li>
 
 				<% } %>
 
@@ -25,7 +24,7 @@
 
 				<% } else { %>
 
-					<li class="disabled"><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+					<li class="disabled"><span><i class="fa fa-chevron-right"></i></span></li>
 
 				<% } %>
 
