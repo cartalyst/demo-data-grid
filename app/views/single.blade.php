@@ -93,7 +93,7 @@ Single Pagination
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
+		<input type="text" name="throttle" value="" class="" data-grid="single" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maxmim results on a single page.</span>
 	</div>
