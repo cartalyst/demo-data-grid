@@ -145,11 +145,6 @@
 				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v 1.5.2 or later to run!');
 			}
 
-			if (typeof window.moment === 'undefined')
-			{
-				throw new Error('Moment is not defined. DataGrid Requires Moment.js v 2.4.0 or later to run!');
-			}
-
 			// Set _ templates interpolate
 			_.templateSettings = {
 				evaluate    : this.opt.templateSettings.evaluate,
