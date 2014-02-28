@@ -13,7 +13,7 @@ class CitySeeder extends Seeder {
 
 		foreach ($lines as $line)
 		{
-			$int = rand(1356998400, time());
+			$int = rand(strtotime("- 1 year"), time());
 
 			$city = new City(array(
 				'country'                   => $line[0],
