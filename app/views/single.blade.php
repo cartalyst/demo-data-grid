@@ -18,10 +18,10 @@ Single Pagination
 <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 
 <script>
-	$(function(){
+$(function(){
 
 	// Setup DataGrid
-	$.datagrid('single', '.table', '#pagination', '.applied-filters', {
+	var grid = $.datagrid('single', '.table', '#pagination', '.applied-filters', {
 		dividend: 1,
 		throttle: 20,
 		threshold: 20,
@@ -58,7 +58,36 @@ Single Pagination
 		pickTime: false
 	});
 
-		$('[data-toggle="tooltip"]').tooltip();
+	$('[data-toggle="tooltip"]').tooltip();
+
+
+	/**
+	 * DEMO ONLY EVENTS
+	 */
+	$('[data-opt]').on('change', function() {
+
+		var opt = $(this).data('opt'),
+			val = $(this).val();
+
+		switch(opt)
+		{
+			case 'dividend':
+				grid.setDividend(val);
+			break;
+
+			case 'throttle':
+				grid.setThrottle(val);
+			break;
+
+			case 'threshold':
+				grid.setThreshold(val);
+			break;
+		}
+
+		grid._refresh();
+
+	});
+
 });
 </script>
 
@@ -83,17 +112,17 @@ Single Pagination
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="threshold" value="" disabled class="disabled" data-grid="single" data-opt="threshold" id="threshold">
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold">
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
 	</div>
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" disabled class="disabled" data-grid="single" data-opt="dividend" id="dividend">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend">
 		<h4>Dividend</h4>
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="throttle" value="" class="" data-grid="single" data-opt="throttle" id="throttle">
+		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maxmim results on a single page.</span>
 	</div>

@@ -1769,6 +1769,22 @@
 					this.opt.events[name](callbackObject);
 				}
 			}
+		},
+
+
+		setDividend : function(value)
+		{
+			this.opt.dividend = value;
+		},
+
+		setThrottle : function(value)
+		{
+			this.opt.throttle = value;
+		},
+
+		setThreshold : function(value)
+		{
+			this.opt.threshold = value;
 		}
 
 	};
