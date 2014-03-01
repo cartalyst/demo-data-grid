@@ -13,7 +13,7 @@ Data Grid
 	$(function(){
 
 		//Setup DataGrid
-		$.datagrid('main', '.table', '.pagination', '.applied-filters', {
+		$.datagrid('multiple', '.gridTable', '.pagination', '.applied-filters', {
 			dividend: 10,
 			threshold: 20,
 			throttle: 500,
@@ -25,11 +25,12 @@ Data Grid
 			},
 			callback: function(obj){
 
-				console.log(obj);
-
-				//Leverage the Callback to show total counts or filtered count
-				$('#filtered').val(obj.filteredCount);
-				$('#total').val(obj.totalCount);
+				// Leverage the Callback to show total counts or filtered count
+				$('#total').val(obj.pagi.totalCount);
+				$('#filtered').val(obj.pagi.filteredCount);
+				$('#dividend').val(obj.opt.dividend);
+				$('#threshold').val(obj.opt.threshold);
+				$('#throttle').val(obj.opt.throttle);
 
 			}
 		});
@@ -43,38 +44,51 @@ Data Grid
 
 @stop
 
-@section('settings')
-<label for="total">
-	Total <br>
-	<input type="text" name="total" value="" disabled class="disabled" id="total">
-</label>
-
-<label for="filtered">
-	Filtered <br>
-	<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
-</label>
-
-<label for="threshold">
-	Threshold <br>
-	<input type="text" name="threshold" value="20" disabled class="disabled" data-grid="main" data-opt="threshold">
-</label>
-
-<label for="dividend">
-	Dividend <br>
-	<input type="text" name="dividend" value="10" disabled class="disabled" data-grid="main" data-opt="dividend">
-</label>
-
-<label for="throttle">
-	Throttle <br>
-	<input type="text" name="throttle" value="500" disabled class="disabled" data-grid="main" data-opt="throttle">
-</label>
-@stop
-
 @section('content')
+
+<h1>Multiple Advanced Pagination</h1>
+
+<hr>
+
+<div class="row placeholders">
+
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="total" value="" disabled class="disabled" id="total">
+		<h4>Total</h4>
+		<span class="text-muted">Results returned from query</span>
+	</div>
+
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
+		<h4>Filtered</h4>
+		<span class="text-muted">Results after filters applied.</span>
+	</div>
+
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
+		<h4>Throttle</h4>
+		<span class="text-muted">Maxmim results on a single page.</span>
+	</div>
+
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold" class="disabled" disabled>
+		<h4>Threshold</h4>
+		<span class="text-muted">Minimum results before paginating.</span>
+	</div>
+
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend" class="disabled" disabled>
+		<h4>Dividend</h4>
+		<span class="text-muted">Maximum "pages" to divide results by.</span>
+	</div>
+
+</div>
+
+<hr>
 
 <div class="cf">
 
-	<form data-search data-grid="main" class="search">
+	<form data-search data-grid="multiple" class="search">
 
 		<div class="select">
 
@@ -93,24 +107,24 @@ Data Grid
 
 		<div class="loading"> Loading &hellip;</div>
 
-		<button class='search-btn'>Add</button>
+		<button class='search-btn'>Apply Filter</button>
 	</form>
 
 </div>
 
-<ul class="applied-filters" data-grid="main"></ul>
+<ul class="applied-filters" data-grid="multiple"></ul>
 
 <section class="content cf">
 
 	<div class="grid">
 
-		<table class="table" data-source="{{ URL::to('source') }}" data-grid="main">
+		<table class="gridTable" data-source="{{ URL::to('source') }}" data-grid="multiple">
 			<thead>
 				<tr>
-					<th data-sort="country" data-grid="main" class="sortable">Country</th>
-					<th data-sort="subdivision" data-grid="main" class="sortable">Subdivision</th>
-					<th data-sort="city" data-grid="main" class="sortable">City</th>
-					<th data-sort="population" data-grid="main" class="sortable">Population</th>
+					<th data-sort="country" data-grid="multiple" class="sortable">Country</th>
+					<th data-sort="subdivision" data-grid="multiple" class="sortable">Subdivision</th>
+					<th data-sort="city" data-grid="multiple" class="sortable">City</th>
+					<th data-sort="population" data-grid="multiple" class="sortable">Population</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -119,13 +133,13 @@ Data Grid
 
 	</div>
 
-	<div class="pagination" data-grid="main"></div>
+	<div class="pagination" data-grid="multiple"></div>
 
 </section>
 
-	@include('templates/main/main-results-tmpl')
-	@include('templates/main/main-pagination-tmpl')
-	@include('templates/main/main-filters-tmpl')
-	@include('templates/main/main-no-results-tmpl')
+@include('templates/multiple/results-tmpl')
+@include('templates/multiple/pagination-tmpl')
+@include('templates/multiple/filters-tmpl')
+@include('templates/multiple/no-results-tmpl')
 
 @stop

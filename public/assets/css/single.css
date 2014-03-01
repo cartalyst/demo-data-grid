@@ -1,4 +1,6 @@
-
+.form-group {
+	margin-bottom: 0;
+}
 
 .options{
 	display:block;
@@ -51,9 +53,7 @@
 	cursor: pointer;
 }
 
-.applied-filters {
-	margin-bottom:16px;
-}
+.applied-filters { list-style: none; padding: 0; margin-top: 20px; }
 
 .table th[class*=sortable] {
 	cursor: pointer;

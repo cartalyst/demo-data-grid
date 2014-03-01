@@ -76,7 +76,7 @@
 			pageIdx: 1,
 			totalCount: null,
 			filteredCount: null,
-			baseTrottle: null
+			baseThrottle: null
 		};
 
 		// Our Main Elements
@@ -101,7 +101,7 @@
 		defaultHash = grid;
 
 		// Setup Base Throttle
-		self.pagi.baseTrottle = self.opt.throttle;
+		self.pagi.baseThrottle = self.opt.throttle;
 
 		// Check our dependencies
 		self.checkDependencies(results, pagination, filters);
@@ -309,7 +309,7 @@
 
 				e.preventDefault();
 
-				options.throttle += pagi.baseTrottle;
+				options.throttle += self.pagi.baseThrottle;
 
 				$(self).trigger('dg:update');
 

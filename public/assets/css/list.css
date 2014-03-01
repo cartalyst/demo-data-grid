@@ -167,7 +167,7 @@
 	margin-left:8px;
 }
 
-.filters ul{ list-style: none; }
+.applied-filters { list-style: none; padding: 0; margin-top: 20px; }
 
 .col-right{
 	width:75%;

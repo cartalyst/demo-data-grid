@@ -135,7 +135,7 @@
 	border:1px solid #ccc;
 }
 
-.table{
+.gridTable{
 	width:100%;
 
 	border:1px solid #ccc;
@@ -148,10 +148,10 @@
 	border-radius: 4px;
 }
 
-.table th{ cursor: pointer; }
+.gridTable th{ cursor: pointer; }
 
-.table th,
-.table td{
+.gridTable th,
+.gridTable td{
 	padding:8px;
 	line-height:24px;
 	text-align: left;
@@ -159,12 +159,12 @@
 	border-left:1px solid #ccc;
 }
 
-.table td{
+.gridTable td{
 	border-top:1px solid #ccc;
 }
 
-.table tbody > tr:nth-child(odd) > td,
-.table tbody > tr:nth-child(odd) > th{
+.gridTable tbody > tr:nth-child(odd) > td,
+.gridTable tbody > tr:nth-child(odd) > th{
 	background-color:#f7f7f7;
 }
 
@@ -207,18 +207,10 @@
 	margin-left:-1px;
 }
 
-.applied-filters{
-	list-style: none;
-	margin-top:20px;
-}
-
 .applied-filters li{
-	display:inline;
-}
-
-.applied-filters a, .applied-filters a:visited{
 	display:inline-block;
 	padding:8px;
+	margin:8px;
 
 	text-decoration: none;
 	color:#443e40;
@@ -226,21 +218,19 @@
 	border:1px solid #ccc;
 	border-radius: 4px;
 	box-shadow: 0 1px 1px #ddd;
+
+	cursor: pointer;
 }
 
-.applied-filters a:hover{
-	background:#a72568;
-	border-color:#64163f;
-	color:#faf8f2;
-}
-
-.applied-filters a span{
+.applied-filters li span{
 	color:red;
-	font-size:16px;
+	font-size: 16px;
 	margin-left:8px;
 }
 
-.table th[class*=sortable]:after {
+.applied-filters { list-style: none; padding: 0; margin-top: 20px; }
+
+.gridTable th[class*=sortable]:after {
 	content:" \25B2\25BC";
 	font-size:8px;
 	color:#2d2d2d;
@@ -248,11 +238,11 @@
 	line-height:1em
 }
 
-.table th.sortable.asc:after {
+.gridTable th.sortable.asc:after {
 	content:" \25BC";
 }
 
-.table th.sortable.desc:after {
+.gridTable th.sortable.desc:after {
 	content: " \25B2";
 }
 
