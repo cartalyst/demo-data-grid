@@ -802,7 +802,7 @@
 
 			this.applyFilter({
 				column: column,
-				value: $input.val()
+				value: $('<p/>').text($input.val()).html()
 			});
 
 			// Safety
@@ -860,7 +860,7 @@
 				{
 					self.applyFilter({
 						column: column,
-						value: curr,
+						value: $('<p/>').text(curr).html(),
 						type: 'live'
 					});
 				}
@@ -993,7 +993,7 @@
 
 						self.applyFilter({
 							column: filter[0],
-							value: filter[1],
+							value: $('<p/>').text(filter[1]).html(),
 							mask: (key === 0 ? 'column' : 'value'),
 							maskOrg: label[0],
 							operator: operator
@@ -1003,7 +1003,7 @@
 					{
 						self.applyFilter({
 							column: filter[0],
-							value: filter[1],
+							value: $('<p/>').text(filter[1]).html(),
 							operator: operator
 						});
 					}
@@ -1012,7 +1012,7 @@
 				{
 					self.applyFilter({
 						column: filter[0],
-						value: filter[1],
+						value: $('<p/>').text(filter[1]).html(),
 						operator: operator
 					});
 				}
@@ -1108,7 +1108,7 @@
 							// if its not already set, lets set the filter
 							self.applyFilter({
 								column: filters[0],
-								value: filters[1],
+								value: $('<p/>').text(filters[1]).html(),
 								mask: (key === 0 ? 'column' : 'value'),
 								maskOrg: matchedLabel[0]
 							});
@@ -1120,7 +1120,7 @@
 							// if its not already set, lets set the filter
 							self.applyFilter({
 								column: filters[0],
-								value: filters[1],
+								value: $('<p/>').text(filters[1]).html(),
 								operator: operator,
 								mask: (key === 0 ? 'column' : 'value'),
 								maskOrg: matchedLabel[0]
@@ -1183,7 +1183,7 @@
 							// If its not already set, lets set the filter
 							self.applyFilter({
 								column: routeArr[i].split(this.opt.delimiter)[0],
-								value: routeArr[i].split(this.opt.delimiter)[1],
+								value: $('<p/>').text(routeArr[i].split(this.opt.delimiter)[1]).html(),
 								operator: filterEl.data('operator')
 							});
 						}
@@ -1192,7 +1192,7 @@
 							// If its not already set, lets set the filter
 							self.applyFilter({
 								column: routeArr[i].split(this.opt.delimiter)[0],
-								value: routeArr[i].split(this.opt.delimiter)[1],
+								value: $('<p/>').text(routeArr[i].split(this.opt.delimiter)[1]).html(),
 							});
 						}
 					}
@@ -1328,9 +1328,11 @@
 
 				if (index.type !== 'live')
 				{
+					var parsedValue = $('<p/>').html(index.value).text();
+
 					if (index.mask === 'column')
 					{
-						filterFragment += '/' + index.maskOrg + delimiter + index.value;
+						filterFragment += '/' + index.maskOrg + delimiter + parsedValue;
 					}
 					else if (index.mask === 'value')
 					{
@@ -1342,7 +1344,7 @@
 					}
 					else
 					{
-						filterFragment += '/' + index.column + delimiter + index.value;
+						filterFragment += '/' + index.column + delimiter + parsedValue;
 					}
 				}
 			}
@@ -1458,7 +1460,7 @@
 
 					if (this.appliedFilters[i].mask === 'column')
 					{
-						filter[this.appliedFilters[i].maskOrg] = this.appliedFilters[i].value;
+						filter[this.appliedFilters[i].maskOrg] = $('<p/>').html(this.appliedFilters[i].value).text();
 						params.filters.push(filter);
 					}
 					else
@@ -1488,14 +1490,14 @@
 				{
 					if (this.appliedFilters[i].column === 'all')
 					{
-						params.filters.push(this.appliedFilters[i].value);
+						params.filters.push($('<p/>').html(this.appliedFilters[i].value).text());
 					}
 					else
 					{
 
 						if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== null)
 						{
-							filter[this.appliedFilters[i].column] = '|' + this.appliedFilters[i].operator + this.appliedFilters[i].value + '|';
+							filter[this.appliedFilters[i].column] = '|' + this.appliedFilters[i].operator + $('<p/>').html(this.appliedFilters[i].value).text() + '|';
 						}
 						else if (this.appliedFilters[i].type === 'range')
 						{
@@ -1515,7 +1517,7 @@
 						}
 						else
 						{
-							filter[this.appliedFilters[i].column] = this.appliedFilters[i].value;
+							filter[this.appliedFilters[i].column] = $('<p/>').html(this.appliedFilters[i].value).text();
 						}
 
 						params.filters.push(filter);
