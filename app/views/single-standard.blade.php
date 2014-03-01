@@ -47,7 +47,7 @@ Data Grid
 {{-- Page content --}}
 @section('content')
 
-<h1>Single Standdard Pagination</h1>
+<h1>Single Standard Pagination</h1>
 
 <hr>
 

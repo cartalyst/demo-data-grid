@@ -13,21 +13,29 @@ Data Grid
 
 	$(function(){
 
-		//Setup DataGrid
-		$.datagrid('list', '.grid', '.pagination', '.applied', {
+		// Setup DataGrid
+		var grid = $.datagrid('infinite', '.infinite', '#pagination', '.applied-filters', {
+			dividend: 1,
+			throttle: 21,
+			threshold: 21,
 			loader: '.loading',
-			dividend: 40,
-			threshold: 12,
-			throttle: 500,
 			paginationType: 'infinite',
-			callback: function(obj){
+			sort: {
+				column: 'city',
+				direction: 'asc'
+			},
+			callback: function(obj) {
 
-				//Leverage the Callback to show total counts or filtered count
-				$('#filtered').val(obj.filteredCount);
-				$('#total').val(obj.totalCount);
+				// Leverage the Callback to show total counts or filtered count
+				$('#total').val(obj.pagi.totalCount);
+				$('#filtered').val(obj.pagi.filteredCount);
+				$('#dividend').val(obj.opt.dividend);
+				$('#threshold').val(obj.opt.threshold);
+				$('#throttle').val(obj.opt.throttle);
 
 			}
 		});
+
 
 		//Text Binding
 		$('.hidden-select').change(function(){
@@ -39,106 +47,109 @@ Data Grid
 </script>
 @stop
 
-@section('settings')
-<label for="total">
-	Total <br>
-	<input type="text" name="total" value="" disabled class="disabled" id="total">
-</label>
-
-<label for="filtered">
-	Filtered <br>
-	<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
-</label>
-
-<label for="threshold">
-	Threshold <br>
-	<input type="text" name="threshold" value="12" data-grid="list" data-opt="threshold">
-</label>
-
-<label for="dividend">
-	Dividend <br>
-	<input type="text" name="dividend" value="40" data-grid="list" data-opt="dividend">
-</label>
-
-<label for="throttle">
-	Throttle <br>
-	<input type="text" name="throttle" value="500" data-grid="list" data-opt="throttle">
-</label>
-@stop
-
-
+{{-- Page content --}}
 @section('content')
 
-<div class="cf">
+<h1>Infinite Pagination</h1>
 
-	<form data-search data-grid="list" class="search">
+<hr>
 
-		<div class="select">
+<div class="row placeholders">
 
-			<select name="column" class="hidden-select">
-				<option value="all">All</option>
-				<option value="subdivision">Subdivision</option>
-				<option value="city">City</option>
-			</select>
-			<ul class="options">
-				<li>All</li>
-			</ul>
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="total" value="" disabled class="disabled" id="total">
+		<h4>Total</h4>
+		<span class="text-muted">Results returned from query</span>
+	</div>
 
-		</div>
+	<div class="col-xs-6 col-sm-3 placeholder">
+		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
+		<h4>Filtered</h4>
+		<span class="text-muted">Results after filters applied.</span>
+	</div>
 
-		<input type="text" name="filter" placeholder="Filter All" class="search-input">
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="throttle" value="" data-grid="infinite" data-opt="throttle" id="throttle">
+		<h4>Throttle</h4>
+		<span class="text-muted">Maxmim results on a single page.</span>
+	</div>
 
-		<button class='search-btn'>Add</button>
-	</form>
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" data-grid="infinite" data-opt="threshold" id="threshold" class="disabled" disabled>
+		<h4>Threshold</h4>
+		<span class="text-muted">Minimum results before paginating.</span>
+	</div>
+
+	<div class="col-xs-6 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="infinite" data-opt="dividend" id="dividend" class="disabled" disabled>
+		<h4>Dividend</h4>
+		<span class="text-muted">Maximum "pages" to divide results by.</span>
+	</div>
 
 </div>
 
-<section class="content cf">
+<hr>
 
-	<div class="col-left">
+<div class="row">
 
-		<div class="applied cf" data-grid="list"></div>
+	<div class="col-md-12">
 
-		<div class="module">
-			<h3>Filter By</h3>
-			<ul>
-				<li data-filter="country:ca" data-label="ca:Canada" data-grid="list">Canada</li>
-				<li data-filter="country:us" data-label="us:USA" data-grid="list">United States</li>
-				<li data-filter="subdivision:alberta" data-label="alberta:Alberta" data-grid="list">Alberta</li>
-				<li data-filter="subdivision:california" data-label="california:California" data-grid="list">California</li>
-			</ul>
-		</div>
+		<form data-search data-grid="infinite" class="search">
 
-		<div class="module">
-			<h3>Sort By</h3>
-			<ul>
-				<li data-sort="city" data-grid="list">Sort By City</li>
-				<li data-sort="subdivision" data-grid="list">Sory By Subdivision</li>
-				<li data-sort="population:desc" data-grid="list">Sort By Population</li>
-			</ul>
-		</div>
+			<div class="select">
 
-	</div>
+				<select name="column" class="hidden-select">
+					<option value="all">All</option>
+					<option value="subdivision">Subdivision</option>
+					<option value="city">City</option>
+				</select>
 
-	<div class="col-right">
+				<ul class="options">
+					<li>All</li>
+				</ul>
 
-		<div class="loading">
-			<div>
-				<span><img src="{{ URL::asset('assets/img/loader.gif') }}" /> Loading</span>
 			</div>
-		</div>
 
-		<ul class="grid cf" data-source="{{ URL::to('source') }}" data-grid="list"></ul>
+			<input type="text" name="filter" placeholder="Search" class="search-input">
 
-		<div class="pagination" data-grid="list"></div>
+			<div class="loading">
+				<div>
+					<span><img src="{{ URL::asset('assets/img/loader.gif') }}" /> Loading</span>
+				</div>
+			</div>
+
+			<button class='search-btn'>Apply Filter</button>
+
+		</form>
+	</div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-md-12">
+
+		<div class="applied-filters" data-grid="infinite"></div>
 
 	</div>
 
-</section>
+</div>
 
-@include('templates/list/list-results-tmpl')
-@include('templates/list/list-pagination-tmpl')
-@include('templates/list/list-filters-tmpl')
-@include('templates/list/list-no-results-tmpl')
+<div class="row">
+
+	<div class="col-md-12">
+
+		<ul class="infinite grid cf" data-source="{{ URL::to('source') }}" data-grid="infinite"></ul>
+
+	</div>
+
+</div>
+
+<footer id="pagination" class="row" data-grid="infinite"></footer>
+
+@include('templates/infinite/results-tmpl')
+@include('templates/infinite/pagination-tmpl')
+@include('templates/infinite/filters-tmpl')
+@include('templates/infinite/no-results-tmpl')
 
 @stop
