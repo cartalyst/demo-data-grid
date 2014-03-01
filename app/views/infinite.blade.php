@@ -26,7 +26,6 @@ $(function(){
 			column: 'city',
 			direction: 'asc'
 		},
-		scroll: '.table',
 		callback: function(obj) {
 
 			// Leverage the Callback to show total counts or filtered count
