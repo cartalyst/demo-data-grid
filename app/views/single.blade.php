@@ -139,20 +139,21 @@ $(function() {
 <div class="row">
 
 	<div class="col-md-2">
-		<!-- Split button -->
+
 		<div class="btn-group">
-		<button type="button" class="btn btn-default">Filters</button>
+
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				<span class="caret"></span>
-				<span class="sr-only">Toggle Dropdown</span>
+				Filters <span class="caret"></span>
 			</button>
+
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="#" data-filter="population:10000" data-operator=">" data-grid="single">Population > 10000</a></li>
 				<li><a href="#" data-filter="population:5000" data-operator="<" data-grid="single">Population < 5000</a></li>
-				<li class="divider"></li>
-				<li><a href="#">Separated link</a></li>
+				<li><a href="#" data-filter="population:5000" data-operator="=" data-grid="single">Population = 5000</a></li>
 			</ul>
+
 		</div>
+
 	</div>
 
 	<div class="col-md-2">
