@@ -26,8 +26,8 @@
 
 					<ul class="navigator">
 						<li><a href="{{ URL::to('/') }}" class="btn{{ Request::is('/') ? ' active' : null }}">Single</a></li>
-						<li><a href="{{ URL::to('single-standard') }}" class="btn{{ Request::is('single-standard') ? ' active' : null }}">Single Standard</a></li>
-						<li><a href="{{ URL::to('multiple-advanced') }}" class="btn{{ Request::is('multiple-advanced') ? ' active' : null }}">Multiple Advanced</a></li>
+						<li><a href="{{ URL::to('standard') }}" class="btn{{ Request::is('standard') ? ' active' : null }}">Standard</a></li>
+						<li><a href="{{ URL::to('advanced') }}" class="btn{{ Request::is('advanced') ? ' active' : null }}">Advanced</a></li>
 						<li><a href="{{ URL::to('infinite') }}" class="btn{{ Request::is('infinite') ? ' active' : null }}">Infinite</a></li>
 					</ul>
 

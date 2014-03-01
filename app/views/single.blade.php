@@ -141,7 +141,7 @@ $(function() {
 	<div class="col-md-2">
 		<!-- Split button -->
 		<div class="btn-group">
-		<button type="button" class="btn btn-default">Examples</button>
+		<button type="button" class="btn btn-default">Filter Examples</button>
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 				<span class="caret"></span>
 				<span class="sr-only">Toggle Dropdown</span>

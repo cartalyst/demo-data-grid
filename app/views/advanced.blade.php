@@ -2,12 +2,12 @@
 
 {{-- Page title --}}
 @section('title')
-Single Standard
+Multiple Advanced
 @stop
 
 {{-- Inline styles --}}
 @section('styles')
-<link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
+<link rel="stylesheet" href="{{ URL::asset('assets/css/table.css') }}" >
 @stop
 
 {{-- Inline scripts --}}
@@ -16,13 +16,13 @@ Single Standard
 $(function() {
 
 	// Setup DataGrid
-	$.datagrid('main', '.table', '#pagination', '.applied-filters', {
+	$.datagrid('multiple', '.gridTable', '.pagination', '.applied-filters', {
 		dividend: 10,
 		threshold: 20,
 		throttle: 500,
 		loader: '.loading',
-		paginationType: 'single',
-		sort: {
+		paginationType: 'multiple',
+		defaultSort: {
 			column: 'city',
 			direction: 'asc'
 		},
@@ -40,10 +40,8 @@ $(function() {
 	});
 
 	// Text Binding
-	$('.hidden-select').change(function() {
-
+	$('.hidden-select').change(function(){
 		$('.options').find('li').text($('.hidden-select option:selected').text());
-
 	});
 
 
@@ -74,15 +72,15 @@ $(function() {
 		grid.refresh();
 
 	});
+
 });
 </script>
-
 @stop
 
 {{-- Page content --}}
 @section('content')
 
-<h1>Single Standard Pagination</h1>
+<h1>Advanced Pagination</h1>
 
 <hr>
 
@@ -101,19 +99,19 @@ $(function() {
 	</div>
 
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="throttle" value="" data-grid="main" data-opt="throttle" id="throttle">
+		<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maxmim results on a single page.</span>
 	</div>
 
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="threshold" value="" data-grid="main" data-opt="threshold" id="threshold" class="disabled" disabled>
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold" class="disabled" disabled>
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
 	</div>
 
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" data-grid="main" data-opt="dividend" id="dividend" class="disabled" disabled>
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend" class="disabled" disabled>
 		<h4>Dividend</h4>
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>
@@ -122,72 +120,60 @@ $(function() {
 
 <hr>
 
-<div class="row">
+<div class="cf">
 
-	<div class="col-md-12">
+	<form data-search data-grid="multiple" class="search">
 
-		<form data-search data-grid="main" class="search">
+		<div class="select">
 
-			<div class="select">
+			<select name="column" class="hidden-select">
+				<option value="all">All</option>
+				<option value="subdivision">Subdivision</option>
+				<option value="city">City</option>
+			</select>
+			<ul class="options">
+				<li>All</li>
+			</ul>
 
-				<select name="column" class="hidden-select">
-					<option value="all">All</option>
-					<option value="subdivision">Subdivision</option>
-					<option value="city">City</option>
-				</select>
+		</div>
 
-				<ul class="options">
-					<li>All</li>
-				</ul>
+		<input type="text" name="filter" placeholder="Filter All" class="search-input">
 
-			</div>
+		<div class="loading"> Loading &hellip;</div>
 
-			<input type="text" name="filter" placeholder="Search" class="search-input">
-
-			<div class="loading">Loading &hellip;</div>
-
-			<button class='search-btn'>Apply Filter</button>
-
-		</form>
-	</div>
+		<button class='search-btn'>Apply Filter</button>
+	</form>
 
 </div>
 
-<div class="row">
+<ul class="applied-filters" data-grid="multiple"></ul>
 
-	<div class="col-md-12">
+<section class="content cf">
 
-		<div class="applied-filters" data-grid="main"></div>
+	<div class="grid">
 
-	</div>
-
-</div>
-
-<div class="row">
-
-	<div class="col-md-12">
-
-		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="main">
+		<table class="gridTable" data-source="{{ URL::to('source') }}" data-grid="multiple">
 			<thead>
 				<tr>
-					<th data-sort="country" data-grid="main" class="sortable">Country</th>
-					<th data-sort="subdivision" data-grid="main" class="sortable">Subdivision</th>
-					<th data-sort="city" data-grid="main" class="sortable">City</th>
-					<th data-sort="population" data-grid="main" class="sortable">Population</th>
+					<th data-sort="country" data-grid="multiple" class="sortable">Country</th>
+					<th data-sort="subdivision" data-grid="multiple" class="sortable">Subdivision</th>
+					<th data-sort="city" data-grid="multiple" class="sortable">City</th>
+					<th data-sort="population" data-grid="multiple" class="sortable">Population</th>
 				</tr>
 			</thead>
-			<tbody></tbody>
+			<tbody>
+			</tbody>
 		</table>
 
 	</div>
 
-</div>
+	<div class="pagination" data-grid="multiple"></div>
 
-<footer id="pagination" class="row text-center" data-grid="main"></footer>
+</section>
 
-@include('templates/standard/main-results-tmpl')
-@include('templates/standard/main-pagination-tmpl')
-@include('templates/standard/main-filters-tmpl')
-@include('templates/standard/main-no-results-tmpl')
+@include('templates/multiple/results-tmpl')
+@include('templates/multiple/pagination-tmpl')
+@include('templates/multiple/filters-tmpl')
+@include('templates/multiple/no-results-tmpl')
 
 @stop

@@ -16,14 +16,14 @@ Route::get('/', function()
 	return View::make('single');
 });
 
-Route::get('single-standard', function()
+Route::get('standard', function()
 {
-	return View::make('single-standard');
+	return View::make('standard');
 });
 
-Route::get('multiple-advanced', function()
+Route::get('advanced', function()
 {
-	return View::make('multiple-advanced');
+	return View::make('advanced');
 });
 
 Route::get('infinite', function()
