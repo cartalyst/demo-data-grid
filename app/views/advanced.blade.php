@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Multiple Advanced
+Advanced Pagination
 @stop
 
 {{-- Inline styles --}}
@@ -16,7 +16,7 @@ Multiple Advanced
 $(function() {
 
 	// Setup DataGrid
-	$.datagrid('multiple', '.gridTable', '.pagination', '.applied-filters', {
+	var grid = $.datagrid('advanced', '.gridTable', '.pagination', '.applied-filters', {
 		dividend: 10,
 		threshold: 20,
 		throttle: 500,
@@ -40,8 +40,10 @@ $(function() {
 	});
 
 	// Text Binding
-	$('.hidden-select').change(function(){
+	$('.hidden-select').change(function() {
+
 		$('.options').find('li').text($('.hidden-select option:selected').text());
+
 	});
 
 
@@ -99,7 +101,7 @@ $(function() {
 	</div>
 
 	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="throttle" value="" disabled class="disabled" data-grid="single" data-opt="throttle" id="throttle">
+		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maxmim results on a single page.</span>
 	</div>
@@ -120,45 +122,59 @@ $(function() {
 
 <hr>
 
-<div class="cf">
+<div class="row">
 
-	<form data-search data-grid="multiple" class="search">
+	<div class="col-md-12">
 
-		<div class="select">
+		<form data-search data-grid="advanced" class="search">
 
-			<select name="column" class="hidden-select">
-				<option value="all">All</option>
-				<option value="subdivision">Subdivision</option>
-				<option value="city">City</option>
-			</select>
-			<ul class="options">
-				<li>All</li>
-			</ul>
+			<div class="select">
 
-		</div>
+				<select name="column" class="hidden-select">
+					<option value="all">All</option>
+					<option value="subdivision">Subdivision</option>
+					<option value="city">City</option>
+				</select>
 
-		<input type="text" name="filter" placeholder="Filter All" class="search-input">
+				<ul class="options">
+					<li>All</li>
+				</ul>
 
-		<div class="loading"> Loading &hellip;</div>
+			</div>
 
-		<button class='search-btn'>Apply Filter</button>
-	</form>
+			<input type="text" name="filter" placeholder="Filter All" class="search-input">
+
+			<div class="loading">Loading &hellip;</div>
+
+			<button class="search-btn"><i class="fa fa-search"></i></button>
+
+		</form>
+
+	</div>
 
 </div>
 
-<ul class="applied-filters" data-grid="multiple"></ul>
+<div class="row">
+
+	<div class="col-md-12">
+
+		<div class="applied-filters" data-grid="advanced"></div>
+
+	</div>
+
+</div>
 
 <section class="content cf">
 
 	<div class="grid">
 
-		<table class="gridTable" data-source="{{ URL::to('source') }}" data-grid="multiple">
+		<table class="gridTable" data-source="{{ URL::to('source') }}" data-grid="advanced">
 			<thead>
 				<tr>
-					<th data-sort="country" data-grid="multiple" class="sortable">Country</th>
-					<th data-sort="subdivision" data-grid="multiple" class="sortable">Subdivision</th>
-					<th data-sort="city" data-grid="multiple" class="sortable">City</th>
-					<th data-sort="population" data-grid="multiple" class="sortable">Population</th>
+					<th data-sort="country" data-grid="advanced" class="sortable">Country</th>
+					<th data-sort="subdivision" data-grid="advanced" class="sortable">Subdivision</th>
+					<th data-sort="city" data-grid="advanced" class="sortable">City</th>
+					<th data-sort="population" data-grid="advanced" class="sortable">Population</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -167,13 +183,13 @@ $(function() {
 
 	</div>
 
-	<div class="pagination" data-grid="multiple"></div>
+	<div class="pagination" data-grid="advanced"></div>
 
 </section>
 
-@include('templates/multiple/results-tmpl')
-@include('templates/multiple/pagination-tmpl')
-@include('templates/multiple/filters-tmpl')
-@include('templates/multiple/no-results-tmpl')
+@include('templates/advanced/results-tmpl')
+@include('templates/advanced/pagination-tmpl')
+@include('templates/advanced/filters-tmpl')
+@include('templates/advanced/no-results-tmpl')
 
 @stop

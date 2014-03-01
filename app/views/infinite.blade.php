@@ -39,8 +39,10 @@ $(function(){
 	});
 
 	// Text Binding
-	$('.hidden-select').change(function(){
+	$('.hidden-select').change(function() {
+
 		$('.options').find('li').text($('.hidden-select option:selected').text());
+
 	});
 
 
@@ -139,7 +141,7 @@ $(function(){
 
 			</div>
 
-			<input type="text" name="filter" placeholder="Search" class="search-input">
+			<input type="text" name="filter" placeholder="Filter All" class="search-input">
 
 			<div class="loading">
 				<div>
@@ -147,9 +149,10 @@ $(function(){
 				</div>
 			</div>
 
-			<button class='search-btn'>Apply Filter</button>
+			<button class="search-btn"><i class="fa fa-search"></i></button>
 
 		</form>
+
 	</div>
 
 </div>

@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Single Standard
+Standard Pagination
 @stop
 
 {{-- Inline styles --}}
@@ -16,7 +16,7 @@ Single Standard
 $(function() {
 
 	// Setup DataGrid
-	$.datagrid('main', '.table', '#pagination', '.applied-filters', {
+	var grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
 		dividend: 10,
 		threshold: 20,
 		throttle: 500,
@@ -146,9 +146,10 @@ $(function() {
 
 			<div class="loading">Loading &hellip;</div>
 
-			<button class='search-btn'>Apply Filter</button>
+			<button class="search-btn"><i class="fa fa-search"></i></button>
 
 		</form>
+
 	</div>
 
 </div>

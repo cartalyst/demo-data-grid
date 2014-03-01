@@ -141,7 +141,7 @@ $(function() {
 	<div class="col-md-2">
 		<!-- Split button -->
 		<div class="btn-group">
-		<button type="button" class="btn btn-default">Filter Examples</button>
+		<button type="button" class="btn btn-default">Filters</button>
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 				<span class="caret"></span>
 				<span class="sr-only">Toggle Dropdown</span>
@@ -209,9 +209,10 @@ $(function() {
 
 			<div class="loading">Loading &hellip;</div>
 
-			<button class='search-btn'>Apply Filter</button>
+			<button class="search-btn"><i class="fa fa-search"></i></button>
 
 		</form>
+
 	</div>
 
 </div>
