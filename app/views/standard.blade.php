@@ -186,9 +186,9 @@ $(function() {
 
 <footer id="pagination" class="row text-center" data-grid="main"></footer>
 
-@include('templates/standard/main-results-tmpl')
-@include('templates/standard/main-pagination-tmpl')
-@include('templates/standard/main-filters-tmpl')
-@include('templates/standard/main-no-results-tmpl')
+@include('templates/standard/results-tmpl')
+@include('templates/standard/pagination-tmpl')
+@include('templates/standard/filters-tmpl')
+@include('templates/standard/no-results-tmpl')
 
 @stop

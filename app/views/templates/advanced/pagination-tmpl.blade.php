@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="advanced" id="pagination-tmpl">
+<script type="text/template" data-grid="advanced" data-template="pagination">
 
 	<% _.each(pagination, function(p) { %>
 			<% if(p.throttle){ %>

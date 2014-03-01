@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="advanced" id="gridTable-tmpl">
+<script type="text/template" data-grid="advanced" data-template="results">
 
 	<% _.each(results, function(r) { %>
 

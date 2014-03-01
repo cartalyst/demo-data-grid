@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="infinite" id="no-results-tmpl">
+<script type="text/template" data-grid="infinite" data-template="no-results">
 	<li>
 		No Results
 	</li>

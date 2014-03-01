@@ -37,9 +37,9 @@
 			desc: 'desc'
 		},
 		delimiter: ':',
-		dateFormatAttribute : 'format',
+		dateFormatAttribute: 'format',
 		sort: {},
-		templateSettings : {
+		templateSettings: {
 			evaluate    : /<%([\s\S]+?)%>/g,
 			interpolate : /<%=([\s\S]+?)%>/g,
 			escape      : /<%-([\s\S]+?)%>/g
@@ -61,8 +61,10 @@
 	function DataGrid(grid, results, pagination, filters, options) {
 
 		var self = this;
-			self.key = grid;
-			self.grid = '[data-grid="' + grid + '"]';
+
+		self.key = grid;
+
+		self.grid = '[data-grid="' + grid + '"]';
 
 		self.appliedFilters = [];
 
@@ -104,7 +106,7 @@
 		self.pagi.baseThrottle = self.opt.throttle;
 
 		// Check our dependencies
-		self.checkDependencies(results, pagination, filters);
+		self.checkDependencies();
 
 		// Initialize Data Grid
 		self.init();
@@ -114,7 +116,7 @@
 	DataGrid.prototype = {
 
 		/**
-		 * Initializes the Data Grid.
+		 * Initializes Data Grid.
 		 *
 		 * @return void
 		 */
@@ -130,12 +132,9 @@
 		/**
 		 * Checks the Data Grid dependencies.
 		 *
-		 * @param  string  results
-		 * @param  string  pagination
-		 * @param  string  filters
 		 * @return void
 		 */
-		checkDependencies: function (results, pagination, filters) {
+		checkDependencies: function () {
 
 			if (typeof window._ === 'undefined')
 			{
@@ -147,17 +146,12 @@
 			// Set _ templates interpolate
 			_.templateSettings = this.opt.templateSettings;
 
-			// Build Template Selectors based on classes set
-			results    = $('#' + results.substr(1) + '-tmpl' + grid);
-			pagination = $('#' + pagination.substr(1) + '-tmpl' + grid);
-			filters    = $('#' + filters.substr(1) + '-tmpl' + grid);
-
 			// Cache the Underscore Templates
 			this.tmpl = {
-				results:    _.template(results.html()),
-				pagination: _.template(pagination.html()),
-				filters:    _.template(filters.html()),
-				empty:      _.template($('#no-results-tmpl'+ grid).html())
+				results:    _.template($('[data-template="results"]' + grid).html()),
+				pagination: _.template($('[data-template="pagination"]' + grid).html()),
+				filters:    _.template($('[data-template="filters"]' + grid).html()),
+				empty:      _.template($('[data-template="no-results"]' + grid).html())
 			};
 
 		},
@@ -232,7 +226,7 @@
 					self.$results.empty();
 				}
 
-				self._extractSortsFromClick($(this) , $(this).data('sort'));
+				self._extractSortsFromClick($(this), $(this).data('sort'));
 
 			});
 
@@ -321,11 +315,11 @@
 
 				if (e.type === 'submit')
 				{
-					self._handleSearchOnSubmit($(this));
+					self.handleSearchOnSubmit($(this));
 				}
 				else if (e.type === 'keyup' && e.keyCode !== 13)
 				{
-					self._handleLiveSearch($(this));
+					self.handleLiveSearch($(this));
 				}
 
 			});
@@ -530,7 +524,6 @@
 				else
 				{
 					var defaultURI = window.location.protocol + '//' + window.location.host + window.location.pathname;
-
 
 					if( window.location.href.indexOf('?') > -1 )
 					{
@@ -766,7 +759,7 @@
 
 
 
-		_handleSearchOnSubmit: function(el) {
+		handleSearchOnSubmit: function(el) {
 
 			var $input = el.find('input');
 			var column = 'all';
@@ -818,7 +811,7 @@
 
 		},
 
-		_handleLiveSearch: function(el) {
+		handleLiveSearch: function(el) {
 
 			var rect = [];
 			var column = 'all';

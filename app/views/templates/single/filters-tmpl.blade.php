@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="single" id="applied-filters-tmpl">
+<script type="text/template" data-grid="single" data-template="filters">
 
 	<% _.each(filters, function(f) { %>
 

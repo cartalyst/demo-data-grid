@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="infinite" id="infinite-tmpl">
+<script type="text/template" data-grid="infinite" data-template="results">
 	<div class="row">
 		<% _.each(results, function(r) { %>
 
