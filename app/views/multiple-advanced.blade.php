@@ -1,49 +1,83 @@
 @extends('template')
 
+{{-- Page title --}}
 @section('title')
-Data Grid
+Multiple Advanced
 @stop
 
+{{-- Inline styles --}}
 @section('styles')
 <link rel="stylesheet" href="{{ URL::asset('assets/css/table.css') }}" >
 @stop
 
+{{-- Inline scripts --}}
 @section('scripts')
 <script>
-	$(function(){
+$(function() {
 
-		//Setup DataGrid
-		$.datagrid('multiple', '.gridTable', '.pagination', '.applied-filters', {
-			dividend: 10,
-			threshold: 20,
-			throttle: 500,
-			loader: '.loading',
-			paginationType: 'multiple',
-			defaultSort: {
-				column: 'city',
-				direction: 'asc'
-			},
-			callback: function(obj){
+	// Setup DataGrid
+	$.datagrid('multiple', '.gridTable', '.pagination', '.applied-filters', {
+		dividend: 10,
+		threshold: 20,
+		throttle: 500,
+		loader: '.loading',
+		paginationType: 'multiple',
+		defaultSort: {
+			column: 'city',
+			direction: 'asc'
+		},
+		scroll: '.table',
+		callback: function(obj){
 
-				// Leverage the Callback to show total counts or filtered count
-				$('#total').val(obj.pagi.totalCount);
-				$('#filtered').val(obj.pagi.filteredCount);
-				$('#dividend').val(obj.opt.dividend);
-				$('#threshold').val(obj.opt.threshold);
-				$('#throttle').val(obj.opt.throttle);
+			// Leverage the Callback to show total counts or filtered count
+			$('#total').val(obj.pagi.totalCount);
+			$('#filtered').val(obj.pagi.filteredCount);
+			$('#dividend').val(obj.opt.dividend);
+			$('#threshold').val(obj.opt.threshold);
+			$('#throttle').val(obj.opt.throttle);
 
-			}
-		});
-
-		//Text Binding
-		$('.hidden-select').change(function(){
-			$('.options').find('li').text($('.hidden-select option:selected').text());
-		});
+		}
 	});
-</script>
 
+	// Text Binding
+	$('.hidden-select').change(function(){
+		$('.options').find('li').text($('.hidden-select option:selected').text());
+	});
+
+
+	/**
+	 * DEMO ONLY EVENTS
+	 */
+	$('[data-opt]').on('change', function() {
+
+		var opt = $(this).data('opt'),
+			val = $(this).val();
+
+		switch(opt)
+		{
+			case 'dividend':
+				grid.setDividend(val);
+			break;
+
+			case 'throttle':
+				grid.setThrottle(val);
+			break;
+
+			case 'threshold':
+				grid.setThreshold(val);
+			break;
+		}
+
+		grid.reset();
+		grid.refresh();
+
+	});
+
+});
+</script>
 @stop
 
+{{-- Page content --}}
 @section('content')
 
 <h1>Multiple Advanced Pagination</h1>

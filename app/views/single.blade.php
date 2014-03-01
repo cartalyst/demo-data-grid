@@ -18,7 +18,7 @@ Single Pagination
 <script src="{{ URL::asset('assets/js/bootstrap-datetimepicker.js') }}"></script>
 
 <script>
-	$(function(){
+$(function() {
 
 	// Setup DataGrid
 	var grid = $.datagrid('single', '.table', '#pagination', '.applied-filters', {
@@ -63,31 +63,32 @@ Single Pagination
 	/**
 	 * DEMO ONLY EVENTS
 	 */
-	 $('[data-opt]').on('change', function() {
+	$('[data-opt]').on('change', function() {
 
-	 	var opt = $(this).data('opt'),
-	 	val = $(this).val();
+		var opt = $(this).data('opt'),
+			val = $(this).val();
 
-	 	switch(opt)
-	 	{
-	 		case 'dividend':
-	 		grid.setDividend(val);
-	 		break;
+		switch(opt)
+		{
+			case 'dividend':
+				grid.setDividend(val);
+			break;
 
-	 		case 'throttle':
-	 		grid.setThrottle(val);
-	 		break;
+			case 'throttle':
+				grid.setThrottle(val);
+			break;
 
-	 		case 'threshold':
-	 		grid.setThreshold(val);
-	 		break;
-	 	}
+			case 'threshold':
+				grid.setThreshold(val);
+			break;
+		}
 
-	 	grid.refresh();
-
-	 });
+		grid.reset();
+		grid.refresh();
 
 	});
+
+});
 </script>
 
 @stop

@@ -1,49 +1,79 @@
 @extends('template')
 
+{{-- Page title --}}
 @section('title')
-Data Grid
+Infinite
 @stop
 
+{{-- Inline styles --}}
 @section('styles')
 <link rel="stylesheet" href="{{ URL::asset('assets/css/list.css') }}" >
 @stop
 
+{{-- Inline scripts --}}
 @section('scripts')
 <script>
+$(function(){
 
-	$(function(){
+	// Setup DataGrid
+	var grid = $.datagrid('infinite', '.infinite', '#pagination', '.applied-filters', {
+		dividend: 1,
+		throttle: 21,
+		threshold: 21,
+		loader: '.loading',
+		paginationType: 'infinite',
+		sort: {
+			column: 'city',
+			direction: 'asc'
+		},
+		scroll: '.table',
+		callback: function(obj) {
 
-		// Setup DataGrid
-		var grid = $.datagrid('infinite', '.infinite', '#pagination', '.applied-filters', {
-			dividend: 1,
-			throttle: 21,
-			threshold: 21,
-			loader: '.loading',
-			paginationType: 'infinite',
-			sort: {
-				column: 'city',
-				direction: 'asc'
-			},
-			callback: function(obj) {
+			// Leverage the Callback to show total counts or filtered count
+			$('#total').val(obj.pagi.totalCount);
+			$('#filtered').val(obj.pagi.filteredCount);
+			$('#dividend').val(obj.opt.dividend);
+			$('#threshold').val(obj.opt.threshold);
+			$('#throttle').val(obj.opt.throttle);
 
-				// Leverage the Callback to show total counts or filtered count
-				$('#total').val(obj.pagi.totalCount);
-				$('#filtered').val(obj.pagi.filteredCount);
-				$('#dividend').val(obj.opt.dividend);
-				$('#threshold').val(obj.opt.threshold);
-				$('#throttle').val(obj.opt.throttle);
+		}
+	});
 
-			}
-		});
+	// Text Binding
+	$('.hidden-select').change(function(){
+		$('.options').find('li').text($('.hidden-select option:selected').text());
+	});
 
 
-		//Text Binding
-		$('.hidden-select').change(function(){
-			$('.options').find('li').text($('.hidden-select option:selected').text());
-		});
+	/**
+	 * DEMO ONLY EVENTS
+	 */
+	$('[data-opt]').on('change', function() {
+
+		var opt = $(this).data('opt'),
+			val = $(this).val();
+
+		switch(opt)
+		{
+			case 'dividend':
+				grid.setDividend(val);
+			break;
+
+			case 'throttle':
+				grid.setThrottle(val);
+			break;
+
+			case 'threshold':
+				grid.setThreshold(val);
+			break;
+		}
+
+		grid.reset();
+		grid.refresh();
 
 	});
 
+});
 </script>
 @stop
 

@@ -1,45 +1,80 @@
 @extends('template')
 
+{{-- Page title --}}
 @section('title')
-Data Grid
+Single Standard
 @stop
 
+{{-- Inline styles --}}
 @section('styles')
 <link rel="stylesheet" href="{{ URL::asset('assets/css/single.css') }}" >
 @stop
 
+{{-- Inline scripts --}}
 @section('scripts')
 <script>
-	$(function(){
+$(function() {
 
-		//Setup DataGrid
-		$.datagrid('main', '.table', '#pagination', '.applied-filters', {
-			dividend: 10,
-			threshold: 20,
-			throttle: 500,
-			loader: '.loading',
-			paginationType: 'single',
-			sort: {
-				column: 'city',
-				direction: 'asc'
-			},
-			callback: function(obj){
+	// Setup DataGrid
+	$.datagrid('main', '.table', '#pagination', '.applied-filters', {
+		dividend: 10,
+		threshold: 20,
+		throttle: 500,
+		loader: '.loading',
+		paginationType: 'single',
+		sort: {
+			column: 'city',
+			direction: 'asc'
+		},
+		scroll: '.table',
+		callback: function(obj){
 
-				//Leverage the Callback to show total counts or filtered count
-				$('#total').val(obj.pagi.totalCount);
-				$('#filtered').val(obj.pagi.filteredCount);
-				$('#dividend').val(obj.opt.dividend);
-				$('#threshold').val(obj.opt.threshold);
-				$('#throttle').val(obj.opt.throttle);
+			// Leverage the Callback to show total counts or filtered count
+			$('#total').val(obj.pagi.totalCount);
+			$('#filtered').val(obj.pagi.filteredCount);
+			$('#dividend').val(obj.opt.dividend);
+			$('#threshold').val(obj.opt.threshold);
+			$('#throttle').val(obj.opt.throttle);
 
-			}
-		});
-
-		//Text Binding
-		$('.hidden-select').change(function(){
-			$('.options').find('li').text($('.hidden-select option:selected').text());
-		});
+		}
 	});
+
+	// Text Binding
+	$('.hidden-select').change(function() {
+
+		$('.options').find('li').text($('.hidden-select option:selected').text());
+
+	});
+
+
+	/**
+	 * DEMO ONLY EVENTS
+	 */
+	$('[data-opt]').on('change', function() {
+
+		var opt = $(this).data('opt'),
+			val = $(this).val();
+
+		switch(opt)
+		{
+			case 'dividend':
+				grid.setDividend(val);
+			break;
+
+			case 'throttle':
+				grid.setThrottle(val);
+			break;
+
+			case 'threshold':
+				grid.setThreshold(val);
+			break;
+		}
+
+		grid.reset();
+		grid.refresh();
+
+	});
+});
 </script>
 
 @stop
