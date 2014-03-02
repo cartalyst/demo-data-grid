@@ -226,7 +226,7 @@
 					self.$results.empty();
 				}
 
-				self._extractSortsFromClick($(this), $(this).data('sort'));
+				self.extractSortsFromClick($(this), $(this).data('sort'));
 
 			});
 
@@ -241,14 +241,14 @@
 					self.appliedFilters = [];
 				}
 
-				if(options.paginationType === 'infinite')
+				if (options.paginationType === 'infinite')
 				{
 					self.$results.empty();
 
 					self.pagi.pageIdx = 1;
 				}
 
-				self._extractFiltersFromClick($(this).data('filter'), $(this).data('label'), $(this).data('operator'));
+				self.extractFiltersFromClick($(this).data('filter'), $(this).data('label'), $(this).data('operator'));
 
 			});
 
@@ -268,7 +268,7 @@
 
 				self.removeFilters($(this).index());
 
-				if(options.paginationType === 'infinite')
+				if (options.paginationType === 'infinite')
 				{
 					self.$results.empty();
 				}
@@ -525,14 +525,17 @@
 				{
 					var defaultURI = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
-					if( window.location.href.indexOf('?') > -1 )
+					if (window.location.href.indexOf('?') > -1)
 					{
 						var indexOfQuery = window.location.href.indexOf('?');
 						var indexOfHash = window.location.href.indexOf('#');
 
-						if( indexOfHash > -1 ) {
+						if (indexOfHash > -1)
+						{
 							defaultURI += window.location.href.slice( indexOfQuery, indexOfHash);
-						}else{
+						}
+						else
+						{
 							defaultURI += window.location.href.substr(indexOfQuery);
 						}
 					}
@@ -608,33 +611,28 @@
 						{
 							var defaultURI = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
-
-							if( window.location.href.indexOf('?') > -1 )
+							if (window.location.href.indexOf('?') > -1)
 							{
 								var indexOfQuery = window.location.href.indexOf('?');
 								var indexOfHash = window.location.href.indexOf('#');
 
-								if( indexOfHash > -1 ) {
-									defaultURI += window.location.href.slice( indexOfQuery, indexOfHash);
-								}else{
+								if (indexOfHash > -1)
+								{
+									defaultURI += window.location.href.slice(indexOfQuery, indexOfHash);
+								}
+								else
+								{
 									defaultURI += window.location.href.substr(indexOfQuery);
 								}
 							}
 
 							self._handlePush(defaultURI, base);
 						}
-
 					}
 				});
 			}
 
 		},
-
-
-
-
-
-
 
 		applyFilter: function(filters) {
 
@@ -757,8 +755,12 @@
 
 		},
 
-
-
+		/**
+		 * Handles the search on submit.
+		 *
+		 * @param  object  el
+		 * @return void
+		 */
 		handleSearchOnSubmit: function(el) {
 
 			var $input = el.find('input');
@@ -799,18 +801,26 @@
 			});
 
 			// Safety
-			if(this.opt.paginationType === 'infinite')
+			if (this.opt.paginationType === 'infinite')
 			{
 				this.$results.empty();
 			}
 
 			// Reset
 			$input.val('').data('old', '');
+
 			this.goToPage(1);
+
 			$(this).trigger('dg:update');
 
 		},
 
+		/**
+		 * Handles the live search.
+		 *
+		 * @param  object  el
+		 * @return void
+		 */
 		handleLiveSearch: function(el) {
 
 			var rect = [];
@@ -824,8 +834,7 @@
 
 			clearTimeout(searchTimeout);
 
-			searchTimeout = setTimeout(function()
-			{
+			searchTimeout = setTimeout(function() {
 
 				var searchSelect = el.find('select:not([data-select-filter])');
 
@@ -842,7 +851,7 @@
 				for (var i = 0; i < self.appliedFilters.length; i++)
 				{
 
-					if(self.appliedFilters[i].value === old)
+					if (self.appliedFilters[i].value === old)
 					{
 						self.appliedFilters.splice(i, 1);
 					}
@@ -859,7 +868,7 @@
 				}
 
 				// Safety
-				if(self.opt.paginationType === 'infinite')
+				if (self.opt.paginationType === 'infinite')
 				{
 					self.$results.empty();
 				}
@@ -920,40 +929,37 @@
 		},
 
 
-		_extractRangeFilters: function(filter)
-		{
+		_extractRangeFilters: function(filter) {
+
 			var curFilter = filter.find('[data-range-filter]').data('range-filter') || filter.data('range-filter');
 
-			var startDateFilter = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('range-filter');
-			var startVal = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').val();
-			var endVal = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]').val();
-			var startLabel = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data('label');
+			var dateRangeStart = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]');
+			var dateRangeEnd   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]');
 
-			var dateFormat = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]').data(this.opt.dateFormatAttribute);
+			var dateFormat = dateRangeStart.data(this.opt.dateFormatAttribute);
 
-			var dbFormat = 'YYYY-MM-DD';
-
-			var column = startDateFilter;
-			var from   = startVal;
-			var to     = endVal;
+			var from = dateRangeStart.val();
+			var to   = dateRangeEnd.val();
 
 			if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
 			{
-				from   = moment(from).format(dbFormat);
-				to     = moment(to).format(dbFormat);
+				var dbFormat = 'YYYY-MM-DD';
+
+				from = moment(from).format(dbFormat);
+				to   = moment(to).format(dbFormat);
 			}
 
 			this.applyFilter({
-				column: startDateFilter,
+				column: dateRangeStart.data('range-filter'),
 				from: from,
 				to: to,
-				label: startLabel,
+				label: dateRangeStart.data('label'),
 				type: 'range'
 			});
 
 		},
 
-		_extractFiltersFromClick: function(filters, labels, operator) {
+		extractFiltersFromClick: function(filters, labels, operator) {
 
 			var self = this;
 			var rect = [];
@@ -1017,9 +1023,10 @@
 
 		},
 
-		_extractSortsFromClick: function(el, sort) {
+		extractSortsFromClick: function(el, sort) {
 
 			var sortArr = sort.split(':');
+
 			var direction = 'asc';
 
 			if (this.currentSort.column === sortArr[0])
@@ -1034,9 +1041,7 @@
 
 			if (typeof sortArr[1] !== 'undefined')
 			{
-
 				direction = sortArr[1];
-
 			}
 
 			if (sortArr[0] === this.currentSort.column)
@@ -1062,6 +1067,7 @@
 			}
 
 			this.setSortDirection(el);
+
 			$(this).trigger('dg:update');
 
 		},
@@ -1078,13 +1084,11 @@
 
 			for (var i = 0; i < routeArr.length; i++)
 			{
-
 				var filters = routeArr[i].split(this.opt.delimiter);
 
 				for (var x = 0; x < labels.length; x++)
 				{
-
-					if( $(labels[x]).data('label').indexOf( filters[0] ) !== -1 ||
+					if ( $(labels[x]).data('label').indexOf( filters[0] ) !== -1 ||
 						$(labels[x]).data('label').indexOf( filters[1] ) !== -1 )
 					{
 						var matchedLabel = $(labels[x]).data('label').split(':');
@@ -1093,7 +1097,6 @@
 						// Map Filter that is equal to the returned key
 						// to the label value for renaming
 						filters[key] = matchedLabel[1];
-
 
 						// Check to make sure filter isn't already set.
 						if (self._searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
@@ -1118,9 +1121,7 @@
 								mask: (key === 0 ? 'column' : 'value'),
 								maskOrg: matchedLabel[0]
 							});
-
 						}
-
 					}
 				}
 
@@ -1208,6 +1209,7 @@
 			}
 
 			return route;
+
 		},
 
 		_searchForValue: function(key, arr) {
@@ -1389,15 +1391,18 @@
 				if (self.pagi.pageIdx > response.pages_count)
 				{
 					self.pagi.pageIdx = response.pages_count;
+
 					$(self).trigger('dg:update');
+
 					return false;
 				}
 
 				self.pagi.filteredCount = response.filtered_count;
+
 				self.pagi.totalCount = response.total_count;
 
 				// Keep infinite results to append load more
-				if(self.opt.paginationType !== 'infinite')
+				if (self.opt.paginationType !== 'infinite')
 				{
 					self.$results.empty();
 				}
@@ -1438,11 +1443,11 @@
 			var self = this;
 
 			var params = {};
-				params.filters      = [];
-				params.page         = this.pagi.pageIdx;
-				params.dividend     = this.opt.dividend;
-				params.threshold    = this.opt.threshold;
-				params.throttle     = this.opt.throttle;
+				params.filters   = [];
+				params.page      = this.pagi.pageIdx;
+				params.dividend  = this.opt.dividend;
+				params.threshold = this.opt.threshold;
+				params.throttle  = this.opt.throttle;
 
 			for (var i = 0; i < this.appliedFilters.length; i++)
 			{
@@ -1450,15 +1455,14 @@
 
 				if ('mask' in this.appliedFilters[i])
 				{
-
 					if (this.appliedFilters[i].mask === 'column')
 					{
 						filter[this.appliedFilters[i].maskOrg] = $('<p/>').html(this.appliedFilters[i].value).text();
+
 						params.filters.push(filter);
 					}
 					else
 					{
-
 						if (this.appliedFilters[i].column === 'all')
 						{
 							params.filters.push(this.appliedFilters[i].maskOrg);
@@ -1476,7 +1480,6 @@
 								params.filters.push(filter);
 							}
 						}
-
 					}
 				}
 				else
@@ -1487,7 +1490,6 @@
 					}
 					else
 					{
-
 						if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== null)
 						{
 							filter[this.appliedFilters[i].column] = '|' + this.appliedFilters[i].operator + $('<p/>').html(this.appliedFilters[i].value).text() + '|';
@@ -1519,6 +1521,7 @@
 			}
 
 			params.sort = this.currentSort.column;
+
 			params.direction = this.currentSort.direction;
 
 			return $.param(params);
@@ -1599,7 +1602,6 @@
 
 				for (var i = 1; i <= this.opt.dividend; i++)
 				{
-
 					params = {
 						pageStart: perPage === 0 ? 0 : ( i === 1 ? 1 : (perPage * (i - 1) + 1)),
 						pageLimit: i === 1 ? perPage : (this.pagi.totalCount < this.opt.throttle && i === this.opt.dividend) ? this.pagi.totalCount : perPage * i,
@@ -1723,9 +1725,12 @@
 				var label = $(this).find(':selected').data('label');
 				var operator = $(this).find(':selected').data('operator');
 
-				if (filter !== undefined) {
-					self._extractFiltersFromClick(filter, label, operator);
-				} else {
+				if (filter !== undefined)
+				{
+					self.extractFiltersFromClick(filter, label, operator);
+				}
+				else
+				{
 					self.reset();
 
 					$(self).trigger('dg:update');
