@@ -21,7 +21,7 @@ Multiple Grids
 $(function() {
 
 	// Setup DataGrid
-	var grid1 = $.datagrid('multi1', '.table', '#pagination', '.applied-filters', {
+	var grid1 = $.datagrid('multi1', '.table', '#pagination1', '.applied-filters', {
 		dividend: 1,
 		throttle: 20,
 		threshold: 20,
@@ -52,7 +52,7 @@ $(function() {
 	});
 
 	// Setup DataGrid
-	var grid2 = $.datagrid('multi2', '.table', '#pagination', '.applied-filters', {
+	var grid2 = $.datagrid('multi2', '.table', '#pagination2', '.applied-filters', {
 		dividend: 1,
 		throttle: 20,
 		threshold: 20,
@@ -304,7 +304,7 @@ $(function() {
 
 </div>
 
-<footer class="pagination" class="row" data-grid="multi1"></footer>
+<footer class="row" data-grid="multi1" id="pagination1"></footer>
 
 
 
@@ -465,7 +465,7 @@ $(function() {
 
 </div>
 
-<footer class="pagination" class="row" data-grid="multi2"></footer>
+<footer class="row" data-grid="multi2" id="pagination2"></footer>
 
 
 @include('templates/multiple/1/results-tmpl')
