@@ -32,6 +32,11 @@ body,html, .container-fluid {
 	font-weight: 700;
 }
 
+.entice {
+	font-size:18px;
+	text-align: center;
+	font-style: italic;
+}
 
 
 aside {

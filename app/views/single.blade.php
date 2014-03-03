@@ -35,6 +35,12 @@ $(function() {
 		callback: function(obj) {
 
 			// Leverage the Callback to show total counts or filtered count
+
+
+			$('#equation-filtered').html(obj.pagi.filteredCount);
+			$('#equation-dividend').html(obj.opt.dividend);
+			$('#equation-throttle').html(obj.opt.throttle);
+
 			$('#total').val(obj.pagi.totalCount);
 			$('#filtered').val(obj.pagi.filteredCount);
 			$('#dividend').val(obj.opt.dividend);
@@ -98,35 +104,40 @@ $(function() {
 
 <h1>Single Pagination</h1>
 
+<p>Use dividend, throttle, and threshold to create any pagination type that you could possibly imagine.</p>
+
 <hr>
 
 <div class="row placeholders">
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<p class="entice">Go on, play with the throttle.</p>
+	</div>
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="total" value="" disabled class="disabled" id="total">
 		<h4>Total</h4>
 		<span class="text-muted">Results returned from query</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
 		<h4>Filtered</h4>
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maxmim results on a single page.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold" class="disabled" disabled>
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend" class="disabled" disabled>
 		<h4>Dividend</h4>
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
