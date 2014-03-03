@@ -103,7 +103,7 @@ $(function() {
 	<div class="col-xs-6 col-sm-2 placeholder">
 		<input type="text" name="throttle" value="" data-grid="main" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
-		<span class="text-muted">Maxmim results on a single page.</span>
+		<span class="text-muted">Maximum results on a single page.</span>
 	</div>
 
 	<div class="col-xs-6 col-sm-2 placeholder">
