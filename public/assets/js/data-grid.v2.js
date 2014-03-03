@@ -61,7 +61,6 @@
 
 	function DataGrid(grid, results, pagination, filters, options)
 	{
-
 		var self = this;
 
 		self.key = grid;
@@ -112,7 +111,6 @@
 
 		// Initialize Data Grid
 		self.init();
-
 	}
 
 	DataGrid.prototype = {
@@ -198,16 +196,13 @@
 
 			$(window).on('hashchange', function()
 			{
-
 				var routeArr = String(window.location.hash.slice(3)).split('/');
 
 				self.updateOnHash(routeArr);
-
 			});
 
 			this.$body.on('click', '[data-sort]' + grid + ',' + grid + ' [data-sort]', function()
 			{
-
 				if (options.paginationType === 'infinite')
 				{
 					self.$results.empty();
@@ -763,12 +758,10 @@
 				// Remove the old term from the applied filters
 				for (var i = 0; i < self.appliedFilters.length; i++)
 				{
-
 					if (self.appliedFilters[i].value === old && self.appliedFilters[i] !== undefined && old !== undefined)
 					{
 						self.appliedFilters.splice(i, 1);
 					}
-
 				}
 
 				if (curr.length > 0)
@@ -977,7 +970,6 @@
 
 			if (sortArr[0] === this.currentSort.column)
 			{
-
 				if (this.currentSort.direction === 'asc' && this.currentSort.index !== 3)
 				{
 					this.currentSort.direction = 'desc';
@@ -994,6 +986,7 @@
 			else
 			{
 				this.currentSort.column = sortArr[0];
+
 				this.currentSort.direction = direction;
 			}
 
@@ -1012,22 +1005,26 @@
 		{
 			var self = this;
 
+			var grid = this.grid
+
 			routeArr = routeArr.splice(1);
 
 			this.appliedFilters = [];
 
-			var labels = $('[data-label]'+this.grid+','+this.grid+' [data-label]');
+			var labels = $('[data-label]' + grid + ',' + grid + ' [data-label]');
 
 			for (var i = 0; i < routeArr.length; i++)
 			{
 				var filters = routeArr[i].split(this.opt.delimiter);
 
+				var label = $(labels[x]).data('label');
+
 				for (var x = 0; x < labels.length; x++)
 				{
-					if ( $(labels[x]).data('label').indexOf( filters[0] ) !== -1 ||
-						$(labels[x]).data('label').indexOf( filters[1] ) !== -1 )
+					if (label.indexOf(filters[0]) !== -1 || label.indexOf(filters[1]) !== -1)
 					{
 						var matchedLabel = $(labels[x]).data('label').split(':');
+
 						var key = self._indexOf(filters, matchedLabel[0]);
 
 						// Map Filter that is equal to the returned key
@@ -1035,7 +1032,7 @@
 						filters[key] = matchedLabel[1];
 
 						// Check to make sure filter isn't already set.
-						if (self.searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
+						if (self.searchForValue(filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
 						{
 							// if its not already set, lets set the filter
 							self.applyFilter({
@@ -1066,8 +1063,8 @@
 				{
 					var curFilter = filters[0];
 
-					var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-start][data-range-filter="' + curFilter + '"]');
-					var endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
+					var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-start][data-range-filter="' + curFilter + '"]');
+					var endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
 
 					var start      = startFilterEl.data('range-filter');
 					var startLabel = startFilterEl.data('label');
@@ -1082,8 +1079,8 @@
 
 					if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
 					{
-						from   = moment(from).format(dbFormat);
-						to     = moment(to).format(dbFormat);
+						from = moment(from).format(dbFormat);
+						to   = moment(to).format(dbFormat);
 					}
 
 					if (window.moment !== undefined && dateFormat)
@@ -1113,7 +1110,7 @@
 					{
 						var filterEl = $('[data-filter="' +  filters.join(self.opt.delimiter) + '"]');
 
-						if ( filterEl.data('operator') !== '' && filterEl.data('operator') !== undefined)
+						if (filterEl.data('operator') !== '' && filterEl.data('operator') !== undefined)
 						{
 							// If its not already set, lets set the filter
 							self.applyFilter({
@@ -1146,8 +1143,7 @@
 		{
 			for (var i = 0; i < arr.length; i++)
 			{
-				if ((arr[i].value === key) ||
-					(arr[i].maskOrg === key))
+				if ((arr[i].value === key) || (arr[i].maskOrg === key))
 				{
 					return i;
 				}
@@ -1317,7 +1313,6 @@
 			})
 			.done(function(response)
 			{
-
 				if (self.pagi.pageIdx > response.pages_count)
 				{
 					self.pagi.pageIdx = response.pages_count;
