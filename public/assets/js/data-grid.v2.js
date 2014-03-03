@@ -124,12 +124,10 @@
 		 */
 		init: function()
 		{
-
 			// Initialize the event listeners
 			this.events();
 
 			this.checkHash();
-
 		},
 
 		/**
@@ -139,7 +137,6 @@
 		 */
 		checkDependencies: function ()
 		{
-
 			if (typeof window._ === 'undefined')
 			{
 				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v1.5.2 or later to run!');
@@ -157,7 +154,6 @@
 				filters:    _.template($('[data-template="filters"]' + grid).html()),
 				empty:      _.template($('[data-template="no-results"]' + grid).html())
 			};
-
 		},
 
 		/**
@@ -167,7 +163,6 @@
 		 */
 		checkIE: function()
 		{
-
 			var undef,
 				v = 3,
 				div = document.createElement('div'),
@@ -179,7 +174,6 @@
 			);
 
 			return v > 4 ? v : undef;
-
 		},
 
 		/**
@@ -189,7 +183,6 @@
 		 */
 		events: function()
 		{
-
 			var self = this;
 
 			var grid = self.grid;
@@ -212,7 +205,8 @@
 
 			});
 
-			this.$body.on('click', '[data-sort]' + grid + ',' + grid + ' [data-sort]', function(){
+			this.$body.on('click', '[data-sort]' + grid + ',' + grid + ' [data-sort]', function()
+			{
 
 				if (options.paginationType === 'infinite')
 				{
@@ -220,12 +214,10 @@
 				}
 
 				self.extractSortsFromClick($(this), $(this).data('sort'));
-
 			});
 
 			this.$body.on('click', '[data-filter]' + grid, function(e)
 			{
-
 				e.preventDefault();
 
 				self.applyScroll();
@@ -243,23 +235,19 @@
 				}
 
 				self.extractFiltersFromClick($(this).data('filter'), $(this).data('label'), $(this).data('operator'));
-
 			});
 
 			var dateRangeEl = this.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]');
 
 			$(dateRangeEl).on('change', function(e)
 			{
-
 				self.removeRangeFilters($(this));
 
 				self.rangeFilter($(this));
-
 			});
 
 			this.$filters.on('click', '> *', function(e)
 			{
-
 				e.preventDefault();
 
 				self.removeFilters($(this).index());
@@ -272,41 +260,35 @@
 				self.$body.find('[data-select-filter]' + grid).find('option:eq(0)').prop('selected', true);
 
 				$(self).trigger('dg:update');
-
 			});
 
-			this.$body.on('change', '[data-select-filter]' + grid, function(){
-
+			this.$body.on('change', '[data-select-filter]' + grid, function()
+			{
 				self.removeSelectFilter($(this));
 
 				self.selectFilter($(this));
-
 			});
 
 			this.$pagination.on('click', '[data-page]', function(e)
 			{
-
 				e.preventDefault();
 
 				self.applyScroll();
 
 				self.handlePageChange($(this));
-
 			});
 
 			this.$pagination.on('click', '[data-throttle]', function(e)
 			{
-
 				e.preventDefault();
 
 				options.throttle += self.pagi.baseThrottle;
 
 				$(self).trigger('dg:update');
-
 			});
 
-			this.$body.on('submit keyup', '[data-search]' + grid, function(e){
-
+			this.$body.on('submit keyup', '[data-search]' + grid, function(e)
+			{
 				e.preventDefault();
 
 				if (e.type === 'submit')
@@ -317,9 +299,7 @@
 				{
 					self.handleLiveSearch($(this));
 				}
-
 			});
-
 		},
 
 		/**
@@ -329,7 +309,6 @@
 		 */
 		checkHash: function()
 		{
-
 			var path = String(window.location.hash.slice(3));
 
 			var routes = path.split('/');
@@ -337,13 +316,12 @@
 			routes = _.compact(routes);
 
 			this.updateOnHash(routes);
-
 		},
 
 		/**
 		 * Update on hash change.
 		 *
-		 * @param  array routes
+		 * @param  array  routes
 		 * @return void
 		 */
 		updateOnHash: function(routes)
@@ -449,7 +427,6 @@
 			}
 
 			$(this).trigger('dg:update');
-
 		},
 
 		/**
@@ -459,7 +436,6 @@
 		 */
 		pushHash: function()
 		{
-
 			var self = this,
 				base = '',
 				parsedRoute = '',
@@ -562,18 +538,16 @@
 					window.history.pushState(null, null, defaultURI);
 				}
 			}
-
 		},
 
 		/**
 		 * Apply a filter.
 		 *
-		 * @param  object filter
+		 * @param  object  filter
 		 * @return void
 		 */
 		applyFilter: function(filters)
 		{
-
 			var without = [];
 
 			var exists = false;
@@ -605,19 +579,16 @@
 
 			// Render Our Filters
 			this.$filters.html(this.tmpl['filters']({ filters: without }));
-
 		},
-
 
 		/**
 		 * Remove filter at index.
 		 *
-		 * @param  int idx
+		 * @param  int  idx
 		 * @return void
 		 */
 		removeFilters: function(idx)
 		{
-
 			var grid = this.grid;
 
 			if (this.appliedFilters[idx].type === 'range')
@@ -642,7 +613,6 @@
 		 */
 		extractPageFromRoute: function(page)
 		{
-
 			var pageArr = page.split(this.opt.delimiter);
 
 			if (pageArr[1] === '' || pageArr[1] <= 0)
@@ -653,7 +623,6 @@
 			{
 				this.pagi.pageIdx = parseInt(pageArr[1], 10);
 			}
-
 		},
 
 		/**
@@ -664,7 +633,6 @@
 		 */
 		handlePageChange: function(el)
 		{
-
 			var idx;
 
 			switch (this.opt.paginationType)
@@ -688,7 +656,6 @@
 			this.goToPage(idx);
 
 			$(this).trigger('dg:update');
-
 		},
 
 		/**
@@ -699,9 +666,7 @@
 		 */
 		goToPage: function(page)
 		{
-
 			this.pagi.pageIdx = isNaN(page = parseInt(page, 10)) ? 1 : page;
-
 		},
 
 		/**
@@ -712,7 +677,6 @@
 		 */
 		handleSearchOnSubmit: function(el)
 		{
-
 			var $input = el.find('input');
 			var column = 'all';
 			var rect = [];
@@ -762,7 +726,6 @@
 			this.goToPage(1);
 
 			$(this).trigger('dg:update');
-
 		},
 
 		/**
@@ -773,7 +736,6 @@
 		 */
 		handleLiveSearch: function(el)
 		{
-
 			var rect = [];
 			var column = 'all';
 			var self = this;
@@ -787,7 +749,6 @@
 
 			searchTimeout = setTimeout(function()
 			{
-
 				var searchSelect = el.find('select:not([data-select-filter])');
 
 				if (searchSelect.length)
@@ -832,7 +793,6 @@
 				$(self).trigger('dg:update');
 
 			}, this.opt.searchTimeout);
-
 		},
 
 		/**
@@ -843,7 +803,6 @@
 		 */
 		setSortDirection: function(el)
 		{
-
 			var grid = this.grid;
 
 			var options = this.opt;
@@ -877,13 +836,12 @@
 
 				el.addClass(options.sortClasses[this.currentSort.direction]);
 			}
-
 		},
 
 		/**
 		 * Extracts range filters
 		 *
-		 * @param  object filter
+		 * @param  object  filter
 		 * @return void
 		 */
 		extractRangeFilters: function(filter)
@@ -919,20 +877,18 @@
 				label: startLabel,
 				type: 'range'
 			});
-
 		},
 
 		/**
 		 * Extracts filters from click.
 		 *
-		 * @param  string filters
-		 * @param  string labels
-		 * @param  string operator
+		 * @param  string  filters
+		 * @param  string  labels
+		 * @param  string  operator
 		 * @return void
 		 */
 		extractFiltersFromClick: function(filters, labels, operator)
 		{
-
 			var filtersArr = filters.split(', ');
 
 			for (var i = 0; i < filtersArr.length; i++)
@@ -989,19 +945,17 @@
 			$(this).trigger('dg:update');
 
 			this.goToPage(1);
-
 		},
 
 		/**
 		 * Extracts sorts from click.
 		 *
-		 * @param  object el
-		 * @param  string sort
+		 * @param  object  el
+		 * @param  string  sort
 		 * @return void
 		 */
 		extractSortsFromClick: function(el, sort)
 		{
-
 			var sortArr = sort.split(':');
 
 			var direction = 'asc';
@@ -1046,18 +1000,16 @@
 			this.setSortDirection(el);
 
 			$(this).trigger('dg:update');
-
 		},
 
 		/**
 		 * Extracts filters from route.
 		 *
-		 * @param  array routeArr
+		 * @param  array  routeArr
 		 * @return void
 		 */
 		extractFiltersFromRoute: function(routeArr)
 		{
-
 			var self = this;
 
 			routeArr = routeArr.splice(1);
@@ -1179,23 +1131,19 @@
 							});
 						}
 					}
-
 				}
-
 			}
-
 		},
 
 		/**
 		 * Search for the given value.
 		 *
-		 * @param  string key
-		 * @param  array arr
+		 * @param  string  key
+		 * @param  array   arr
 		 * @return int
 		 */
 		searchForValue: function(key, arr)
 		{
-
 			for (var i = 0; i < arr.length; i++)
 			{
 				if ((arr[i].value === key) ||
@@ -1206,19 +1154,17 @@
 			}
 
 			return -1;
-
 		},
 
 		/**
 		 * Returns the item index from an array.
 		 *
-		 * @param  array array
-		 * @param  string item
+		 * @param  array   array
+		 * @param  string  item
 		 * @return int
 		 */
 		_indexOf: function(array, item)
 		{
-
 			if (this.checkIE() < 9)
 			{
 				if (array === null)
@@ -1238,18 +1184,16 @@
 			}
 
 			return array.indexOf(item);
-
 		},
 
 		/**
 		 * Extracts sorts from route.
 		 *
-		 * @param  array routeArr
+		 * @param  array  routeArr
 		 * @return void
 		 */
 		extractSortsFromRoute: function(lastItem)
 		{
-
 			var sort = lastItem.split(this.opt.delimiter);
 
 			var grid = this.grid;
@@ -1271,7 +1215,6 @@
 			var el = $('[data-sort^="' + column + '"]' + grid + ',' + grid + ' [data-sort="' + column + '"]');
 
 			this.setSortDirection(el);
-
 		},
 
 		/**
@@ -1281,14 +1224,12 @@
 		 */
 		buildPageFragment: function()
 		{
-
 			if (this.pagi.pageIdx !== 1 && this.opt.paginationType !== 'infinite')
 			{
 				return '/page' + this.opt.delimiter + this.pagi.pageIdx + '/';
 			}
 
 			return;
-
 		},
 
 		/**
@@ -1298,7 +1239,6 @@
 		 */
 		buildFilterFragment: function()
 		{
-
 			var filterFragment = '';
 
 			var delimiter = this.opt.delimiter;
@@ -1331,7 +1271,6 @@
 			}
 
 			return filterFragment + '/';
-
 		},
 
 		/**
@@ -1341,7 +1280,6 @@
 		 */
 		buildSortFragment: function()
 		{
-
 			var sortFragment = '';
 
 			var currentColumn = this.currentSort.column;
@@ -1359,7 +1297,6 @@
 			}
 
 			return '/';
-
 		},
 
 		/**
@@ -1369,7 +1306,6 @@
 		 */
 		fetchResults: function()
 		{
-
 			var self = this;
 
 			this.showLoader();
@@ -1429,7 +1365,6 @@
 				console.log('fetchResults' + jqXHR.status, errorThrown);
 
 			});
-
 		},
 
 		/**
@@ -1439,7 +1374,6 @@
 		 */
 		buildAjaxURI: function()
 		{
-
 			var self = this;
 
 			var params = {};
@@ -1530,12 +1464,11 @@
 		/**
 		 * Builds the pagination.
 		 *
-		 * @param  object json
+		 * @param  object  json
 		 * @return object
 		 */
 		buildPagination: function(json)
 		{
-
 			var self = this;
 			var rect;
 
@@ -1560,7 +1493,6 @@
 			}
 
 			return rect;
-
 		},
 
 		/**
@@ -1574,7 +1506,6 @@
 		 */
 		buildSinglePagination: function(page, next, prev, total)
 		{
-
 			var params,
 				perPage,
 				rect = [];
@@ -1604,7 +1535,6 @@
 			rect.push(params);
 
 			return { pagination: rect };
-
 		},
 
 		/**
@@ -1618,7 +1548,6 @@
 		 */
 		buildMultiplePagination: function(page, next, prev, total)
 		{
-
 			var params,
 				perPage,
 				rect = [];
@@ -1685,8 +1614,6 @@
 			}
 
 			return { pagination: rect };
-
-
 		},
 
 		/**
@@ -1700,7 +1627,6 @@
 		 */
 		buildInfinitePagination: function(page, next, prev, total)
 		{
-
 			var params,
 				rect = [];
 
@@ -1717,7 +1643,6 @@
 			}
 
 			return { pagination: rect };
-
 		},
 
 		/**
@@ -1729,8 +1654,8 @@
 		 */
 		resultsPerPage: function(dividend, divisor)
 		{
-
 			var pp = Math.ceil(dividend / this.opt.dividend);
+
 			var max = Math.floor(this.opt.throttle / this.opt.dividend);
 
 			if (pp > max)
@@ -1739,18 +1664,16 @@
 			}
 
 			return pp;
-
 		},
 
 		/**
 		 * Removes a range filter.
 		 *
-		 * @param  object filter
+		 * @param  object  filter
 		 * @return void
 		 */
 		removeRangeFilters: function(filter)
 		{
-
 			var grid = this.grid;
 
 			var startDateFilter = this.$body.find('[data-range-start]' + grid + ',' + grid + ' [data-range-start]').data('range-filter');
@@ -1764,13 +1687,12 @@
 					this.appliedFilters.splice(i, 1);
 				}
 			};
-
 		},
 
 		/**
 		 * Removes a select filter.
 		 *
-		 * @param  object filter
+		 * @param  object  filter
 		 * @return void
 		 */
 		removeSelectFilter: function(filter)
@@ -1803,18 +1725,16 @@
 					}
 				};
 			}
-
 		},
 
 		/**
 		 * Applies a select filter.
 		 *
-		 * @param  object el
+		 * @param  object  el
 		 * @return void
 		 */
 		selectFilter: function(el)
 		{
-
 			var filter = $(el).find(':selected').data('filter'),
 				label = $(el).find(':selected').data('label'),
 				operator = $(el).find(':selected').data('operator');
@@ -1846,13 +1766,12 @@
 			}
 
 			this.refresh();
-
 		},
 
 		/**
 		 * Applies a range filter.
 		 *
-		 * @param  object filter
+		 * @param  object  filter
 		 * @return void
 		 */
 		rangeFilter: function(filter)
@@ -1880,13 +1799,11 @@
 		 */
 		showLoader: function()
 		{
-
 			var grid = this.grid;
 
 			var loader = this.opt.loader;
 
 			this.$body.find(grid + loader + ',' + grid + ' ' + loader).fadeIn();
-
 		},
 
 		/**
@@ -1896,13 +1813,11 @@
 		 */
 		hideLoader: function()
 		{
-
 			var grid = this.grid;
 
 			var loader = this.opt.loader;
 
 			this.$body.find(grid + loader + ',' + grid + ' ' + loader).fadeOut();
-
 		},
 
 		/**
@@ -1912,7 +1827,6 @@
 		 */
 		reset: function()
 		{
-
 			var grid = this.grid;
 
 			var options = this.opt;
@@ -1937,7 +1851,6 @@
 
 			// Remove all rendered content
 			this.$filters.empty();
-
 		},
 
 		/**
@@ -1957,9 +1870,7 @@
 		 */
 		refresh: function()
 		{
-
 			$(this).trigger('dg:update');
-
 		},
 
 		/**
@@ -1969,7 +1880,6 @@
 		 */
 		callback: function()
 		{
-
 			var self = this;
 
 			var callback = this.opt.callback;
@@ -1978,7 +1888,6 @@
 			{
 				callback(self);
 			}
-
 		},
 
 		/**
@@ -2009,14 +1918,23 @@
 		 */
 		applyScroll: function()
 		{
-
 			var options = this.opt;
 
 			if (options.scroll)
 			{
 				$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
 			}
+		},
 
+		/**
+		 * Sets the scroll value.
+		 *
+		 * @param  string  element
+		 * @return void
+		 */
+		setScroll: function(element)
+		{
+			this.opt.scroll = element;
 		},
 
 		/**
