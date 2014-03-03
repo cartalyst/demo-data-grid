@@ -31,7 +31,7 @@ $(function() {
 			column: 'city',
 			direction: 'asc'
 		},
-		scroll: '.table',
+		//scroll: '.table', // Auto Scroll feature.
 		callback: function(obj) {
 
 			// Leverage the Callback to show total counts or filtered count
