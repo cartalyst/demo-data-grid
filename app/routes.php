@@ -31,6 +31,11 @@ Route::get('infinite', function()
 	return View::make('infinite');
 });
 
+Route::get('multiple', function()
+{
+	return View::make('multiple');
+});
+
 
 Route::get('source', function()
 {

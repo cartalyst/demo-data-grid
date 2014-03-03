@@ -16,7 +16,7 @@ Advanced Pagination
 $(function() {
 
 	// Setup DataGrid
-	var grid = $.datagrid('advanced', '.gridTable', '.pagination', '.applied-filters', {
+	var grid = $.datagrid('advanced', '.table', '.pagination', '.applied-filters', {
 		dividend: 10,
 		threshold: 20,
 		throttle: 500,
@@ -168,7 +168,7 @@ $(function() {
 
 	<div class="grid">
 
-		<table class="gridTable" data-source="{{ URL::to('source') }}" data-grid="advanced">
+		<table class="table" data-source="{{ URL::to('source') }}" data-grid="advanced">
 			<thead>
 				<tr>
 					<th data-sort="country" data-grid="advanced" class="sortable">Country</th>
