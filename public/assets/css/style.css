@@ -82,7 +82,7 @@ aside .navigator li a{
 	text-align: center;
 	text-decoration: none;
 	color:#faf8f2;
-	margin-bottom: 2px;
+	border-bottom:1px solid #4d0e2f;
 }
 
 aside .navigator li a:hover {
@@ -97,6 +97,7 @@ aside .navigator li:first-child a {
 	-moz-border-radius-topright: 8px;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
+
 }
 aside .navigator li:last-child a {
 	margin-bottom: 0;
@@ -106,6 +107,7 @@ aside .navigator li:last-child a {
 	-moz-border-radius-bottomleft: 8px;
 	border-bottom-right-radius: 8px;
 	border-bottom-left-radius: 8px;
+	border-bottom:none;
 }
 
 aside .navigator li a.active{
@@ -262,10 +264,9 @@ aside .requirements {
 	float:left;
 }
 
-.form-control {
+.form-control, .dropdown-toggle {
 	height: 50px;
 }
-
 
 .clearfix() {
 	*zoom:1;
