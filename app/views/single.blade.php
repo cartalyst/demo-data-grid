@@ -94,6 +94,13 @@ $(function() {
 
 	});
 
+	$('#auto-scroll').on('change', function()
+	{
+		var isChecked = $(this).prop('checked');
+
+		grid.setScroll(isChecked ? '.table' : null);
+	});
+
 });
 </script>
 
@@ -108,7 +115,15 @@ $(function() {
 
 <hr>
 
+<label>
+	<input type="checkbox" name="auto-scroll" id="auto-scroll" value="1">
+	Enable / Disable the Auto Scroll feature
+</label>
+
+<hr>
+
 <div class="row placeholders">
+
 	<div class="col-xs-12 col-sm-2 placeholder">
 		<p class="entice">Go on, play with the throttle.</p>
 	</div>

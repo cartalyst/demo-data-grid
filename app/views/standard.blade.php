@@ -74,6 +74,14 @@ $(function() {
 		grid.refresh();
 
 	});
+
+	$('#auto-scroll').on('change', function()
+	{
+		var isChecked = $(this).prop('checked');
+
+		grid.setScroll(isChecked ? '.table' : null);
+	});
+
 });
 </script>
 
@@ -86,34 +94,45 @@ $(function() {
 
 <hr>
 
+<label>
+	<input type="checkbox" name="auto-scroll" id="auto-scroll" value="1">
+	Enable / Disable the Auto Scroll feature
+</label>
+
+<hr>
+
 <div class="row placeholders">
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<p class="entice">Go on, play with the throttle.</p>
+	</div>
+
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="total" value="" disabled class="disabled" id="total">
 		<h4>Total</h4>
 		<span class="text-muted">Results returned from query</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
 		<h4>Filtered</h4>
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="throttle" value="" data-grid="main" data-opt="throttle" id="throttle">
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maximum results on a single page.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="threshold" value="" data-grid="main" data-opt="threshold" id="threshold" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold" class="disabled" disabled>
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" data-grid="main" data-opt="dividend" id="dividend" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend" class="disabled" disabled>
 		<h4>Dividend</h4>
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>

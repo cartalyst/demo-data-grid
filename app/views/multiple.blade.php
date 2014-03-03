@@ -41,6 +41,13 @@ $(function() {
 			$('#threshold1').val(obj.opt.threshold);
 			$('#throttle1').val(obj.opt.throttle);
 
+			// Leverage the Callback to show total counts or filtered count
+			$('#total2').val(obj.pagi.totalCount);
+			$('#filtered2').val(obj.pagi.filteredCount);
+			$('#dividend2').val(obj.opt.dividend);
+			$('#threshold2').val(obj.opt.threshold);
+			$('#throttle2').val(obj.opt.throttle);
+
 		}
 	});
 
@@ -95,21 +102,35 @@ $(function() {
 		switch(opt)
 		{
 			case 'dividend':
-				grid.setDividend(val);
+				grid1.setDividend(val);
+				grid2.setDividend(val);
 			break;
 
 			case 'throttle':
-				grid.setThrottle(val);
+				grid1.setThrottle(val);
+				grid2.setThrottle(val);
 			break;
 
 			case 'threshold':
-				grid.setThreshold(val);
+				grid1.setThreshold(val);
+				grid2.setThreshold(val);
 			break;
 		}
 
-		grid.reset();
-		grid.refresh();
+		grid1.reset();
+		grid1.refresh();
 
+		grid2.reset();
+		grid2.refresh();
+
+	});
+
+	$('#auto-scroll').on('change', function()
+	{
+		var isChecked = $(this).prop('checked');
+
+		grid1.setScroll(isChecked ? '.table' : null);
+		grid2.setScroll(isChecked ? '.table' : null);
 	});
 
 });
@@ -124,34 +145,45 @@ $(function() {
 
 <hr>
 
+<label>
+	<input type="checkbox" name="auto-scroll" id="auto-scroll" value="1">
+	Enable / Disable the Auto Scroll feature
+</label>
+
+<hr>
+
 <div class="row placeholders">
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<p class="entice">Go on, play with the throttle.</p>
+	</div>
+
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="total" value="" disabled class="disabled" id="total1">
 		<h4>Total</h4>
 		<span class="text-muted">Results returned from query</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered1">
 		<h4>Filtered</h4>
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="throttle" value="" data-grid="multi1" data-opt="throttle" id="throttle1" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle1">
 		<h4>Throttle</h4>
 		<span class="text-muted">Maximum results on a single page.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="threshold" value="" data-grid="multi1" data-opt="threshold" id="threshold1" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold1" class="disabled" disabled>
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" data-grid="multi1" data-opt="dividend" id="dividend1" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend1" class="disabled" disabled>
 		<h4>Dividend</h4>
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>
@@ -283,32 +315,36 @@ $(function() {
 
 <div class="row placeholders">
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<p class="entice">Go on, play with the throttle.</p>
+	</div>
+
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="total" value="" disabled class="disabled" id="total2">
 		<h4>Total</h4>
 		<span class="text-muted">Results returned from query</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-3 placeholder">
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered2">
 		<h4>Filtered</h4>
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="throttle" value="" data-grid="multi2" data-opt="throttle" id="throttle2" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle2">
 		<h4>Throttle</h4>
-		<span class="text-muted">Maxmim results on a single page.</span>
+		<span class="text-muted">Maximum results on a single page.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="threshold" value="" data-grid="multi2" data-opt="threshold" id="threshold2" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold2" class="disabled" disabled>
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
 	</div>
 
-	<div class="col-xs-6 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" data-grid="multi2" data-opt="dividend" id="dividend2" class="disabled" disabled>
+	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend2" class="disabled" disabled>
 		<h4>Dividend</h4>
 		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>
