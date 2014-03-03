@@ -17,7 +17,8 @@
  * @link       http://cartalyst.com
  */
 
-;(function ($, window, document, undefined) {
+;(function ($, window, document, undefined)
+{
 
 	'use strict';
 
@@ -46,19 +47,20 @@
 		},
 		scroll: null,
 		searchTimeout: 800,
+		hash: true,
 		loader: undefined,
 		callback: undefined
 	};
 
 	// Hash Settings
-	var route = '';
 	var defaultHash = '';
 
 	// Search
 	var searchTimeout;
 	var isSearchActive = false;
 
-	function DataGrid(grid, results, pagination, filters, options) {
+	function DataGrid(grid, results, pagination, filters, options)
+	{
 
 		var self = this;
 
@@ -120,7 +122,8 @@
 		 *
 		 * @return void
 		 */
-		init: function() {
+		init: function()
+		{
 
 			// Initialize the event listeners
 			this.events();
@@ -134,7 +137,8 @@
 		 *
 		 * @return void
 		 */
-		checkDependencies: function () {
+		checkDependencies: function ()
+		{
 
 			if (typeof window._ === 'undefined')
 			{
@@ -161,7 +165,8 @@
 		 *
 		 * @return mixed
 		 */
-		checkIE: function() {
+		checkIE: function()
+		{
 
 			var undef,
 				v = 3,
@@ -182,7 +187,8 @@
 		 *
 		 * @return void
 		 */
-		events: function() {
+		events: function()
+		{
 
 			var self = this;
 
@@ -192,34 +198,21 @@
 
 			$(this).on('dg:update', this.fetchResults);
 
-			$(window).on('hashchange', function() {
+			if (options.hash)
+			{
+				$(this).on('dg:hashchange', this.pushHash);
+			}
 
-				var hash = String(window.location.hash.slice(3));
+			$(window).on('hashchange', function()
+			{
 
-				var routeArr = hash.split('/');
+				var routeArr = String(window.location.hash.slice(3)).split('/');
 
-				self.$filters.empty();
-
-				self.appliedFilters = [];
-
-				self.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]').find('input').val('');
-
-				routeArr = _.compact(routeArr);
-
-				if ( ! _.isEmpty(routeArr))
-				{
-					self.updateOnHash(routeArr);
-				}
-				else
-				{
-					self.reset();
-
-					$(self).trigger('dg:update');
-				}
+				self.updateOnHash(routeArr);
 
 			});
 
-			this.$body.on('click', '[data-sort]' + grid, function(){
+			this.$body.on('click', '[data-sort]' + grid + ',' + grid + ' [data-sort]', function(){
 
 				if (options.paginationType === 'infinite')
 				{
@@ -230,7 +223,8 @@
 
 			});
 
-			this.$body.on('click', '[data-filter]' + grid, function(e) {
+			this.$body.on('click', '[data-filter]' + grid, function(e)
+			{
 
 				e.preventDefault();
 
@@ -254,7 +248,8 @@
 
 			var dateRangeEl = this.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]');
 
-			$(dateRangeEl).on('change', function(e) {
+			$(dateRangeEl).on('change', function(e)
+			{
 
 				self.removeRangeFilters($(this));
 
@@ -262,7 +257,8 @@
 
 			});
 
-			this.$filters.on('click', '> *', function(e) {
+			this.$filters.on('click', '> *', function(e)
+			{
 
 				e.preventDefault();
 
@@ -279,17 +275,16 @@
 
 			});
 
-			self.selectFilter($('[data-select-filter]' + grid));
-
 			this.$body.on('change', '[data-select-filter]' + grid, function(){
 
-				$(this).unbind('change');
+				self.removeSelectFilter($(this));
 
 				self.selectFilter($(this));
 
 			});
 
-			this.$pagination.on('click', '[data-page]', function(e) {
+			this.$pagination.on('click', '[data-page]', function(e)
+			{
 
 				e.preventDefault();
 
@@ -299,7 +294,8 @@
 
 			});
 
-			this.$pagination.on('click', '[data-throttle]', function(e) {
+			this.$pagination.on('click', '[data-throttle]', function(e)
+			{
 
 				e.preventDefault();
 
@@ -326,47 +322,47 @@
 
 		},
 
-
-		checkHash: function() {
+		/**
+		 * Check hash.
+		 *
+		 * @return void
+		 */
+		checkHash: function()
+		{
 
 			var path = String(window.location.hash.slice(3));
 
-			if (path === '')
+			var routes = path.split('/');
+
+			routes = _.compact(routes);
+
+			this.updateOnHash(routes);
+
+		},
+
+		/**
+		 * Update on hash change.
+		 *
+		 * @param  array routes
+		 * @return void
+		 */
+		updateOnHash: function(routes)
+		{
+			// Reset grid
+			this.reset();
+
+			if (this.opt.paginationType === 'infinite')
 			{
-				path = defaultHash;
+				this.emptyResults();
 			}
-
-			this.handleHashChange(path);
-
-		},
-
-
-		handleHashChange: function(hash) {
-
-			var routeArr = hash.split('/');
-
-			routeArr = _.compact(routeArr);
-
-			this.updateOnHash(routeArr);
-
-		},
-
-		updateOnHash: function(routeArr) {
 
 			var self = this;
 
-			var curIndex = _.indexOf(routeArr, this.key);
+			var curIndex = _.indexOf(routes, self.key);
 
-			var curRoute = routeArr.join('/');
+			var curRoute = '/' + routes.join('/');
 
-			route = curRoute;
-
-			var routes = _.compact(curRoute.split('grid/'));
-
-			if (self.opt.paginationType === 'infinite')
-			{
-				self.$results.empty();
-			}
+			var routes = _.compact(curRoute.split('/grid/'));
 
 			_.each(routes, function(route)
 			{
@@ -427,7 +423,7 @@
 						// We Must Reset then rebuild.
 						self.appliedFilters = [];
 
-						self._extractFiltersFromRoute(parsedRoute);
+						self.extractFiltersFromRoute(parsedRoute);
 					}
 					else
 					{
@@ -439,202 +435,144 @@
 				}
 			});
 
-			// Initial default sort
-			if (_.isEmpty(routes) && this.opt.sort.hasOwnProperty('column') && this.opt.sort.hasOwnProperty('direction'))
-			{
-				var str = this.opt.sort.column+this.opt.delimiter+this.opt.sort.direction;
+			var routePath = routes.join('/grid/'),
+				currentHash = String(window.location.hash.slice(3));
 
-				this.extractSortsFromRoute(str);
+			if (currentHash.indexOf(this.key) === -1)
+			{
+				if (this.opt.sort.hasOwnProperty('column') && this.opt.sort.hasOwnProperty('direction'))
+				{
+					var str = this.opt.sort.column+this.opt.delimiter+this.opt.sort.direction;
+
+					this.extractSortsFromRoute(str);
+				}
 			}
 
 			$(this).trigger('dg:update');
 
 		},
 
+		/**
+		 * Push hash state.
+		 *
+		 * @return void
+		 */
+		pushHash: function()
+		{
 
-		updateCurrentHash: function() {
+			var self = this,
+				base = '',
+				parsedRoute = '',
+				key = '',
+				appended = false,
+				path = '',
+				finalPath = '',
+				currentRoutes = '',
+				routesArr = '',
+				rtIndex = '',
+				currentHash = window.location.hash.slice(3);
 
-			var self = this;
+			// #!/grid/key/filters/sorts/page
+			var filters = self.buildFilterFragment(),
+				sort    = self.buildSortFragment(),
+				page    = self.buildPageFragment();
 
-			var curHash = String(window.location.hash.slice(3));
-
-			var isset = curHash.indexOf(this.key);
-
-			var routes = _.compact(curHash.split('grid/'));
-
-			var base = '';
-
-			var rtIndex = -1;
-
-			_.each(routes, function(route)
+			if (filters.length > 1)
 			{
-				var parsedRoute = route.split('/');
+				base += filters;
+			}
 
-				var key = parsedRoute[0];
+			if (sort.length > 1)
+			{
+				base += sort;
+			}
+
+			if (self.pagi.pageIdx > 1 && page !== undefined)
+			{
+				base += page;
+			}
+
+			if ( ! filters.length > 1 || ! sort.length > 1 || ! self.pagi.pageIdx > 1 && base !== '')
+			{
+				base = '';
+			}
+			else
+			{
+				base = base.length > 1 ? this.key + base : '';
+			}
+
+			currentRoutes = String(window.location.hash.slice(3));
+			routesArr = _.compact(currentRoutes.split('grid/'));
+			rtIndex = -1;
+
+			_.each(routesArr, function(route)
+			{
+				parsedRoute = route.split('/');
+				key = parsedRoute[0];
 
 				// hash exists
 				if (key === self.key)
 				{
-					rtIndex = _.indexOf(routes, route);
+					// keep track of hash index for building the new hash
+					rtIndex = _.indexOf(routesArr, route);
+
+					// remove existing hash
+					routesArr = _.without(routesArr, route);
 				}
 			});
 
-			// Hash does not exist yet, we'll set a default hash
-			// for this grid
-			if (rtIndex === -1)
+			routesArr = _.compact(routesArr);
+
+			for(var i = 0; i < routesArr.length; i++)
 			{
-				var curRoutes = routes.join('grid/');
-
-				if (curRoutes !== '')
+				if (i === rtIndex)
 				{
-					curRoutes = 'grid/' + curRoutes;
+					finalPath += base !== '' ? 'grid/' + base : '';
 
-					base = curRoutes + 'grid/' + self.key;
+					appended = true;
 				}
 
-				// #!/grid/column-value/column-sort
-				var filters = self.buildFilterFragment();
-				var sort    = self.buildSortFragment();
-				var page    = self.buildPageFragment();
+				finalPath += 'grid/' + routesArr[i];
+			}
 
-				if (filters.length > 1)
-				{
-					base += filters;
-				}
+			finalPath += ! appended && base !== '' ? 'grid/' + base : '';
 
-				if (sort.length > 1)
-				{
-					base += sort;
-				}
+			path = _.isEmpty(routesArr) ? base : finalPath;
 
-				if (self.pagi.pageIdx > 1 && page !== undefined)
-				{
-					base += page + '/';
-				}
+			if (path.length > 1 && path.substr(0, 4) !== 'grid')
+			{
+				path = 'grid/' + path;
+			}
 
-				if (base !== '')
-				{
-					base = '#!/' + this.key + base;
-				}
+			if (path !== '')
+			{
+				path = path.replace('//', '/');
 
-				if (self.checkIE() <= 9)
+				if (currentHash !== path)
 				{
-					window.location.hash = base;
+					window.history.pushState(null, null, '#!/' + path);
 				}
-				else
+			}
+			else
+			{
+				if (currentHash !== '')
 				{
 					var defaultURI = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
-					if (window.location.href.indexOf('?') > -1)
-					{
-						var indexOfQuery = window.location.href.indexOf('?');
-						var indexOfHash = window.location.href.indexOf('#');
-
-						if (indexOfHash > -1)
-						{
-							defaultURI += window.location.href.slice( indexOfQuery, indexOfHash);
-						}
-						else
-						{
-							defaultURI += window.location.href.substr(indexOfQuery);
-						}
-					}
-
-					self._handlePush(defaultURI, base);
+					window.history.pushState(null, null, defaultURI);
 				}
-			}
-			// Update existing hash
-			else
-			{
-				_.each(routes, function(route)
-				{
-					var parsedRoute = route.split('/');
-
-					var key = parsedRoute[0];
-
-					// hash exists
-					if (key === self.key)
-					{
-						rtIndex = _.indexOf(routes, route);
-
-						// remove existing hash
-						routes = _.without(routes, route);
-
-						var curRoutes = routes.join('grid/');
-
-						if (curRoutes !== '')
-						{
-							curRoutes = 'grid/' + curRoutes;
-
-							base = curRoutes +'grid/' + self.key;
-						}
-
-						// #!/grid/column-value/column-sort
-						var filters = self.buildFilterFragment();
-						var sort    = self.buildSortFragment();
-						var page    = self.buildPageFragment();
-
-						if (filters.length > 1)
-						{
-							base += filters;
-						}
-
-						if (sort.length > 1)
-						{
-							base += sort;
-						}
-
-						if (self.pagi.pageIdx > 1 && page !== undefined)
-						{
-							base += page + '/';
-						}
-
-						if (base !== '')
-						{
-							base = self.key + base;
-						}
-
-						if (rtIndex === 0)
-						{
-							base = '#!/' + base + curRoutes;
-						}
-						else
-						{
-							base = '#!/' + curRoutes + base;
-						}
-
-						if (self.checkIE() <= 9)
-						{
-							window.location.hash = base;
-						}
-						else
-						{
-							var defaultURI = window.location.protocol + '//' + window.location.host + window.location.pathname;
-
-							if (window.location.href.indexOf('?') > -1)
-							{
-								var indexOfQuery = window.location.href.indexOf('?');
-								var indexOfHash = window.location.href.indexOf('#');
-
-								if (indexOfHash > -1)
-								{
-									defaultURI += window.location.href.slice(indexOfQuery, indexOfHash);
-								}
-								else
-								{
-									defaultURI += window.location.href.substr(indexOfQuery);
-								}
-							}
-
-							self._handlePush(defaultURI, base);
-						}
-					}
-				});
 			}
 
 		},
 
-		applyFilter: function(filters) {
+		/**
+		 * Apply a filter.
+		 *
+		 * @param  object filter
+		 * @return void
+		 */
+		applyFilter: function(filters)
+		{
 
 			var without = [];
 
@@ -670,7 +608,15 @@
 
 		},
 
-		removeFilters: function(idx) {
+
+		/**
+		 * Remove filter at index.
+		 *
+		 * @param  int idx
+		 * @return void
+		 */
+		removeFilters: function(idx)
+		{
 
 			var grid = this.grid;
 
@@ -694,7 +640,8 @@
 		 * @param  string  page
 		 * @return void
 		 */
-		extractPageFromRoute: function(page) {
+		extractPageFromRoute: function(page)
+		{
 
 			var pageArr = page.split(this.opt.delimiter);
 
@@ -715,7 +662,8 @@
 		 * @param  object  el
 		 * @return void
 		 */
-		handlePageChange: function(el) {
+		handlePageChange: function(el)
+		{
 
 			var idx;
 
@@ -749,7 +697,8 @@
 		 * @param  int  page
 		 * @return void
 		 */
-		goToPage: function(page) {
+		goToPage: function(page)
+		{
 
 			this.pagi.pageIdx = isNaN(page = parseInt(page, 10)) ? 1 : page;
 
@@ -761,7 +710,8 @@
 		 * @param  object  el
 		 * @return void
 		 */
-		handleSearchOnSubmit: function(el) {
+		handleSearchOnSubmit: function(el)
+		{
 
 			var $input = el.find('input');
 			var column = 'all';
@@ -788,9 +738,9 @@
 
 			// If theres a live search item with the same value
 			// we remove the live search item
-			if (this._searchForValue( $input.val(), this.appliedFilters) > -1)
+			if (this.searchForValue( $input.val(), this.appliedFilters) > -1)
 			{
-				var idx = this._searchForValue($input.val(), this.appliedFilters);
+				var idx = this.searchForValue($input.val(), this.appliedFilters);
 
 				this.appliedFilters.splice(idx, 1);
 			}
@@ -821,7 +771,8 @@
 		 * @param  object  el
 		 * @return void
 		 */
-		handleLiveSearch: function(el) {
+		handleLiveSearch: function(el)
+		{
 
 			var rect = [];
 			var column = 'all';
@@ -834,7 +785,8 @@
 
 			clearTimeout(searchTimeout);
 
-			searchTimeout = setTimeout(function() {
+			searchTimeout = setTimeout(function()
+			{
 
 				var searchSelect = el.find('select:not([data-select-filter])');
 
@@ -851,7 +803,7 @@
 				for (var i = 0; i < self.appliedFilters.length; i++)
 				{
 
-					if (self.appliedFilters[i].value === old)
+					if (self.appliedFilters[i].value === old && self.appliedFilters[i] !== undefined && old !== undefined)
 					{
 						self.appliedFilters.splice(i, 1);
 					}
@@ -883,14 +835,14 @@
 
 		},
 
-
 		/**
 		 * Sets the sort direction on the given element.
 		 *
 		 * @param  object  el
 		 * @return void
 		 */
-		setSortDirection: function(el) {
+		setSortDirection: function(el)
+		{
 
 			var grid = this.grid;
 
@@ -928,41 +880,58 @@
 
 		},
 
-
-		_extractRangeFilters: function(filter) {
-
+		/**
+		 * Extracts range filters
+		 *
+		 * @param  object filter
+		 * @return void
+		 */
+		extractRangeFilters: function(filter)
+		{
 			var curFilter = filter.find('[data-range-filter]').data('range-filter') || filter.data('range-filter');
 
-			var dateRangeStart = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]');
-			var dateRangeEnd   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]');
+			var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-start][data-range-filter="' + curFilter + '"]');
+			var endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
 
-			var dateFormat = dateRangeStart.data(this.opt.dateFormatAttribute);
+			var startDateFilter = startFilterEl.data('range-filter');
+			var startVal        = startFilterEl.val();
+			var endVal          = endFilterEl.val();
+			var startLabel      = startFilterEl.data('label');
 
-			var from = dateRangeStart.val();
-			var to   = dateRangeEnd.val();
+			var dateFormat      = startFilterEl.data(this.opt.dateFormatAttribute);
+
+			var dbFormat = 'YYYY-MM-DD';
+
+			var column = startDateFilter;
+			var from   = startVal;
+			var to     = endVal;
 
 			if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
 			{
-				var dbFormat = 'YYYY-MM-DD';
-
-				from = moment(from).format(dbFormat);
-				to   = moment(to).format(dbFormat);
+				from   = moment(from).format(dbFormat);
+				to     = moment(to).format(dbFormat);
 			}
 
 			this.applyFilter({
-				column: dateRangeStart.data('range-filter'),
+				column: startDateFilter,
 				from: from,
 				to: to,
-				label: dateRangeStart.data('label'),
+				label: startLabel,
 				type: 'range'
 			});
 
 		},
 
-		extractFiltersFromClick: function(filters, labels, operator) {
-
-			var self = this;
-			var rect = [];
+		/**
+		 * Extracts filters from click.
+		 *
+		 * @param  string filters
+		 * @param  string labels
+		 * @param  string operator
+		 * @return void
+		 */
+		extractFiltersFromClick: function(filters, labels, operator)
+		{
 
 			var filtersArr = filters.split(', ');
 
@@ -970,7 +939,7 @@
 			{
 				var filter = filtersArr[i].split(':');
 
-				if (self._searchForValue(filter[1], self.appliedFilters) > -1)
+				if (this.searchForValue(filter[1], this.appliedFilters) > -1)
 				{
 					return true;
 				}
@@ -984,13 +953,13 @@
 						var label = labelsArr[i].split(':');
 
 						// Return -1 if no match else return index at match
-						var key = self._indexOf(filter, label[0]);
+						var key = this._indexOf(filter, label[0]);
 
 						// Map Filter that is equal to the returned key
 						// to the label value for renaming
 						filter[key] = label[1];
 
-						self.applyFilter({
+						this.applyFilter({
 							column: filter[0],
 							value: $('<p/>').text(filter[1]).html(),
 							mask: (key === 0 ? 'column' : 'value'),
@@ -1000,7 +969,7 @@
 					}
 					else
 					{
-						self.applyFilter({
+						this.applyFilter({
 							column: filter[0],
 							value: $('<p/>').text(filter[1]).html(),
 							operator: operator
@@ -1009,7 +978,7 @@
 				}
 				else
 				{
-					self.applyFilter({
+					this.applyFilter({
 						column: filter[0],
 						value: $('<p/>').text(filter[1]).html(),
 						operator: operator
@@ -1023,7 +992,15 @@
 
 		},
 
-		extractSortsFromClick: function(el, sort) {
+		/**
+		 * Extracts sorts from click.
+		 *
+		 * @param  object el
+		 * @param  string sort
+		 * @return void
+		 */
+		extractSortsFromClick: function(el, sort)
+		{
 
 			var sortArr = sort.split(':');
 
@@ -1072,7 +1049,14 @@
 
 		},
 
-		_extractFiltersFromRoute: function(routeArr) {
+		/**
+		 * Extracts filters from route.
+		 *
+		 * @param  array routeArr
+		 * @return void
+		 */
+		extractFiltersFromRoute: function(routeArr)
+		{
 
 			var self = this;
 
@@ -1099,7 +1083,7 @@
 						filters[key] = matchedLabel[1];
 
 						// Check to make sure filter isn't already set.
-						if (self._searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
+						if (self.searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
 						{
 							// if its not already set, lets set the filter
 							self.applyFilter({
@@ -1109,7 +1093,7 @@
 								maskOrg: matchedLabel[0]
 							});
 						}
-						else if (self._searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') !== '')
+						else if (self.searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') !== '')
 						{
 							var operator = $(labels[x]).data('operator');
 
@@ -1126,12 +1110,17 @@
 				}
 
 				// Check to  make sure filter isn't already set
-				if (self._searchForValue( filters[1], self.appliedFilters) === -1)
+				if (self.searchForValue( filters[1], self.appliedFilters) === -1)
 				{
-					var start = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('range-filter');
-					var startLabel = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data('label');
+					var curFilter = filters[0];
 
-					var dateFormat = $('[data-range-start][data-range-filter="' + filters[0] + '"]').data(this.opt.dateFormatAttribute);
+					var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-start][data-range-filter="' + curFilter + '"]');
+					var endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
+
+					var start      = startFilterEl.data('range-filter');
+					var startLabel = startFilterEl.data('label');
+
+					var dateFormat = startFilterEl.data(this.opt.dateFormatAttribute);
 
 					var dbFormat = 'YYYY-MM-DD';
 
@@ -1147,16 +1136,16 @@
 
 					if (window.moment !== undefined && dateFormat)
 					{
-						$('[data-range-start][data-range-filter="' + filters[0] + '"]').val(moment(from).format(dateFormat));
-						$('[data-range-end][data-range-filter="' + filters[0] + '"]').val(moment(to).format(dateFormat));
+						startFilterEl.val(moment(from).format(dateFormat));
+						endFilterEl.val(moment(to).format(dateFormat));
 					}
 					else
 					{
-						$('[data-range-start][data-range-filter="' + filters[0] + '"]').val(from);
-						$('[data-range-end][data-range-filter="' + filters[0] + '"]').val(to);
+						startFilterEl.val(from);
+						endFilterEl.val(to);
 					}
 
-					if (filters[0] === start)
+					if (curFilter === start)
 					{
 						var filterData = {
 							column: column,
@@ -1197,22 +1186,15 @@
 
 		},
 
-		_removeSort: function(route)
+		/**
+		 * Search for the given value.
+		 *
+		 * @param  string key
+		 * @param  array arr
+		 * @return int
+		 */
+		searchForValue: function(key, arr)
 		{
-
-			for (var i = 0; i < route.length; i++)
-			{
-				if ((/desc/g.test(route[i])) || (/asc/g.test(route[i])))
-				{
-					route = route.splice(i, 1);
-				}
-			}
-
-			return route;
-
-		},
-
-		_searchForValue: function(key, arr) {
 
 			for (var i = 0; i < arr.length; i++)
 			{
@@ -1227,21 +1209,15 @@
 
 		},
 
-		_searchForKey: function(key, arr) {
-
-			for (var i = 0; i < arr.length; i++)
-			{
-				if (arr[i].column === key)
-				{
-					return i;
-				}
-			}
-
-			return -1;
-
-		},
-
-		_indexOf: function(array, item) {
+		/**
+		 * Returns the item index from an array.
+		 *
+		 * @param  array array
+		 * @param  string item
+		 * @return int
+		 */
+		_indexOf: function(array, item)
+		{
 
 			if (this.checkIE() < 9)
 			{
@@ -1265,7 +1241,14 @@
 
 		},
 
-		extractSortsFromRoute: function(lastItem) {
+		/**
+		 * Extracts sorts from route.
+		 *
+		 * @param  array routeArr
+		 * @return void
+		 */
+		extractSortsFromRoute: function(lastItem)
+		{
 
 			var sort = lastItem.split(this.opt.delimiter);
 
@@ -1291,27 +1274,30 @@
 
 		},
 
-		_handlePush: function(defaultURI, base) {
-
-			if (base !== '' && window.location.hash !== base)
-			{
-				window.history.pushState(null, null, defaultURI + base);
-			}
-
-		},
-
-		buildPageFragment: function() {
+		/**
+		 * Build page fragment.
+		 *
+		 * @return string
+		 */
+		buildPageFragment: function()
+		{
 
 			if (this.pagi.pageIdx !== 1 && this.opt.paginationType !== 'infinite')
 			{
-				return '/page' + this.opt.delimiter + this.pagi.pageIdx;
+				return '/page' + this.opt.delimiter + this.pagi.pageIdx + '/';
 			}
 
 			return;
 
 		},
 
-		buildFilterFragment: function() {
+		/**
+		 * Build filter fragment.
+		 *
+		 * @return string
+		 */
+		buildFilterFragment: function()
+		{
 
 			var filterFragment = '';
 
@@ -1344,11 +1330,17 @@
 				}
 			}
 
-			return filterFragment;
+			return filterFragment + '/';
 
 		},
 
-		buildSortFragment: function() {
+		/**
+		 * Build sort fragment.
+		 *
+		 * @return string
+		 */
+		buildSortFragment: function()
+		{
 
 			var sortFragment = '';
 
@@ -1362,7 +1354,7 @@
 				{
 					sortFragment += '/' + currentColumn + this.opt.delimiter + currentDirection;
 
-					return sortFragment;
+					return sortFragment + '/';
 				}
 			}
 
@@ -1375,7 +1367,8 @@
 		 *
 		 * @return void
 		 */
-		fetchResults: function() {
+		fetchResults: function()
+		{
 
 			var self = this;
 
@@ -1384,9 +1377,10 @@
 			$.ajax({
 				url: self.source,
 				dataType : 'json',
-				data: self._buildAjaxURI()
+				data: self.buildAjaxURI()
 			})
-			.done(function(response) {
+			.done(function(response)
+			{
 
 				if (self.pagi.pageIdx > response.pages_count)
 				{
@@ -1416,7 +1410,7 @@
 					self.$results.append(self.tmpl['results'](response));
 				}
 
-				self.$pagination.html(self.tmpl['pagination'](self._buildPagination(response)));
+				self.$pagination.html(self.tmpl['pagination'](self.buildPagination(response)));
 
 				if ( ! response.results.length)
 				{
@@ -1425,12 +1419,12 @@
 
 				self.hideLoader();
 
-				self.updateCurrentHash();
-
 				self.callback();
 
+				$(self).trigger('dg:hashchange');
 			})
-			.error(function(jqXHR, textStatus, errorThrown) {
+			.error(function(jqXHR, textStatus, errorThrown)
+			{
 
 				console.log('fetchResults' + jqXHR.status, errorThrown);
 
@@ -1438,7 +1432,13 @@
 
 		},
 
-		_buildAjaxURI: function() {
+		/**
+		 * Builds the ajax uri.
+		 *
+		 * @return string
+		 */
+		buildAjaxURI: function()
+		{
 
 			var self = this;
 
@@ -1527,7 +1527,14 @@
 			return $.param(params);
 		},
 
-		_buildPagination: function(json) {
+		/**
+		 * Builds the pagination.
+		 *
+		 * @param  object json
+		 * @return object
+		 */
+		buildPagination: function(json)
+		{
 
 			var self = this;
 			var rect;
@@ -1540,15 +1547,15 @@
 			switch (this.opt.paginationType)
 			{
 				case 'single' :
-					rect = self._buildSinglePagination(page, next, prev, total);
+					rect = self.buildSinglePagination(page, next, prev, total);
 				break;
 
 				case 'multiple' :
-					rect = self._buildMultiplePagination(page, next, prev, total);
+					rect = self.buildMultiplePagination(page, next, prev, total);
 				break;
 
 				case 'infinite' :
-					rect = self._buildInfinitePagination(page, next, prev, total);
+					rect = self.buildInfinitePagination(page, next, prev, total);
 				break;
 			}
 
@@ -1556,7 +1563,17 @@
 
 		},
 
-		_buildSinglePagination: function(page, next, prev, total) {
+		/**
+		 * Builds single pagination.
+		 *
+		 * @param  int  page
+		 * @param  int  next
+		 * @param  int  prev
+		 * @param  int  total
+		 * @return object
+		 */
+		buildSinglePagination: function(page, next, prev, total)
+		{
 
 			var params,
 				perPage,
@@ -1564,11 +1581,11 @@
 
 			if (this.pagi.filteredCount !== this.pagi.totalCount)
 			{
-				perPage = this._resultsPerPage(this.pagi.filteredCount, total);
+				perPage = this.resultsPerPage(this.pagi.filteredCount, total);
 			}
 			else
 			{
-				perPage = this._resultsPerPage(this.pagi.totalCount, total);
+				perPage = this.resultsPerPage(this.pagi.totalCount, total);
 			}
 
 			params = {
@@ -1590,7 +1607,17 @@
 
 		},
 
-		_buildMultiplePagination: function(page, next, prev, total) {
+		/**
+		 * Builds multiple pagination.
+		 *
+		 * @param  int  page
+		 * @param  int  next
+		 * @param  int  prev
+		 * @param  int  total
+		 * @return object
+		 */
+		buildMultiplePagination: function(page, next, prev, total)
+		{
 
 			var params,
 				perPage,
@@ -1598,7 +1625,7 @@
 
 			if ((this.pagi.totalCount > this.opt.throttle) && (this.pagi.filteredCount > this.opt.throttle))
 			{
-				perPage = this._resultsPerPage(this.opt.throttle, this.opt.dividend);
+				perPage = this.resultsPerPage(this.opt.throttle, this.opt.dividend);
 
 				for (var i = 1; i <= this.opt.dividend; i++)
 				{
@@ -1631,11 +1658,11 @@
 
 				if (this.pagi.filteredCount !== this.pagi.totalCount)
 				{
-					perPage = this._resultsPerPage(this.pagi.filteredCount, total);
+					perPage = this.resultsPerPage(this.pagi.filteredCount, total);
 				}
 				else
 				{
-					perPage = this._resultsPerPage(this.pagi.totalCount, total);
+					perPage = this.resultsPerPage(this.pagi.totalCount, total);
 				}
 
 				for (var i = 1; i <= total; i++)
@@ -1662,7 +1689,17 @@
 
 		},
 
-		_buildInfinitePagination: function(page, next, prev, total) {
+		/**
+		 * Builds the infinite pagination.
+		 *
+		 * @param  int  page
+		 * @param  int  next
+		 * @param  int  prev
+		 * @param  int  total
+		 * @return object
+		 */
+		buildInfinitePagination: function(page, next, prev, total)
+		{
 
 			var params,
 				rect = [];
@@ -1683,7 +1720,15 @@
 
 		},
 
-		_resultsPerPage: function(dividend, divisor) {
+		/**
+		 * Calculate results per page.
+		 *
+		 * @param  int  dividend
+		 * @param  int  divisor
+		 * @return int
+		 */
+		resultsPerPage: function(dividend, divisor)
+		{
 
 			var pp = Math.ceil(dividend / this.opt.dividend);
 			var max = Math.floor(this.opt.throttle / this.opt.dividend);
@@ -1697,7 +1742,14 @@
 
 		},
 
-		removeRangeFilters: function(filter) {
+		/**
+		 * Removes a range filter.
+		 *
+		 * @param  object filter
+		 * @return void
+		 */
+		removeRangeFilters: function(filter)
+		{
 
 			var grid = this.grid;
 
@@ -1715,40 +1767,107 @@
 
 		},
 
-		selectFilter: function(el)
+		/**
+		 * Removes a select filter.
+		 *
+		 * @param  object filter
+		 * @return void
+		 */
+		removeSelectFilter: function(filter)
 		{
-			var self = this;
+			var selectFilter = $(filter).find(':selected').data('filter'),
+				label = $(filter).find(':selected').data('label'),
+				operator = $(filter).find(':selected').data('operator');
 
-			this.$body.find('[data-select-filter]'+this.grid).on('change', function() {
+			if (selectFilter !== undefined)
+			{
+				var filterArr = selectFilter.split(':');
 
-				var filter = $(this).find(':selected').data('filter');
-				var label = $(this).find(':selected').data('label');
-				var operator = $(this).find(':selected').data('operator');
-
-				if (filter !== undefined)
+				for (var i = 0; i < this.appliedFilters.length; i++)
 				{
-					self.extractFiltersFromClick(filter, label, operator);
-				}
-				else
-				{
-					self.reset();
+					if (this.appliedFilters[i].column === filterArr[0])
+					{
+						this.removeFilters(i);
+					}
+				};
+			}
+			else
+			{
+				var col = $(filter).data('select-filter');
 
-					$(self).trigger('dg:update');
-				}
-			});
+				for (var i = 0; i < this.appliedFilters.length; i++)
+				{
+					if (this.appliedFilters[i].column === col)
+					{
+						this.removeFilters(i);
+					}
+				};
+			}
 
 		},
 
+		/**
+		 * Applies a select filter.
+		 *
+		 * @param  object el
+		 * @return void
+		 */
+		selectFilter: function(el)
+		{
+
+			var filter = $(el).find(':selected').data('filter'),
+				label = $(el).find(':selected').data('label'),
+				operator = $(el).find(':selected').data('operator');
+
+			if (filter !== undefined)
+			{
+				var filterArr = filter.split(':');
+
+				if (label !== undefined)
+				{
+					this.applyFilter({
+						column: filterArr[0],
+						label: label,
+						value: filterArr[1]
+					});
+				}
+				else
+				{
+					this.applyFilter({
+						column: filterArr[0],
+						value: filterArr[1]
+					});
+				}
+				// this.extractFiltersFromClick(filter, label, operator);
+			}
+			else
+			{
+				this.removeSelectFilter($(el));
+			}
+
+			this.refresh();
+
+		},
+
+		/**
+		 * Applies a range filter.
+		 *
+		 * @param  object filter
+		 * @return void
+		 */
 		rangeFilter: function(filter)
 		{
 			var curFilter = filter.find('[data-range-filter]').data('range-filter') || filter.data('range-filter');
 
-			var startVal = this.$body.find('[data-range-start][data-range-filter^="' + curFilter + '"]').val();
-			var endVal = this.$body.find('[data-range-end][data-range-filter^="' + curFilter + '"]').val()
+			var startFilterEl = this.$body.find('[data-range-start][data-range-filter^="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-start][data-range-filter="' + curFilter + '"]');
+			var endFilterEl   = this.$body.find('[data-range-end][data-range-filter^="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
+
+			var startVal = startFilterEl.val();
+			var endVal   = endFilterEl.val()
 
 			if (startVal && endVal)
 			{
-				this._extractRangeFilters(filter);
+				this.extractRangeFilters(filter);
 
 				this.refresh();
 			}
@@ -1759,7 +1878,8 @@
 		 *
 		 * @return void
 		 */
-		showLoader: function() {
+		showLoader: function()
+		{
 
 			var grid = this.grid;
 
@@ -1774,7 +1894,8 @@
 		 *
 		 * @return void
 		 */
-		hideLoader: function() {
+		hideLoader: function()
+		{
 
 			var grid = this.grid;
 
@@ -1789,7 +1910,8 @@
 		 *
 		 * @return void
 		 */
-		reset: function() {
+		reset: function()
+		{
 
 			var grid = this.grid;
 
@@ -1814,10 +1936,18 @@
 			this.pagi.pageIdx = 1;
 
 			// Remove all rendered content
-			this.$results.empty();
 			this.$filters.empty();
-			this.$pagination.empty();
 
+		},
+
+		/**
+		 * Empty results.
+		 *
+		 * @return void
+		 */
+		emptyResults: function()
+		{
+			this.$results.empty();
 		},
 
 		/**
@@ -1825,13 +1955,20 @@
 		 *
 		 * @return void
 		 */
-		refresh: function() {
+		refresh: function()
+		{
 
 			$(this).trigger('dg:update');
 
 		},
 
-		callback: function() {
+		/**
+		 * Data grid callback.
+		 *
+		 * @return void
+		 */
+		callback: function()
+		{
 
 			var self = this;
 
@@ -1870,7 +2007,8 @@
 		 *
 		 * @return void
 		 */
-		applyScroll : function() {
+		applyScroll: function()
+		{
 
 			var options = this.opt;
 
@@ -1886,7 +2024,7 @@
 		 *
 		 * @return int
 		 */
-		getDividend : function()
+		getDividend: function()
 		{
 			return this.opt.dividend;
 		},
@@ -1897,7 +2035,7 @@
 		 * @param  int  value
 		 * @return void
 		 */
-		setDividend : function(value)
+		setDividend: function(value)
 		{
 			this.opt.dividend = value;
 		},
@@ -1907,7 +2045,7 @@
 		 *
 		 * @return int
 		 */
-		getThrottle : function()
+		getThrottle: function()
 		{
 			return this.opt.throttle;
 		},
@@ -1918,7 +2056,7 @@
 		 * @param  int  value
 		 * @return void
 		 */
-		setThrottle : function(value)
+		setThrottle: function(value)
 		{
 			this.opt.throttle = value;
 		},
@@ -1928,7 +2066,7 @@
 		 *
 		 * @return int
 		 */
-		getThreshold : function()
+		getThreshold: function()
 		{
 			return this.opt.threshold;
 		},
@@ -1939,14 +2077,15 @@
 		 * @param  int  value
 		 * @return void
 		 */
-		setThreshold : function(value)
+		setThreshold: function(value)
 		{
 			this.opt.threshold = value;
 		}
 
 	};
 
-	$.datagrid = function(grid, results, pagination, filters, options) {
+	$.datagrid = function(grid, results, pagination, filters, options)
+	{
 		return new DataGrid(grid, results, pagination, filters, options);
 	};
 
