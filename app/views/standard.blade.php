@@ -16,9 +16,9 @@ Standard Pagination
 $(function() {
 
 	// Setup DataGrid
-	window.grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
-		// byPages: 20,
-		byResults: 5,
+	var grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
+		byPages: 20,
+		// byResults: 5,
 		loader: '.loading',
 		paginationType: 'single',
 		sort: {
