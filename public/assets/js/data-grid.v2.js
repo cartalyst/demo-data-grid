@@ -125,6 +125,16 @@
 			// Initialize the event listeners
 			this.events();
 
+			// Set throttle and dividend by type
+			if (this.opt.byResults !== undefined)
+			{
+				this.byResults(this.opt.byResults);
+			}
+			else if (this.opt.byPage !== undefined)
+			{
+				this.byPage(this.opt.byPage);
+			}
+
 			this.checkHash();
 		},
 
@@ -1594,7 +1604,7 @@
 
 					params = {
 						pageStart: perPage === 0 ? 0 : ( i === 1 ? 1 : (perPage * (i - 1) + 1)),
-						pageLimit: i === 1 ? perPage : (this.pagi.totalCount < this.opt.throttle && i === this.opt.dividend) ? this.pagi.totalCount : perPage * i,
+						pageLimit: i === 1 && (this.pagi.filteredCount > this.opt.threshold) ? perPage : (this.pagi.totalCount < this.opt.throttle && i === this.opt.dividend) ? this.pagi.totalCount : perPage * i > this.opt.threshold ? perPage * i : this.pagi.filteredCount,
 						nextPage: next,
 						prevPage: prev,
 						page: i,
@@ -1993,7 +2003,21 @@
 		setThreshold: function(value)
 		{
 			this.opt.threshold = value;
-		}
+		},
+
+		byPage: function(num)
+		{
+			this.setDividend(num);
+
+			this.setThrottle(1);
+		},
+
+		byResults: function(num)
+		{
+			this.setDividend(1);
+
+			this.setThrottle(num);
+		},
 
 	};
 

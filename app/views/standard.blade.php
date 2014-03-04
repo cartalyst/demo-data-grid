@@ -16,10 +16,9 @@ Standard Pagination
 $(function() {
 
 	// Setup DataGrid
-	var grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
-		dividend: 10,
-		threshold: 20,
-		throttle: 500,
+	window.grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
+		// byPages: 20,
+		byResults: 5,
 		loader: '.loading',
 		paginationType: 'single',
 		sort: {
