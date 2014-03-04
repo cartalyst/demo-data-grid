@@ -334,11 +334,6 @@
 			// Reset grid
 			this.reset();
 
-			if (this.opt.paginationType === 'infinite')
-			{
-				this.emptyResults();
-			}
-
 			var self = this;
 
 			var curIndex = _.indexOf(routes, self.key);
@@ -1459,9 +1454,11 @@
 				}
 			}
 
-			params.sort = this.currentSort.column;
-
-			params.direction = this.currentSort.direction;
+			if (this.currentSort.column !== '')
+			{
+				params.sort = this.currentSort.column;
+				params.direction = this.currentSort.direction;
+			}
 
 			return $.param(params);
 		},
@@ -1856,16 +1853,11 @@
 
 			// Remove all rendered content
 			this.$filters.empty();
-		},
 
-		/**
-		 * Empty results.
-		 *
-		 * @return void
-		 */
-		emptyResults: function()
-		{
-			this.$results.empty();
+			if (this.opt.paginationType === 'infinite')
+			{
+				this.$results.empty();
+			}
 		},
 
 		/**
