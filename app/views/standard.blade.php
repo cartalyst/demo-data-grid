@@ -16,11 +16,10 @@ Standard Pagination
 $(function() {
 
 	// Setup DataGrid
-	window.grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
-		byPage: 20,
+	var grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
+		byPage: 100,
 		// byResults: 5,
 		loader: '.loading',
-		paginationType: 'single',
 		sort: {
 			column: 'id',
 			direction: 'asc'

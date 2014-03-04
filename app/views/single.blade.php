@@ -26,7 +26,6 @@ $(function() {
 		throttle: 20,
 		threshold: 20,
 		loader: '.loading',
-		paginationType: 'single',
 		sort: {
 			column: 'city',
 			direction: 'asc'

@@ -32,7 +32,7 @@
 		dividend: 1,
 		threshold: 50,
 		throttle: 50,
-		paginationType: 'single',
+		paginationType: 'multiple',
 		sortClasses: {
 			asc: 'asc',
 			desc: 'desc'
@@ -1481,10 +1481,6 @@
 
 			switch (this.opt.paginationType)
 			{
-				case 'single' :
-					rect = self.buildSinglePagination(page, next, prev, total);
-				break;
-
 				case 'multiple' :
 					rect = self.buildMultiplePagination(page, next, prev, total);
 				break;
@@ -1506,7 +1502,7 @@
 		 * @param  int  total
 		 * @return object
 		 */
-		buildSinglePagination: function(page, next, prev, total)
+		buildMultiplePagination: function(page, next, prev, total)
 		{
 			var params,
 				perPage,
@@ -1528,92 +1524,16 @@
 				prevPage: prev,
 				page: page,
 				active: true,
-				single: true,
 				totalPages: total,
 				totalCount: this.pagi.totalCount,
-				filteredCount: this.pagi.filteredCount
+				filteredCount: this.pagi.filteredCount,
+				throttle: this.opt.throttle,
+				dividend: this.opt.dividend,
+				threshold: this.opt.threshold,
+				perPage: perPage
 			};
 
 			rect.push(params);
-
-			return { pagination: rect };
-		},
-
-		/**
-		 * Builds multiple pagination.
-		 *
-		 * @param  int  page
-		 * @param  int  next
-		 * @param  int  prev
-		 * @param  int  total
-		 * @return object
-		 */
-		buildMultiplePagination: function(page, next, prev, total)
-		{
-			var params,
-				perPage,
-				rect = [];
-
-			if ((this.pagi.totalCount > this.opt.throttle) && (this.pagi.filteredCount > this.opt.throttle))
-			{
-				perPage = this.resultsPerPage(this.opt.throttle, this.opt.dividend);
-
-				for (var i = 1; i <= this.opt.dividend; i++)
-				{
-					params = {
-						pageStart: perPage === 0 ? 0 : ( i === 1 ? 1 : (perPage * (i - 1) + 1)),
-						pageLimit: i === 1 ? perPage : (this.pagi.totalCount < this.opt.throttle && i === this.opt.dividend) ? this.pagi.totalCount : perPage * i,
-						nextPage: next,
-						prevPage: prev,
-						page: i,
-						active: this.pagi.pageIdx === i ? true : false,
-						throttle: false,
-						totalCount: this.pagi.totalCount,
-						filteredCount: this.pagi.filteredCount
-					};
-
-					rect.push(params);
-				}
-
-				if (this.pagi.totalCount > this.opt.throttle)
-				{
-					params = {
-						throttle: true
-					};
-
-					rect.push(params);
-				}
-			}
-			else
-			{
-
-				if (this.pagi.filteredCount !== this.pagi.totalCount)
-				{
-					perPage = this.resultsPerPage(this.pagi.filteredCount, total);
-				}
-				else
-				{
-					perPage = this.resultsPerPage(this.pagi.totalCount, total);
-				}
-
-				for (var i = 1; i <= total; i++)
-				{
-
-					params = {
-						pageStart: perPage === 0 ? 0 : ( i === 1 ? 1 : (perPage * (i - 1) + 1)),
-						pageLimit: i === 1 && (this.pagi.filteredCount > this.opt.threshold) ? perPage : (this.pagi.totalCount < this.opt.throttle && i === this.opt.dividend) ? this.pagi.totalCount : perPage * i > this.opt.threshold ? perPage * i : this.pagi.filteredCount,
-						nextPage: next,
-						prevPage: prev,
-						page: i,
-						active: this.pagi.pageIdx === i ? true : false,
-						totalCount: this.pagi.totalCount,
-						filteredCount: this.pagi.filteredCount
-					};
-
-					rect.push(params);
-				}
-
-			}
 
 			return { pagination: rect };
 		},
@@ -1660,7 +1580,7 @@
 
 			var max = Math.floor(this.opt.throttle / this.opt.dividend);
 
-			if (pp > max)
+			if (pp > max && max !== 0)
 			{
 				pp = max;
 			}
