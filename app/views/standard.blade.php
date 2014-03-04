@@ -103,7 +103,7 @@ $(function() {
 <div class="row placeholders">
 
 	<div class="col-xs-12 col-sm-2 placeholder">
-		<p class="entice">Go on, play with the throttle.</p>
+		<p class="entice">(x / y ) / z</p>
 	</div>
 
 	<div class="col-xs-12 col-sm-2 placeholder">
@@ -114,13 +114,19 @@ $(function() {
 
 	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="filtered" value="" disabled class="disabled" id="filtered">
-		<h4>Filtered</h4>
+		<h4>X</h4>
 		<span class="text-muted">Results after filters applied.</span>
 	</div>
 
 	<div class="col-xs-12 col-sm-2 placeholder">
+		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend">
+		<h4>Y</h4>
+		<span class="text-muted">Maximum "pages" to divide results by.</span>
+	</div>
+
+	<div class="col-xs-12 col-sm-2 placeholder">
 		<input type="text" name="throttle" value="" data-grid="single" data-opt="throttle" id="throttle">
-		<h4>Throttle</h4>
+		<h4>Z</h4>
 		<span class="text-muted">Maximum results on a single page.</span>
 	</div>
 
@@ -128,12 +134,6 @@ $(function() {
 		<input type="text" name="threshold" value="" data-grid="single" data-opt="threshold" id="threshold">
 		<h4>Threshold</h4>
 		<span class="text-muted">Minimum results before paginating.</span>
-	</div>
-
-	<div class="col-xs-12 col-sm-2 placeholder">
-		<input type="text" name="dividend" value="" data-grid="single" data-opt="dividend" id="dividend">
-		<h4>Dividend</h4>
-		<span class="text-muted">Maximum "pages" to divide results by.</span>
 	</div>
 
 </div>
