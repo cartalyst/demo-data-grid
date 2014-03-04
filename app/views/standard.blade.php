@@ -23,7 +23,7 @@ $(function() {
 		loader: '.loading',
 		paginationType: 'single',
 		sort: {
-			column: 'city',
+			column: 'id',
 			direction: 'asc'
 		},
 		//scroll: '.table', // Auto Scroll feature.
@@ -189,6 +189,7 @@ $(function() {
 		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="main">
 			<thead>
 				<tr>
+					<th data-sort="id" data-grid="main" class="sortable">id</th>
 					<th data-sort="country" data-grid="main" class="sortable">Country</th>
 					<th data-sort="subdivision" data-grid="main" class="sortable">Subdivision</th>
 					<th data-sort="city" data-grid="main" class="sortable">City</th>

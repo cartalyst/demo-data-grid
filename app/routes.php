@@ -61,6 +61,7 @@ Route::get('source', function()
 
 	// Or by an Eloquent model
 	return DataGrid::make(new City, array(
+		'id',
 		'country',
 		'subdivision',
 		'city',
