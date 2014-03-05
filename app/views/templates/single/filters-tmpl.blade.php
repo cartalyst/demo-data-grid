@@ -8,7 +8,7 @@
 
 					<%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') + ' - ' + moment(f.to).format('MMM DD, YYYY') %></em>
 
-				<% } else if (f.operator !== undefined) { %>
+				<% } else if (f.operator !== undefined && f.operator !== '') { %>
 
 					<%= f.column + ' ' + f.operator %> <em><%= f.value %></em>
 
