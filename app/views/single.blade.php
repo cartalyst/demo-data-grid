@@ -172,11 +172,13 @@ $(function() {
 			</button>
 
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" data-filter="country:us" data-grid="single">United States</a></li>
-				<li><a href="#" data-filter="country:ca" data-grid="single">Canada</a></li>
-				<li><a href="#" data-filter="population:10000" data-grid="single">Populations > 10000</a></li>
-				<li><a href="#" data-filter="population:5000" data-operator="<" data-grid="single">Populations < 5000</a></li>
-				<li><a href="#" data-filter="country:us, subdivision:washington, population:5000" data-operator="<" data-grid="single">Washington, United States < 5000</a></li>
+				<li><a href="#" data-filter="country:us" data-label="country:Country" data-grid="single">United States</a></li>
+				<li><a href="#" data-filter="country:ca" data-label="country:Country" data-grid="single">Canada</a></li>
+				<li><a href="#" data-filter="population:>:10000" data-grid="single">Populations > 10000</a></li>
+				<li><a href="#" data-filter="population:=:5000" data-grid="single">Populations = 5000</a></li>
+				<li><a href="#" data-filter="population:>:5000" data-grid="single">Populations > 5000</a></li>
+				<li><a href="#" data-filter="population:<:5000" data-grid="single">Populations < 5000</a></li>
+				<li><a href="#" data-filter="country:us, subdivision:washington, population:<:5000" data-label="country:Country, subdivision:Subdiv, population:Population" data-grid="single">Washington, United States < 5000</a></li>
 			</ul>
 
 		</div>

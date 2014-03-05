@@ -239,7 +239,7 @@
 					self.pagi.pageIdx = 1;
 				}
 
-				self.extractFiltersFromClick($(this).data('filter'), $(this).data('label'), $(this).data('operator'));
+				self.extractFiltersFromClick($(this));
 			});
 
 			var dateRangeEl = this.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]');
@@ -881,19 +881,26 @@
 		 * Extracts filters from click.
 		 *
 		 * @param  string  filters
-		 * @param  string  labels
-		 * @param  string  operator
 		 * @return void
 		 */
-		extractFiltersFromClick: function(filters, labels, operator)
+		extractFiltersFromClick: function(filterEl)
 		{
-			var filtersArr = filters.split(', ');
+			var filtersArr = $(filterEl).data('filter').split(', ');
+			var labels = $(filterEl).data('label');
 
 			for (var i = 0; i < filtersArr.length; i++)
 			{
 				var filter = filtersArr[i].split(':');
+				var operator = '';
 
-				if (this.searchForValue(filter[1], this.appliedFilters) > -1)
+				if (/>|<|!=|=|<=|>=/.test(filter[1]))
+				{
+					operator = filter[1];
+
+					filter.splice(1, 1);
+				}
+
+				if (this.searchForValue(filter[0], this.appliedFilters) > -1 && this.searchForValue(filter[1], this.appliedFilters) > -1)
 				{
 					return true;
 				}
@@ -902,9 +909,19 @@
 				{
 					var labelsArr = labels.split(', ');
 
-					if (typeof labelsArr[i] !== 'undefined')
+					var index = -1;
+
+					for (var x = 0; x < labelsArr.length; x++)
 					{
-						var label = labelsArr[i].split(':');
+						if (labelsArr[x] !== 'undefined' && labelsArr[x].indexOf(filter[0]) !== -1)
+						{
+							index = x;
+						}
+					}
+
+					if (index !== -1)
+					{
+						var label = labelsArr[index].split(':');
 
 						// Return -1 if no match else return index at match
 						var key = this._indexOf(filter, label[0]);
@@ -913,15 +930,32 @@
 						// to the label value for renaming
 						filter[key] = label[1];
 
-						this.applyFilter({
-							column: filter[0],
-							value: $('<p/>').text(filter[1]).html(),
-							mask: (key === 0 ? 'column' : 'value'),
-							maskOrg: label[0],
-							operator: operator
-						});
+						if (this.searchForValue(filter[0], this.appliedFilters) === -1 && this.searchForValue(filter[1], this.appliedFilters) === -1 && this.searchForValue(operator, this.appliedFilters) === -1)
+						{
+							this.applyFilter({
+								column: filter[0],
+								value: $('<p/>').text(filter[1]).html(),
+								mask: (key === 0 ? 'column' : 'value'),
+								maskOrg: label[0],
+								operator: operator
+							});
+						}
 					}
 					else
+					{
+						if (this.searchForValue(filter[0], this.appliedFilters) === -1 && this.searchForValue(filter[1], this.appliedFilters) === -1 && this.searchForValue(operator, this.appliedFilters) === -1)
+						{
+							this.applyFilter({
+								column: filter[0],
+								value: $('<p/>').text(filter[1]).html(),
+								operator: operator
+							});
+						}
+					}
+				}
+				else
+				{
+					if (this.searchForValue(filter[0], this.appliedFilters) === -1 && this.searchForValue(filter[1], this.appliedFilters) === -1 && this.searchForValue(operator, this.appliedFilters) === -1)
 					{
 						this.applyFilter({
 							column: filter[0],
@@ -929,14 +963,6 @@
 							operator: operator
 						});
 					}
-				}
-				else
-				{
-					this.applyFilter({
-						column: filter[0],
-						value: $('<p/>').text(filter[1]).html(),
-						operator: operator
-					});
 				}
 			}
 
@@ -1016,49 +1042,64 @@
 
 			this.appliedFilters = [];
 
-			var labels = $('[data-label]' + grid + ',' + grid + ' [data-label]');
+			var labels = $('[data-label][data-filter]' + grid + ',' + grid + ' [data-label][data-filter]');
 
 			for (var i = 0; i < routeArr.length; i++)
 			{
 				var filters = routeArr[i].split(this.opt.delimiter);
 
-				var label = $(labels[x]).data('label');
-
 				for (var x = 0; x < labels.length; x++)
 				{
-					if (label.indexOf(filters[0]) !== -1 || label.indexOf(filters[1]) !== -1)
+					var label = $(labels[x]).data('label');
+
+					var mlabels = label.split(', ');
+
+					var currentEl = $(labels[x]).data('filter');
+
+					for (var j = 0; j < mlabels.length; j++)
 					{
-						var matchedLabel = $(labels[x]).data('label').split(':');
-
-						var key = self._indexOf(filters, matchedLabel[0]);
-
-						// Map Filter that is equal to the returned key
-						// to the label value for renaming
-						filters[key] = matchedLabel[1];
-
-						// Check to make sure filter isn't already set.
-						if (self.searchForValue(filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') === '')
+						if (currentEl.indexOf(filters[0]) !== -1 && currentEl.indexOf(filters[1]) !== -1)
 						{
-							// if its not already set, lets set the filter
-							self.applyFilter({
-								column: filters[0],
-								value: $('<p/>').text(filters[1]).html(),
-								mask: (key === 0 ? 'column' : 'value'),
-								maskOrg: matchedLabel[0]
-							});
-						}
-						else if (self.searchForValue( filters[1], self.appliedFilters) === -1 && $(labels[x]).data('operator') !== '')
-						{
-							var operator = $(labels[x]).data('operator');
+							var matchedLabel = mlabels[j].split(':');
 
-							// if its not already set, lets set the filter
-							self.applyFilter({
-								column: filters[0],
-								value: $('<p/>').text(filters[1]).html(),
-								operator: operator,
-								mask: (key === 0 ? 'column' : 'value'),
-								maskOrg: matchedLabel[0]
-							});
+							var key = self._indexOf(filters, matchedLabel[0]);
+
+							// Map Filter that is equal to the returned key
+							// to the label value for renaming
+							filters[key] = matchedLabel[1];
+
+							// Check for contained operators
+							var hasOperator = false;
+
+							if (/>|<|!=|=|<=|>=/.test(filters[1]))
+							{
+								hasOperator = true;
+							}
+
+							// Check to make sure filter isn't already set.
+							if (self.searchForValue(filters[0], self.appliedFilters) === -1 && self.searchForValue(filters[1], self.appliedFilters) === -1 &&  ! hasOperator && key !== -1)
+							{
+								// if its not already set, lets set the filter
+								self.applyFilter({
+									column: filters[0],
+									value: $('<p/>').text(filters[1]).html(),
+									mask: (key === 0 ? 'column' : 'value'),
+									maskOrg: matchedLabel[0]
+								});
+							}
+							else if (self.searchForValue(filters[1], self.appliedFilters) === -1 && hasOperator && key !== -1)
+							{
+								var operator = filters[1];
+
+								// if its not already set, lets set the filter
+								self.applyFilter({
+									column: filters[0],
+									value: $('<p/>').text(filters[2]).html(),
+									operator: operator,
+									mask: (key === 0 ? 'column' : 'value'),
+									maskOrg: matchedLabel[0]
+								});
+							}
 						}
 					}
 				}
@@ -1115,22 +1156,31 @@
 					{
 						var filterEl = $('[data-filter="' +  filters.join(self.opt.delimiter) + '"]');
 
-						if (filterEl.data('operator') !== '' && filterEl.data('operator') !== undefined)
+						if (routeArr[i].split(this.opt.delimiter)[2] !== undefined)
 						{
-							// If its not already set, lets set the filter
-							self.applyFilter({
-								column: routeArr[i].split(this.opt.delimiter)[0],
-								value: $('<p/>').text(routeArr[i].split(this.opt.delimiter)[1]).html(),
-								operator: filterEl.data('operator')
-							});
+							var column = routeArr[i].split(this.opt.delimiter)[0];
+							var operator   = routeArr[i].split(this.opt.delimiter)[1];
+							var value     = routeArr[i].split(this.opt.delimiter)[2];
+
+							if (self.searchForValue(column, self.appliedFilters) === -1 && self.searchForValue($('<p/>').text(value).html(), self.appliedFilters === -1))
+							{
+								self.applyFilter({
+									column: column,
+									value: $('<p/>').text(value).html(),
+									operator: operator
+								});
+							}
 						}
 						else
 						{
-							// If its not already set, lets set the filter
-							self.applyFilter({
-								column: routeArr[i].split(this.opt.delimiter)[0],
-								value: $('<p/>').text(routeArr[i].split(this.opt.delimiter)[1]).html(),
-							});
+							if (self.searchForValue(routeArr[i].split(this.opt.delimiter)[0], self.appliedFilters) === -1 && self.searchForValue($('<p/>').text(routeArr[i].split(this.opt.delimiter)[1]).html(), self.appliedFilters === -1))
+							{
+								// If its not already set, lets set the filter
+								self.applyFilter({
+									column: routeArr[i].split(this.opt.delimiter)[0],
+									value: $('<p/>').text(routeArr[i].split(this.opt.delimiter)[1]).html(),
+								});
+							}
 						}
 					}
 				}
@@ -1254,15 +1304,33 @@
 
 					if (index.mask === 'column')
 					{
-						filterFragment += '/' + index.maskOrg + delimiter + parsedValue;
+						if (index.operator !== '' && index.operator !== undefined)
+						{
+							filterFragment += '/' + index.maskOrg + delimiter + index.operator + delimiter + parsedValue;
+						}
+						else
+						{
+							filterFragment += '/' + index.maskOrg + delimiter + parsedValue;
+						}
 					}
 					else if (index.mask === 'value')
 					{
-						filterFragment += '/' + index.column + delimiter + index.maskOrg;
+						if (index.operator !== '' && index.operator !== undefined)
+						{
+							filterFragment += '/' + index.maskOrg + delimiter + index.operator + delimiter + parsedValue;
+						}
+						else
+						{
+							filterFragment += '/' + index.column + delimiter + index.maskOrg;
+						}
 					}
-					else if (index.type !== undefined)
+					else if (index.type === 'range')
 					{
 						filterFragment += '/' + index.column + delimiter + index.from + delimiter + index.to;
+					}
+					else if (index.operator !== undefined && index.operator !== '')
+					{
+						filterFragment += '/' + index.column + delimiter + index.operator + delimiter + parsedValue;
 					}
 					else
 					{
@@ -1391,7 +1459,36 @@
 				{
 					if (this.appliedFilters[i].mask === 'column')
 					{
-						filter[this.appliedFilters[i].maskOrg] = $('<p/>').html(this.appliedFilters[i].value).text();
+						if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== '')
+						{
+							filter[this.appliedFilters[i].maskOrg] =
+								'|' +
+								this.appliedFilters[i].operator +
+								$('<p/>').html(this.appliedFilters[i].value).text() +
+								'|';
+						}
+						else if (this.appliedFilters[i].type === 'range')
+						{
+							if (window.moment !== undefined)
+							{
+								var dbFormat = 'YYYY-MM-DD';
+								var from     = moment(this.appliedFilters[i].from).format(dbFormat);
+								var to       = moment(this.appliedFilters[i].to).format(dbFormat);
+							}
+							else
+							{
+								var from = this.appliedFilters[i].from;
+								var to   = this.appliedFilters[i].to;
+							}
+
+							filter[this.appliedFilters[i].maskOrg] = '|' + '>' + from + '|' + '<' + to +'|';
+						}
+						else
+						{
+							filter[this.appliedFilters[i].maskOrg] = $('<p/>').html(this.appliedFilters[i].value).text();
+						}
+
+						// filter[this.appliedFilters[i].maskOrg] = $('<p/>').html(this.appliedFilters[i].value).text();
 
 						params.filters.push(filter);
 					}
@@ -1424,9 +1521,14 @@
 					}
 					else
 					{
-						if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== null)
+
+						if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== '')
 						{
-							filter[this.appliedFilters[i].column] = '|' + this.appliedFilters[i].operator + $('<p/>').html(this.appliedFilters[i].value).text() + '|';
+							filter[this.appliedFilters[i].column] =
+								'|' +
+								this.appliedFilters[i].operator +
+								$('<p/>').html(this.appliedFilters[i].value).text() +
+								'|';
 						}
 						else if (this.appliedFilters[i].type === 'range')
 						{
@@ -1680,7 +1782,7 @@
 						value: filterArr[1]
 					});
 				}
-				// this.extractFiltersFromClick(filter, label, operator);
+
 			}
 			else
 			{
