@@ -17,7 +17,9 @@ $(function() {
 
 	// Setup DataGrid
 	var grid = $.datagrid('main', '.table', '#pagination', '.applied-filters', {
-		byPage: 100,
+		method: 'group',
+		throttle: 100,
+		threshold: 200,
 		// byResults: 5,
 		loader: '.loading',
 		sort: {

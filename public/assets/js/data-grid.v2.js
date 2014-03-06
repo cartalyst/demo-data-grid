@@ -32,7 +32,7 @@
 		dividend: 1,
 		threshold: 50,
 		throttle: 50,
-		paginationType: 'multiple',
+		method: 'single',
 		sortClasses: {
 			asc: 'asc',
 			desc: 'desc'
@@ -125,14 +125,20 @@
 			// Initialize the event listeners
 			this.events();
 
-			// Set throttle and dividend by type
-			if (this.opt.byResults !== undefined)
+			// Set throttle, dividend by method
+			switch(this.opt.method)
 			{
-				this.byResults(this.opt.byResults);
-			}
-			else if (this.opt.byPage !== undefined)
-			{
-				this.byPage(this.opt.byPage);
+				case 'single':
+
+					this.single(this.opt.throttle);
+
+					break;
+
+				case 'group':
+
+					this.group(this.opt.throttle);
+
+					break;
 			}
 
 			this.checkHash();
@@ -213,7 +219,7 @@
 
 			this.$body.on('click', '[data-sort]' + grid + ',' + grid + ' [data-sort]', function()
 			{
-				if (options.paginationType === 'infinite')
+				if (options.method === 'infinite')
 				{
 					self.$results.empty();
 				}
@@ -232,7 +238,7 @@
 					self.appliedFilters = [];
 				}
 
-				if (options.paginationType === 'infinite')
+				if (options.method === 'infinite')
 				{
 					self.$results.empty();
 
@@ -257,7 +263,7 @@
 
 				self.removeFilters($(this).index());
 
-				if (options.paginationType === 'infinite')
+				if (options.method === 'infinite')
 				{
 					self.$results.empty();
 				}
@@ -633,9 +639,10 @@
 		{
 			var idx;
 
-			switch (this.opt.paginationType)
+			switch (this.opt.method)
 			{
-				case 'multiple':
+				case 'single':
+				case 'group':
 
 					idx = el.data('page');
 
@@ -709,7 +716,7 @@
 			});
 
 			// Clear results for infinite grids
-			if (this.opt.paginationType === 'infinite') this.$results.empty();
+			if (this.opt.method === 'infinite') this.$results.empty();
 
 			// Reset
 			$input.val('').data('old', '');
@@ -767,7 +774,7 @@
 				}
 
 				// Clear results for infinite grids
-				if (self.opt.paginationType === 'infinite')
+				if (self.opt.method === 'infinite')
 				{
 					self.$results.empty();
 				}
@@ -1285,7 +1292,7 @@
 		 */
 		buildPageFragment: function()
 		{
-			if (this.pagi.pageIdx !== 1 && this.opt.paginationType !== 'infinite')
+			if (this.pagi.pageIdx !== 1 && this.opt.method !== 'infinite')
 			{
 				return '/page' + this.opt.delimiter + this.pagi.pageIdx + '/';
 			}
@@ -1410,12 +1417,12 @@
 				self.pagi.totalCount = response.total_count;
 
 				// Keep infinite results to append load more
-				if (self.opt.paginationType !== 'infinite')
+				if (self.opt.method !== 'infinite')
 				{
 					self.$results.empty();
 				}
 
-				if (self.opt.paginationType === 'single' || self.opt.paginationType === 'multiple')
+				if (self.opt.method === 'single' || self.opt.method === 'single')
 				{
 					self.$results.html(self.tmpl['results'](response));
 				}
@@ -1589,14 +1596,19 @@
 				prev = json.previous_page,
 				total = json.pages_count;
 
-			switch (this.opt.paginationType)
+			switch (this.opt.method)
 			{
-				case 'multiple' :
-					rect = self.buildMultiplePagination(page, next, prev, total);
+				case 'single':
+				case 'group':
+
+					rect = self.buildRegularPagination(page, next, prev, total);
+
 				break;
 
-				case 'infinite' :
+				case 'infinite':
+
 					rect = self.buildInfinitePagination(page, next, prev, total);
+
 				break;
 			}
 
@@ -1604,7 +1616,7 @@
 		},
 
 		/**
-		 * Builds single pagination.
+		 * Builds regular pagination.
 		 *
 		 * @param  int  page
 		 * @param  int  next
@@ -1612,7 +1624,7 @@
 		 * @param  int  total
 		 * @return object
 		 */
-		buildMultiplePagination: function(page, next, prev, total)
+		buildRegularPagination: function(page, next, prev, total)
 		{
 			var params,
 				perPage,
@@ -1878,7 +1890,7 @@
 			// Remove all rendered content
 			this.$filters.empty();
 
-			if (this.opt.paginationType === 'infinite')
+			if (this.opt.method === 'infinite')
 			{
 				this.$results.empty();
 			}
@@ -2001,29 +2013,29 @@
 		},
 
 		/**
-		 * Show results by number of pages.
+		 * Apply single method.
 		 *
 		 * @param  int num
 		 * @return void
 		 */
-		byPage: function(num)
-		{
-			this.setDividend(num);
-
-			this.setThrottle(1);
-		},
-
-		/**
-		 * Show results by number of results.
-		 *
-		 * @param  int num
-		 * @return void
-		 */
-		byResults: function(num)
+		single: function(num)
 		{
 			this.setDividend(1);
 
 			this.setThrottle(num);
+		},
+
+		/**
+		 * Apply group method.
+		 *
+		 * @param  int num
+		 * @return void
+		 */
+		group: function(num)
+		{
+			this.setDividend(num);
+
+			this.setThrottle(1);
 		},
 
 	};

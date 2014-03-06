@@ -22,9 +22,7 @@ $(function() {
 
 	// Setup DataGrid
 	var grid = $.datagrid('single', '.table', '#pagination', '.applied-filters', {
-		dividend: 1,
 		throttle: 20,
-		threshold: 20,
 		loader: '.loading',
 		sort: {
 			column: 'city',

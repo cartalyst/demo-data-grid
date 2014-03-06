@@ -17,11 +17,9 @@ $(function(){
 
 	// Setup DataGrid
 	var grid = $.datagrid('infinite', '.infinite', '#pagination', '.applied-filters', {
-		dividend: 1,
-		throttle: 21,
-		threshold: 21,
 		loader: '.loading',
-		paginationType: 'infinite',
+		method: 'infinite',
+		throttle: 21,
 		sort: {
 			column: 'city',
 			direction: 'asc'
