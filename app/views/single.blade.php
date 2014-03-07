@@ -25,20 +25,20 @@ $(function() {
 		throttle: 20,
 		loader: '.loading',
 		events: {
-			'removeFilter:before': function(obj) {},
-			'removeFilter:after': function(obj) {},
+			'removing': function(obj) {},
+			'removed': function(obj) {},
 
-			'applyFilter:before': function(obj) {},
-			'applyFilter:after': function(obj) {},
+			'applying': function(obj) {},
+			'applied': function(obj) {},
 
-			'sortDirection:before': function(obj) {},
-			'sortDirection:after': function(obj) {},
+			'sorting': function(obj) {},
+			'sorted': function(obj) {},
 
-			'switchPage:before': function(obj) {},
-			'switchPage:after': function(obj) {},
+			'switching': function(obj) {},
+			'switched': function(obj) {},
 
-			'fetchResults:before': function(obj) {},
-			'fetchResults:after': function(obj) {},
+			'fetching': function(obj) {},
+			'fetched': function(obj) {},
 		},
 		sort: {
 			column: 'city',

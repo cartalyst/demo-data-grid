@@ -272,13 +272,13 @@
 			{
 				e.preventDefault();
 
-				$(self).trigger('dg:switchPage:before', self);
+				$(self).trigger('dg:switching', self);
 
 				self.applyScroll();
 
 				self.handlePageChange($(this));
 
-				$(self).trigger('dg:switchPage:after', self);
+				$(self).trigger('dg:switched', self);
 			});
 
 			this.$pagination.on('click', '[data-throttle]', function(e)
@@ -574,7 +574,7 @@
 		{
 			if (this.searchForFilter(filters) === -1)
 			{
-				$(this).trigger('dg:applyFilter:before', this);
+				$(this).trigger('dg:applying', this);
 
 				var without = [],
 					exists  = false;
@@ -605,7 +605,7 @@
 				// Render our filters
 				this.$filters.html(this.tmpl['filters']({ filters: without }));
 
-				$(this).trigger('dg:applyFilter:after', this);
+				$(this).trigger('dg:applied', this);
 			}
 		},
 
@@ -617,7 +617,7 @@
 		 */
 		removeFilters: function(idx)
 		{
-			$(this).trigger('dg:removeFilter:before', this);
+			$(this).trigger('dg:removing', this);
 
 			var grid = this.grid;
 
@@ -627,7 +627,7 @@
 
 			this.goToPage(1);
 
-			$(this).trigger('dg:removeFilter:after', this);
+			$(this).trigger('dg:removed', this);
 		},
 
 		/**
@@ -810,7 +810,7 @@
 		 */
 		setSortDirection: function(el)
 		{
-			$(this).trigger('dg:sortDirection:before', this);
+			$(this).trigger('dg:sorting', this);
 
 			var grid = this.grid,
 				options = this.opt,
@@ -843,7 +843,7 @@
 				el.addClass(options.sortClasses[this.currentSort.direction]);
 			}
 
-			$(this).trigger('dg:sortDirection:after', this);
+			$(this).trigger('dg:sorted', this);
 		},
 
 		/**
@@ -1387,7 +1387,7 @@
 		 */
 		fetchResults: function()
 		{
-			$(this).trigger('dg:fetchResults:before', this);
+			$(this).trigger('dg:fetching', this);
 
 			var self = this;
 
@@ -1441,7 +1441,7 @@
 
 				$(self).trigger('dg:hashchange');
 
-				$(self).trigger('dg:fetchResults:after', self);
+				$(self).trigger('dg:fetched', self);
 			})
 			.error(function(jqXHR, textStatus, errorThrown)
 			{
