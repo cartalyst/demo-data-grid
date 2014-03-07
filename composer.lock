@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:cartalyst/data-grid.git",
-                "reference": "a2cdd3a982f45a1963ee4b894e9d2cd7ece3c8e7"
+                "reference": "090190da9680cbbdb543f18440457e6075a166c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/a2cdd3a982f45a1963ee4b894e9d2cd7ece3c8e7",
-                "reference": "a2cdd3a982f45a1963ee4b894e9d2cd7ece3c8e7",
+                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/090190da9680cbbdb543f18440457e6075a166c3",
+                "reference": "090190da9680cbbdb543f18440457e6075a166c3",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 "source": "https://github.com/cartalyst/data-grid/tree/feature/refactor-php",
                 "issues": "https://github.com/cartalyst/data-grid/issues"
             },
-            "time": "2014-03-07 04:16:40"
+            "time": "2014-03-07 05:14:38"
         },
         {
             "name": "classpreloader/classpreloader",
