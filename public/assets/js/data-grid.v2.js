@@ -1031,6 +1031,11 @@
 					{
 						if (filter[j].indexOf(filters[0]) !== -1 && filter[j].indexOf(filters[1]) !== -1)
 						{
+							if (filters[2] !== undefined)
+							{
+								if (filter[j].indexOf(filters[2]) === -1) continue;
+							}
+
 							var	matchedLabel = label[j].split(':');
 
 							// Check for contained operators
