@@ -251,6 +251,8 @@ $(function() {
 
 		<div class="applied-filters" data-grid="single"></div>
 
+		<a href="#" data-download="csv">Export to CSV</a>
+
 	</div>
 
 </div>

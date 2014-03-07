@@ -294,6 +294,14 @@
 					self.handleLiveSearch($(this));
 				}
 			});
+
+			this.$body.on('click', '[data-download]', function()
+			{
+				var type = $(this).data('download');
+
+				document.location = self.source + '?' + self.buildAjaxURI(type);
+			});
+
 		},
 
 		/**
@@ -877,7 +885,7 @@
 			{
 				filter = filtersArr[i].split(':');
 
-				if (/>|<|!=|=|<=|>=/.test(filter[1]))
+				if (this.checkOperator(filter[1]))
 				{
 					operator = filter[1];
 
@@ -1028,7 +1036,7 @@
 							// Check for contained operators
 							var hasOperator = false;
 
-							if (/>|<|!=|=|<=|>=/.test(filters[1]))
+							if (this.checkOperator(filters[1]))
 							{
 								hasOperator = true;
 							}
@@ -1412,7 +1420,7 @@
 		 *
 		 * @return string
 		 */
-		buildAjaxURI: function()
+		buildAjaxURI: function(download)
 		{
 			var self = this;
 
@@ -1530,6 +1538,11 @@
 			{
 				params.sort = this.currentSort.column;
 				params.direction = this.currentSort.direction;
+			}
+
+			if (download)
+			{
+				params.download = download;
 			}
 
 			return $.param(params);
@@ -1882,6 +1895,15 @@
 			{
 				$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
 			}
+		},
+
+		/**
+		 * Check for operators.
+		 *
+		 */
+		checkOperator: function(value)
+		{
+			return />|<|!=|=|<=|>=|<>/.test(value);
 		},
 
 		/**
