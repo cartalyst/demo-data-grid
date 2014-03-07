@@ -242,7 +242,14 @@
 			{
 				e.preventDefault();
 
-				self.removeFilters($(this).index());
+				var idx = $(this).index();
+
+				if (self.appliedFilters[idx].type === 'range')
+				{
+					self.$body.find('[data-range-filter="' + self.appliedFilters[idx].column + '"]' + grid + ',' + grid + ' [data-range-filter="' + self.appliedFilters[idx].column + '"]').val('');
+				}
+
+				self.removeFilters(idx);
 
 				if (options.method === 'infinite')
 				{
@@ -265,9 +272,13 @@
 			{
 				e.preventDefault();
 
+				$(self).trigger('dg:switchPage:before', self);
+
 				self.applyScroll();
 
 				self.handlePageChange($(this));
+
+				$(self).trigger('dg:switchPage:after', self);
 			});
 
 			this.$pagination.on('click', '[data-throttle]', function(e)
@@ -301,6 +312,19 @@
 
 				document.location = self.source + '?' + self.buildAjaxURI(type);
 			});
+
+			var events = this.opt.events;
+
+			var eventKeys = _.keys(events);
+
+			_.each(eventKeys, function(key)
+			{
+				$(self).on('dg:' + key, function()
+				{
+					events[key](self);
+				});
+			});
+
 		},
 
 		/**
@@ -550,6 +574,8 @@
 		{
 			if (this.searchForFilter(filters) === -1)
 			{
+				$(this).trigger('dg:applyFilter:before', this);
+
 				var without = [],
 					exists  = false;
 
@@ -578,6 +604,8 @@
 
 				// Render our filters
 				this.$filters.html(this.tmpl['filters']({ filters: without }));
+
+				$(this).trigger('dg:applyFilter:after', this);
 			}
 		},
 
@@ -589,18 +617,17 @@
 		 */
 		removeFilters: function(idx)
 		{
-			var grid = this.grid;
+			$(this).trigger('dg:removeFilter:before', this);
 
-			if (this.appliedFilters[idx].type === 'range')
-			{
-				this.$body.find('[data-range-filter="' + this.appliedFilters[idx].column + '"]' + grid + ',' + grid + ' [data-range-filter="' + this.appliedFilters[idx].column + '"]').val('');
-			}
+			var grid = this.grid;
 
 			this.appliedFilters.splice(idx, 1);
 
 			this.$filters.html(this.tmpl['filters']({ filters: this.appliedFilters }));
 
 			this.goToPage(1);
+
+			$(this).trigger('dg:removeFilter:after', this);
 		},
 
 		/**
@@ -783,6 +810,8 @@
 		 */
 		setSortDirection: function(el)
 		{
+			$(this).trigger('dg:sortDirection:before', this);
+
 			var grid = this.grid,
 				options = this.opt,
 				$el = $('[data-sort]' + grid + ',' + grid + ' [data-sort]'),
@@ -813,6 +842,8 @@
 
 				el.addClass(options.sortClasses[this.currentSort.direction]);
 			}
+
+			$(this).trigger('dg:sortDirection:after', this);
 		},
 
 		/**
@@ -1356,6 +1387,8 @@
 		 */
 		fetchResults: function()
 		{
+			$(this).trigger('dg:fetchResults:before', this);
+
 			var self = this;
 
 			this.showLoader();
@@ -1407,6 +1440,8 @@
 				self.callback();
 
 				$(self).trigger('dg:hashchange');
+
+				$(self).trigger('dg:fetchResults:after', self);
 			})
 			.error(function(jqXHR, textStatus, errorThrown)
 			{
@@ -1688,7 +1723,7 @@
 			{
 				if (this.appliedFilters[i].type === 'range' && (this.appliedFilters[i].column === startRangeFilter || this.appliedFilters[i].column === endRangeFilter))
 				{
-					this.appliedFilters.splice(i, 1);
+					this.removeFilters(i);
 				}
 			};
 		},

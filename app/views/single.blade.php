@@ -24,6 +24,22 @@ $(function() {
 	var grid = $.datagrid('single', '.table', '#pagination', '.applied-filters', {
 		throttle: 20,
 		loader: '.loading',
+		events: {
+			'removeFilter:before': function(obj) {},
+			'removeFilter:after': function(obj) {},
+
+			'applyFilter:before': function(obj) {},
+			'applyFilter:after': function(obj) {},
+
+			'sortDirection:before': function(obj) {},
+			'sortDirection:after': function(obj) {},
+
+			'switchPage:before': function(obj) {},
+			'switchPage:after': function(obj) {},
+
+			'fetchResults:before': function(obj) {},
+			'fetchResults:after': function(obj) {},
+		},
 		sort: {
 			column: 'city',
 			direction: 'asc'
