@@ -20,7 +20,6 @@ $(function() {
 		method: 'group',
 		throttle: 100,
 		threshold: 200,
-		// byResults: 5,
 		loader: '.loading',
 		sort: {
 			column: 'id',
@@ -30,8 +29,8 @@ $(function() {
 		callback: function(obj){
 
 			// Leverage the Callback to show total counts or filtered count
-			$('#total').val(obj.pagi.totalCount);
-			$('#filtered').val(obj.pagi.filteredCount);
+			$('#total').val(obj.pagination.totalCount);
+			$('#filtered').val(obj.pagination.filteredCount);
 			$('#dividend').val(obj.opt.dividend);
 			$('#threshold').val(obj.opt.threshold);
 			$('#throttle').val(obj.opt.throttle);

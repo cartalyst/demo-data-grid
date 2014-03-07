@@ -29,7 +29,6 @@
 	 */
 	var defaults = {
 		source: null,
-		dividend: 1,
 		threshold: 50,
 		throttle: 50,
 		method: 'single',
@@ -124,22 +123,6 @@
 		{
 			// Initialize the event listeners
 			this.events();
-
-			// Set throttle, dividend by method
-			switch(this.opt.method)
-			{
-				case 'single':
-
-					this.single(this.opt.throttle);
-
-					break;
-
-				case 'group':
-
-					this.group(this.opt.throttle);
-
-					break;
-			}
 
 			this.checkHash();
 		},
@@ -1436,7 +1419,7 @@
 			var params = {};
 				params.filters   = [];
 				params.page      = this.pagination.pageIdx;
-				params.dividend  = this.opt.dividend;
+				params.method    = this.opt.method;
 				params.threshold = this.opt.threshold;
 				params.throttle  = this.opt.throttle;
 
@@ -1602,14 +1585,7 @@
 				perPage,
 				rect = [];
 
-			if (this.pagination.filteredCount !== this.pagination.totalCount)
-			{
-				perPage = this.resultsPerPage(this.pagination.filteredCount, total);
-			}
-			else
-			{
-				perPage = this.resultsPerPage(this.pagination.totalCount, total);
-			}
+			perPage = this.calculatePagination();
 
 			params = {
 				pageStart: perPage === 0 ? 0 : ( this.pagination.pageIdx === 1 ? 1 : ( perPage * (this.pagination.pageIdx - 1 ) + 1)),
@@ -1622,7 +1598,6 @@
 				totalCount: this.pagination.totalCount,
 				filteredCount: this.pagination.filteredCount,
 				throttle: this.opt.throttle,
-				dividend: this.opt.dividend,
 				threshold: this.opt.threshold,
 				perPage: perPage
 			};
@@ -1664,22 +1639,21 @@
 		/**
 		 * Calculate results per page.
 		 *
-		 * @param  int  dividend
-		 * @param  int  divisor
 		 * @return int
 		 */
-		resultsPerPage: function(dividend, divisor)
+		calculatePagination: function()
 		{
-			var pp = Math.ceil(dividend / this.opt.dividend);
-
-			var max = Math.floor(this.opt.throttle / this.opt.dividend);
-
-			if (pp > max && max !== 0)
+			switch (this.opt.method)
 			{
-				pp = max;
-			}
+				case 'single':
+				case 'infinite':
 
-			return pp;
+					return this.opt.throttle;
+
+				case 'group':
+
+					return Math.ceil(this.pagination.filteredCount / this.opt.throttle);
+			}
 		},
 
 		/**
@@ -1922,27 +1896,6 @@
 		},
 
 		/**
-		 * Returns the dividend.
-		 *
-		 * @return int
-		 */
-		getDividend: function()
-		{
-			return this.opt.dividend;
-		},
-
-		/**
-		 * Sets the dividend.
-		 *
-		 * @param  int  value
-		 * @return void
-		 */
-		setDividend: function(value)
-		{
-			this.opt.dividend = value;
-		},
-
-		/**
 		 * Returns the throttle.
 		 *
 		 * @return int
@@ -1982,32 +1935,6 @@
 		setThreshold: function(value)
 		{
 			this.opt.threshold = value;
-		},
-
-		/**
-		 * Apply single method.
-		 *
-		 * @param  int num
-		 * @return void
-		 */
-		single: function(num)
-		{
-			this.setDividend(1);
-
-			this.setThrottle(num);
-		},
-
-		/**
-		 * Apply group method.
-		 *
-		 * @param  int num
-		 * @return void
-		 */
-		group: function(num)
-		{
-			this.setDividend(num);
-
-			this.setThrottle(1);
 		},
 
 	};
