@@ -34,12 +34,12 @@ $(function() {
 			// Leverage the Callback to show total counts or filtered count
 
 
-			$('#equation-filtered').html(obj.pagi.filteredCount);
+			$('#equation-filtered').html(obj.pagination.filteredCount);
 			$('#equation-dividend').html(obj.opt.dividend);
 			$('#equation-throttle').html(obj.opt.throttle);
 
-			$('#total').val(obj.pagi.totalCount);
-			$('#filtered').val(obj.pagi.filteredCount);
+			$('#total').val(obj.pagination.totalCount);
+			$('#filtered').val(obj.pagination.filteredCount);
 			$('#dividend').val(obj.opt.dividend);
 			$('#threshold').val(obj.opt.threshold);
 			$('#throttle').val(obj.opt.throttle);
@@ -262,6 +262,7 @@ $(function() {
 		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="single">
 			<thead>
 				<tr>
+					<th data-sort="id" data-grid="single" class="sortable">ID</th>
 					<th data-sort="country" data-grid="single" class="sortable">Country</th>
 					<th data-sort="subdivision" data-grid="single" class="sortable">Subdivision</th>
 					<th data-sort="city" data-grid="single" class="sortable">City</th>

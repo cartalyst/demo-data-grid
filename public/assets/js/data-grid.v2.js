@@ -75,7 +75,7 @@
 			index: 0
 		};
 
-		self.pagi = {
+		self.pagination = {
 			pageIdx: 1,
 			totalCount: null,
 			filteredCount: null,
@@ -104,7 +104,7 @@
 		defaultHash = grid;
 
 		// Setup Base Throttle
-		self.pagi.baseThrottle = self.opt.throttle;
+		self.pagination.baseThrottle = self.opt.throttle;
 
 		// Check our dependencies
 		self.checkDependencies();
@@ -242,7 +242,7 @@
 				{
 					self.$results.empty();
 
-					self.pagi.pageIdx = 1;
+					self.pagination.pageIdx = 1;
 				}
 
 				self.extractFiltersFromClick($(this));
@@ -293,7 +293,7 @@
 			{
 				e.preventDefault();
 
-				options.throttle += self.pagi.baseThrottle;
+				options.throttle += self.pagination.baseThrottle;
 
 				self.refresh();
 			});
@@ -370,7 +370,7 @@
 					}
 					else
 					{
-						self.pagi.pageIdx = 1;
+						self.pagination.pageIdx = 1;
 					}
 
 					if ((/desc/g.test(nextItem)) || (/asc/g.test(nextItem)))
@@ -469,12 +469,12 @@
 				base += sort;
 			}
 
-			if (self.pagi.pageIdx > 1 && page !== undefined)
+			if (self.pagination.pageIdx > 1 && page !== undefined)
 			{
 				base += page;
 			}
 
-			if ( ! filters.length > 1 || ! sort.length > 1 || ! self.pagi.pageIdx > 1 && base !== '')
+			if ( ! filters.length > 1 || ! sort.length > 1 || ! self.pagination.pageIdx > 1 && base !== '')
 			{
 				base = '';
 			}
@@ -621,11 +621,11 @@
 
 			if (pageArr[1] === '' || pageArr[1] <= 0)
 			{
-				this.pagi.pageIdx = 1;
+				this.pagination.pageIdx = 1;
 			}
 			else
 			{
-				this.pagi.pageIdx = parseInt(pageArr[1], 10);
+				this.pagination.pageIdx = parseInt(pageArr[1], 10);
 			}
 		},
 
@@ -670,7 +670,7 @@
 		 */
 		goToPage: function(page)
 		{
-			this.pagi.pageIdx = isNaN(page = parseInt(page, 10)) ? 1 : page;
+			this.pagination.pageIdx = isNaN(page = parseInt(page, 10)) ? 1 : page;
 		},
 
 		/**
@@ -883,7 +883,7 @@
 			var filtersArr = $(filterEl).data('filter').split(', '),
 				labels = $(filterEl).data('label'),
 				filter,
-				operator = '',
+				operator,
 				filterData,
 				labelsArr,
 				index,
@@ -893,7 +893,6 @@
 			for (var i = 0; i < filtersArr.length; i++)
 			{
 				filter = filtersArr[i].split(':');
-				operator = '';
 
 				if (/>|<|!=|=|<=|>=/.test(filter[1]))
 				{
@@ -917,32 +916,15 @@
 				{
 					labelsArr = labels.split(', ');
 
-					index = -1;
-
-					for (var x = 0; x < labelsArr.length; x++)
-					{
-						if (labelsArr[x] !== 'undefined' && labelsArr[x].indexOf(filter[0]) !== -1)
-						{
-							index = x;
-						}
-					}
-
 					if (index !== -1)
 					{
-						label = labelsArr[index].split(':');
-
-						// Return -1 if no match else return index at match
-						key = this._indexOf(filter, label[0]);
-
-						// Map Filter that is equal to the returned key
-						// to the label value for renaming
-						filter[key] = label[1];
+						label = labelsArr[i].split(':');
 
 						filterData = {
 							column: filter[0],
 							value: $('<p/>').text(filter[1]).html(),
-							mask: (key === 0 ? 'column' : 'value'),
-							maskOrg: label[0],
+							colMask: label[1],
+							valMask: label[2],
 							operator: operator
 						};
 
@@ -1051,57 +1033,47 @@
 
 				for (var x = 0; x < labels.length; x++)
 				{
-					var label     = $(labels[x]).data('label'),
-						mlabels   = label.split(', '),
-						currentEl = $(labels[x]).data('filter');
+					var label  = $(labels[x]).data('label').split(', '),
+						filter = $(labels[x]).data('filter').split(', ');
 
-					for (var j = 0; j < mlabels.length; j++)
+					for (var j = 0; j < label.length; j++)
 					{
-						if (currentEl.indexOf(filters[0]) !== -1 && currentEl.indexOf(filters[1]) !== -1)
+						if (filter[j].indexOf(filters[0]) !== -1 && filter[j].indexOf(filters[1]) !== -1)
 						{
-							var	matchedLabel = mlabels[j].split(':'),
-								key          = self._indexOf(filters, matchedLabel[0]);
+							var	matchedLabel = label[j].split(':');
 
-							if (key !== -1)
+							// Check for contained operators
+							var hasOperator = false;
+
+							if (/>|<|!=|=|<=|>=/.test(filters[1]))
 							{
-								// Map Filter that is equal to the returned key
-								// to the label value for renaming
-								filters[key] = matchedLabel[1];
+								hasOperator = true;
+							}
 
-								// Check for contained operators
-								var hasOperator = false;
+							if (hasOperator)
+							{
+								var operator = filters[1];
 
-								if (/>|<|!=|=|<=|>=/.test(filters[1]))
-								{
-									hasOperator = true;
-								}
+								var filterData = {
+									column: filters[0],
+									value: $('<p/>').text(filters[2]).html(),
+									operator: operator,
+									colMask: matchedLabel[1],
+									valMask: matchedLabel[2]
+								};
 
-								if (hasOperator)
-								{
-									var operator = filters[1];
+								self.applyFilter(filterData);
+							}
+							else
+							{
+								var filterData = {
+									column: filters[0],
+									value: $('<p/>').text(filters[1]).html(),
+									colMask: matchedLabel[1],
+									valMask: matchedLabel[2]
+								};
 
-									var filterData = {
-										column: filters[0],
-										value: $('<p/>').text(filters[2]).html(),
-										operator: operator,
-										mask: 'column',
-										maskOrg: matchedLabel[0]
-									};
-
-									self.applyFilter(filterData);
-								}
-								else
-								{
-									var filterData = {
-										column: filters[0],
-										value: $('<p/>').text(filters[1]).html(),
-										operator: '',
-										mask: (key === 0 ? 'column' : 'value'),
-										maskOrg: matchedLabel[0]
-									};
-
-									self.applyFilter(filterData);
-								}
+								self.applyFilter(filterData);
 							}
 						}
 					}
@@ -1292,9 +1264,9 @@
 		 */
 		buildPageFragment: function()
 		{
-			if (this.pagi.pageIdx !== 1 && this.opt.method !== 'infinite')
+			if (this.pagination.pageIdx !== 1 && this.opt.method !== 'infinite')
 			{
-				return '/page' + this.opt.delimiter + this.pagi.pageIdx + '/';
+				return '/page' + this.opt.delimiter + this.pagination.pageIdx + '/';
 			}
 
 			return;
@@ -1403,18 +1375,18 @@
 			})
 			.done(function(response)
 			{
-				if (self.pagi.pageIdx > response.pages_count)
+				if (self.pagination.pageIdx > response.pages_count)
 				{
-					self.pagi.pageIdx = response.pages_count;
+					self.pagination.pageIdx = response.pages_count;
 
 					self.refresh();
 
 					return false;
 				}
 
-				self.pagi.filteredCount = response.filtered_count;
+				self.pagination.filteredCount = response.filtered_count;
 
-				self.pagi.totalCount = response.total_count;
+				self.pagination.totalCount = response.total_count;
 
 				// Keep infinite results to append load more
 				if (self.opt.method !== 'infinite')
@@ -1463,7 +1435,7 @@
 
 			var params = {};
 				params.filters   = [];
-				params.page      = this.pagi.pageIdx;
+				params.page      = this.pagination.pageIdx;
 				params.dividend  = this.opt.dividend;
 				params.threshold = this.opt.threshold;
 				params.throttle  = this.opt.throttle;
@@ -1630,25 +1602,25 @@
 				perPage,
 				rect = [];
 
-			if (this.pagi.filteredCount !== this.pagi.totalCount)
+			if (this.pagination.filteredCount !== this.pagination.totalCount)
 			{
-				perPage = this.resultsPerPage(this.pagi.filteredCount, total);
+				perPage = this.resultsPerPage(this.pagination.filteredCount, total);
 			}
 			else
 			{
-				perPage = this.resultsPerPage(this.pagi.totalCount, total);
+				perPage = this.resultsPerPage(this.pagination.totalCount, total);
 			}
 
 			params = {
-				pageStart: perPage === 0 ? 0 : ( this.pagi.pageIdx === 1 ? 1 : ( perPage * (this.pagi.pageIdx - 1 ) + 1)),
-				pageLimit: this.pagi.pageIdx === 1 ? perPage : ( this.pagi.totalCount < (perPage * this.pagi.pageIdx )) ? this.pagi.filteredCount : perPage * this.pagi.pageIdx < this.pagi.filteredCount ? perPage * this.pagi.pageIdx : this.pagi.filteredCount,
+				pageStart: perPage === 0 ? 0 : ( this.pagination.pageIdx === 1 ? 1 : ( perPage * (this.pagination.pageIdx - 1 ) + 1)),
+				pageLimit: this.pagination.pageIdx === 1 ? perPage : ( this.pagination.totalCount < (perPage * this.pagination.pageIdx )) ? this.pagination.filteredCount : perPage * this.pagination.pageIdx < this.pagination.filteredCount ? perPage * this.pagination.pageIdx : this.pagination.filteredCount,
 				nextPage: next,
 				prevPage: prev,
 				page: page,
 				active: true,
 				totalPages: total,
-				totalCount: this.pagi.totalCount,
-				filteredCount: this.pagi.filteredCount,
+				totalCount: this.pagination.totalCount,
+				filteredCount: this.pagination.filteredCount,
 				throttle: this.opt.throttle,
 				dividend: this.opt.dividend,
 				threshold: this.opt.threshold,
@@ -1885,7 +1857,7 @@
 			this.currentSort.column = '';
 
 			// Pagination
-			this.pagi.pageIdx = 1;
+			this.pagination.pageIdx = 1;
 
 			// Remove all rendered content
 			this.$filters.empty();
