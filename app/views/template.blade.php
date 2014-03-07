@@ -25,7 +25,7 @@
 					<h1>Data Grid</h1>
 
 					<ul class="navigator">
-						<!-- <li><a href="{{ URL::to('/') }}" class="btn{{ Request::is('/') ? ' active' : null }}">Standard</a></li> -->
+						<li><a href="{{ URL::to('/') }}" class="btn{{ Request::is('/') ? ' active' : null }}">Single</a></li>
 						<li><a href="{{ URL::to('standard') }}" class="btn{{ Request::is('standard') ? ' active' : null }}">Standard</a></li>
 						<li><a href="{{ URL::to('infinite') }}" class="btn{{ Request::is('infinite') ? ' active' : null }}">Infinite</a></li>
 
