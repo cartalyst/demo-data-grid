@@ -120,7 +120,6 @@
 		 */
 		init: function()
 		{
-			// Initialize the event listeners
 			this.events();
 
 			this.checkHash();
@@ -302,7 +301,6 @@
 
 				document.location = self.source + '?' + self.buildAjaxURI(type);
 			});
-
 		},
 
 		/**
@@ -334,11 +332,17 @@
 
 			var self = this;
 
+			var options = self.opt;
+
 			var curIndex = _.indexOf(routes, self.key);
 
 			var curRoute = '/' + routes.join('/');
 
 			var routes = _.compact(curRoute.split('/grid/'));
+
+			var sortedColumn = options.sort.hasOwnProperty('column');
+
+			var sortedDirection = options.sort.hasOwnProperty('direction');
 
 			_.each(routes, function(route)
 			{
@@ -379,8 +383,7 @@
 
 						self.extractSortsFromRoute(lastItem);
 					}
-					else if (self.opt.sort.hasOwnProperty('column') &&
-							self.opt.sort.hasOwnProperty('direction'))
+					else if (sortedColumn && sortedDirection)
 					{
 						// Convert Object to string
 						var str = self.opt.sort.column + self.opt.delimiter + self.opt.sort.direction;
@@ -411,20 +414,19 @@
 				}
 			});
 
-			var routePath = routes.join('/grid/'),
-				currentHash = String(window.location.hash.slice(3));
+			var currentHash = String(window.location.hash.slice(3));
 
-			if (currentHash.indexOf(this.key) === -1)
+			if (currentHash.indexOf(self.key) === -1)
 			{
-				if (this.opt.sort.hasOwnProperty('column') && this.opt.sort.hasOwnProperty('direction'))
+				if (sortedColumn && sortedDirection)
 				{
-					var str = this.opt.sort.column+this.opt.delimiter+this.opt.sort.direction;
+					var str = options.sort.column + options.delimiter + options.sort.direction;
 
-					this.extractSortsFromRoute(str);
+					self.extractSortsFromRoute(str);
 				}
 			}
 
-			this.refresh();
+			self.refresh();
 		},
 
 		/**
@@ -497,7 +499,7 @@
 
 			routesArr = _.compact(routesArr);
 
-			for(var i = 0; i < routesArr.length; i++)
+			for (var i = 0; i < routesArr.length; i++)
 			{
 				if (i === rtIndex)
 				{
@@ -631,22 +633,15 @@
 		{
 			var idx;
 
-			switch (this.opt.method)
+			if (this.opt.method === 'infinite')
 			{
-				case 'single':
-				case 'group':
+				idx = el.data('page');
 
-					idx = el.data('page');
-
-				break;
-
-				case 'infinite':
-
-					idx = el.data('page');
-
-					el.data('page', ++idx);
-
-				break;
+				el.data('page', ++idx);
+			}
+			else
+			{
+				idx = el.data('page');
 			}
 
 			this.goToPage(idx);
