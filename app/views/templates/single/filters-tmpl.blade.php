@@ -6,11 +6,15 @@
 
 				<% if (f.from !== undefined && f.to !== undefined) { %>
 
-					<%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') + ' - ' + moment(f.to).format('MMM DD, YYYY') %></em>
+					<% if (/[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(f.from) && /[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(f.to)) { %>
+						<%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') + ' - ' + moment(f.to).format('MMM DD, YYYY') %></em>
+					<% } else { %>
+						<%= f.label %> <em><%= f.from + ' - ' + f.to %></em>
+					<% } %>
 
-				<% } else if (f.operator !== undefined && f.operator !== '') { %>
+				<% } else if (f.colMask !== undefined && f.valMask !== undefined) { %>
 
-					<%= f.column + ' ' + f.operator %> <em><%= f.value %></em>
+					<%= f.colMask %> <em><%= f.valMask %></em>
 
 				<% } else { %>
 
