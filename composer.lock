@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6759505f264e5e004b0d4298a7d0879b",
+    "hash": "64c796a32f31007a1b9bfe80d88ad80b",
     "packages": [
         {
             "name": "cartalyst/data-grid",
@@ -11,15 +11,16 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:cartalyst/data-grid.git",
-                "reference": "090190da9680cbbdb543f18440457e6075a166c3"
+                "reference": "3f5160ddce9562056403429bfb8037897fcebd73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/090190da9680cbbdb543f18440457e6075a166c3",
-                "reference": "090190da9680cbbdb543f18440457e6075a166c3",
+                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/3f5160ddce9562056403429bfb8037897fcebd73",
+                "reference": "3f5160ddce9562056403429bfb8037897fcebd73",
                 "shasum": ""
             },
             "require": {
+                "dompdf/dompdf": "0.6.*",
                 "illuminate/http": "~4",
                 "illuminate/support": "~4",
                 "php": ">=5.3.0"
@@ -73,7 +74,7 @@
                 "source": "https://github.com/cartalyst/data-grid/tree/feature/refactor-php",
                 "issues": "https://github.com/cartalyst/data-grid/issues"
             },
-            "time": "2014-03-07 05:14:38"
+            "time": "2014-03-07 06:20:09"
         },
         {
             "name": "classpreloader/classpreloader",
