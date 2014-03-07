@@ -19,7 +19,6 @@
 
 ;(function ($, window, document, undefined)
 {
-
 	'use strict';
 
 	/**
@@ -1896,11 +1895,16 @@
 		 */
 		applyScroll: function()
 		{
-			var options = this.opt;
+			var _scroll = this.opt.scroll;
 
-			if (options.scroll)
+			if (_scroll !== undefined && $.isFunction(_scroll))
 			{
-				$(document.body).animate({ scrollTop: $(options.scroll).offset().top }, 200);
+				_scroll();
+			}
+
+			else if (_scroll)
+			{
+				$(document.body).animate({ scrollTop: $(_scroll).offset().top }, 200);
 			}
 		},
 
