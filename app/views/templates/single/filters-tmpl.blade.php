@@ -2,7 +2,7 @@
 
 	<% _.each(filters, function(f) { %>
 
-			<a href="#" class="btn btn-default remove-filter">
+			<button class="btn btn-default remove-filter">
 
 				<% if (f.from !== undefined && f.to !== undefined) { %>
 
@@ -32,7 +32,7 @@
 
 				<span><i class="fa fa-minus-square-o"></i></span>
 
-			</a>
+			</button>
 
 	<% }); %>
 

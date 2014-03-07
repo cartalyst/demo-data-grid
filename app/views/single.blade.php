@@ -177,22 +177,39 @@ $(function() {
 
 <div class="row">
 
-	<div class="col-md-2">
+	<div class="col-md-1">
 
 		<div class="btn-group">
 
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				Example Filters <span class="caret"></span>
+				Filters <span class="caret"></span>
 			</button>
 
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" data-filter="country:us" data-label="country:Country:United States" data-grid="single">United States</a></li>
-				<li><a href="#" data-filter="country:ca" data-label="country:Country:Canada" data-grid="single">Canada</a></li>
-				<li><a href="#" data-filter="population:>:10000" data-label="population:Population >:10000" data-grid="single">Populations > 10000</a></li>
-				<li><a href="#" data-filter="population:=:5000" data-label="population:Populations is:5000" data-grid="single">Populations = 5000</a></li>
-				<li><a href="#" data-filter="population:>:5000" data-grid="single">Populations > 5000</a></li>
-				<li><a href="#" data-filter="population:<:5000" data-grid="single">Populations < 5000</a></li>
-				<li><a href="#" data-filter="country:us, subdivision:washington, population:<:5000" data-label="country:Country:United States, subdivision:Subdivision:Washington, population:Population:5000" data-grid="single">Washington, United States < 5000</a></li>
+				<li><a href="#" data-grid="single" data-filter="country:us" data-label="country:Country:United States">United States</a></li>
+				<li><a href="#" data-grid="single" data-filter="country:ca" data-label="country:Country:Canada">Canada</a></li>
+				<li><a href="#" data-grid="single" data-filter="population:>:10000" data-label="population:Population >:10000">Populations > 10000</a></li>
+				<li><a href="#" data-grid="single" data-filter="population:=:5000" data-label="population:Populations is:5000">Populations = 5000</a></li>
+				<li><a href="#" data-grid="single" data-filter="population:>:5000">Populations > 5000</a></li>
+				<li><a href="#" data-grid="single" data-filter="population:<:5000">Populations < 5000</a></li>
+				<li><a href="#" data-grid="single" data-filter="country:us, subdivision:washington, population:<:5000" data-label="country:Country:United States, subdivision:Subdivision:Washington, population:Population:5000">Washington, United States < 5000</a></li>
+			</ul>
+
+		</div>
+
+	</div>
+
+	<div class="col-md-1">
+
+		<div class="btn-group">
+
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				Export <span class="caret"></span>
+			</button>
+
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" data-grid="single" data-download="csv">Export to CSV</a></li>
+				<li><a href="#" data-grid="single" data-download="pdf">Export to PDF</a></li>
 			</ul>
 
 		</div>
@@ -267,14 +284,9 @@ $(function() {
 
 		<div class="applied-filters" data-grid="single"></div>
 
-		<a href="#" class="btn btn-default" data-download="csv">Export to CSV</a>
-		<a href="#" class="btn btn-default" data-download="pdf">Export to PDF</a>
-
 	</div>
 
 </div>
-
-<br>
 
 <div class="row">
 
