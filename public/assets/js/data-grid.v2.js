@@ -295,8 +295,10 @@
 				}
 			});
 
-			this.$body.on('click', '[data-download]', function()
+			this.$body.on('click', '[data-download]', function(e)
 			{
+				e.preventDefault();
+
 				var type = $(this).data('download');
 
 				document.location = self.source + '?' + self.buildAjaxURI(type);
