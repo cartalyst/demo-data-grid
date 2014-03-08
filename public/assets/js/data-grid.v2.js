@@ -67,8 +67,8 @@
 
 		self.appliedFilters = [];
 
-		self.defaulColumn = '';
-		self.defaultDirection = '';
+		self.defaultColumn;
+		self.defaultDirection;
 
 		self.currentSort = {
 			column: null,
@@ -978,13 +978,13 @@
 			var sortArr = $(el).data('sort').split(':'),
 				direction = 'asc';
 
-			if (this.currentSort.column === sortArr[0] && this.currentSort.index < 3)
+			if (this.currentSort.column === sortArr[0] && this.currentSort.index < 3 && this.currentSort.column !== this.opt.sort.column)
 			{
 				this.currentSort.index++;
 			}
 			else
 			{
-				if (sortArr[0] !== this.defaulColumn && this.defaulColumn !== '')
+				if (sortArr[0] !== this.defaultColumn && this.defaultColumn !== '')
 				{
 					this.currentSort.index = 1;
 				}
@@ -994,7 +994,7 @@
 				}
 			}
 
-			if (sortArr[0] === this.defaulColumn && this.defaulColumn !== '')
+			if (sortArr[0] === this.defaultColumn && this.defaultColumn !== '')
 			{
 				this.currentSort.index = 1;
 			}
@@ -1016,9 +1016,9 @@
 					this.currentSort.direction = '';
 				}
 			}
-			else if (sortArr[0] === this.defaulColumn && this.defaulColumn !== '')
+			else if (sortArr[0] === this.defaultColumn && this.defaultColumn !== '')
 			{
-				this.currentSort.column = this.defaulColumn;
+				this.currentSort.column = this.defaultColumn;
 
 				this.currentSort.direction = this.defaultDirection === 'asc' ? 'desc' : 'asc';
 			}
@@ -1445,8 +1445,11 @@
 						self.currentSort.direction = response.direction;
 					}
 
-					self.defaulColumn = response.defaultColumn;
-					self.defaultDirection = response.direction;
+					if (self.opt.sort.column === undefined)
+					{
+						self.defaultColumn = response.defaultColumn;
+						self.defaultDirection = response.direction;
+					}
 
 					self.setSortDirection(sortEl, response.direction);
 				}
