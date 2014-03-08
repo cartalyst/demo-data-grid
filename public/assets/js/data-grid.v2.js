@@ -67,6 +67,9 @@
 
 		self.appliedFilters = [];
 
+		self.defaultSortColumn = '';
+		self.defaultSortDirection = '';
+
 		self.currentSort = {
 			column: null,
 			direction: null,
@@ -205,7 +208,9 @@
 					self.$results.empty();
 				}
 
-				self.extractSortsFromClick($(this), $(this).data('sort'));
+				self.extractSortsFromClick($(this));
+
+				self.refresh();
 			});
 
 			this.$body.on('click', '[data-filter]' + grid, function(e)
@@ -808,7 +813,7 @@
 		 * @param  object  el
 		 * @return void
 		 */
-		setSortDirection: function(el)
+		setSortDirection: function(el, direction)
 		{
 			$(this).trigger('dg:sorting', this);
 
@@ -822,26 +827,12 @@
 			$el.not(el).removeClass(ascClass);
 			$el.not(el).removeClass(descClass);
 
-			if (this.currentSort.index === 3)
-			{
-				el.removeClass(ascClass);
+			// get the oppsite class from which is set
+			var remove = direction === 'asc' ? descClass : ascClass;
 
-				el.removeClass(descClass);
+			el.removeClass(remove);
 
-				// reset our sorting index back to 0
-				// and set the column to nothing
-				this.currentSort.index = 0;
-				this.currentSort.column = '';
-			}
-			else
-			{
-				// get the oppsite class from which is set
-				var remove = this.currentSort.direction === 'asc' ? descClass : ascClass;
-
-				el.removeClass(remove);
-
-				el.addClass(options.sortClasses[this.currentSort.direction]);
-			}
+			el.addClass(direction);
 
 			$(this).trigger('dg:sorted', this);
 		},
@@ -980,19 +971,30 @@
 		 * Extracts sorts from click.
 		 *
 		 * @param  object  el
-		 * @param  string  sort
 		 * @return void
 		 */
-		extractSortsFromClick: function(el, sort)
+		extractSortsFromClick: function(el)
 		{
-			var sortArr = sort.split(':'),
+			var sortArr = $(el).data('sort').split(':'),
 				direction = 'asc';
 
-			if (this.currentSort.column === sortArr[0])
+			if (this.currentSort.column === sortArr[0] && this.currentSort.index < 3)
 			{
 				this.currentSort.index++;
 			}
 			else
+			{
+				if (sortArr[0] !== this.defaultSortColumn && this.defaultSortColumn !== '')
+				{
+					this.currentSort.index = 1;
+				}
+				else
+				{
+					this.currentSort.index = 3;
+				}
+			}
+
+			if (sortArr[0] === this.defaultSortColumn && this.defaultSortColumn !== '')
 			{
 				this.currentSort.index = 1;
 			}
@@ -1014,16 +1016,18 @@
 					this.currentSort.direction = '';
 				}
 			}
+			else if (sortArr[0] === this.defaultSortColumn && this.defaultSortColumn !== '')
+			{
+				this.currentSort.column = this.defaultSortColumn;
+
+				this.currentSort.direction = this.defaultSortDirection === 'asc' ? 'desc' : 'asc';
+			}
 			else
 			{
 				this.currentSort.column = sortArr[0];
 
 				this.currentSort.direction = direction;
 			}
-
-			this.setSortDirection(el);
-
-			this.refresh();
 		},
 
 		/**
@@ -1274,10 +1278,6 @@
 			this.currentSort.column = column;
 
 			this.currentSort.direction = direction;
-
-			var el = $('[data-sort^="' + column + '"]' + grid + ',' + grid + ' [data-sort="' + column + '"]');
-
-			this.setSortDirection(el);
 		},
 
 		/**
@@ -1435,6 +1435,24 @@
 					self.$results.html(self.tmpl['empty']());
 				}
 
+				if (response.sort !== '')
+				{
+					var sortEl = $('[data-sort^="' + response.sort + '"]' + self.grid + ',' + self.grid + ' [data-sort="' + response.sort + '"]');
+
+					if (self.buildSortFragment() !== '/')
+					{
+						self.currentSort.column = response.sort;
+						self.currentSort.direction = response.direction;
+					}
+					else
+					{
+						self.defaultSortColumn = response.sort;
+						self.defaultSortDirection = response.direction;
+					}
+
+					self.setSortDirection(sortEl, response.direction);
+				}
+
 				self.hideLoader();
 
 				self.callback();
@@ -1570,10 +1588,15 @@
 				}
 			}
 
-			if (this.currentSort.column !== '')
+			if (this.currentSort.column !== '' && this.currentSort.direction !== '')
 			{
 				params.sort = this.currentSort.column;
 				params.direction = this.currentSort.direction;
+			}
+			else if (this.opt.sort.column !== undefined && this.opt.sort.direction !== undefined)
+			{
+				params.sort = this.opt.sort.column;
+				params.direction = this.opt.sort.direction;
 			}
 
 			if (download)

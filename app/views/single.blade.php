@@ -40,10 +40,6 @@ $(function() {
 			'fetching': function(obj) {},
 			'fetched': function(obj) {},
 		},
-		sort: {
-			column: 'city',
-			direction: 'asc'
-		},
 		//scroll: '.table', // Auto Scroll feature.
 		callback: function(obj) {
 

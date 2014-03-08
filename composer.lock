@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:cartalyst/data-grid.git",
-                "reference": "3f5160ddce9562056403429bfb8037897fcebd73"
+                "reference": "74c774ec226a0f83fd8f65bbaa86aa569e7c2055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/3f5160ddce9562056403429bfb8037897fcebd73",
-                "reference": "3f5160ddce9562056403429bfb8037897fcebd73",
+                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/74c774ec226a0f83fd8f65bbaa86aa569e7c2055",
+                "reference": "74c774ec226a0f83fd8f65bbaa86aa569e7c2055",
                 "shasum": ""
             },
             "require": {
@@ -37,8 +37,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Cartalyst\\DataGrid": "src"
+                "psr-4": {
+                    "Cartalyst\\DataGrid\\": "src"
                 }
             },
             "license": [
@@ -74,7 +74,7 @@
                 "source": "https://github.com/cartalyst/data-grid/tree/feature/refactor-php",
                 "issues": "https://github.com/cartalyst/data-grid/issues"
             },
-            "time": "2014-03-07 06:20:09"
+            "time": "2014-03-08 03:09:50"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -342,12 +342,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a75631417c5fcc2143fd4c62d129b68667a6f4e5"
+                "reference": "55f804e8247ad4cef24aa484ed66ac5b4d9923e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a75631417c5fcc2143fd4c62d129b68667a6f4e5",
-                "reference": "a75631417c5fcc2143fd4c62d129b68667a6f4e5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/55f804e8247ad4cef24aa484ed66ac5b4d9923e5",
+                "reference": "55f804e8247ad4cef24aa484ed66ac5b4d9923e5",
                 "shasum": ""
             },
             "require": {
@@ -410,7 +410,7 @@
                 "iron-io/iron_mq": "1.5.*",
                 "mockery/mockery": "0.9.*",
                 "pda/pheanstalk": "2.1.*",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "4.0.*"
             },
             "suggest": {
                 "doctrine/dbal": "Allow renaming columns and dropping SQLite columns."
@@ -451,7 +451,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-03-07 02:17:42"
+            "time": "2014-03-07 20:16:11"
         },
         {
             "name": "monolog/monolog",

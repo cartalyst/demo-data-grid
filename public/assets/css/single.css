@@ -68,9 +68,9 @@
 }
 
 .table th.sortable.asc:after {
-	content:" \25BC";
+	content: " \25B2";
 }
 
 .table th.sortable.desc:after {
-	content: " \25B2";
+	content:" \25BC";
 }
