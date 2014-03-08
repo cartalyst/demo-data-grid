@@ -320,16 +320,18 @@
 
 			var events = this.opt.events;
 
-			var eventKeys = _.keys(events);
-
-			_.each(eventKeys, function(key)
+			if (events !== undefined)
 			{
-				$(self).on('dg:' + key, function()
-				{
-					events[key](self);
-				});
-			});
+				var eventKeys = _.keys(events);
 
+				_.each(eventKeys, function(key)
+				{
+					$(self).on('dg:' + key, function()
+					{
+						events[key](self);
+					});
+				});
+			}
 		},
 
 		/**
