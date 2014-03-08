@@ -67,8 +67,8 @@
 
 		self.appliedFilters = [];
 
-		self.defaultSortColumn = '';
-		self.defaultSortDirection = '';
+		self.defaulColumn = '';
+		self.defaultDirection = '';
 
 		self.currentSort = {
 			column: null,
@@ -984,7 +984,7 @@
 			}
 			else
 			{
-				if (sortArr[0] !== this.defaultSortColumn && this.defaultSortColumn !== '')
+				if (sortArr[0] !== this.defaulColumn && this.defaulColumn !== '')
 				{
 					this.currentSort.index = 1;
 				}
@@ -994,7 +994,7 @@
 				}
 			}
 
-			if (sortArr[0] === this.defaultSortColumn && this.defaultSortColumn !== '')
+			if (sortArr[0] === this.defaulColumn && this.defaulColumn !== '')
 			{
 				this.currentSort.index = 1;
 			}
@@ -1016,11 +1016,11 @@
 					this.currentSort.direction = '';
 				}
 			}
-			else if (sortArr[0] === this.defaultSortColumn && this.defaultSortColumn !== '')
+			else if (sortArr[0] === this.defaulColumn && this.defaulColumn !== '')
 			{
-				this.currentSort.column = this.defaultSortColumn;
+				this.currentSort.column = this.defaulColumn;
 
-				this.currentSort.direction = this.defaultSortDirection === 'asc' ? 'desc' : 'asc';
+				this.currentSort.direction = this.defaultDirection === 'asc' ? 'desc' : 'asc';
 			}
 			else
 			{
@@ -1444,11 +1444,9 @@
 						self.currentSort.column = response.sort;
 						self.currentSort.direction = response.direction;
 					}
-					else
-					{
-						self.defaultSortColumn = response.sort;
-						self.defaultSortDirection = response.direction;
-					}
+
+					self.defaulColumn = response.defaultColumn;
+					self.defaultDirection = response.direction;
 
 					self.setSortDirection(sortEl, response.direction);
 				}
@@ -1661,7 +1659,8 @@
 
 			params = {
 				pageStart: perPage === 0 ? 0 : ( this.pagination.pageIdx === 1 ? 1 : ( perPage * (this.pagination.pageIdx - 1 ) + 1)),
-				pageLimit: this.pagination.pageIdx === 1 ? perPage : ( this.pagination.totalCount < (perPage * this.pagination.pageIdx )) ? this.pagination.filteredCount : perPage * this.pagination.pageIdx < this.pagination.filteredCount ? perPage * this.pagination.pageIdx : this.pagination.filteredCount,
+
+				pageLimit: this.pagination.pageIdx === 1 ? perPage > this.pagination.filteredCount ? this.pagination.filteredCount : perPage : ( this.pagination.totalCount < (perPage * this.pagination.pageIdx )) ? this.pagination.filteredCount : perPage * this.pagination.pageIdx < this.pagination.filteredCount ? perPage * this.pagination.pageIdx : this.pagination.filteredCount,
 				nextPage: next,
 				prevPage: prev,
 				page: page,
