@@ -1663,8 +1663,7 @@
 			perPage = this.calculatePagination();
 
 			params = {
-				pageStart: perPage === 0 ? 0 : ( this.pagination.pageIdx === 1 ? 1 : ( perPage * (this.pagination.pageIdx - 1 ) + 1)),
-
+				pageStart: perPage === 0 ? 0 : ( this.pagination.pageIdx === 1 ? this.pagination.filteredCount > 0 ? 1 : 0 : ( perPage * (this.pagination.pageIdx - 1 ) + 1)),
 				pageLimit: this.pagination.pageIdx === 1 ? perPage > this.pagination.filteredCount ? this.pagination.filteredCount : perPage : ( this.pagination.totalCount < (perPage * this.pagination.pageIdx )) ? this.pagination.filteredCount : perPage * this.pagination.pageIdx < this.pagination.filteredCount ? perPage * this.pagination.pageIdx : this.pagination.filteredCount,
 				nextPage: next,
 				prevPage: prev,
