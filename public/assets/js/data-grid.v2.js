@@ -553,7 +553,7 @@
 
 			if (path !== '')
 			{
-				path = path.replace('//', '/');
+				path = path.replace(/\/\//g, '/');
 
 				if (currentHash !== path)
 				{
