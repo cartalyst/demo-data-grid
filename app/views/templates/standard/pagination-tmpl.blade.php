@@ -121,7 +121,7 @@
 	{
 		params = {
 			pageStart: perPage === 0 ? 0 : ( i === 1 ? 1 : (perPage * (i - 1) + 1)),
-			pageLimit: i === 1 && (p.filteredCount > p.threshold) ? perPage : (p.totalCount < p.throttle) ? p.totalCount : perPage * i > p.threshold ? perPage * i : p.filteredCount,
+			pageLimit: i === 1 && (p.filteredCount > p.threshold) ? perPage : (p.totalCount < p.throttle) ? p.totalCount : perPage * i > p.threshold ? perPage * i < p.filteredCount ? perPage * i : p.filteredCount : p.filteredCount,
 			nextPage: p.nextPage,
 			prevPage: p.PrevPage,
 			page: i,
