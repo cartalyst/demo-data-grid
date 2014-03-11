@@ -53,6 +53,10 @@
 	// Hash Settings
 	var defaultHash = '';
 
+	// Database date formats
+	var dbTimestampFormat     = 'YYYY-MM-DD HH:mm:ss',
+		dbDateFormat          = 'YYYY-MM-DD';
+
 	// Search
 	var searchTimeout;
 	var isSearchActive = false;
@@ -65,6 +69,7 @@
 
 		self.grid = '[data-grid="' + grid + '"]';
 
+		self.defaultFilters = [];
 		self.appliedFilters = [];
 
 		self.defaultColumn;
@@ -213,7 +218,16 @@
 				self.refresh();
 			});
 
-			this.$body.on('click', '[data-filter]' + grid, function(e)
+			this.$body.on('click', '[data-filter-default]' + grid, function(e)
+			{
+				e.preventDefault();
+
+				self.reset();
+
+				self.extractFiltersFromClick($(this), true);
+			});
+
+			this.$body.on('click', '[data-filter]' + grid + ':not([data-filter-default])', function(e)
 			{
 				e.preventDefault();
 
@@ -341,9 +355,8 @@
 		 */
 		checkHash: function()
 		{
-			var path = String(window.location.hash.slice(3));
-
-			var routes = path.split('/');
+			var path = String(window.location.hash.slice(3)),
+				routes = path.split('/');
 
 			routes = _.compact(routes);
 
@@ -358,34 +371,31 @@
 		 */
 		updateOnHash: function(routes)
 		{
-			// Reset grid
+			var self            = this,
+				options         = self.opt,
+				curIndex        = _.indexOf(routes, self.key),
+				curRoute        = '/' + routes.join('/'),
+				currentHash     = String(window.location.hash.slice(3)),
+				routes          = _.compact(curRoute.split('/grid/')),
+				sortedColumn    = options.sort.hasOwnProperty('column'),
+				sortedDirection = options.sort.hasOwnProperty('direction'),
+				parsedRoute,
+				nextItem,
+				lastItem;
+
 			this.reset();
 
-			var self = this;
-
-			var options = self.opt;
-
-			var curIndex = _.indexOf(routes, self.key);
-
-			var curRoute = '/' + routes.join('/');
-
-			var routes = _.compact(curRoute.split('/grid/'));
-
-			var sortedColumn = options.sort.hasOwnProperty('column');
-
-			var sortedDirection = options.sort.hasOwnProperty('direction');
+			this.initDefaultFilters();
 
 			_.each(routes, function(route)
 			{
-				var parsedRoute = route.split('/');
-
-				parsedRoute = _.compact(parsedRoute);
+				parsedRoute = _.compact(route.split('/'));
 
 				if (parsedRoute[0] === self.key)
 				{
 					// Build Array For Sorts
-					var lastItem = parsedRoute[(parsedRoute.length - 1)];
-					var nextItem = parsedRoute[(parsedRoute.length - 2)];
+					lastItem = parsedRoute[(parsedRoute.length - 1)];
+					nextItem = parsedRoute[(parsedRoute.length - 2)];
 
 					// Use test to return true/false
 					if (/page/g.test(lastItem))
@@ -416,7 +426,7 @@
 					}
 					else if (sortedColumn && sortedDirection)
 					{
-						// Convert Object to string
+						// Convert sort to string
 						var str = self.opt.sort.column + self.opt.delimiter + self.opt.sort.direction;
 
 						self.extractSortsFromRoute(str);
@@ -424,28 +434,26 @@
 					else
 					{
 						self.currentSort.direction = '';
-						self.currentSort.column = '';
+						self.currentSort.column    = '';
 					}
 
 					// Build Array For Filters
 					if (parsedRoute.length !== 0 )
 					{
-						// We Must Reset then rebuild.
+						// Reset filters then rebuild.
 						self.appliedFilters = [];
 
 						self.extractFiltersFromRoute(parsedRoute);
 					}
 					else
 					{
-						// Reset Applied Filters if none are set via the hash
+						// Reset applied filters if none are set via the hash
 						self.appliedFilters = [];
 
 						self.$filters.empty();
 					}
 				}
 			});
-
-			var currentHash = String(window.location.hash.slice(3));
 
 			if (currentHash.indexOf(self.key) === -1)
 			{
@@ -577,18 +585,18 @@
 		 * @param  object  filter
 		 * @return void
 		 */
-		applyFilter: function(filters)
+		applyFilter: function(filter)
 		{
-			if (this.searchForFilter(filters) === -1)
+			if (this.searchForFilter(filter) === -1)
 			{
 				$(this).trigger('dg:applying', this);
 
 				var without = [],
 					exists  = false;
 
-				_.each(this.appliedFilters, function(filter)
+				_.each(this.appliedFilters, function(_filter)
 				{
-					if (JSON.stringify(filter) === JSON.stringify(filters))
+					if (JSON.stringify(_filter) === JSON.stringify(filter))
 					{
 						exists = true;
 					}
@@ -597,7 +605,7 @@
 				if ( ! exists)
 				{
 					// Apply filters to our global array.
-					this.appliedFilters.push(filters);
+					this.appliedFilters.push(filter);
 				}
 
 				// Create a new array without livesearch items
@@ -613,6 +621,52 @@
 				this.$filters.html(this.tmpl['filters']({ filters: without }));
 
 				$(this).trigger('dg:applied', this);
+			}
+		},
+
+		/**
+		 * Apply a default filter.
+		 *
+		 * @param  object  filter
+		 * @return void
+		 */
+		applyDefaultFilter: function(filter)
+		{
+			$(this).trigger('dg:applyingDefault', this);
+
+			var exists = false;
+
+			_.each(this.defaultFilters, function(_filter)
+			{
+				if (JSON.stringify(_filter) === JSON.stringify(filter))
+				{
+					exists = true;
+				}
+			});
+
+			if ( ! exists)
+			{
+				this.defaultFilters.push(filter);
+			}
+
+			$(this).trigger('dg:appliedDefault', this);
+		},
+
+		/**
+		 * Initialize default filters.
+		 *
+		 * @return void
+		 */
+		initDefaultFilters: function()
+		{
+			var self = this;
+
+			if (window.location.hash === '')
+			{
+				_.each($('[data-filter-default]' + self.grid), function(defaultFilter)
+				{
+					self.extractFiltersFromClick($(defaultFilter), true);
+				});
 			}
 		},
 
@@ -635,6 +689,35 @@
 			this.goToPage(1);
 
 			$(this).trigger('dg:removed', this);
+		},
+
+		/**
+		 * Remove filters from group.
+		 *
+		 * @param  object filters
+		 * @return void
+		 */
+		removeGroupFilters: function(filters)
+		{
+			var self  = this,
+				index = -1,
+				filterData;
+
+			var filters = filters.find('[data-filter]');
+
+			_.each(filters, function(filter)
+			{
+				filterData = {
+					column: $(filter).data('filter').split(':')[0],
+					value: $(filter).data('filter').split(':')[1],
+				}
+				index = self.searchForFilter(filterData);
+
+				if (index !== -1)
+				{
+					self.removeFilters(index);
+				}
+			});
 		},
 
 		/**
@@ -856,7 +939,6 @@
 				endVal           = endFilterEl.val(),
 				startLabel       = startFilterEl.data('label'),
 				dateFormat       = startFilterEl.data(this.opt.dateFormatAttribute),
-				dbFormat         = 'YYYY-MM-DD',
 				column           = startRangeFilter,
 				from             = startVal,
 				to               = endVal,
@@ -864,8 +946,8 @@
 
 			if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
 			{
-				from   = moment(from).format(dbFormat);
-				to     = moment(to).format(dbFormat);
+				from = moment(from).format(dbDateFormat);
+				to   = moment(to).format(dbDateFormat);
 			}
 
 			var filterData = {
@@ -887,12 +969,26 @@
 		 * Extracts filters from click.
 		 *
 		 * @param  string  filters
+		 * @param  bool  isDefault
 		 * @return void
 		 */
-		extractFiltersFromClick: function(filterEl)
+		extractFiltersFromClick: function(filterEl, isDefault)
 		{
-			var filtersArr = $(filterEl).data('filter').split(', '),
-				labels = $(filterEl).data('label'),
+			if (filterEl.data('filter-reset') !== undefined)
+			{
+				this.reset();
+			}
+			else if (filterEl.parent().data('filter-reset') !== undefined)
+			{
+				this.removeGroupFilters(filterEl.parent());
+			}
+			else if (filterEl.parent().parent().data('filter-reset') !== undefined)
+			{
+				this.removeGroupFilters(filterEl.parent().parent());
+			}
+
+			var filtersArr = filterEl.data('filter').split(', '),
+				labels = filterEl.data('label'),
 				filter,
 				operator,
 				filterData,
@@ -939,7 +1035,14 @@
 							operator: operator
 						};
 
-						this.applyFilter(filterData);
+						if ( ! isDefault)
+						{
+							this.applyFilter(filterData);
+						}
+						else
+						{
+							this.applyDefaultFilter(filterData)
+						}
 					}
 					else
 					{
@@ -949,7 +1052,14 @@
 							operator: operator
 						};
 
-						this.applyFilter(filterData);
+						if ( ! isDefault)
+						{
+							this.applyFilter(filterData);
+						}
+						else
+						{
+							this.applyDefaultFilter(filterData)
+						}
 					}
 				}
 				else
@@ -960,7 +1070,14 @@
 						operator: operator
 					};
 
-					this.applyFilter(filterData);
+					if ( ! isDefault)
+					{
+						this.applyFilter(filterData);
+					}
+					else
+					{
+						this.applyDefaultFilter(filterData)
+					}
 				}
 			}
 
@@ -1049,7 +1166,7 @@
 
 			this.appliedFilters = [];
 
-			labels = $('[data-label][data-filter]' + grid + ',' + grid + ' [data-label][data-filter]');
+			labels = $('[data-label][data-filter]' + grid + ':not([data-filter-default])' + ',' + grid + ' [data-label][data-filter]:not([data-filter-default])');
 
 			for (var i = 0; i < routeArr.length; i++)
 			{
@@ -1081,11 +1198,12 @@
 
 							if (hasOperator)
 							{
-								var operator = filters[1];
+								var operator = filters[1],
+									value = filters[2];
 
 								var filterData = {
 									column: filters[0],
-									value: $('<p/>').text(filters[2]).html(),
+									value: $('<p/>').text(value).html(),
 									operator: operator,
 									colMask: matchedLabel[1],
 									valMask: matchedLabel[2]
@@ -1109,28 +1227,29 @@
 				}
 
 				// Check to  make sure filter isn't already set
-				if (self.searchForValue( filters[1], self.appliedFilters) === -1)
-				{
-					var curFilter = filters[0];
+				var curFilter  = filters[0],
+					termsCount = routeArr[i].match(/:/g).length;
 
+				// Range filters
+				if ( ! self.checkOperator(routeArr[i]) && termsCount === 2)
+				{
 					var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-start][data-range-filter="' + curFilter + '"]'),
 						endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
 
 					var start      = startFilterEl.data('range-filter'),
 						startLabel = startFilterEl.data('label'),
 						dateFormat = startFilterEl.data(this.opt.dateFormatAttribute),
-						dbFormat   = 'YYYY-MM-DD',
 						column     = routeArr[i].split(this.opt.delimiter)[0],
 						from       = routeArr[i].split(this.opt.delimiter)[1],
 						to         = routeArr[i].split(this.opt.delimiter)[2];
 
 					if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
 					{
-						from = moment(from).format(dbFormat);
-						to   = moment(to).format(dbFormat);
+						from = moment(from).format(dbDateFormat);
+						to   = moment(to).format(dbDateFormat);
 					}
 
-					if (window.moment !== undefined && dateFormat)
+					if (window.moment !== undefined && dateFormat !== undefined)
 					{
 						startFilterEl.val(moment(from).format(dateFormat));
 						endFilterEl.val(moment(to).format(dateFormat));
@@ -1141,47 +1260,62 @@
 						endFilterEl.val(to);
 					}
 
-					if (curFilter === start)
+					var filterData = {
+						column: column,
+						from: from,
+						to: to,
+						label: startLabel,
+						type: 'range'
+					};
+
+					self.applyFilter(filterData);
+				}
+				else
+				{
+					var filterEl = $('[data-filter*="' +  routeArr[i] + '"]');
+
+					if (termsCount === 2)
 					{
+						var column     = routeArr[i].split(this.opt.delimiter)[0],
+							operator   = routeArr[i].split(this.opt.delimiter)[1],
+							value      = routeArr[i].split(this.opt.delimiter)[2];
+
 						var filterData = {
 							column: column,
-							from: from,
-							to: to,
-							label: startLabel,
-							type: 'range'
+							value: $('<p/>').text(value).html(),
+							operator: operator
 						};
 
-						self.applyFilter(filterData);
-					}
-					else
-					{
-						var filterEl = $('[data-filter="' +  filters.join(self.opt.delimiter) + '"]');
-
-						if (routeArr[i].split(this.opt.delimiter)[2] !== undefined)
+						if ($(filterEl).data('filter-default') !== undefined)
 						{
-							var column     = routeArr[i].split(this.opt.delimiter)[0],
-								operator   = routeArr[i].split(this.opt.delimiter)[1],
-								value      = routeArr[i].split(this.opt.delimiter)[2];
-
-							var filterData = {
-								column: column,
-								value: $('<p/>').text(value).html(),
-								operator: operator
-							};
-
-							self.applyFilter(filterData);
+							self.applyDefaultFilter(filterData);
 						}
 						else
 						{
-							var filterData = {
-								column: routeArr[i].split(this.opt.delimiter)[0],
-								value: $('<p/>').text(routeArr[i].split(this.opt.delimiter)[1]).html(),
-							};
+							self.applyFilter(filterData);
+						}
+					}
+					else
+					{
+						var curFilter     = this.$body.find('[data-filter*="' + routeArr[i] + '"]' + grid),
+							value         = routeArr[i].split(this.opt.delimiter)[1];
 
+						var filterData = {
+							column: routeArr[i].split(this.opt.delimiter)[0],
+							value: $('<p/>').text(value).html(),
+						};
+
+						if ($(curFilter).data('filter-default') !== undefined)
+						{
+							self.applyDefaultFilter(filterData);
+						}
+						else
+						{
 							self.applyFilter(filterData);
 						}
 					}
 				}
+
 			}
 		},
 
@@ -1308,9 +1442,21 @@
 
 			var delimiter = this.opt.delimiter;
 
-			for (var i = 0; i < this.appliedFilters.length; i++)
+			var filters = [];
+
+			_.each(this.defaultFilters, function(filter)
 			{
-				var index = this.appliedFilters[i];
+				filters.push(filter);
+			});
+
+			_.each(this.appliedFilters, function(filter)
+			{
+				filters.push(filter);
+			});
+
+			for (var i = 0; i < filters.length; i++)
+			{
+				var index = filters[i];
 
 				if (index.type !== 'live')
 				{
@@ -1488,61 +1634,72 @@
 				params.threshold = this.opt.threshold;
 				params.throttle  = this.opt.throttle;
 
-			for (var i = 0; i < this.appliedFilters.length; i++)
+			var filters = [];
+
+			_.each(this.defaultFilters, function(filter)
+			{
+				filters.push(filter);
+			});
+
+			_.each(this.appliedFilters, function(filter)
+			{
+				filters.push(filter);
+			});
+
+			for (var i = 0; i < filters.length; i++)
 			{
 				var filter = {};
 
-				if ('mask' in this.appliedFilters[i])
+				if ('mask' in filters[i])
 				{
-					if (this.appliedFilters[i].mask === 'column')
+					if (filters[i].mask === 'column')
 					{
-						if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== '')
+						if (filters[i].operator !== undefined && filters[i].operator !== '')
 						{
-							filter[this.appliedFilters[i].maskOrg] =
+							filter[filters[i].maskOrg] =
 								'|' +
-								this.appliedFilters[i].operator +
-								$('<p/>').html(this.appliedFilters[i].value).text() +
+								filters[i].operator +
+								$('<p/>').html(filters[i].value).text() +
 								'|';
 						}
-						else if (this.appliedFilters[i].type === 'range')
+						else if (filters[i].type === 'range')
 						{
 							if (window.moment !== undefined)
 							{
-								var dbFormat = 'YYYY-MM-DD HH:mm:ss',
-									from     = moment(this.appliedFilters[i].from).startOf('day').format(dbFormat),
-									to       = moment(this.appliedFilters[i].to).endOf('day').format(dbFormat);
+								var from = moment(filters[i].from).startOf('day').format(dbTimestampFormat),
+									to   = moment(filters[i].to).endOf('day').format(dbTimestampFormat);
 							}
 							else
 							{
-								var from = this.appliedFilters[i].from,
-									to   = this.appliedFilters[i].to;
+								var from = filters[i].from,
+									to   = filters[i].to;
 							}
 
-							filter[this.appliedFilters[i].maskOrg] = '|' + '>=' + from + '|' + '<=' + to +'|';
+							filter[filters[i].maskOrg] = '|' + '>=' + from + '|' + '<=' + to +'|';
 						}
 						else
 						{
-							filter[this.appliedFilters[i].maskOrg] = $('<p/>').html(this.appliedFilters[i].value).text();
+							filter[filters[i].maskOrg] = $('<p/>').html(filters[i].value).text();
 						}
 
 						params.filters.push(filter);
 					}
 					else
 					{
-						if (this.appliedFilters[i].column === 'all')
+						if (filters[i].column === 'all')
 						{
-							params.filters.push(this.appliedFilters[i].maskOrg);
+							params.filters.push(filters[i].maskOrg);
 						}
 						else
 						{
-							if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== null)
+							if (filters[i].operator !== undefined && filters[i].operator !== null)
 							{
-								filter[this.appliedFilters[i].column] = '|' + this.appliedFilters[i].operator + this.appliedFilters[i].maskOrg + '|';
+								filter[filters[i].column] = '|' + filters[i].operator + filters[i].maskOrg + '|';
 								params.filters.push(filter);
 							}
 							else
 							{
-								filter[this.appliedFilters[i].column] = this.appliedFilters[i].maskOrg;
+								filter[filters[i].column] = filters[i].maskOrg;
 								params.filters.push(filter);
 							}
 						}
@@ -1550,40 +1707,49 @@
 				}
 				else
 				{
-					if (this.appliedFilters[i].column === 'all')
+					if (filters[i].column === 'all')
 					{
-						params.filters.push($('<p/>').html(this.appliedFilters[i].value).text());
+						params.filters.push($('<p/>').html(filters[i].value).text());
 					}
 					else
 					{
-
-						if (this.appliedFilters[i].operator !== undefined && this.appliedFilters[i].operator !== '')
+						if (filters[i].operator !== undefined && filters[i].operator !== '')
 						{
-							filter[this.appliedFilters[i].column] =
+							var value = filters[i].value;
+
+							if (self.checkDate(value) && filters[i].operator == '>=')
+							{
+								value = moment(value).startOf('day').format(dbTimestampFormat);
+							}
+							else if (self.checkDate(value) && filters[i].operator === '<=')
+							{
+								value = moment(value).endOf('day').format(dbTimestampFormat);
+							}
+
+							filter[filters[i].column] =
 								'|' +
-								this.appliedFilters[i].operator +
-								$('<p/>').html(this.appliedFilters[i].value).text() +
+								filters[i].operator +
+								$('<p/>').html(value).text() +
 								'|';
 						}
-						else if (this.appliedFilters[i].type === 'range')
+						else if (filters[i].type === 'range')
 						{
-							if (window.moment !== undefined && /[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(this.appliedFilters[i].from))
+							if (window.moment !== undefined && self.checkDate(filters[i].from))
 							{
-								var dbFormat = 'YYYY-MM-DD HH:mm:ss',
-									from     = moment(this.appliedFilters[i].from).startOf('day').format(dbFormat),
-									to       = moment(this.appliedFilters[i].to).endOf('day').format(dbFormat);
+								var from = moment(filters[i].from).startOf('day').format(dbTimestampFormat),
+									to   = moment(filters[i].to).endOf('day').format(dbTimestampFormat);
 							}
 							else
 							{
-								var from = this.appliedFilters[i].from,
-									to   = this.appliedFilters[i].to;
+								var from = filters[i].from,
+									to   = filters[i].to;
 							}
 
-							filter[this.appliedFilters[i].column] = '|' + '>=' + from + '|' + '<=' + to +'|';
+							filter[filters[i].column] = '|' + '>=' + from + '|' + '<=' + to +'|';
 						}
 						else
 						{
-							filter[this.appliedFilters[i].column] = $('<p/>').html(this.appliedFilters[i].value).text();
+							filter[filters[i].column] = $('<p/>').html(filters[i].value).text();
 						}
 
 						params.filters.push(filter);
@@ -1899,6 +2065,7 @@
 
 			// Filters
 			this.appliedFilters = [];
+			this.defaultFilters = [];
 
 			// Sort
 			this.currentSort.index = 0;
@@ -1971,6 +2138,15 @@
 		checkOperator: function(value)
 		{
 			return />|<|!=|=|<=|>=|<>/.test(value);
+		},
+
+		/**
+		 * Check for date.
+		 *
+		 */
+		checkDate: function(value)
+		{
+			return /[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(value);
 		},
 
 		/**
