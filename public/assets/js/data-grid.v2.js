@@ -218,7 +218,7 @@
 				self.refresh();
 			});
 
-			this.$body.on('click', '[data-filter-default]' + grid, function(e)
+			this.$body.on('click', '[data-filter-default]' + grid  + ',' + grid + ' [data-filter-default]', function(e)
 			{
 				e.preventDefault();
 
@@ -227,7 +227,7 @@
 				self.extractFiltersFromClick($(this), true);
 			});
 
-			this.$body.on('click', '[data-filter]' + grid + ':not([data-filter-default])', function(e)
+			this.$body.on('click', '[data-filter]' + grid + ':not([data-filter-default]),' + grid + ' [data-filter]:not([data-filter-default])', function(e)
 			{
 				e.preventDefault();
 
@@ -663,7 +663,7 @@
 
 			if (window.location.hash === '')
 			{
-				_.each($('[data-filter-default]' + self.grid), function(defaultFilter)
+				_.each($('[data-filter-default]' + self.grid + ', ' + self.grid + ' [data-filter-default]'), function(defaultFilter)
 				{
 					self.extractFiltersFromClick($(defaultFilter), true);
 				});
@@ -707,10 +707,38 @@
 
 			_.each(filters, function(filter)
 			{
-				filterData = {
-					column: $(filter).data('filter').split(':')[0],
-					value: $(filter).data('filter').split(':')[1],
+				var filter     = $(filter).data('filter'),
+					termsCount = filter.match(/:/g).length,
+					filter     = filter.split(':'),
+					column     = filter[0],
+					operator   = self.checkOperator(filter[1]) ? filter[1] : null;
+
+				if (termsCount === 2 && operator === null)
+				{
+					filterData = {
+						column: filter[0],
+						from: filter[1],
+						to: filter[2],
+						type: 'range'
+					}
 				}
+				else if (termsCount === 2 && operator !== undefined)
+				{
+					filterData = {
+						column: filter[0],
+						value: $('<p/>').text(filter[1]).html(),
+						operator: operator
+					};
+
+				}
+				else
+				{
+					filterData = {
+						column: filter[0],
+						value: $('<p/>').text(filter[1]).html()
+					};
+				}
+
 				index = self.searchForFilter(filterData);
 
 				if (index !== -1)
@@ -987,7 +1015,7 @@
 				this.removeGroupFilters(filterEl.parent().parent());
 			}
 
-			var filtersArr = filterEl.data('filter').split(', '),
+			var filtersArr = filterEl.data('filter').split('; '),
 				labels = filterEl.data('label'),
 				filter,
 				operator,
@@ -995,13 +1023,15 @@
 				labelsArr,
 				index,
 				label,
-				key;
+				key,
+				termsCount;
 
 			for (var i = 0; i < filtersArr.length; i++)
 			{
 				filter = filtersArr[i].split(':');
+				termsCount = filtersArr[i].match(/:/g).length;
 
-				if (this.checkOperator(filter[1]))
+				if (this.checkOperator(filtersArr[i]))
 				{
 					operator = filter[1];
 
@@ -1010,7 +1040,7 @@
 
 				filterData = {
 					column: filter[0],
-					value: filter[1],
+					value: $('<p/>').text(filter[1]).html(),
 					operator: operator
 				};
 
@@ -1021,12 +1051,22 @@
 
 				if (typeof labels !== 'undefined')
 				{
-					labelsArr = labels.split(', ');
+					labelsArr = labels.split('; ');
+					label = labelsArr[i].split(':');
 
-					if (index !== -1)
+					if (termsCount === 2 && operator === undefined)
 					{
-						label = labelsArr[i].split(':');
-
+						filterData = {
+							column: filter[0],
+							from: filter[1],
+							to: filter[2],
+							colMask: label[1],
+							valMask: label[2],
+							type: 'range'
+						}
+					}
+					else if (termsCount === 2 && operator !== undefined)
+					{
 						filterData = {
 							column: filter[0],
 							value: $('<p/>').text(filter[1]).html(),
@@ -1034,15 +1074,46 @@
 							valMask: label[2],
 							operator: operator
 						};
+					}
+					else
+					{
+						filterData = {
+							column: filter[0],
+							value: $('<p/>').text(filter[1]).html(),
+							colMask: label[1],
+							valMask: label[2],
+							operator: operator
+						};
+					}
 
-						if ( ! isDefault)
-						{
-							this.applyFilter(filterData);
+					if ( ! isDefault)
+					{
+						this.applyFilter(filterData);
+					}
+					else
+					{
+						this.applyDefaultFilter(filterData)
+					}
+
+				}
+				else
+				{
+					if (termsCount === 2 && operator === undefined)
+					{
+						filterData = {
+							column: filter[0],
+							from: filter[1],
+							to: filter[2],
+							type: 'range'
 						}
-						else
-						{
-							this.applyDefaultFilter(filterData)
-						}
+					}
+					else if (termsCount === 2 && operator !== undefined)
+					{
+						filterData = {
+							column: filter[0],
+							value: $('<p/>').text(filter[1]).html(),
+							operator: operator
+						};
 					}
 					else
 					{
@@ -1051,24 +1122,7 @@
 							value: $('<p/>').text(filter[1]).html(),
 							operator: operator
 						};
-
-						if ( ! isDefault)
-						{
-							this.applyFilter(filterData);
-						}
-						else
-						{
-							this.applyDefaultFilter(filterData)
-						}
 					}
-				}
-				else
-				{
-					filterData = {
-						column: filter[0],
-						value: $('<p/>').text(filter[1]).html(),
-						operator: operator
-					};
 
 					if ( ! isDefault)
 					{
@@ -1174,8 +1228,8 @@
 
 				for (var x = 0; x < labels.length; x++)
 				{
-					var label  = $(labels[x]).data('label').split(', '),
-						filter = $(labels[x]).data('filter').split(', ');
+					var label  = $(labels[x]).data('label').split('; '),
+						filter = $(labels[x]).data('filter').split('; ');
 
 					for (var j = 0; j < label.length; j++)
 					{
@@ -1186,17 +1240,21 @@
 								if (filter[j].indexOf(filters[2]) === -1) continue;
 							}
 
-							var	matchedLabel = label[j].split(':');
+							var	matchedLabel = label[j].split(':'),
+								termsCount   = filters.length - 1;
 
-							// Check for contained operators
-							var hasOperator = false;
-
-							if (this.checkOperator(filters[1]))
+							if (termsCount === 2 && ! this.checkOperator(filters[1]))
 							{
-								hasOperator = true;
+								filterData = {
+									column: filters[0],
+									from: filters[1],
+									to: filters[2],
+									colMask: label[1],
+									valMask: label[2],
+									type: 'range'
+								}
 							}
-
-							if (hasOperator)
+							else if (termsCount === 2 && this.checkOperator(filters[1]))
 							{
 								var operator = filters[1],
 									value = filters[2];
@@ -1208,8 +1266,6 @@
 									colMask: matchedLabel[1],
 									valMask: matchedLabel[2]
 								};
-
-								self.applyFilter(filterData);
 							}
 							else
 							{
@@ -1219,9 +1275,9 @@
 									colMask: matchedLabel[1],
 									valMask: matchedLabel[2]
 								};
-
-								self.applyFilter(filterData);
 							}
+
+							self.applyFilter(filterData);
 						}
 					}
 				}
@@ -1235,6 +1291,8 @@
 				{
 					var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-start][data-range-filter="' + curFilter + '"]'),
 						endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
+
+					var rangeFilterEl = this.$body.find('[data-filter*="' + curFilter + '"]' + grid + ',' + grid + ' [data-filter*="' + curFilter + '"]');
 
 					var start      = startFilterEl.data('range-filter'),
 						startLabel = startFilterEl.data('label'),
@@ -1268,7 +1326,15 @@
 						type: 'range'
 					};
 
-					self.applyFilter(filterData);
+					if (rangeFilterEl.data('filter-default') === undefined)
+					{
+						self.applyFilter(filterData);
+					}
+					else
+					{
+						self.applyDefaultFilter(filterData);
+					}
+
 				}
 				else
 				{
