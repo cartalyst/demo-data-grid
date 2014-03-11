@@ -36,6 +36,11 @@ Route::get('multiple', function()
 	return View::make('multiple');
 });
 
+Route::get('adv', function()
+{
+	return View::make('adv');
+});
+
 
 Route::get('source', function()
 {
