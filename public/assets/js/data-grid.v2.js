@@ -1508,9 +1508,9 @@
 						{
 							if (window.moment !== undefined)
 							{
-								var dbFormat = 'YYYY-MM-DD',
-									from     = moment(this.appliedFilters[i].from).format(dbFormat),
-									to       = moment(this.appliedFilters[i].to).format(dbFormat);
+								var dbFormat = 'YYYY-MM-DD HH:mm:ss',
+									from     = moment(this.appliedFilters[i].from).startOf('day').format(dbFormat),
+									to       = moment(this.appliedFilters[i].to).endOf('day').format(dbFormat);
 							}
 							else
 							{
@@ -1518,7 +1518,7 @@
 									to   = this.appliedFilters[i].to;
 							}
 
-							filter[this.appliedFilters[i].maskOrg] = '|' + '>' + from + '|' + '<' + to +'|';
+							filter[this.appliedFilters[i].maskOrg] = '|' + '>=' + from + '|' + '<=' + to +'|';
 						}
 						else
 						{
@@ -1569,9 +1569,9 @@
 						{
 							if (window.moment !== undefined && /[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(this.appliedFilters[i].from))
 							{
-								var dbFormat = 'YYYY-MM-DD',
-									from     = moment(this.appliedFilters[i].from).format(dbFormat),
-									to       = moment(this.appliedFilters[i].to).format(dbFormat);
+								var dbFormat = 'YYYY-MM-DD HH:mm:ss',
+									from     = moment(this.appliedFilters[i].from).startOf('day').format(dbFormat),
+									to       = moment(this.appliedFilters[i].to).endOf('day').format(dbFormat);
 							}
 							else
 							{
@@ -1579,7 +1579,7 @@
 									to   = this.appliedFilters[i].to;
 							}
 
-							filter[this.appliedFilters[i].column] = '|' + '>' + from + '|' + '<' + to +'|';
+							filter[this.appliedFilters[i].column] = '|' + '>=' + from + '|' + '<=' + to +'|';
 						}
 						else
 						{
