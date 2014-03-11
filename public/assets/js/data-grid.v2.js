@@ -1249,8 +1249,8 @@
 									column: filters[0],
 									from: filters[1],
 									to: filters[2],
-									colMask: label[1],
-									valMask: label[2],
+									colMask: matchedLabel[1],
+									valMask: matchedLabel[2],
 									type: 'range'
 								}
 							}
