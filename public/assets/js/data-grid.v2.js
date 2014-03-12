@@ -828,7 +828,7 @@
 		 * Handles the search on submit.
 		 *
 		 * @param  object  el
-		 * @param  bool  refresh
+		 * @param  bool    refresh
 		 * @return void
 		 */
 		handleSearchOnSubmit: function(el, refresh)
@@ -948,6 +948,7 @@
 		 * Sets the sort direction on the given element.
 		 *
 		 * @param  object  el
+		 * @param  string  direction
 		 * @return void
 		 */
 		setSortDirection: function(el, direction)
@@ -1017,7 +1018,7 @@
 		 * Extracts filters from element.
 		 *
 		 * @param  string  filters
-		 * @param  bool  refresh
+		 * @param  bool    refresh
 		 * @return void
 		 */
 		extractFilters: function(filterEl, refresh)
@@ -1371,18 +1372,16 @@
 		/**
 		 * Extracts sorts from route.
 		 *
-		 * @param  array  routeArr
+		 * @param  string  sort
 		 * @return void
 		 */
-		extractSortsFromRoute: function(lastItem)
+		extractSortsFromRoute: function(sort)
 		{
-			var sort = lastItem.split(this.opt.delimiter);
+			sort = sort.split(this.opt.delimiter);
 
-			var grid = this.grid;
-
-			var column = sort[0];
-
-			var direction = sort[1];
+			var grid      = this.grid,
+				column    = sort[0],
+				direction = sort[1];
 
 			// Setup Sort and put index at 1
 			if (this.currentSort.column !== column)
@@ -1852,6 +1851,7 @@
 
 			params = {
 				page: page,
+				total: total,
 				infinite: true
 			};
 
@@ -1910,7 +1910,7 @@
 		 * Applies a range filter.
 		 *
 		 * @param  object  filter
-		 * @param  bool  refresh
+		 * @param  bool    refresh
 		 * @return void
 		 */
 		rangeFilter: function(filter, refresh)
