@@ -280,8 +280,6 @@
 
 			this.$body.on('change', '[data-select-filter]' + grid, function()
 			{
-				// self.removeGroupFilters($(this));
-
 				if ($(this).find(':selected').data('filter') !== undefined)
 				{
 					self.extractFilters($(this).find(':selected'));
@@ -291,6 +289,25 @@
 					self.refresh();
 				}
 			});
+
+			if (this.opt.infiniteScroll && this.opt.method === 'infinite')
+			{
+				var offset = this.opt.scrollOffset || 400;
+
+				var throttled = _.throttle(function()
+				{
+					if ($(window).scrollTop() >= $(document).height() - $(window).height() - offset)
+					{
+						var page = self.pagination.pageIdx + 1;
+
+						self.goToPage(page);
+
+						self.refresh();
+					}
+				}, 800);
+
+				$(window).scroll(throttled);
+			}
 
 			this.$pagination.on('click', '[data-page]', function(e)
 			{

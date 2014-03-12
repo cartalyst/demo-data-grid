@@ -19,6 +19,8 @@ $(function(){
 	var grid = $.datagrid('infinite', '.infinite', '#pagination', '.applied-filters', {
 		loader: '.loading',
 		method: 'infinite',
+		// infiniteScroll: true, // Optional, will auto load more results on scroll
+		// scrollOffset: 1000,   // Optional, defaults to 400 from bottom
 		throttle: 21,
 		sort: {
 			column: 'city',
