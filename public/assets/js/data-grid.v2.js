@@ -17,7 +17,7 @@
  * @link       http://cartalyst.com
  */
 
-;(function ($, window, document, undefined)
+(function ($, window, document, undefined)
 {
 	'use strict';
 
@@ -72,8 +72,8 @@
 		self.defaultFilters = [];
 		self.appliedFilters = [];
 
-		self.defaultColumn;
-		self.defaultDirection;
+		self.defaultColumn = '';
+		self.defaultDirection = '';
 
 		self.currentSort = {
 			column: null,
@@ -142,7 +142,7 @@
 		{
 			if (typeof window._ === 'undefined')
 			{
-				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v1.5.2 or later to run!');
+				throw new Error('Underscore is not defined. DataGrid Requires UnderscoreJS v1.6.0 or later to run!');
 			}
 
 			var grid = this.grid;
@@ -174,7 +174,7 @@
 			while (
 				div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
 				all[0]
-			);
+			) {}
 
 			return v > 4 ? v : undef;
 		},
@@ -250,7 +250,7 @@
 
 			var dateRangeEl = this.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]');
 
-			$(dateRangeEl).on('change', function(e)
+			$(dateRangeEl).on('change', function()
 			{
 				self.removeRangeFilters($(this));
 
@@ -378,15 +378,15 @@
 		{
 			var self            = this,
 				options         = self.opt,
-				curIndex        = _.indexOf(routes, self.key),
 				curRoute        = '/' + routes.join('/'),
 				currentHash     = String(window.location.hash.slice(3)),
-				routes          = _.compact(curRoute.split('/grid/')),
 				sortedColumn    = options.sort.hasOwnProperty('column'),
 				sortedDirection = options.sort.hasOwnProperty('direction'),
 				parsedRoute,
 				nextItem,
 				lastItem;
+
+			routes = _.compact(curRoute.split('/grid/'));
 
 			this.reset();
 
@@ -512,7 +512,7 @@
 				base += page;
 			}
 
-			if ( ! filters.length > 1 || ! sort.length > 1 || ! self.pagination.pageIdx > 1 && base !== '')
+			if (filters.length < 1 || sort.length < 1 || self.pagination.pageIdx < 1 && base !== '')
 			{
 				base = '';
 			}
@@ -623,7 +623,7 @@
 				}
 
 				// Render our filters
-				this.$filters.html(this.tmpl['filters']({ filters: without }));
+				this.$filters.html(this.tmpl.filters({ filters: without }));
 
 				$(this).trigger('dg:applied', this);
 			}
@@ -705,7 +705,7 @@
 
 			this.appliedFilters.splice(idx, 1);
 
-			this.$filters.html(this.tmpl['filters']({ filters: this.appliedFilters }));
+			this.$filters.html(this.tmpl.filters({ filters: this.appliedFilters }));
 
 			this.goToPage(1);
 
@@ -723,15 +723,17 @@
 			var self  = this,
 				index = -1,
 				filterData,
-				filters = filters.find('[data-filter]');
+				termsCount,
+				operator;
+
+			filters = filters.find('[data-filter]');
 
 			_.each(filters, function(filter)
 			{
-				var filter     = $(filter).data('filter'),
-					termsCount = filter.match(/:/g).length,
-					filter     = filter.split(':'),
-					column     = filter[0],
-					operator   = self.checkOperator(filter[1]) ? filter[1] : null;
+				filter     = $(filter).data('filter');
+				termsCount = filter.match(/:/g).length;
+				filter     = filter.split(':');
+				operator   = self.checkOperator(filter[1]) ? filter[1] : null;
 
 				if (termsCount === 2 && operator === null)
 				{
@@ -740,7 +742,7 @@
 						from: filter[1],
 						to: filter[2],
 						type: 'range'
-					}
+					};
 				}
 				else if (termsCount === 2 && operator !== undefined)
 				{
@@ -836,11 +838,13 @@
 			refresh = refresh !== undefined ? refresh : true;
 
 			var $input = el.find('input'),
-				column = 'all',
-				rect = [];
+				column = 'all';
 
 			// Make sure we arn't submiting white space only
-			if ( ! $.trim($input.val()).length) return;
+			if ( ! $.trim($input.val()).length)
+			{
+				return;
+			}
 
 			this.isSearchActive = true;
 
@@ -870,7 +874,10 @@
 			});
 
 			// Clear results for infinite grids
-			if (this.opt.method === 'infinite') this.$results.empty();
+			if (this.opt.method === 'infinite')
+			{
+				this.$results.empty();
+			}
 
 			// Reset
 			$input.val('').data('old', '');
@@ -890,11 +897,13 @@
 		 */
 		handleLiveSearch: function(el)
 		{
-			var rect = [],
-				column = 'all',
+			var column = 'all',
 				self = this;
 
-			if (isSearchActive) return;
+			if (isSearchActive)
+			{
+				return;
+			}
 
 			clearTimeout(searchTimeout);
 
@@ -992,7 +1001,6 @@
 				endVal           = endFilterEl.val(),
 				startLabel       = startFilterEl.data('label'),
 				dateFormat       = startFilterEl.data(this.opt.dateFormatAttribute),
-				column           = startRangeFilter,
 				from             = startVal,
 				to               = endVal,
 				filterData;
@@ -1003,13 +1011,13 @@
 				to   = moment(to).format(dbDateFormat);
 			}
 
-			var filterData = {
+			filterData = {
 				column: startRangeFilter,
 				from: from,
 				to: to,
 				label: startLabel,
 				type: 'ranges'
-			}
+			};
 
 			this.applyFilter(filterData);
 		},
@@ -1044,9 +1052,7 @@
 				operator,
 				filterData,
 				labelsArr,
-				index,
 				label,
-				key,
 				termsCount;
 
 			for (var i = 0; i < filtersArr.length; i++)
@@ -1086,7 +1092,7 @@
 							colMask: label[1],
 							valMask: label[2],
 							type: 'range'
-						}
+						};
 					}
 					else if (termsCount === 2 && operator !== undefined)
 					{
@@ -1115,7 +1121,7 @@
 					}
 					else
 					{
-						this.applyDefaultFilter(filterData)
+						this.applyDefaultFilter(filterData);
 					}
 
 				}
@@ -1128,7 +1134,7 @@
 							from: filter[1],
 							to: filter[2],
 							type: 'range'
-						}
+						};
 					}
 					else if (termsCount === 2 && operator !== undefined)
 					{
@@ -1153,7 +1159,7 @@
 					}
 					else
 					{
-						this.applyDefaultFilter(filterData)
+						this.applyDefaultFilter(filterData);
 					}
 				}
 			}
@@ -1197,7 +1203,10 @@
 				this.currentSort.index = 1;
 			}
 
-			if (typeof sortArr[1] !== 'undefined') direction = sortArr[1];
+			if (typeof sortArr[1] !== 'undefined')
+			{
+				direction = sortArr[1];
+			}
 
 			if (sortArr[0] === this.currentSort.column)
 			{
@@ -1237,9 +1246,9 @@
 		extractFiltersFromRoute: function(routeArr)
 		{
 			var self = this,
-				grid = this.grid,
-				filters,
-				routeArr = routeArr.splice(1);
+				grid = this.grid;
+
+			routeArr = routeArr.splice(1);
 
 			this.appliedFilters = [];
 
@@ -1288,11 +1297,9 @@
 					}
 
 					// All other filters
-					var filter     = $(filterEl).data('filter'),
-						termsCount = filter.match(/:/g).length,
-						filter     = filter.split(':'),
-						column     = filter[0],
-						operator   = self.checkOperator(filter[1]) ? filter[1] : null;
+					filter     = $(filterEl).data('filter');
+					termsCount = filter.match(/:/g).length;
+					filter     = filter.split(':');
 
 					self.extractFilters(filterEl, false);
 				}
@@ -1356,11 +1363,17 @@
 		{
 			if (this.checkIE() < 9)
 			{
-				if (array === null) return -1;
+				if (array === null)
+				{
+					return -1;
+				}
 
 				for (var i = 0; i < array.length; i++)
 				{
-					if (array[i] === item) return i;
+					if (array[i] === item)
+					{
+						return i;
+					}
 				}
 
 				return -1;
@@ -1379,8 +1392,7 @@
 		{
 			sort = sort.split(this.opt.delimiter);
 
-			var grid      = this.grid,
-				column    = sort[0],
+			var column    = sort[0],
 				direction = sort[1];
 
 			// Setup Sort and put index at 1
@@ -1526,18 +1538,18 @@
 			})
 			.done(function(response)
 			{
-				if (self.pagination.pageIdx > response.pages_count)
+				if (self.pagination.pageIdx > response.pages)
 				{
-					self.pagination.pageIdx = response.pages_count;
+					self.pagination.pageIdx = response.pages;
 
 					self.refresh();
 
 					return false;
 				}
 
-				self.pagination.filteredCount = response.filtered_count;
+				self.pagination.filteredCount = response.filtered;
 
-				self.pagination.totalCount = response.total_count;
+				self.pagination.totalCount = response.total;
 
 				// Keep infinite results to append load more
 				if (self.opt.method !== 'infinite')
@@ -1547,18 +1559,18 @@
 
 				if (self.opt.method === 'single' || self.opt.method === 'single')
 				{
-					self.$results.html(self.tmpl['results'](response));
+					self.$results.html(self.tmpl.results(response));
 				}
 				else
 				{
-					self.$results.append(self.tmpl['results'](response));
+					self.$results.append(self.tmpl.results(response));
 				}
 
-				self.$pagination.html(self.tmpl['pagination'](self.buildPagination(response)));
+				self.$pagination.html(self.tmpl.pagination(self.buildPagination(response)));
 
 				if ( ! response.results.length)
 				{
-					self.$results.html(self.tmpl['empty']());
+					self.$results.html(self.tmpl.empty());
 				}
 
 				if (response.sort !== '')
@@ -1603,14 +1615,16 @@
 		 */
 		buildAjaxURI: function(download)
 		{
-			var self = this;
+			var self = this,
+				params = {},
+				from,
+				to;
 
-			var params = {};
-				params.filters   = [];
-				params.page      = this.pagination.pageIdx;
-				params.method    = this.opt.method;
-				params.threshold = this.opt.threshold;
-				params.throttle  = this.opt.throttle;
+			params.filters   = [];
+			params.page      = this.pagination.pageIdx;
+			params.method    = this.opt.method;
+			params.threshold = this.opt.threshold;
+			params.throttle  = this.opt.throttle;
 
 			var filters = [];
 
@@ -1644,13 +1658,13 @@
 						{
 							if (window.moment !== undefined)
 							{
-								var from = moment(filters[i].from).startOf('day').format(dbTimestampFormat),
-									to   = moment(filters[i].to).endOf('day').format(dbTimestampFormat);
+								from = moment(filters[i].from).startOf('day').format(dbTimestampFormat);
+								to   = moment(filters[i].to).endOf('day').format(dbTimestampFormat);
 							}
 							else
 							{
-								var from = filters[i].from,
-									to   = filters[i].to;
+								from = filters[i].from;
+								to   = filters[i].to;
 							}
 
 							filter[filters[i].maskOrg] = '|' + '>=' + from + '|' + '<=' + to +'|';
@@ -1695,7 +1709,7 @@
 						{
 							var value = filters[i].value;
 
-							if (self.checkDate(value) && filters[i].operator == '>=')
+							if (self.checkDate(value) && filters[i].operator === '>=')
 							{
 								value = moment(value).startOf('day').format(dbTimestampFormat);
 							}
@@ -1714,13 +1728,13 @@
 						{
 							if (window.moment !== undefined && self.checkDate(filters[i].from))
 							{
-								var from = moment(filters[i].from).startOf('day').format(dbTimestampFormat),
-									to   = moment(filters[i].to).endOf('day').format(dbTimestampFormat);
+								from = moment(filters[i].from).startOf('day').format(dbTimestampFormat);
+								to   = moment(filters[i].to).endOf('day').format(dbTimestampFormat);
 							}
 							else
 							{
-								var from = filters[i].from,
-									to   = filters[i].to;
+								from = filters[i].from;
+								to   = filters[i].to;
 							}
 
 							filter[filters[i].column] = '|' + '>=' + from + '|' + '<=' + to +'|';
@@ -1765,9 +1779,9 @@
 			var self = this,
 				rect,
 				page = json.page,
-				next = json.next_page,
-				prev = json.previous_page,
-				total = json.pages_count;
+				next = json.nextPage,
+				prev = json.previousPage,
+				total = json.pages;
 
 			switch (this.opt.method)
 			{
@@ -1776,13 +1790,13 @@
 
 					rect = self.buildRegularPagination(page, next, prev, total);
 
-				break;
+					break;
 
 				case 'infinite':
 
-					rect = self.buildInfinitePagination(page, next, prev, total);
+					rect = self.buildInfinitePagination(page, next, total);
 
-				break;
+					break;
 			}
 
 			return rect;
@@ -1840,11 +1854,10 @@
 		 *
 		 * @param  int  page
 		 * @param  int  next
-		 * @param  int  prev
 		 * @param  int  total
 		 * @return object
 		 */
-		buildInfinitePagination: function(page, next, prev, total)
+		buildInfinitePagination: function(page, next, total)
 		{
 			var params,
 				rect = [];
@@ -1893,8 +1906,7 @@
 		 */
 		removeRangeFilters: function(filter)
 		{
-			var grid       = this.grid,
-				rangeStart = filter.find('[data-range-start]').data('range-filter') || filter.data('range-filter'),
+			var rangeStart = filter.find('[data-range-start]').data('range-filter') || filter.data('range-filter'),
 				rangeEned  = filter.find('[data-range-end]').data('range-filter') || filter.data('range-filter');
 
 			for (var i = 0; i < this.appliedFilters.length; i++)
@@ -1903,7 +1915,7 @@
 				{
 					this.removeFilters(i);
 				}
-			};
+			}
 		},
 
 		/**
@@ -1922,7 +1934,7 @@
 				endFilterEl   = this.$body.find('[data-range-end][data-range-filter^="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
 
 			var startVal = startFilterEl.val(),
-				endVal   = endFilterEl.val()
+				endVal   = endFilterEl.val();
 
 			if (startVal && endVal)
 			{
