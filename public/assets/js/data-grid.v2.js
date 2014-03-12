@@ -275,8 +275,6 @@
 					self.$results.empty();
 				}
 
-				self.$body.find('[data-select-filter]' + grid).find('option:eq(0)').prop('selected', true);
-
 				self.refresh();
 			});
 
@@ -687,7 +685,23 @@
 		{
 			$(this).trigger('dg:removing', this);
 
-			var grid = this.grid;
+			var grid       = this.grid,
+				filterData = this.appliedFilters[idx],
+				el;
+
+			if (filterData.type === 'range')
+			{
+				el = $(grid + '[data-filter*="' + filterData.column + ':' + filterData.from + ':' + filterData.to + '"],' + grid + ' [data-filter*="' + filterData.column + ':' + filterData.from + ':' + filterData.to + '"]');
+			}
+			else
+			{
+				el = $(grid + '[data-filter*="' + filterData.column + ':' + filterData.value + '"],' + grid + ' [data-filter*="' + filterData.column + ':' + filterData.value + '"]');
+			}
+
+			if (el.prop('tagName') === 'OPTION')
+			{
+				el.parent().find(':eq(0)').prop('selected', true);
+			}
 
 			this.appliedFilters.splice(idx, 1);
 
@@ -1964,6 +1978,7 @@
 			this.$body.find('[data-search]'+ grid).find('input').val('');
 			this.$body.find('[data-search]'+ grid).find('select').prop('selectedIndex', 0);
 			this.$body.find('[data-range-filter]' + grid + ',' + grid +' [data-range-filter]').find('input').val('');
+			this.$body.find('[data-select-filter]' + grid + ',' + grid +' [data-select-filter]').find(':eq(0)').prop('selected', true);
 
 			// Filters
 			this.appliedFilters = [];
