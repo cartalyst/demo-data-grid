@@ -1092,13 +1092,17 @@
 
 				if (this.searchForFilter(filterData) !== -1)
 				{
-					return true;
+					continue;
 				}
 
-				if (typeof labels !== 'undefined')
+				if (labels !== undefined)
 				{
 					labelsArr = labels.split(', ');
-					label = labelsArr[i].split(':');
+
+					if (labelsArr[i] !== undefined)
+					{
+						label = labelsArr[i].split(':');
+					}
 
 					if (termsCount === 2 && operator === undefined)
 					{
@@ -1273,7 +1277,8 @@
 			{
 				var filterEl   = $('[data-filter*="' + routeArr[i] + '"]' + grid + ',' + grid + ' [data-filter*="' + routeArr[i] + '"]'),
 					filter     = routeArr[i].split(':'),
-					termsCount = routeArr[i].match(/:/g).length;
+					termsCount = routeArr[i].match(/:/g).length,
+					label;
 
 				if ( ! filterEl.length && termsCount === 2)
 				{
@@ -1315,10 +1320,42 @@
 
 					// All other filters
 					filter     = $(filterEl).data('filter');
+					label      = $(filterEl).data('label');
 					termsCount = filter.match(/:/g).length;
 					filter     = filter.split(':');
 
-					self.extractFilters(filterEl, false);
+					var fil = $(filterEl).clone();
+
+					$(fil).attr('data-filter', routeArr[i]);
+
+					if ($(filterEl).data('label'))
+					{
+						label = label.split(', ');
+					}
+
+					var dataLabel = '';
+
+					if (label !== undefined)
+					{
+						for(var j = 0; j < label.length; j++)
+						{
+							var labelArr  = label[j].split(':'),
+								filterArr = routeArr[i].split(':');
+
+							if (labelArr[0] === filterArr[0])
+							{
+								dataLabel = label[j];
+
+								break;
+							}
+						}
+					}
+
+					$(fil).attr('data-label', dataLabel);
+
+					dataLabel = '';
+
+					self.extractFilters($(fil), false);
 				}
 			}
 		},
