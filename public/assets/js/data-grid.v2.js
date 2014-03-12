@@ -17,7 +17,7 @@
  * @link       http://cartalyst.com
  */
 
-(function ($, window, document, undefined)
+;(function ($, window, document, undefined)
 {
 	'use strict';
 
