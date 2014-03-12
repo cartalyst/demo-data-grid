@@ -224,7 +224,7 @@
 
 				self.reset();
 
-				self.extractFiltersFromClick($(this), true);
+				self.extractFilters($(this));
 			});
 
 			this.$body.on('click', '[data-filter]' + grid + ':not([data-filter-default]),' + grid + ' [data-filter]:not([data-filter-default])', function(e)
@@ -245,7 +245,7 @@
 					self.pagination.pageIdx = 1;
 				}
 
-				self.extractFiltersFromClick($(this));
+				self.extractFilters($(this));
 			});
 
 			var dateRangeEl = this.$body.find('[data-range-filter]' + grid + ',' + grid + ' [data-range-filter]');
@@ -263,7 +263,7 @@
 
 				var idx = $(this).index();
 
-				if (self.appliedFilters[idx].type === 'range')
+				if (self.appliedFilters[idx].type === 'range' || self.appliedFilters[idx].type === 'ranges')
 				{
 					self.$body.find('[data-range-filter="' + self.appliedFilters[idx].column + '"]' + grid + ',' + grid + ' [data-range-filter="' + self.appliedFilters[idx].column + '"]').val('');
 				}
@@ -282,9 +282,16 @@
 
 			this.$body.on('change', '[data-select-filter]' + grid, function()
 			{
-				self.removeSelectFilter($(this));
+				// self.removeGroupFilters($(this));
 
-				self.selectFilter($(this));
+				if ($(this).find(':selected').data('filter') !== undefined)
+				{
+					self.extractFilters($(this).find(':selected'));
+				}
+				else
+				{
+					self.refresh();
+				}
 			});
 
 			this.$pagination.on('click', '[data-page]', function(e)
@@ -487,7 +494,7 @@
 				rtIndex = '',
 				currentHash = window.location.hash.slice(3);
 
-			// #!/grid/key/filters/sorts/page
+			// #!/grid/key/filters/sorts/page/
 			var filters = self.buildFilterFragment(),
 				sort    = self.buildSortFragment(),
 				page    = self.buildPageFragment();
@@ -665,7 +672,7 @@
 			{
 				_.each($('[data-filter-default]' + self.grid + ', ' + self.grid + ' [data-filter-default]'), function(defaultFilter)
 				{
-					self.extractFiltersFromClick($(defaultFilter), true);
+					self.extractFilters($(defaultFilter));
 				});
 			}
 		},
@@ -701,9 +708,8 @@
 		{
 			var self  = this,
 				index = -1,
-				filterData;
-
-			var filters = filters.find('[data-filter]');
+				filterData,
+				filters = filters.find('[data-filter]');
 
 			_.each(filters, function(filter)
 			{
@@ -726,10 +732,9 @@
 				{
 					filterData = {
 						column: filter[0],
-						value: $('<p/>').text(filter[1]).html(),
+						value: $('<p/>').text(filter[2]).html(),
 						operator: operator
 					};
-
 				}
 				else
 				{
@@ -809,10 +814,13 @@
 		 * Handles the search on submit.
 		 *
 		 * @param  object  el
+		 * @param  bool  refresh
 		 * @return void
 		 */
-		handleSearchOnSubmit: function(el)
+		handleSearchOnSubmit: function(el, refresh)
 		{
+			refresh = refresh !== undefined ? refresh : true;
+
 			var $input = el.find('input'),
 				column = 'all',
 				rect = [];
@@ -853,9 +861,11 @@
 			// Reset
 			$input.val('').data('old', '');
 
-			this.goToPage(1);
-
-			this.refresh();
+			if (refresh)
+			{
+				this.goToPage(1);
+				this.refresh();
+			}
 		},
 
 		/**
@@ -983,25 +993,23 @@
 				from: from,
 				to: to,
 				label: startLabel,
-				type: 'range'
+				type: 'ranges'
 			}
 
 			this.applyFilter(filterData);
-
-			this.refresh();
-
-			this.goToPage(1);
 		},
 
 		/**
-		 * Extracts filters from click.
+		 * Extracts filters from element.
 		 *
 		 * @param  string  filters
-		 * @param  bool  isDefault
+		 * @param  bool  refresh
 		 * @return void
 		 */
-		extractFiltersFromClick: function(filterEl, isDefault)
+		extractFilters: function(filterEl, refresh)
 		{
+			refresh = refresh !== undefined ? refresh : true;
+
 			if (filterEl.data('filter-reset') !== undefined)
 			{
 				this.reset();
@@ -1015,7 +1023,7 @@
 				this.removeGroupFilters(filterEl.parent().parent());
 			}
 
-			var filtersArr = filterEl.data('filter').split('; '),
+			var filtersArr = filterEl.data('filter').split(', '),
 				labels = filterEl.data('label'),
 				filter,
 				operator,
@@ -1051,7 +1059,7 @@
 
 				if (typeof labels !== 'undefined')
 				{
-					labelsArr = labels.split('; ');
+					labelsArr = labels.split(', ');
 					label = labelsArr[i].split(':');
 
 					if (termsCount === 2 && operator === undefined)
@@ -1086,7 +1094,7 @@
 						};
 					}
 
-					if ( ! isDefault)
+					if (filterEl.data('filter-default') === undefined)
 					{
 						this.applyFilter(filterData);
 					}
@@ -1124,7 +1132,7 @@
 						};
 					}
 
-					if ( ! isDefault)
+					if (filterEl.data('filter-default') === undefined)
 					{
 						this.applyFilter(filterData);
 					}
@@ -1135,9 +1143,11 @@
 				}
 			}
 
-			this.refresh();
-
-			this.goToPage(1);
+			if (refresh)
+			{
+				this.goToPage(1);
+				this.refresh();
+			}
 		},
 
 		/**
@@ -1213,175 +1223,64 @@
 		{
 			var self = this,
 				grid = this.grid,
-				labels,
-				filters;
-
-			routeArr = routeArr.splice(1);
+				filters,
+				routeArr = routeArr.splice(1);
 
 			this.appliedFilters = [];
 
-			labels = $('[data-label][data-filter]' + grid + ':not([data-filter-default])' + ',' + grid + ' [data-label][data-filter]:not([data-filter-default])');
-
 			for (var i = 0; i < routeArr.length; i++)
 			{
-				filters = routeArr[i].split(this.opt.delimiter);
-
-				for (var x = 0; x < labels.length; x++)
-				{
-					var label  = $(labels[x]).data('label').split('; '),
-						filter = $(labels[x]).data('filter').split('; ');
-
-					for (var j = 0; j < label.length; j++)
-					{
-						if (filter[j].indexOf(filters[0]) !== -1 && filter[j].indexOf(filters[1]) !== -1)
-						{
-							if (filters[2] !== undefined)
-							{
-								if (filter[j].indexOf(filters[2]) === -1) continue;
-							}
-
-							var	matchedLabel = label[j].split(':'),
-								termsCount   = filters.length - 1;
-
-							if (termsCount === 2 && ! this.checkOperator(filters[1]))
-							{
-								filterData = {
-									column: filters[0],
-									from: filters[1],
-									to: filters[2],
-									colMask: matchedLabel[1],
-									valMask: matchedLabel[2],
-									type: 'range'
-								}
-							}
-							else if (termsCount === 2 && this.checkOperator(filters[1]))
-							{
-								var operator = filters[1],
-									value = filters[2];
-
-								var filterData = {
-									column: filters[0],
-									value: $('<p/>').text(value).html(),
-									operator: operator,
-									colMask: matchedLabel[1],
-									valMask: matchedLabel[2]
-								};
-							}
-							else
-							{
-								var filterData = {
-									column: filters[0],
-									value: $('<p/>').text(filters[1]).html(),
-									colMask: matchedLabel[1],
-									valMask: matchedLabel[2]
-								};
-							}
-
-							self.applyFilter(filterData);
-						}
-					}
-				}
-
-				// Check to  make sure filter isn't already set
-				var curFilter  = filters[0],
+				var filterEl   = $('[data-filter*="' + routeArr[i] + '"]' + grid + ',' + grid + ' [data-filter*="' + routeArr[i] + '"]'),
+					filter     = routeArr[i].split(':'),
 					termsCount = routeArr[i].match(/:/g).length;
 
-				// Range filters
-				if ( ! self.checkOperator(routeArr[i]) && termsCount === 2)
+				if ( ! filterEl.length && termsCount === 2)
 				{
-					var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-start][data-range-filter="' + curFilter + '"]'),
-						endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + curFilter + '"]' + grid + ',' + grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
-
-					var rangeFilterEl = this.$body.find('[data-filter*="' + curFilter + '"]' + grid + ',' + grid + ' [data-filter*="' + curFilter + '"]');
-
-					var start      = startFilterEl.data('range-filter'),
-						startLabel = startFilterEl.data('label'),
-						dateFormat = startFilterEl.data(this.opt.dateFormatAttribute),
-						column     = routeArr[i].split(this.opt.delimiter)[0],
-						from       = routeArr[i].split(this.opt.delimiter)[1],
-						to         = routeArr[i].split(this.opt.delimiter)[2];
-
-					if (dateFormat !== null && dateFormat !== undefined && window.moment !== undefined)
-					{
-						from = moment(from).format(dbDateFormat);
-						to   = moment(to).format(dbDateFormat);
-					}
+					// Range filters
+					var startFilterEl = this.$body.find('[data-range-start][data-range-filter="' + filter[0] + '"]' + grid + ',' + grid + ' [data-range-start][data-range-filter="' + filter[0] + '"]'),
+						endFilterEl   = this.$body.find('[data-range-end][data-range-filter="' + filter[0] + '"]' + grid + ',' + grid + ' [data-range-end][data-range-filter="' + filter[0] + '"]'),
+						dateFormat    = startFilterEl.data(this.opt.dateFormatAttribute);
 
 					if (window.moment !== undefined && dateFormat !== undefined)
 					{
-						startFilterEl.val(moment(from).format(dateFormat));
-						endFilterEl.val(moment(to).format(dateFormat));
+						startFilterEl.val(moment(filter[1]).format(dateFormat));
+						endFilterEl.val(moment(filter[2]).format(dateFormat));
 					}
 					else
 					{
-						startFilterEl.val(from);
-						endFilterEl.val(to);
+						startFilterEl.val(filter[1]);
+						endFilterEl.val(filter[2]);
 					}
 
-					var filterData = {
-						column: column,
-						from: from,
-						to: to,
-						label: startLabel,
-						type: 'range'
-					};
+					self.rangeFilter(startFilterEl, false);
+				}
+				else if (termsCount === 1 && ! filterEl.length)
+				{
+					// Search
+					var searchEl = $('[data-search]' + grid);
 
-					if (rangeFilterEl.data('filter-default') === undefined)
-					{
-						self.applyFilter(filterData);
-					}
-					else
-					{
-						self.applyDefaultFilter(filterData);
-					}
+					searchEl.find('[value="' + filter[0] + '"]').prop('selected', true);
+					searchEl.find('input').val(filter[1]);
 
+					self.handleSearchOnSubmit($('[data-search]' + grid), false);
 				}
 				else
 				{
-					var filterEl = $('[data-filter*="' +  routeArr[i] + '"]');
-
-					if (termsCount === 2)
+					// Select drop down filters
+					if ($(filterEl).prop('tagName') === 'OPTION')
 					{
-						var column     = routeArr[i].split(this.opt.delimiter)[0],
-							operator   = routeArr[i].split(this.opt.delimiter)[1],
-							value      = routeArr[i].split(this.opt.delimiter)[2];
-
-						var filterData = {
-							column: column,
-							value: $('<p/>').text(value).html(),
-							operator: operator
-						};
-
-						if ($(filterEl).data('filter-default') !== undefined)
-						{
-							self.applyDefaultFilter(filterData);
-						}
-						else
-						{
-							self.applyFilter(filterData);
-						}
+						$(filterEl).prop('selected', true);
 					}
-					else
-					{
-						var curFilter     = this.$body.find('[data-filter*="' + routeArr[i] + '"]' + grid),
-							value         = routeArr[i].split(this.opt.delimiter)[1];
 
-						var filterData = {
-							column: routeArr[i].split(this.opt.delimiter)[0],
-							value: $('<p/>').text(value).html(),
-						};
+					// All other filters
+					var filter     = $(filterEl).data('filter'),
+						termsCount = filter.match(/:/g).length,
+						filter     = filter.split(':'),
+						column     = filter[0],
+						operator   = self.checkOperator(filter[1]) ? filter[1] : null;
 
-						if ($(curFilter).data('filter-default') !== undefined)
-						{
-							self.applyDefaultFilter(filterData);
-						}
-						else
-						{
-							self.applyFilter(filterData);
-						}
-					}
+					self.extractFilters(filterEl, false);
 				}
-
 			}
 		},
 
@@ -1550,7 +1449,7 @@
 							filterFragment += '/' + index.column + delimiter + index.maskOrg;
 						}
 					}
-					else if (index.type === 'range')
+					else if (index.type === 'range' || index.type === 'ranges')
 					{
 						filterFragment += '/' + index.column + delimiter + index.from + delimiter + index.to;
 					}
@@ -1728,7 +1627,7 @@
 								$('<p/>').html(filters[i].value).text() +
 								'|';
 						}
-						else if (filters[i].type === 'range')
+						else if (filters[i].type === 'range' || index.type === 'ranges')
 						{
 							if (window.moment !== undefined)
 							{
@@ -1798,7 +1697,7 @@
 								$('<p/>').html(value).text() +
 								'|';
 						}
-						else if (filters[i].type === 'range')
+						else if (filters[i].type === 'range' || filters[i].type === 'ranges')
 						{
 							if (window.moment !== undefined && self.checkDate(filters[i].from))
 							{
@@ -1850,10 +1749,9 @@
 		 */
 		buildPagination: function(json)
 		{
-			var self = this;
-			var rect;
-
-			var page = json.page,
+			var self = this,
+				rect,
+				page = json.page,
 				next = json.next_page,
 				prev = json.previous_page,
 				total = json.pages_count;
@@ -1890,13 +1788,23 @@
 		{
 			var params,
 				perPage,
+				pageLimit,
 				rect = [];
 
 			perPage = this.calculatePagination();
 
+			if (this.opt.threshold > this.pagination.filteredCount)
+			{
+				pageLimit = this.pagination.filteredCount;
+			}
+			else
+			{
+				pageLimit = this.pagination.pageIdx === 1 ? perPage > this.pagination.filteredCount ? this.pagination.filteredCount : perPage : ( this.pagination.totalCount < (perPage * this.pagination.pageIdx )) ? this.pagination.filteredCount : perPage * this.pagination.pageIdx < this.pagination.filteredCount ? perPage * this.pagination.pageIdx : this.pagination.filteredCount;
+			}
+
 			params = {
 				pageStart: perPage === 0 ? 0 : ( this.pagination.pageIdx === 1 ? this.pagination.filteredCount > 0 ? 1 : 0 : ( perPage * (this.pagination.pageIdx - 1 ) + 1)),
-				pageLimit: this.pagination.pageIdx === 1 ? perPage > this.pagination.filteredCount ? this.pagination.filteredCount : perPage : ( this.pagination.totalCount < (perPage * this.pagination.pageIdx )) ? this.pagination.filteredCount : perPage * this.pagination.pageIdx < this.pagination.filteredCount ? perPage * this.pagination.pageIdx : this.pagination.filteredCount,
+				pageLimit: pageLimit,
 				nextPage: next,
 				prevPage: prev,
 				page: page,
@@ -1971,15 +1879,13 @@
 		 */
 		removeRangeFilters: function(filter)
 		{
-			var grid = this.grid;
-
-			var startRangeFilter = filter.find('[data-range-start]').data('range-filter') || filter.data('range-filter');
-
-			var endRangeFilter = filter.find('[data-range-end]').data('range-filter') || filter.data('range-filter');
+			var grid       = this.grid,
+				rangeStart = filter.find('[data-range-start]').data('range-filter') || filter.data('range-filter'),
+				rangeEned  = filter.find('[data-range-end]').data('range-filter') || filter.data('range-filter');
 
 			for (var i = 0; i < this.appliedFilters.length; i++)
 			{
-				if (this.appliedFilters[i].type === 'range' && (this.appliedFilters[i].column === startRangeFilter || this.appliedFilters[i].column === endRangeFilter))
+				if (this.appliedFilters[i].type === 'ranges' && (this.appliedFilters[i].column === rangeStart || this.appliedFilters[i].column === rangeEned))
 				{
 					this.removeFilters(i);
 				}
@@ -1987,92 +1893,16 @@
 		},
 
 		/**
-		 * Removes a select filter.
-		 *
-		 * @param  object  filter
-		 * @return void
-		 */
-		removeSelectFilter: function(filter)
-		{
-			var selectFilter     = $(filter).find(':selected').data('filter'),
-				label            = $(filter).find(':selected').data('label'),
-				operator         = $(filter).find(':selected').data('operator');
-
-			if (selectFilter !== undefined)
-			{
-				var filterArr = selectFilter.split(':');
-
-				for (var i = 0; i < this.appliedFilters.length; i++)
-				{
-					if (this.appliedFilters[i].column === filterArr[0]) this.removeFilters(i);
-				};
-			}
-			else
-			{
-				var col = $(filter).data('select-filter');
-
-				for (var i = 0; i < this.appliedFilters.length; i++)
-				{
-					if (this.appliedFilters[i].column === col) this.removeFilters(i);
-				};
-			}
-		},
-
-		/**
-		 * Applies a select filter.
-		 *
-		 * @param  object  el
-		 * @return void
-		 */
-		selectFilter: function(el)
-		{
-			var filter = $(el).find(':selected').data('filter'),
-				label = $(el).find(':selected').data('label'),
-				operator = $(el).find(':selected').data('operator');
-
-			if (filter !== undefined)
-			{
-				var filterArr = filter.split(':');
-
-				if (label !== undefined)
-				{
-					var key = this._indexOf(filter, filter[0]);
-
-					var filterData = {
-						column: label,
-						value: filterArr[1],
-						mask: (key === 0 ? 'column' : 'value'),
-						maskOrg: filterArr[0],
-					};
-
-					this.applyFilter(filterData);
-				}
-				else
-				{
-					var filterData = {
-						column: filterArr[0],
-						value: filterArr[1]
-					};
-
-					this.applyFilter(filterData);
-				}
-			}
-			else
-			{
-				this.removeSelectFilter($(el));
-			}
-
-			this.refresh();
-		},
-
-		/**
 		 * Applies a range filter.
 		 *
 		 * @param  object  filter
+		 * @param  bool  refresh
 		 * @return void
 		 */
-		rangeFilter: function(filter)
+		rangeFilter: function(filter, refresh)
 		{
+			refresh = refresh !== undefined ? refresh : true;
+
 			var curFilter     = filter.find('[data-range-filter]').data('range-filter') || filter.data('range-filter'),
 				startFilterEl = this.$body.find('[data-range-start][data-range-filter^="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-start][data-range-filter="' + curFilter + '"]'),
 				endFilterEl   = this.$body.find('[data-range-end][data-range-filter^="' + curFilter + '"]' + this.grid + ',' + this.grid + ' [data-range-end][data-range-filter="' + curFilter + '"]');
@@ -2083,6 +1913,12 @@
 			if (startVal && endVal)
 			{
 				this.extractRangeFilters(filter);
+
+				if (refresh)
+				{
+					this.goToPage(1);
+					this.refresh();
+				}
 			}
 		},
 
