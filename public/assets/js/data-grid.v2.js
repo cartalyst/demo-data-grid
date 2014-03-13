@@ -1648,9 +1648,9 @@
 
 				self.hideLoader();
 
-				self.callback();
-
 				$(self).trigger('dg:hashchange');
+
+				self.callback();
 
 				$(self).trigger('dg:fetched', self);
 			})
