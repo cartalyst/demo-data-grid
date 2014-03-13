@@ -51,8 +51,8 @@ $(function() {
 
 			// Apply filters based on hash
 			var column = 'created_at',
-				today = column + ':' + moment().format('YYYY-MM-DD') + '/',
-				yesterday = column + ':' + moment().subtract('days', 1).format('YYYY-MM-DD') + '/',
+				today = column + ':=:' + moment().format('YYYY-MM-DD') + '/',
+				yesterday = column + ':=:' + moment().subtract('days', 1).format('YYYY-MM-DD') + '/',
 				weekly = column + ':' + moment().startOf('isoWeek').format('YYYY-MM-DD') + ':' + moment().format('YYYY-MM-DD') + '/',
 				monthly = column + ':' + moment().startOf('month').format('YYYY-MM-DD') + ':' + moment().format('YYYY-MM-DD') + '/',
 				hash = window.location.hash;
@@ -206,8 +206,8 @@ $(function() {
 		<div class="btn-group">
 
 			<div data-filter-reset data-grid="single">
-				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Today">Today</a>
-				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" data-label="created_at::Yesterday">Yesterday</a>
+				<a href="#" data-filter="created_at:=:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Today">Today</a>
+				<a href="#" data-filter="created_at:=:{{ Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" data-label="created_at::Yesterday">Yesterday</a>
 				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->startOfWeek()->format('Y-m-d') }}:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Weekly">Weekly</a>
 				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Monthly">Monthly</a>
 			</div>
