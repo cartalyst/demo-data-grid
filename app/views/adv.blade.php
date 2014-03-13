@@ -49,9 +49,32 @@ $(function() {
 		//scroll: '.table', // Auto Scroll feature.
 		callback: function(obj) {
 
+			// Apply filters based on hash
+			var column = 'created_at',
+				today = column + ':' + moment().format('YYYY-MM-DD') + '/',
+				yesterday = column + ':' + moment().subtract('days', 1).format('YYYY-MM-DD') + '/',
+				weekly = column + ':' + moment().startOf('isoWeek').format('YYYY-MM-DD') + ':' + moment().format('YYYY-MM-DD') + '/',
+				monthly = column + ':' + moment().startOf('month').format('YYYY-MM-DD') + ':' + moment().format('YYYY-MM-DD') + '/',
+				hash = window.location.hash;
+
+			if (hash.indexOf(today) !== -1)
+			{
+				console.log('today');
+			}
+			else if (hash.indexOf(yesterday) !== -1)
+			{
+				console.log('yesterday');
+			}
+			else if (hash.indexOf(weekly) !== -1)
+			{
+				console.log('weekly');
+			}
+			else if (hash.indexOf(monthly) !== -1)
+			{
+				console.log('monthly');
+			}
+
 			// Leverage the Callback to show total counts or filtered count
-
-
 			$('#equation-filtered').html(obj.pagination.filteredCount);
 			$('#equation-dividend').html(obj.opt.dividend);
 			$('#equation-throttle').html(obj.opt.throttle);
@@ -182,13 +205,20 @@ $(function() {
 	<div class="col-md-1">
 		<div class="btn-group">
 
+			<div data-filter-reset data-grid="single">
+				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Today">Today</a>
+				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" data-label="created_at::Yesterday">Yesterday</a>
+				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->startOfWeek()->format('Y-m-d') }}:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Weekly">Weekly</a>
+				<a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Monthly">Monthly</a>
+			</div>
+
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 				Dates <span class="caret"></span>
 			</button>
 
 			<ul class="dropdown-menu" role="menu" data-filter-reset data-grid="single">
-				<li><a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at:Created At:Today">Today</a></li>
-				<li><a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" data-label="created_at:Created At:Yesterday">Yesterday</a></li>
+				<li><a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at::Today">Today</a></li>
+				<li><a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->subDay()->format('Y-m-d') }}" data-label="created_at::Yesterday">Yesterday</a></li>
 				<li><a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->startOfWeek()->format('Y-m-d') }}:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at:This Week">This Week</a></li>
 				<li><a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d') }}:{{ Carbon\Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d') }}" data-label="created_at:Last Week">Last Week</a></li>
 				<li><a href="#" data-filter="created_at:{{ Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}:{{ Carbon\Carbon::now()->format('Y-m-d') }}" data-label="created_at:This Month">This Month</a></li>
@@ -209,7 +239,7 @@ $(function() {
 			</button>
 
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" data-grid="single" data-filter="country:ca" data-filter-reset data-label="country:Country:Canada">Canada</a></li>
+				<li><a href="#" data-grid="single" data-filter="country:ca" data-label="country:Country:Canada">Canada</a></li>
 				<li><a href="#" data-grid="single" data-filter="population:>:10000" data-label="population:Population >:10000">Populations > 10000</a></li>
 				<li><a href="#" data-grid="single" data-filter="population:=:5000" data-label="population:Populations is:5000">Populations = 5000</a></li>
 				<li><a href="#" data-grid="single" data-filter="population:>:5000">Populations > 5000</a></li>
