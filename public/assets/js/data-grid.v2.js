@@ -1052,7 +1052,15 @@
 
 			this.defaultFilters = [];
 
-			if (filterEl.data('filter-reset') !== undefined)
+			if (filterEl.data('filter-reset') !== undefined && filterEl.data('filter') === undefined)
+			{
+				this.reset();
+
+				this.refresh();
+
+				return;
+			}
+			else if (filterEl.data('filter-reset') !== undefined)
 			{
 				this.reset();
 			}
