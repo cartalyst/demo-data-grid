@@ -1050,6 +1050,8 @@
 		{
 			refresh = refresh !== undefined ? refresh : true;
 
+			this.defaultFilters = [];
+
 			if (filterEl.data('filter-reset') !== undefined)
 			{
 				this.reset();
