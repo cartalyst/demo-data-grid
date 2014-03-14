@@ -227,6 +227,13 @@
 				self.extractFilters($(this));
 			});
 
+			this.$body.on('click', '[data-filter-reset]' + grid + ':not([data-filter]),' + grid + ' [data-filter-reset]:not([data-filter])', function(e)
+			{
+				self.reset();
+
+				self.refresh();
+			});
+
 			this.$body.on('click', '[data-filter]' + grid + ':not([data-filter-default]),' + grid + ' [data-filter]:not([data-filter-default])', function(e)
 			{
 				e.preventDefault();
@@ -1052,15 +1059,7 @@
 
 			this.defaultFilters = [];
 
-			if (filterEl.data('filter-reset') !== undefined && filterEl.data('filter') === undefined)
-			{
-				this.reset();
-
-				this.refresh();
-
-				return;
-			}
-			else if (filterEl.data('filter-reset') !== undefined)
+			if (filterEl.data('filter-reset') !== undefined)
 			{
 				this.reset();
 			}
