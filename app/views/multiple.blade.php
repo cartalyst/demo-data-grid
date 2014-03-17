@@ -34,18 +34,11 @@ $(function() {
 		callback: function(obj) {
 
 			// Leverage the Callback to show total counts or filtered count
-			$('#total1').val(obj.pagi.totalCount);
-			$('#filtered1').val(obj.pagi.filteredCount);
+			$('#total1').val(obj.pagination.totalCount);
+			$('#filtered1').val(obj.pagination.filteredCount);
 			$('#dividend1').val(obj.opt.dividend);
 			$('#threshold1').val(obj.opt.threshold);
 			$('#throttle1').val(obj.opt.throttle);
-
-			// Leverage the Callback to show total counts or filtered count
-			$('#total2').val(obj.pagi.totalCount);
-			$('#filtered2').val(obj.pagi.filteredCount);
-			$('#dividend2').val(obj.opt.dividend);
-			$('#threshold2').val(obj.opt.threshold);
-			$('#throttle2').val(obj.opt.throttle);
 
 		}
 	});
@@ -64,8 +57,8 @@ $(function() {
 		callback: function(obj) {
 
 			// Leverage the Callback to show total counts or filtered count
-			$('#total2').val(obj.pagi.totalCount);
-			$('#filtered2').val(obj.pagi.filteredCount);
+			$('#total2').val(obj.pagination.totalCount);
+			$('#filtered2').val(obj.pagination.filteredCount);
 			$('#dividend2').val(obj.opt.dividend);
 			$('#threshold2').val(obj.opt.threshold);
 			$('#throttle2').val(obj.opt.throttle);
@@ -127,8 +120,14 @@ $(function() {
 	{
 		var isChecked = $(this).prop('checked');
 
-		grid1.setScroll(isChecked ? '.table' : null);
-		grid2.setScroll(isChecked ? '.table' : null);
+		grid1.setScroll(isChecked ? '.table1' : null);
+	});
+
+	$('#auto-scroll1').on('change', function()
+	{
+		var isChecked = $(this).prop('checked');
+
+		grid2.setScroll(isChecked ? '.table2' : null);
 	});
 
 });
@@ -201,9 +200,9 @@ $(function() {
 			</button>
 
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" data-filter="population:10000" data-operator=">" data-grid="multi1">Population > 10000</a></li>
-				<li><a href="#" data-filter="population:5000" data-operator="<" data-grid="multi1">Population < 5000</a></li>
-				<li><a href="#" data-filter="population:5000" data-operator="=" data-grid="multi1">Population = 5000</a></li>
+				<li><a href="#" data-filter="population:>:10000" data-grid="multi1">Population > 10000</a></li>
+				<li><a href="#" data-filter="population:<:5000" data-grid="multi1">Population < 5000</a></li>
+				<li><a href="#" data-filter="population:=:5000" data-grid="multi1">Population = 5000</a></li>
 			</ul>
 
 		</div>
@@ -286,7 +285,7 @@ $(function() {
 
 	<div class="col-md-12">
 
-		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="multi1">
+		<table class="table table1 table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="multi1">
 			<thead>
 				<tr>
 					<th data-sort="country" class="sortable">Country</th>
@@ -306,8 +305,12 @@ $(function() {
 
 
 
+<hr>
 
-
+<label>
+	<input type="checkbox" name="auto-scroll" id="auto-scroll1" value="1">
+	Enable / Disable the Auto Scroll feature
+</label>
 
 <hr>
 
@@ -362,9 +365,9 @@ $(function() {
 			</button>
 
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" data-filter="population:10000" data-operator=">" data-grid="multi2">Population > 10000</a></li>
-				<li><a href="#" data-filter="population:5000" data-operator="<" data-grid="multi2">Population < 5000</a></li>
-				<li><a href="#" data-filter="population:5000" data-operator="=" data-grid="multi2">Population = 5000</a></li>
+				<li><a href="#" data-filter="population:>:10000" data-grid="multi2">Population > 10000</a></li>
+				<li><a href="#" data-filter="population:<:5000" data-grid="multi2">Population < 5000</a></li>
+				<li><a href="#" data-filter="population:=:5000" data-grid="multi2">Population = 5000</a></li>
 			</ul>
 
 		</div>
@@ -447,7 +450,7 @@ $(function() {
 
 	<div class="col-md-12">
 
-		<table class="table table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="multi2">
+		<table class="table table2 table-bordered table-striped" data-source="{{ URL::to('source') }}" data-grid="multi2">
 			<thead>
 				<tr>
 					<th data-sort="country" class="sortable">Country</th>

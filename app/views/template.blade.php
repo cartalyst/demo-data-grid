@@ -28,10 +28,7 @@
 						<li><a href="{{ URL::to('/') }}" class="btn{{ Request::is('/') ? ' active' : null }}">Single</a></li>
 						<li><a href="{{ URL::to('standard') }}" class="btn{{ Request::is('standard') ? ' active' : null }}">Standard</a></li>
 						<li><a href="{{ URL::to('infinite') }}" class="btn{{ Request::is('infinite') ? ' active' : null }}">Infinite</a></li>
-
-						<!-- <li><a href="{{ URL::to('standard') }}" class="btn{{ Request::is('standard') ? ' active' : null }}">Standard</a></li>
-						<li><a href="{{ URL::to('advanced') }}" class="btn{{ Request::is('advanced') ? ' active' : null }}">Advanced</a></li>
-						<li><a href="{{ URL::to('multiple') }}" class="btn{{ Request::is('multiple') ? ' active' : null }}">Multiple</a></li> -->
+						<li><a href="{{ URL::to('multiple') }}" class="btn{{ Request::is('multiple') ? ' active' : null }}">Multiple</a></li>
 					</ul>
 
 					<p>Powerful &amp; Simple; Easily filter large data sources, create beautiful JSON responses, and build paginated result sets.</p>
