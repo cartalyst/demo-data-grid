@@ -229,6 +229,8 @@
 
 			this.$body.on('click', '[data-filter-reset]' + grid + ':not([data-filter]),' + grid + ' [data-filter-reset]:not([data-filter])', function(e)
 			{
+				e.preventDefault();
+
 				self.reset();
 
 				self.refresh();
