@@ -1000,12 +1000,13 @@
 			$el.not(el).removeClass(ascClass);
 			$el.not(el).removeClass(descClass);
 
-			// get the oppsite class from which is set
-			var remove = direction === 'asc' ? descClass : ascClass;
+			// Get direction classes
+			var remove = direction === 'asc' ? descClass : ascClass,
+				add    = direction === 'asc' ? ascClass : descClass;
 
 			el.removeClass(remove);
 
-			el.addClass(direction);
+			el.addClass(add);
 
 			$(this).trigger('dg:sorted', this);
 		},
