@@ -1212,6 +1212,12 @@
 		 */
 		extractSortsFromClick: function(el)
 		{
+			// Reset page for infinite grids
+			if (this.opt.method === 'infinite')
+			{
+				this.goToPage(1);
+			}
+
 			var sortArr = $(el).data('sort').split(':'),
 				direction = 'asc';
 
