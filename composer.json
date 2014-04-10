@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"cartalyst/data-grid": "dev-feature/refactor-php"
+		"cartalyst/data-grid": "dev-develop"
 	},
 	"repositories": [
 		{
