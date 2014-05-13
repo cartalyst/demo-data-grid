@@ -20,6 +20,7 @@ class InstallPopulations extends Migration {
 			$table->integer('population');
 			$table->string('country_code');
 			$table->string('country_subdivision_code');
+			$table->timestamps();
 		});
 	}
 

@@ -1,0 +1,76 @@
+.form-group {
+	margin-bottom: 0;
+}
+
+.options{
+	display:block;
+	position: absolute;
+	left:0; top:0;
+
+	width:100%;
+
+	margin:0;
+	padding:0 0 8px 10px;
+
+	z-index: -1;
+
+	list-style: none;
+	line-height: 50px;
+	font-size:15px;
+
+	border-right:1px solid #ddd;
+
+	cursor: pointer;
+}
+
+.options:after{
+	content:'';
+	width:0; height:0;
+
+	position: absolute;
+	top:22px; right:10px;
+
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+
+	border-top: 5px solid #443e40;
+}
+
+.hidden-select{
+	z-index: 5;
+	opacity: 0;
+
+	height:50px;
+	width:100%;
+
+	padding:9px 0 8px 10px;
+	color:#443e40;
+	font-size: 15px;
+	line-height: 15px;
+
+	-webkit-appearance: menulist-button;
+
+	cursor: pointer;
+}
+
+.applied-filters { list-style: none; padding: 0; margin-top: 20px; }
+
+.table th[class*=sortable] {
+	cursor: pointer;
+}
+
+.table th[class*=sortable]:after {
+	content:" \25B2\25BC";
+	font-size:8px;
+	color:#2d2d2d;
+	font-weight:normal !important;
+	line-height:1em;
+}
+
+.table th.sortable.asc:after {
+	content: " \25B2";
+}
+
+.table th.sortable.desc:after {
+	content:" \25BC";
+}

@@ -3,43 +3,57 @@
 	<head>
 		<title>@yield('title')</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="{{ URL::asset('assets/css/reset.css') }}" >
-		<link rel="stylesheet" href="{{ URL::asset('assets/css/frames.css') }}" >
+
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/font-awesome.min.css') }}" >
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap-tour.min.css') }}" >
+
+		<link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}" >
+
+		<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
 
 		@yield('styles')
 
 	</head>
 	<body>
 
+		<div class="container-fluid">
+			<div class="base">
 
-		<div class="frame-synopsis">
-			<h1>@yield('title')</h1>
+				<aside class="col-md-3 sidebar">
 
-			@yield('menu')
+					<h1>Data Grid</h1>
 
-			<p>Powerful &amp; Simple; Easily filter large data sources, create beautiful JSON responses, and build paginated result sets.</p>
+					<ul class="navigator">
+						<li><a href="{{ URL::to('/') }}" class="btn{{ Request::is('/') ? ' active' : null }}">Single</a></li>
+						<li><a href="{{ URL::to('standard') }}" class="btn{{ Request::is('standard') ? ' active' : null }}">Standard</a></li>
+						<li><a href="{{ URL::to('infinite') }}" class="btn{{ Request::is('infinite') ? ' active' : null }}">Infinite</a></li>
+						<li><a href="{{ URL::to('multiple') }}" class="btn{{ Request::is('multiple') ? ' active' : null }}">Multiple</a></li>
+					</ul>
 
+					<p>Powerful &amp; Simple; Easily filter large data sources, create beautiful JSON responses, and build paginated result sets.</p>
 
+					<p class="documentation">Documentation is King!<br>Read it <a href="https://cartalyst.com/manual/data-grid" title="Cartalyst Data Grid Documentation">Here</a></p>
 
-			<p class="documentation">Documentation is King!<br>Read it <a href="http://docs.cartalyst.com/data-grid" title="Cartalyst Data Grid Documentation">Here</a></p>
+					<p class="requirements">Data Grid requires <a href="http://underscorejs.org/" target="_blank">Underscore.js</a> v1.5.2 or later &amp; <a href="http://jquery.com/" target="_blank">jQuery</a> v1.8.3 or later to run.</p>
 
-			<p class="requirements">Data Grid requires <a href="http://tempojs.com/" target="_blank">Tempojs</a> v2.0.0 or later &amp; <a href="http://jquery.com/" target="_blank">jQuery</a> v1.8.3 or later to run.</p>
+				</aside>
 
-		</div>
+				<div class="col-md-9 page">
 
-		<div class="frame-content">
+					@yield('content')
 
-			<h1>City Population</h1>
-			<div class="settings">
-				@yield('settings')
+				</div>
+
 			</div>
-			@yield('content')
-
 		</div>
+
 
 		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="{{ URL::asset('assets/js/bootstrap-tour.min.js') }}"></script>
 		<script src="{{ URL::asset('assets/js/underscore.js') }}"></script>
-		<script src="{{ URL::asset('assets/js/data-grid.js') }}"></script>
+		<script src="{{ URL::asset('assets/js/data-grid.v2.js') }}"></script>
 		<script>
 		// document.write( '<scr' + 'ipt src="assets/js/' + Math.PI.toString().slice(0,7) + '.js?auto"></s' + 'cript>' );
 		</script>

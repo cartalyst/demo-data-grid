@@ -13,13 +13,34 @@
 
 Route::get('/', function()
 {
-	return View::make('table');
+	return View::make('single');
 });
 
-Route::get('list', function()
+Route::get('standard', function()
 {
-	return View::make('list');
+	return View::make('standard');
 });
+
+Route::get('advanced', function()
+{
+	return View::make('advanced');
+});
+
+Route::get('infinite', function()
+{
+	return View::make('infinite');
+});
+
+Route::get('multiple', function()
+{
+	return View::make('multiple');
+});
+
+Route::get('adv', function()
+{
+	return View::make('adv');
+});
+
 
 Route::get('source', function()
 {
@@ -45,11 +66,16 @@ Route::get('source', function()
 
 	// Or by an Eloquent model
 	return DataGrid::make(new City, array(
+		'id',
 		'country',
 		'subdivision',
 		'city',
 		'population',
 		'country_code',
 		'country_subdivision_code',
+		'created_at',
+	), array(
+		'sort' => 'id',
+		'direction' => 'desc',
 	));
 });

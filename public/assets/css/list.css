@@ -3,8 +3,6 @@
 	width:100%;
 	height:50px;
 
-	margin-top:20px;
-
 	position: relative;
 	float:left;
 
@@ -167,7 +165,7 @@
 	margin-left:8px;
 }
 
-.filters ul{ list-style: none; }
+.applied-filters { list-style: none; padding: 0; margin-top: 20px; }
 
 .col-right{
 	width:75%;
@@ -209,17 +207,15 @@
 
 }
 
-.grid{ list-style: none; }
+.grid{ list-style: none; padding: 0; }
 
-.grid li{
-	width:31%;
+.grid li .wrapper {
 	height:200px;
-	float:left;
-
-	margin:0 15px 15px 0;
-	padding:20px;
 
 	background:#fff;
+
+	margin-bottom: 25px;
+
 	border:1px solid #ddd;
 	border-radius: 2px;
 
