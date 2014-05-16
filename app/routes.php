@@ -13,6 +13,11 @@
 
 Route::get('/', function()
 {
+	return View::make('home');
+});
+
+Route::get('/single', function()
+{
 	return View::make('single');
 });
 
