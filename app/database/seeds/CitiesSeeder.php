@@ -14,7 +14,7 @@ class CitiesSeeder extends Seeder {
 		{
 			$int = rand(strtotime("- 1 year"), time());
 
-			$city = new City([
+			DB::table('cities')->insert([
 				'country'                  => $faker->country,
 				'subdivision'              => $faker->state,
 				'city'                     => $faker->city,
@@ -23,8 +23,6 @@ class CitiesSeeder extends Seeder {
 				'country_subdivision_code' => $faker->stateAbbr,
 				'created_at'               => date("Y-m-d H:i:s", $int),
 			]);
-
-			$city->save();
 		}
 	}
 
