@@ -39,10 +39,10 @@
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
 						<li {{ URL::current() === URL::to('') ? 'class="active"' : null }}><a href="{{URL::to('/')}}">Home</a></li>
-						<li {{ URL::current() === URL::to('single') ? 'class="active"' : null }}><a href="{{URL::to('/single')}}">single</a></li>
+						<!-- <li {{ URL::current() === URL::to('single') ? 'class="active"' : null }}><a href="{{URL::to('/single')}}">single</a></li>
 						<li {{ URL::current() === URL::to('standard') ? 'class="active"' : null }}><a href="{{URL::to('standard')}}">standard</a></li>
 						<li {{ URL::current() === URL::to('infinite') ? 'class="active"' : null }}><a href="{{URL::to('infinite')}}">infinite</a></li>
-						<li {{ URL::current() === URL::to('multiple') ? 'class="active"' : null }}><a href="{{URL::to('multiple')}}">multiple</a></li>
+						<li {{ URL::current() === URL::to('multiple') ? 'class="active"' : null }}><a href="{{URL::to('multiple')}}">multiple</a></li> -->
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
