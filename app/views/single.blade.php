@@ -23,7 +23,7 @@ Single Pagination
 	// Setup DataGrid
 	var grid = $.datagrid('single', '.table', '#pagination', '.applied-filters', {
 		throttle: 20,
-		loader: '.loading',
+		loader: '.loader',
 		events: {
 			'removing': function(obj) {},
 			'removed': function(obj) {},
@@ -117,6 +117,12 @@ Single Pagination
 
 {{-- Page content --}}
 @section('content')
+
+<div class="loader" data-grid="single">
+	<div>
+		<span></span>
+	</div>
+</div>
 
 <div class="page-header">
 	<h1>Single Pagination</h1>
@@ -244,29 +250,21 @@ Single Pagination
 
 		<div class="col-md-6">
 
-			<form data-search data-grid="single" class="search">
-
-				<div class="select">
-
-					<select name="column" class="hidden-select">
+			<form data-search data-grid="single" class="form-inline" role="form">
+				<div class="form-group">
+				<select name="column" class="form-control">
 						<option value="all">All</option>
 						<option value="subdivision">Subdivision</option>
 						<option value="city">City</option>
 					</select>
-
-					<ul class="options">
-						<li>All</li>
-					</ul>
-
+				</div>
+				<div class="form-group">
+					<input type="text" name="filter" placeholder="Search" class="form-control">
 				</div>
 
-				<input type="text" name="filter" placeholder="Search" class="search-input">
-
-				<div class="loading">Loading &hellip;</div>
-
-				<button class="search-btn"><i class="fa fa-search"></i></button>
-
+				<button type="submit" class="btn btn-default btn-lg">Search</button>
 			</form>
+
 
 		</div>
 
