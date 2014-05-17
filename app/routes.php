@@ -16,7 +16,7 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-Route::get('/single', function()
+Route::get('single', function()
 {
 	return View::make('single');
 });
@@ -45,7 +45,6 @@ Route::get('adv', function()
 {
 	return View::make('adv');
 });
-
 
 Route::get('source', function()
 {
