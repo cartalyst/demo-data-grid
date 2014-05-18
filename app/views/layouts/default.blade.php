@@ -46,7 +46,7 @@
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="https://cartalyst.com/manual/conditions">Manual</a></li>
+						<li><a href="https://cartalyst.com/manual/data-grid/dev">Manual</a></li>
 					</ul>
 				</div>
 			</nav>
