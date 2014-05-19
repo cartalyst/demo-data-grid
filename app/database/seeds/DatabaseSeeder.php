@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('CitySeeder');
 		$this->call('CitiesSeeder');
 		$this->command->info('Cities table seeded!');
 	}
