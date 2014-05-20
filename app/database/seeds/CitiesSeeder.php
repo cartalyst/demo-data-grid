@@ -8,7 +8,7 @@ class CitiesSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
-		DB::table('cities')->delete();
+		DB::table('cities')->truncate();
 
 		foreach (range(1, 100000) as $index)
 		{
