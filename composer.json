@@ -1,0 +1,19 @@
+{
+	"name": "cartalyst/data-grid-native-demo",
+	"description": "Native demo for Cartalyst's Data Grid package.",
+	"keywords": [
+		"data grid",
+		"laravel"
+	],
+	"license": "proprietary",
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://packages.cartalyst.com"
+		}
+	],
+	"require": {
+		"cartalyst/data-grid": "dev-feature/cleanup"
+	},
+	"minimum-stability": "dev"
+}
