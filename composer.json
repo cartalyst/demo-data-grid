@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"cartalyst/data-grid": "dev-develop",
+		"cartalyst/data-grid": "dev-master",
 		"fzaninotto/faker": "1.4.*@dev"
 	},
 	"repositories": [
