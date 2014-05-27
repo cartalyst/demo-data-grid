@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"cartalyst/data-grid": "dev-master",
-		"fzaninotto/faker": "1.4.*@dev"
+		"fzaninotto/faker": "1.4.*@dev",
+		"dompdf/dompdf": "*"
 	},
 	"repositories": [
 		{

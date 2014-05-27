@@ -107,7 +107,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'Cartalyst\DataGrid\DataGridServiceProvider',
+		'Cartalyst\DataGrid\Laravel\DataGridServiceProvider',
 
 	),
 
@@ -175,7 +175,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
-		'DataGrid'        => 'Cartalyst\DataGrid\Facades\DataGrid',
+		'DataGrid'        => 'Cartalyst\DataGrid\Laravel\Facades\DataGrid',
 
 	),
 

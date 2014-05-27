@@ -3,14 +3,14 @@
 	<% _.each(pagination, function(p) { %>
 
 		<div class="col-md-8">
-			<p>Showing <%= p.pageStart %> to <%= p.pageLimit %> of <span class="total"><%= p.filteredCount %></span></p>
+			<p>Showing <%= p.page_start %> to <%= p.page_limit %> of <span class="total"><%= p.filteredCount %></span></p>
 		</div>
 		<div class="col-md-4">
 			<ul class="pagination pagination-lg pull-right">
 
-				<% if (p.prevPage !== null) { %>
+				<% if (p.previous_page !== null) { %>
 
-					<li><a data-grid="single" data-page="<%= p.prevPage %>"><i class="fa fa-chevron-left"></i></a></li>
+					<li><a data-grid="single" data-page="<%= p.previous_page %>"><i class="fa fa-chevron-left"></i></a></li>
 
 				<% } else { %>
 
@@ -18,9 +18,9 @@
 
 				<% } %>
 
-				<% if (p.nextPage !== null) { %>
+				<% if (p.next_page !== null) { %>
 
-					<li><a data-grid="single" data-page="<%= p.nextPage %>"><i class="fa fa-chevron-right"></i></a></li>
+					<li><a data-grid="single" data-page="<%= p.next_page %>"><i class="fa fa-chevron-right"></i></a></li>
 
 				<% } else { %>
 

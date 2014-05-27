@@ -75,11 +75,10 @@ Route::get('source', function()
 		'subdivision',
 		'city',
 		'population',
-		'country_code',
-		'country_subdivision_code',
 		'created_at',
 	), array(
 		'sort' => 'id',
 		'direction' => 'desc',
+		'max_results' => 20,
 	));
 });

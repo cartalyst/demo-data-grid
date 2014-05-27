@@ -12,9 +12,9 @@
 						<%= f.label %> <em><%= f.from + ' - ' + f.to %></em>
 					<% } %>
 
-				<% } else if (f.colMask !== undefined && f.valMask !== undefined) { %>
+				<% } else if (f.col_mask !== undefined && f.val_mask !== undefined) { %>
 
-					<%= f.colMask %> <em><%= f.valMask %></em>
+					<%= f.col_mask %> <em><%= f.val_mask %></em>
 
 				<% } else { %>
 

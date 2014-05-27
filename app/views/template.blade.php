@@ -53,7 +53,7 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="{{ URL::asset('assets/js/bootstrap-tour.min.js') }}"></script>
 		<script src="{{ URL::asset('assets/js/underscore.js') }}"></script>
-		<script src="{{ URL::asset('assets/js/data-grid.v2.js') }}"></script>
+		<script src="{{ URL::asset('assets/js/data-grid.js') }}"></script>
 		<script>
 		// document.write( '<scr' + 'ipt src="assets/js/' + Math.PI.toString().slice(0,7) + '.js?auto"></s' + 'cript>' );
 		</script>

@@ -57,7 +57,7 @@
 		<script src="{{ URL::to('assets/js/jquery.min.js') }}"></script>
 		<script src="{{ URL::to('assets/js/bootstrap.min.js') }}"></script>
 		<script src="{{ URL::asset('assets/js/underscore.js') }}"></script>
-		<script src="{{ URL::asset('assets/js/data-grid.v2.js') }}"></script>
+		<script src="{{ URL::asset('assets/js/data-grid.js') }}"></script>
 
 		<script type="text/javascript">
 			$('.tip').tooltip();
