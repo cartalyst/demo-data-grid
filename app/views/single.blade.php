@@ -198,6 +198,7 @@ Single Pagination
 
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="#" data-grid="single" data-download="csv">Export to CSV</a></li>
+					<li><a href="#" data-grid="single" data-download="json">Export to JSON</a></li>
 					<li><a href="#" data-grid="single" data-download="pdf">Export to PDF</a></li>
 				</ul>
 
