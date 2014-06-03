@@ -3,7 +3,7 @@
 	<% _.each(pagination, function(p) { %>
 
 		<div class="col-md-8">
-			<p>Showing <%= p.page_start %> to <%= p.page_limit %> of <span class="total"><%= p.filteredCount %></span></p>
+			<p>Showing <%= p.page_start %> to <%= p.page_limit %> of <span class="total"><%= p.filtered %></span></p>
 		</div>
 		<div class="col-md-4">
 			<ul class="pagination pagination-lg pull-right">
