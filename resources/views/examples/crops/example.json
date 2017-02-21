@@ -1,0 +1,14 @@
+{
+    "name": "Crops",
+    "description": "something in table layout",
+    "source": "database",
+    "features": [
+        "filters",
+        "ranges",
+        "sorting",
+        "pagination",
+        "searching",
+        "loader",
+        "multiple layouts"
+    ]
+}

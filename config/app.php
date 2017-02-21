@@ -166,6 +166,9 @@ return [
         /*
          * Package Service Providers...
          */
+        Cartalyst\DataGrid\Laravel\DataGridServiceProvider::class,
+        Cartalyst\Interpret\Laravel\InterpretServiceProvider::class,
+
         Laravel\Tinker\TinkerServiceProvider::class,
 
         /*

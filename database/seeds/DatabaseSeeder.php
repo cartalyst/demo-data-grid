@@ -11,6 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $seeds = [
+              CommoditiesTableSeeder::class
+            , CommodityGoodsTableSeeder::class
+            , CommodityPricesTableSeeder::class
+        ];
+
+        foreach ($seeds as $seed) {
+            $this->call($seed);
+        }
     }
 }
