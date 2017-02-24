@@ -2,17 +2,17 @@
 
 @section('scripts')
 <script>
-    $(function() {
-        var dg = new DataGridManager();
-
-        // Setup DataGrid
-        var grid = dg.create('welcome', {
-            source: '{{ route('source.database') }}',
-            pagination: {
-                throttle: 20
-            },
-        });
-    });
+    // $(function() {
+    //     var dg = new DataGridManager();
+    //
+    //     // Setup DataGrid
+    //     var grid = dg.create('welcome', {
+    //         source: '{{ route('source.database') }}',
+    //         pagination: {
+    //             throttle: 20
+    //         },
+    //     });
+    // });
 </script>
 @stop
 
@@ -52,57 +52,6 @@
 {{-- Showcase Grid --}}
 <section class="page__showcase">
 
-    <div class="container">
-
-        <div class="data-grid mdl-card mdl-shadow--2dp">
-
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Aquaculture</h2>
-            </div>
-
-            <div class="mdl-card__supporting-text">
-                Work with data like you've never worked with data before.
-            </div>
-
-            <table class="data-grid-table mdl-data-table mdl-js-data-table mdl-data-table--selectable" data-grid-layout="results" data-grid="welcome">
-            <thead>
-                <tr>
-                    <th>Country</th>
-                    <th>Plants</th>
-                    <th>Shellfish</th>
-                    <th>Fish</th>
-                    <th>All</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-            <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                    Get Started
-                </a>
-            </div>
-            <div class="mdl-card__menu">
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    Table
-                </button>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    Grid
-                </button>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    Rows
-                </button>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    Cards
-                </button>
-            </div>
-        </div>
-
-        {{-- Pagination --}}
-        <footer id="pagination" data-grid-layout="pagination" data-grid="welcome"></footer>
-
-    </div>
-
 </section>
 
 <section class="welcome__introduction">
@@ -121,10 +70,4 @@
 
 </section>
 
-{{-- Grid Layouts --}}
-@include('pages/welcome/grid/results')
-@include('pages/welcome/grid/filters')
-@include('pages/welcome/grid/pagination')
-
 @stop
-

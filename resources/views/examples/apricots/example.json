@@ -1,0 +1,8 @@
+{
+    "name": "Apricots",
+    "features": [
+        "infinite-load",
+        "filters",
+        "loader"
+    ]
+}

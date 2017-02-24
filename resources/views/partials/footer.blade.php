@@ -1,4 +1,4 @@
-<footer class="quickstart-footer mdl-mega-footer">
+<footer class="page__footer">
 
     <div class="container">
 

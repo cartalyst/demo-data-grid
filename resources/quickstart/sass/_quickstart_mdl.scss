@@ -1,0 +1,38 @@
+/*
+ * Material Design Lite
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ * Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+ *
+ */
+
+// Variables and mixins
+@import "../../../build/sass/material-design-lite/mixins";
+
+// Resets and dependencies
+@import "../../../build/sass/material-design-lite/resets/resets";
+@import "../../../build/sass/material-design-lite/typography/typography";
+
+// Components
+@import "../../../build/sass/material-design-lite/palette/palette";
+@import "../../../build/sass/material-design-lite/ripple/ripple";
+@import "../../../build/sass/material-design-lite/animation/animation";
+@import "../../../build/sass/material-design-lite/badge/badge";
+@import "../../../build/sass/material-design-lite/button/button";
+@import "../../../build/sass/material-design-lite/card/card";
+@import "../../../build/sass/material-design-lite/checkbox/checkbox";
+@import "../../../build/sass/material-design-lite/data-table/data-table";
+@import "../../../build/sass/material-design-lite/footer/mega_footer";
+@import "../../../build/sass/material-design-lite/footer/mini_footer";
+@import "../../../build/sass/material-design-lite/icon-toggle/icon-toggle";
+@import "../../../build/sass/material-design-lite/menu/menu";
+@import "../../../build/sass/material-design-lite/progress/progress";
+@import "../../../build/sass/material-design-lite/layout/layout";
+@import "../../../build/sass/material-design-lite/radio/radio";
+@import "../../../build/sass/material-design-lite/slider/slider";
+@import "../../../build/sass/material-design-lite/spinner/spinner";
+@import "../../../build/sass/material-design-lite/switch/switch";
+@import "../../../build/sass/material-design-lite/tabs/tabs";
+@import "../../../build/sass/material-design-lite/textfield/textfield";
+@import "../../../build/sass/material-design-lite/tooltip/tooltip";
+@import "../../../build/sass/material-design-lite/shadow/shadow";
+@import "../../../build/sass/material-design-lite/grid/grid";

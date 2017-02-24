@@ -1,0 +1,51 @@
+/*
+ * Quickstart Application - Extra Styles
+ * Copyright 2011-2015, Cartalyst LLC
+ *
+ * Extra styles, Overrides, and utilities from various sources.
+ *
+ */
+// Colors
+$amber: #FFA000; // amber-700
+$amber-light: #FFC107; // amber-500
+$grey: #757575; // grey-600
+$grey-light: #9E9E9E; // grey-500
+$grey-dark: #616161; // grey-700
+$blue-grey: #455A64; // blue-grey-700
+$blue-grey-light: #546E7A; // blue-grey-600
+$blue-grey-dark: #37474F; // blue-grey-800
+
+// Material Design Lite - Blockquotes
+blockquote {
+    margin: 16px 0;
+    position: relative;
+    color: $blue-grey-dark;
+    font-style: italic;
+    font-size: 2rem;
+    padding: 32px 0;
+    font-family: 'Roboto', serif;
+    font-weight: 100;
+    &:before {
+        position: absolute;
+        width: 20%;
+        left: 0;
+        top: 8px;
+        border-top: 1px solid $grey;
+        display: block;
+        content: "";
+        text-align: center;
+    }
+    &:after {
+        display: none;
+    }
+}
+
+// Vertical Alignments
+.valign-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.valign {
+    max-width: 50%;
+}
