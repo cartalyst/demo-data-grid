@@ -14,6 +14,7 @@ const { mix } = require('laravel-mix');
  mix.combine([
      'node_modules/lodash/lodash.min.js',
      'node_modules/jquery/dist/jquery.min.js',
+     'resources/assets/js/highlight.pack.js',
      'node_modules/foundation-sites/dist/js/foundation.min.js',
      'vendor/cartalyst/data-grid/resources/assets/js/exoskeleton.min.js',
      'vendor/cartalyst/data-grid/resources/assets/js/data-grid.js',
@@ -23,6 +24,7 @@ const { mix } = require('laravel-mix');
  mix.browserSync({
           files: [
               'public/**/*.css',
+              'public/**/*.js',
               'app/**/*',
               'resources/views/**/*'
           ],

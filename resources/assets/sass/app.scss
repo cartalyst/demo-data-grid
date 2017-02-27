@@ -6,8 +6,10 @@
 @include foundation-everything(true);
 
 // Cartalyst Quickstart
+@import "../css/github.css";
 @import "quickstart";
 @import "examples";
+
 
 .no-js {
   @include breakpoint(small only) {

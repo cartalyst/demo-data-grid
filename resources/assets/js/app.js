@@ -25,9 +25,9 @@ var Quickstart;
         Quickstart.App
             .foundation()
             .listeners()
+            .initHighlightJs()
             .addClasses()
             //.wrapCodeBlocks()
-            //.initHighlightJs()
             //.initClipboard()
 
         ;
@@ -50,6 +50,14 @@ var Quickstart;
 
         return this;
     }
+
+    // Syntax highlighting for code blocks.
+    Quickstart.App.initHighlightJs = function () {
+
+        hljs.initHighlightingOnLoad();
+
+        return this;
+    };
 
     // Show preview of data-grid attributes from element on hover.
     Quickstart.App.previewAttributes = function (event) {
@@ -77,7 +85,7 @@ var Quickstart;
         var element = '<' + tag + ' ' + newAttributes.join(' ') + '></' + tag + '>';
 
         //update preview area with code example.
-        $('.preview').fadeIn();
+        $('.preview > div').fadeIn();
         $('.preview pre code').text(element);
 
         return this;
