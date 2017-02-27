@@ -1,164 +1,24 @@
-// Settings
+// Foundation Sites
 @import "settings";
-
-// Foundation
 @import "../../../node_modules/foundation-sites/scss/foundation";
 
 // Include Everything (True) for the Flex Grid :);
 @include foundation-everything(true);
 
+// Cartalyst Quickstart
 @import "quickstart";
+@import "examples";
 
-
-body {
-    margin: 0;
-    background-color: $amber;
-    color: $grey-dark;
-}
-
-/* Disable ugly boxes around images in IE10 */
-a img {
-    border: 0;
-}
-h1,
-h2,
-h3,
-h4,
-h5 {
-    color: #757575;
-}
- ::-moz-selection {
-    background-color: $amber;
-    color: #fff;
-}
- ::selection {
-    background-color: $amber;
-    color: #fff;
-}
-
-
-// Layouts
-.page {
-    &__header {
-        height: 256px;
-        padding: 16px 0;
-        width: auto;
-        background: $amber;
-        overflow: hidden;
-
-        &.welcome .container {
-            height: 384px;
-            position: relative;
-        }
-        &.examples .container {
-            height: 256px;
-            text-align: center;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 200;
-            color: #fff;
-            margin:0 0 8px 0;
-
-        }
-        .tagline {
-            font-size: 1.8rem;
-            font-weight: 200;
-            color: #fff;
-            margin: 0;
-        }
-
-        .tutorial-link {
-            position: absolute;
-            right:16px;
-            color: #fff;
-            padding:8px 0;
-            text-decoration: none;
-            font-weight: 300;
-            font-size: 1rem;
-            border-bottom:2px solid transparent;
-            &:hover {
-                border-color:white;
-            }
-            i {
-                display: inline-flex;
-                vertical-align: middle;
-                margin-bottom:4px;
-            }
-        }
-
-        .preview {
-            background: #f8f8f8;
-            padding:0;
-            position: absolute;
-            padding:0;
-            bottom:34px;
-            left:0;
-            right:0;
-            display: none;
-
-
-            .hljs {
-                padding:4px;
-                margin:4px;
-            }
-
-        }
-
-        .mascot {
-            text-align: center;
-            img {
-                margin: 0 auto;
-                position: relative;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-            }
-        }
+.no-js {
+  @include breakpoint(small only) {
+    .top-bar {
+      display: none;
     }
-    &__showcase {
-        position: relative;
-        top: -48px;
-        width: 100%;
-    }
+  }
 
-    &__footer {
-        margin-top: 64px;
-        background-color: #fafafa;
-        position: relative;
-        a:hover {
-            color: #8bc34a;
-        }
+  @include breakpoint(medium) {
+    .title-bar {
+      display: none;
     }
-}
-
-.quickstart-footer {
-    margin-top: 64px;
-    background-color: #fafafa;
-    position: relative;
-    a:hover {
-        color: #8bc34a;
-    }
-    .mdl-mega-footer--top-section::after {
-        border-bottom: none;
-    }
-    .mdl-mega-footer--middle-section::after {
-        border-bottom: none;
-    }
-    .mdl-mega-footer--bottom-section {
-        position: relative;
-    }
-    .mdl-mega-footer--bottom-section a {
-        margin-right: 2em;
-    }
-    .mdl-mega-footer--right-section a .material-icons {
-        position: relative;
-        top: 6px;
-    }
-    .quickstart-link-menu:hover {
-        cursor: pointer;
-    }
+  }
 }

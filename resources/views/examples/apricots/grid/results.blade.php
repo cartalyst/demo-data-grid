@@ -12,17 +12,13 @@
 
             <div class="row">
 
-                <div class="item">
-                   <%- r.item %>
-                </div>
+                <div><%- r.country %></div>
 
-                <div class="date">
-                     <%- r.year %> <span><%- r.country %></span>
-                </div>
+                <div><%- r.item %></div>
 
-                <div class="value">
-                    <%- r.value %> <span><%- r.unit %></span>
-                </div>
+                <div><%- r.value %> <span><%- r.unit %></span></div>
+
+                <div><%- r.year %></div>
 
             </div>
 

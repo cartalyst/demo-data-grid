@@ -15,19 +15,21 @@
 </head>
 <body>
 
-    <div class="base">
+    <main class="base">
 
-        @include('partials/header')
+        <header class="base__header">
+            @include('partials/header')
+        </header>
 
         <div class="page">
-
             @yield('page')
-
-            @include('partials/footer')
-
         </div>
 
-    </div>
+        <footer class="base__footer">
+            @include('partials/footer')
+        </footer>
+
+    </main>
 
     <script src="{{ url('js/app.js') }}"></script>
 

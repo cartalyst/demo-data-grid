@@ -14,6 +14,7 @@ return [
     */
 
     'vendor' => 'Cartalyst',
+    'vendor_description' => 'Professional PHP Libraries & Starter Applications.',
     'title' => 'Data Grid Quickstart',
     'description' => 'A Fantastically Simple Data Filtration Library for PHP',
     'copyright' => '&copy; 2011-2017 Cartalyst llc'

@@ -10,7 +10,7 @@ $(function () {
             throttle: '10'
         },
         loader: {
-            element: '.loading'
+            element: '.progress'
         }
     });
 });

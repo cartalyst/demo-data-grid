@@ -19,4 +19,16 @@ const { mix } = require('laravel-mix');
      'vendor/cartalyst/data-grid/resources/assets/js/data-grid.js',
      'resources/assets/js/app.js'
  ], 'public/js/app.js');
- mix.sass('resources/assets/sass/app.scss', 'public/css');
+ mix.sass('resources/assets/sass/app.scss', 'public/css').sourceMaps();
+ mix.browserSync({
+          files: [
+              'public/**/*.css',
+              'app/**/*',
+              'resources/views/**/*'
+          ],
+          proxy: 'data-grid.dev',
+          notify: false,
+          watchOptions: {
+              interval: 1000,
+          },
+      });

@@ -5,7 +5,7 @@
         <h3>Apricot Harvests <span>Production quantities by country, 2010-2013</span></h3>
 
         {{-- Filters --}}
-        <nav data-grid-group="years" data-grid-reset-group>
+        <nav class="button-group" data-grid-group="years" data-grid-reset-group>
             <button data-grid-reset-group>All</button>
             <button data-grid-filter="2010" data-grid-query="date:=:2010-01-01">2010</button>
             <button data-grid-filter="2011" data-grid-query="date:=:2011-01-01">2011</button>
@@ -15,13 +15,11 @@
 
     </header>
 
-    {{-- Loader --}}
-    <div class="progress">
-      <div class="indeterminate"></div>
-    </div>
-
     {{-- Results container --}}
     <section data-grid-layout="results"></section>
+
+    {{-- Loader --}}
+    <div class="loading"></div>
 
     {{-- Pagination container --}}
     <footer data-grid-layout="pagination"></footer>

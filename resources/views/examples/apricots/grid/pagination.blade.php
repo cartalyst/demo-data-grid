@@ -6,12 +6,8 @@
         var loadMore = pagination ? 'data-grid-page="' + pagination.page + '"' : 'disabled';
     %>
 
-    <nav>
-
-        <button <%= loadMore %>>
-            {{ trans('pagination.load_more') }}
-        </button>
-
-    </nav>
+    <button <%= loadMore %>>
+        {{ trans('pagination.load') }}
+    </button>
 
 </script>

@@ -1,21 +1,241 @@
-/*
- * Quickstart Application - Extra Styles
- * Copyright 2011-2015, Cartalyst LLC
- *
- * Extra styles, Overrides, and utilities from various sources.
- *
- */
-// Colors
-$amber: #FFA000; // amber-700
-$amber-light: #FFC107; // amber-500
-$grey: #757575; // grey-600
-$grey-light: #9E9E9E; // grey-500
-$grey-dark: #616161; // grey-700
-$blue-grey: #455A64; // blue-grey-700
-$blue-grey-light: #546E7A; // blue-grey-600
-$blue-grey-dark: #37474F; // blue-grey-800
+// Quickstart Application - Extra Styles
+// Copyright 2011-2015, Cartalyst LLC
+//--------------------------------------
+//
+//   1.
+body {
+    margin: 0;
+    background-color: $amber;
+    color: $grey-dark;
+}
+/* Disable ugly boxes around images in IE10 */
+a img {
+    border: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #757575;
+}
+
+::-moz-selection {
+    background-color: $amber;
+    color: #fff;
+}
+
+::selection {
+    background-color: $amber;
+    color: #fff;
+}
+// Brands
+
+.brand {
+    &--drawer {
+        height: 124px;
+    }
+
+    &--welcome {
+        height: 124px;
+        margin: 0 auto;
+        @include breakpoint(medium) {
+            height: 320px;
+        }
+    }
+}
+
+.base {
+    &__header {
+        .top-bar {
+            .menu,
+            .dropdown.menu {
+
+                li {
+                    a {
+                        color: $white;
+
+                        &:active,
+                        &:hover {
+                                transition: .3s;
+                            color: $grey-dark;
+                            //background-color: $white;
+                            //border-radius: 6px;
+                        }
+
+                        &:focus {
+                            color: $white;
+                        }
+                    }
+                }
+
+                li.is-dropdown-submenu-parent {
+                    a {
+                        &:after {
+                            border-color: $white transparent transparent;
+                        }
+                        &:hover {
+
+                            &:after {
+                                border-color: $grey-dark transparent transparent;
+                            }
+                        }
+
+
+                    }
+                }
+                .submenu {
+                    background-color: $white;
+                    border:0;
+                    box-shadow: 0 3px 16px;
+                    a {
+                        color: $grey;
+
+                        &:active,
+                        &:hover {
+                            color: $white;
+                            background-color:$amber;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    &__footer {
+        color: $white;
+        padding:1em 0;
+        .menu {
+
+            li {
+                a {
+                    color: $white;
+
+                    &:active,
+                    &:hover {
+                        transition: .3s;
+                        color: $grey-dark;
+                        //background-color: $white;
+                        //border-radius: 6px;
+                    }
+
+                    &:focus {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+    // &__footer,
+    // &__header,
+    // .page {
+    //     //padding:2em 1em;
+    //     @include breakpoint(medium) {
+    //         //padding:1em 1em;
+    //     }
+    // }
+}
+
+.page {
+    //background: $white;
+
+    &__header {
+        height: 256px;
+        padding: 16px 0;
+        width: auto;
+        background: $amber;
+        overflow: hidden;
+
+        .welcome {
+            text-align: center;
+            @include breakpoint(medium) {
+                text-align: left;
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 200;
+            color: #fff;
+            margin: 0 0 8px;
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            font-weight: 200;
+            color: #fff;
+            margin: 0;
+        }
+
+        .tutorial-link {
+            position: absolute;
+            right: 16px;
+            color: #fff;
+            padding: 8px 0;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 1rem;
+            border-bottom: 2px solid transparent;
+
+            &:hover {
+                border-color: white;
+            }
+
+            i {
+                display: inline-flex;
+                vertical-align: middle;
+                margin-bottom: 4px;
+            }
+        }
+
+        .preview {
+            background: #f8f8f8;
+            padding: 0;
+            position: absolute;
+            padding: 0;
+            bottom: 34px;
+            left: 0;
+            right: 0;
+            display: none;
+
+            .hljs {
+                padding: 4px;
+                margin: 4px;
+            }
+        }
+
+        .mascot {
+            text-align: center;
+
+            img {
+                margin: 0 auto;
+                position: relative;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+            }
+        }
+    }
+
+    &__content {
+        position: relative;
+        top: -48px;
+        width: 100%;
+
+        .content {
+            background-color: $white;
+            box-shadow: 0 3px 8px;
+        }
+    }
+}
+
+
 
 // Material Design Lite - Blockquotes
+
 blockquote {
     margin: 16px 0;
     position: relative;
@@ -25,6 +245,7 @@ blockquote {
     padding: 32px 0;
     font-family: 'Roboto', serif;
     font-weight: 100;
+
     &:before {
         position: absolute;
         width: 20%;
@@ -35,17 +256,19 @@ blockquote {
         content: "";
         text-align: center;
     }
+
     &:after {
         display: none;
     }
 }
-
 // Vertical Alignments
+
 .valign-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .valign {
     max-width: 50%;
 }

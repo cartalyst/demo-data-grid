@@ -44,5 +44,11 @@ $router->group([ 'prefix' => 'examples', 'namespace' => 'Examples' ], function(R
 
         // Crops:
         require __DIR__.'/examples/crops.php';
+
+        // Apricots:
+        require __DIR__.'/examples/apricots.php';
+
+        // Watermelons:
+        require __DIR__.'/examples/watermelons.php';
     });
 });
