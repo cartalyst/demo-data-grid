@@ -14,9 +14,7 @@
 
                 <div><%- r.country %></div>
 
-                <div><%- r.item %></div>
-
-                <div><%- r.value %> <span><%- r.unit %></span></div>
+                <div><%- r.value %> <small><%- r.unit %></small></div>
 
                 <div><%- r.year %></div>
 

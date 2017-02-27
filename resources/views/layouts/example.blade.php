@@ -4,17 +4,25 @@
 @section('page')
 <header class="page__header">
 
-    <div class="welcome row align-midle">
+    <div class="welcome">
 
-        <div class="small-12 columns">
+        <div>
 
-            <h1>{{ $example->name }}</h1>
+            <h1>
+                {{ $example->name }}
+                <small>
+                    <a class="tutorial-link" href="{{ route('example.tutorial', $example->id) }}">Tutorial</a>
+                </small>
+            </h1>
 
             <h2 class="tagline">Showcasing {{ $example->description }}</h2>
 
-            <a class="tutorial-link" href="{{ route('example.tutorial', $example->id) }}">Tutorial <i class="material-icons">info_outline</i></a>
-
             <div class="preview"><pre><code class="html"></code></pre></div>
+
+        </div>
+
+        <div>
+
 
         </div>
 

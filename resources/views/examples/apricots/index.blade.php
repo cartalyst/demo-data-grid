@@ -8,9 +8,9 @@
 {{-- Page Content --}}
 @section('example')
 
-<section class="page__content row align-center">
+<section class="page__content">
 
-    <div class="content small-12 columns">
+    <div class="content">
 
         {{-- Example Start --}}
 

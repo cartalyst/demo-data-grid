@@ -48,6 +48,9 @@ h5 {
 
 .base {
     &__header {
+        .title-bar {
+            display: inline-block;
+        }
         .top-bar {
             .menu,
             .dropdown.menu {
@@ -106,9 +109,13 @@ h5 {
 
     &__footer {
         color: $white;
-        padding:1em 0;
-        .menu {
+        padding:1rem 0;
+        text-align: center;
 
+        @include breakpoint(medium) {
+            text-align: left;
+        }
+        .menu {
             li {
                 a {
                     color: $white;
@@ -142,17 +149,25 @@ h5 {
     //background: $white;
 
     &__header {
+
         height: 256px;
         padding: 16px 0;
         width: auto;
         background: $amber;
-        overflow: hidden;
+        //overflow: hidden;
 
         .welcome {
-            text-align: center;
-            @include breakpoint(medium) {
-                text-align: left;
+            @include flex-grid-row;
+            @extend .align-middle;
+            div {
+                @include grid-column(12);
+
+                text-align: center;
+                @include breakpoint(medium) {
+                    text-align: left;
+                }
             }
+
         }
 
         h1 {
@@ -170,13 +185,12 @@ h5 {
         }
 
         .tutorial-link {
-            position: absolute;
-            right: 16px;
+            margin:0 auto;
             color: #fff;
             padding: 8px 0;
             text-decoration: none;
             font-weight: 300;
-            font-size: 1rem;
+            font-size:1rem;
             border-bottom: 2px solid transparent;
 
             &:hover {
@@ -221,11 +235,13 @@ h5 {
     }
 
     &__content {
+        @include grid-row;
         position: relative;
         top: -48px;
         width: 100%;
 
         .content {
+            @include grid-column(12);
             background-color: $white;
             box-shadow: 0 3px 8px;
         }

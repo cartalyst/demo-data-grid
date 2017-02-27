@@ -1,13 +1,13 @@
-<div class="title-bar" data-responsive-toggle="example-animated-menu" data-hide-for="medium">
+<div class="title-bar" data-responsive-toggle="quickstart-menu" data-hide-for="medium">
     <button class="menu-icon" type="button" data-toggle></button>
-    <div class="title-bar-title">Menu</div>
+    <div class="title-bar-title">Data Grid 4</div>
 </div>
 
-<div class="top-bar" id="example-animated-menu" data-animate="hinge-in-from-top spin-out">
+<div class="top-bar" id="quickstart-menu">
     <div class="top-bar-left">
         <ul class="menu">
-      <li class="menu-text"><a href="{{ route('home') }}">{{ trans('app.title') }}</a></li>
-    </ul>
+            <li class="menu-text"><a href="{{ route('home') }}">{{ trans('app.title') }}</a></li>
+        </ul>
     </div>
     <div class="top-bar-right">
         <ul class="dropdown menu" data-dropdown-menu>
@@ -19,7 +19,6 @@
                     <li><a href="">Advanced</a></li>
                 </ul>
             </li>
-            <li class="menu-text"><a href="">Tutorials</a></li>
             <li class="menu-text"><a href="">Docs</a></li>
         </ul>
     </div>
