@@ -58,10 +58,13 @@ var Quickstart;
         var tag = target.closest('.js-quickstart-preview').prop('tagName').toLowerCase();
         var attributes = target.closest('.js-quickstart-preview').data();
 
-        console.log(target, tag, attributes);
-
         // find all data-grid attributes
-        var filteredAttributes = _.pick(attributes, function(val, key) { return key.substr(0, 4) === 'grid'; });
+        var filteredAttributes = _.forEach(attributes, function(val, key) {
+            if (key.substr(0, 4) === 'grid') {
+                return {key: val};
+            }
+        });
+
         var newAttributes = [];
 
         _.each(filteredAttributes, function(val, key) {
@@ -70,11 +73,9 @@ var Quickstart;
             newAttributes.push(key + '="' + val + '"');
         });
 
-        console.log(filteredAttributes);
-
         // create new element from target and newAttributes
         var element = '<' + tag + ' ' + newAttributes.join(' ') + '></' + tag + '>';
-        console.log(element);
+
         //update preview area with code example.
         $('.preview').fadeIn();
         $('.preview pre code').text(element);
@@ -124,7 +125,6 @@ var Quickstart;
 
                     // Group Filters
                     $('[data-grid-group] > button').addClass('js-quickstart-preview');
-                    console.log('done');
 
                     break;
                 default:
