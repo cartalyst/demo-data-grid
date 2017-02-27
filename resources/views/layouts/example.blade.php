@@ -20,12 +20,7 @@
             <div class="preview"><pre><code class="html"></code></pre></div>
 
         </div>
-
-        <div>
-
-
-        </div>
-
+        
     </div>
 
 </header>
