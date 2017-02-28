@@ -1,4 +1,4 @@
-<div class="data-grid" data-example="list" data-grid="apricots">
+<div class="data-grid" data-example="apricots" data-grid="apricots">
 
     <header>
 

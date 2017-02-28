@@ -3342,29 +3342,29 @@ var Quickstart;
     Quickstart.App.wrapCodeBlocks = function () {
         $('.tutorial__article h5').each(function () {
             $(this)
-                .addClass('example__header')
+                .addClass('source_code__header')
                 .next('p')
-                .addClass('example__block')
+                .addClass('source_code__block')
                 .wrapInner('<pre></pre>')
             ;
 
-            $(this).next().addBack().wrapAll('<div class="example"></div>');
+            $(this).next().addBack().wrapAll('<div class="source_code"></div>');
         });
 
         // Add Actions
-        $('.example').each(function () {
+        $('.source_code').each(function () {
             var el = $(this);
-            var slug = Quickstart.App.slugify(el.children('.example__header').html());
+            var slug = Quickstart.App.slugify(el.children('.source_code__header').html());
 
-            $(this).append('<nav class="example__actions"></nav>');
+            $(this).append('<nav class="source_code__actions"></nav>');
 
             // Add the copy to clipboard button
             el
-                .find('.example__actions')
+                .find('.source_code__actions')
                 .append('<button class="small button" data-copy-text data-clipboard-target="#'+slug+'"><i class="material-icons">content_cut</i></button>')
             ;
 
-            el.find('.example__block > pre > code').attr('id', slug);
+            el.find('.source_code__block > pre > code').attr('id', slug);
         });
 
         return this;
@@ -3416,7 +3416,7 @@ var Quickstart;
                     });
 
                     break;
-                case 'list':
+                case 'apricots':
 
                     // Group Filters
                     $('[data-grid-group] > button').addClass('js-quickstart-preview');
@@ -3439,7 +3439,7 @@ var Quickstart;
             e.clearSelection();
 
             // Show success notice
-            $('.example__actions').prepend('<span class="action__message">Copied!</span>')
+            $('.source_code__actions').prepend('<span class="action__message">Copied!</span>')
 
             $('.action__message').fadeOut(2500, function () {
                 $(this).remove();
@@ -3448,7 +3448,7 @@ var Quickstart;
 
         clipboard.on('error', function (e) {
             // Show fallback tooltip
-            $('.example__actions').prepend('<span class="action__message">'+Quickstart.App.fallbackMessage()+'</span>')
+            $('.source_code__actions').prepend('<span class="action__message">'+Quickstart.App.fallbackMessage()+'</span>')
 
             $('.action__message').fadeOut(4500, function () {
                 $(this).remove();
