@@ -10,7 +10,7 @@
         <h1>
             {{ $example->name }} Tutorial
             <small>
-                <a href="{{ $example->route }}">{{ $example->name }} Example</a>
+                <a class="tutorial-link" href="{{ $example->route }}">View {{ $example->name }} Example</a>
             </small>
         </h1>
 

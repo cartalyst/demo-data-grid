@@ -3361,7 +3361,7 @@ var Quickstart;
             // Add the copy to clipboard button
             el
                 .find('.example__actions')
-                .append('<button class="button" data-copy-text data-clipboard-target="#'+slug+'"><i class="material-icons">icon cut</i></button>')
+                .append('<button class="small button" data-copy-text data-clipboard-target="#'+slug+'"><i class="material-icons">content_cut</i></button>')
             ;
 
             el.find('.example__block > pre > code').attr('id', slug);
