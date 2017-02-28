@@ -76,7 +76,7 @@
                         </header>
 
                         <h5>apricots.php</h5>
-                        <p>{!! renderCode('app/Http/Routes/Examples/apricots.php', 'php') !!}</p>
+                        <p>{!! renderCode('routes/examples/apricots.php', 'php') !!}</p>
                     </article>
 
                 </div>

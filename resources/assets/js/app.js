@@ -85,10 +85,6 @@ var Quickstart;
     // Create code blocks generated from markdown.
     Quickstart.App.wrapCodeBlocks = function () {
         $('.tutorial__article h5').each(function () {
-
-            var el = $(this);
-            console.log(el);
-
             $(this)
                 .addClass('example__header')
                 .next('p')
@@ -102,7 +98,6 @@ var Quickstart;
         // Add Actions
         $('.example').each(function () {
             var el = $(this);
-
             var slug = Quickstart.App.slugify(el.children('.example__header').html());
 
             $(this).append('<nav class="example__actions"></nav>');
@@ -110,7 +105,7 @@ var Quickstart;
             // Add the copy to clipboard button
             el
                 .find('.example__actions')
-                .append('<button class="mdl-button mdl-js-button mdl-button--icon" data-copy-text data-clipboard-target="#'+slug+'"><i class="material-icons">content_cut</i></button>')
+                .append('<button class="button" data-copy-text data-clipboard-target="#'+slug+'"><i class="material-icons">icon cut</i></button>')
             ;
 
             el.find('.example__block > pre > code').attr('id', slug);
@@ -236,5 +231,5 @@ var Quickstart;
 
     // Job done, lets run
     Quickstart.App.init();
-    
+
 })(window, document, jQuery);

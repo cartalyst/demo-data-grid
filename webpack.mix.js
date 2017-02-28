@@ -15,6 +15,7 @@ const { mix } = require('laravel-mix');
      'node_modules/lodash/lodash.min.js',
      'node_modules/jquery/dist/jquery.min.js',
      'resources/assets/js/highlight.pack.js',
+     'node_modules/clipboard/dist/clipboard.min.js',
      'node_modules/foundation-sites/dist/js/foundation.min.js',
      'vendor/cartalyst/data-grid/resources/assets/js/exoskeleton.min.js',
      'vendor/cartalyst/data-grid/resources/assets/js/data-grid.js',
