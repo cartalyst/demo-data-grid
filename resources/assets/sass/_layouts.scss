@@ -88,30 +88,33 @@
                 font-size: 3rem;
                 font-weight: 200;
                 color: $white;
-                margin: 0 0 8px;
+                margin:0.5rem 0 0;
+            }
 
-                .tutorial-link {
-                    color: $white;
-                    text-decoration: none;
-                    font-weight: bold;
-                    font-size: 1rem;
-                    border-bottom: 2px solid transparent;
+            .tutorial-link {
+                color: $white;
+                text-decoration: none;
+                font-weight: 400;
+                font-size: rem-calc(18);
+                padding-bottom:0.25rem;
+                border-bottom: 2px solid transparent;
+                display: inline-block;
+                margin-top:16px;
 
-                    &:hover {
-                        border-color: $white;
-                    }
+                &:hover {
+                    border-color: $white;
+                }
 
-                    i {
-                        display: inline-flex;
-                        vertical-align: middle;
-                        margin-bottom: 4px;
-                    }
+                i {
+                    display: inline-flex;
+                    vertical-align: middle;
+                    margin-bottom: 4px;
                 }
             }
 
             .tagline {
-                font-size: 1.8rem;
-                font-weight: 200;
+                font-size: rem-calc(28);
+                font-weight: 300;
                 color: $white;
                 margin: 0;
             }

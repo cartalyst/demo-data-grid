@@ -7,14 +7,11 @@
 
     <div class="welcome">
 
-        <h1>
-            {{ $example->name }} Tutorial
-            <small>
-                <a class="tutorial-link" href="{{ $example->route }}">View {{ $example->name }} Example</a>
-            </small>
-        </h1>
+        <h1>{{ $example->name }} Tutorial</h1>
 
         <h2 class="tagline">Breaking down the {{ $example->name }} example</h2>
+
+        <a class="tutorial-link" href="{{ $example->route }}">Back to {{ $example->name }} Example <i class="material-icons">devices</i></a>
 
     </div>
 
