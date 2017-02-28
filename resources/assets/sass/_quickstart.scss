@@ -1,12 +1,11 @@
 // Quickstart Application - Extra Styles
 // Copyright 2011-2015, Cartalyst LLC
 //--------------------------------------
-//
-//   1.
+
 body {
     margin: 0;
     background-color: $amber;
-    color: $grey-dark;
+    color: $dark-gray;
 }
 /* Disable ugly boxes around images in IE10 */
 a img {
@@ -18,23 +17,27 @@ h2,
 h3,
 h4,
 h5 {
-    color: #757575;
+    color: $dark-gray;
 }
 
 ::-moz-selection {
     background-color: $amber;
-    color: #fff;
+    color: $white;
 }
 
 ::selection {
     background-color: $amber;
-    color: #fff;
+    color: $white;
 }
 // Brands
 
 .brand {
-    &--drawer {
-        height: 124px;
+    &--footer {
+        height: 72px;
+        margin: 0 auto;
+        @include breakpoint(medium) {
+            height: 96px;
+        }
     }
 
     &--welcome {
@@ -46,243 +49,41 @@ h5 {
     }
 }
 
-.base {
-    &__header {
-        .title-bar {
-            display: inline-block;
-        }
-        .top-bar {
-            .menu,
-            .dropdown.menu {
 
-                li {
-                    a {
-                        color: $white;
-
-                        &:active,
-                        &:hover {
-                                transition: .3s;
-                            color: $grey-dark;
-                            //background-color: $white;
-                            //border-radius: 6px;
-                        }
-
-                        &:focus {
-                            color: $white;
-                        }
-                    }
-                }
-
-                li.is-dropdown-submenu-parent {
-                    a {
-                        &:after {
-                            border-color: $white transparent transparent;
-                        }
-                        &:hover {
-
-                            &:after {
-                                border-color: $grey-dark transparent transparent;
-                            }
-                        }
-
-
-                    }
-                }
-                .submenu {
-                    background-color: $white;
-                    border:0;
-                    box-shadow: 0 3px 16px;
-                    a {
-                        color: $grey;
-
-                        &:active,
-                        &:hover {
-                            color: $white;
-                            background-color:$amber;
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
-    &__footer {
-        color: $white;
-        padding:1rem 0;
-        text-align: center;
-
-        @include breakpoint(medium) {
-            text-align: left;
-        }
-        .menu {
-            li {
-                a {
-                    color: $white;
-
-                    &:active,
-                    &:hover {
-                        transition: .3s;
-                        color: $grey-dark;
-                        //background-color: $white;
-                        //border-radius: 6px;
-                    }
-
-                    &:focus {
-                        color: $white;
-                    }
-                }
-            }
-        }
-    }
-    // &__footer,
-    // &__header,
-    // .page {
-    //     //padding:2em 1em;
-    //     @include breakpoint(medium) {
-    //         //padding:1em 1em;
-    //     }
-    // }
-}
-
-.page {
-    //background: $white;
-
-    &__header {
-        @include flex-grid-row;
-        @extend .align-bottom;
-        height: 256px;
-        width: auto;
-        background: $amber;
-        overflow: hidden;
-
-        .welcome {
-            @include flex-grid-column(12, 0);
-            text-align: center;
-            @include breakpoint(medium) {
-                text-align: left;
-            }
-
-            h1 {
-                font-size: 3rem;
-                font-weight: 200;
-                color: #fff;
-                margin: 0 0 8px;
-
-                .tutorial-link {
-                    color: #fff;
-                    text-decoration: none;
-                    font-weight: bold;
-                    font-size:1rem;
-                    border-bottom: 2px solid transparent;
-
-                    &:hover {
-                        border-color: white;
-                    }
-
-                    i {
-                        display: inline-flex;
-                        vertical-align: middle;
-                        margin-bottom: 4px;
-                    }
-                }
-            }
-
-            .tagline {
-                font-size: 1.8rem;
-                font-weight: 200;
-                color: #fff;
-                margin: 0;
-            }
-
-        }
-
-        .preview {
-            @include flex-grid-column(12, 0);
-            height: 48px;
-            margin-bottom:3px;
-
-            div {
-                background: #f8f8f8;
-                display: none;
-                border-bottom:1px solid $grey;
-                padding:8px;
-
-                .hljs {
-                    padding: 4px;
-                    //margin: 4px;
-                    background: transparent;
-                }
-
-            }
-
-        }
-
-        .mascot {
-            text-align: center;
-
-            img {
-                margin: 0 auto;
-                position: relative;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-            }
-        }
-    }
-
-    &__content {
-        @include grid-row;
+    // Material Design Lite - Blockquotes
+    blockquote {
+        margin: 16px 0;
         position: relative;
-        //top: -48px;
-        width: 100%;
+        color: $dark-gray;
+        font-style: italic;
+        font-size: 2rem;
+        padding: 32px 0;
+        font-family: 'Roboto', serif;
+        font-weight: 100;
 
-        .content {
-            @include grid-column(12);
-            background-color: $white;
-            box-shadow: 0 3px 8px;
+        &:before {
+            position: absolute;
+            width: 20%;
+            left: 0;
+            top: 8px;
+            border-top: 1px solid $light-gray;
+            display: block;
+            content: "";
+            text-align: center;
+        }
+
+        &:after {
+            display: none;
         }
     }
-}
+    // Vertical Alignments
 
-
-
-// Material Design Lite - Blockquotes
-
-blockquote {
-    margin: 16px 0;
-    position: relative;
-    color: $blue-grey-dark;
-    font-style: italic;
-    font-size: 2rem;
-    padding: 32px 0;
-    font-family: 'Roboto', serif;
-    font-weight: 100;
-
-    &:before {
-        position: absolute;
-        width: 20%;
-        left: 0;
-        top: 8px;
-        border-top: 1px solid $grey;
-        display: block;
-        content: "";
-        text-align: center;
+    .valign-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    &:after {
-        display: none;
+    .valign {
+        max-width: 50%;
     }
-}
-// Vertical Alignments
-
-.valign-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.valign {
-    max-width: 50%;
-}

@@ -1,7 +1,8 @@
 @extends('layouts/default')
 
-{{-- Page Content --}}
+{{-- Page --}}
 @section('page')
+
 <header class="page__header">
 
     <div class="welcome">

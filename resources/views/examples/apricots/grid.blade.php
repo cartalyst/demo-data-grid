@@ -1,4 +1,4 @@
-<div class="data-grid data-grid--list" data-example="list" data-grid="apricots">
+<div class="data-grid" data-example="list" data-grid="apricots">
 
     <header>
 
@@ -6,7 +6,7 @@
 
         {{-- Filters --}}
         <nav data-grid-group="years" data-grid-reset-group>
-            <button data-grid-reset-group>All</button>
+            <button data-grid-reset-group="years">All</button>
             <button data-grid-filter="2010" data-grid-query="date:=:2010-01-01">2010</button>
             <button data-grid-filter="2011" data-grid-query="date:=:2011-01-01">2011</button>
             <button data-grid-filter="2012" data-grid-query="date:=:2012-01-01">2012</button>

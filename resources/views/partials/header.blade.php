@@ -10,16 +10,13 @@
         </ul>
     </div>
     <div class="top-bar-right">
-        <ul class="dropdown menu" data-dropdown-menu>
-
+        <ul class="menu" data-dropdown-menu>
             <li>
                 <a href="{{ route('examples') }}">Examples</a>
-                <ul class="menu vertical">
-                    <li><a href="">Basic</a></li>
-                    <li><a href="">Advanced</a></li>
-                </ul>
             </li>
-            <li class="menu-text"><a href="">Docs</a></li>
+            <li class="menu-text">
+                <a href="">Docs</a>
+            </li>
         </ul>
     </div>
 </div>

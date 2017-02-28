@@ -1,22 +1,11 @@
-<div class="row">
+<div class="mark">
 
-    <div class="small-12 medium-7 columns">
+    <img class="brand brand--footer" src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="{{trans('app.vendor')}}">
 
-        <p class="lead">{{trans('app.vendor_description')}}</p>
+</div>
 
-        <p>{{trans('app.copyright')}}</p>
+<div class="copyright">
 
-    </div>
-
-    <div class="small-12 medium-5 columns">
-
-        <ul class="menu align-right">
-            <li><a href="#">One</a></li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
-            <li><a href="#">Four</a></li>
-        </ul>
-
-    </div>
+    <p>{{trans('app.vendor_description')}}<small>{{trans('app.copyright')}}</small></p>
 
 </div>

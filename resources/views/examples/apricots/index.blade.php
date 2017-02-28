@@ -8,17 +8,13 @@
 {{-- Page Content --}}
 @section('example')
 
-<section class="page__content">
+<section class="example example--apricots">
 
-    <div class="content">
+    {{-- Example Start --}}
 
-        {{-- Example Start --}}
+    @include('examples/apricots/grid')
 
-        @include('examples/apricots/grid')
-
-        {{-- Example End --}}
-
-    </div>
+    {{-- Example End --}}
 
 </section>
 

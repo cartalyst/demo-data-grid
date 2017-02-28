@@ -1,0 +1,147 @@
+// Quickstart Application - Layouts
+// Copyright 2011-2015, Cartalyst LLC
+//--------------------------------------
+//
+// 1. Base
+// 2. Page
+
+// 1. Base Layout
+// --------------
+.base {
+    &__header {
+        .title-bar {
+            display: inline-block;
+        }
+
+        .top-bar {
+            .menu {
+                li {
+                    a {
+                        color: $white;
+
+                        &:active,
+                        &:hover {
+                            transition: 0.3s;
+                            color: $dark-gray;
+                        }
+
+                        &:focus {
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__footer {
+        @include flex-grid-row;
+        @extend .align-middle;
+        color: $white;
+        padding: 1rem 0;
+        text-align: center;
+        @include breakpoint(medium) {
+            text-align: left;
+        }
+
+        .mark {
+            @include flex-grid-column(12);
+            @include breakpoint(medium) {
+                 @include flex-grid-column(1);
+            }
+        }
+
+        .copyright {
+            @include flex-grid-column(12);
+            @include breakpoint(medium) {
+                 @include flex-grid-column(11);
+            }
+
+            small {
+                display: block;
+            }
+        }
+    }
+}
+// 2. Page
+// --------------
+.page {
+    &__header {
+        @include flex-grid-row;
+        @extend .align-bottom;
+        height: 256px;
+        width: auto;
+        background: $amber;
+        overflow: hidden;
+
+        .welcome {
+            @include flex-grid-column(12, 0);
+            text-align: center;
+            @include breakpoint(medium) {
+                text-align: left;
+            }
+
+            h1 {
+                font-size: 3rem;
+                font-weight: 200;
+                color: $white;
+                margin: 0 0 8px;
+
+                .tutorial-link {
+                    color: $white;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 1rem;
+                    border-bottom: 2px solid transparent;
+
+                    &:hover {
+                        border-color: $white;
+                    }
+
+                    i {
+                        display: inline-flex;
+                        vertical-align: middle;
+                        margin-bottom: 4px;
+                    }
+                }
+            }
+
+            .tagline {
+                font-size: 1.8rem;
+                font-weight: 200;
+                color: $white;
+                margin: 0;
+            }
+        }
+
+        .preview {
+            @include flex-grid-column(12, 0);
+            height: 48px;
+            margin-bottom: 2px;
+
+            div {
+                background: $alabaster;
+                display: none;
+                padding: 8px;
+
+                .hljs {
+                    padding: 4px;
+                    //margin: 4px;
+                    background: transparent;
+                }
+            }
+        }
+
+        .mascot {
+            text-align: center;
+
+            img {
+                margin: 0 auto;
+                position: relative;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+            }
+        }
+    }
+}

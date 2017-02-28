@@ -49,26 +49,22 @@
 // Quickstart Colors
 $amber: #FFA000;
 $amber-light: #FFC107;
-$grey: #757575;
-$grey-light: #e6e6e6;
-$grey-dark: #616161;
-$blue-grey: #455A64;
-$blue-grey-light: #546E7A;
-$blue-grey-dark: #37474F;
+$alabaster: #f7f7f7;
+$blue-grey: #37474F;
+$light-gray: #EEEEEE;
+$medium-gray: #E0E0E0;
+$dark-gray: #757575;
 
 $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
 $foundation-palette: (
   primary: $amber,
-  secondary: $grey-light,
+  secondary: $medium-gray,
   success: #3adb76,
   warning: #ffae00,
   alert: #cc4b37,
 );
-$light-gray: #e6e6e6;
-$medium-gray: #cacaca;
-$dark-gray: #8a8a8a;
 $black: #0a0a0a;
 $white: #fefefe;
 $body-background: $white;

@@ -15,32 +15,25 @@
 
 {{-- Content --}}
 @section('page')
-<header class="page__header examples">
+<header class="page__header">
 
-    <div class="container">
+    <div class="welcome">
 
-        <div class="mdl-grid center">
+        <h1>Examples</h1>
 
-            <div class="mdl-cell mdl-cell--12-col">
-
-                <h1>Examples</h1>
-                <h2 class="tagline">A collection of implementations using Data Grid</h2>
-
-            </div>
-
-        </div>
+        <h2 class="tagline">A collection of implementations using Cartalyst Data Grid</h2>
 
     </div>
 
 </header>
 
-<section class="page__showcase">
+<section class="page__content">
 
-    <div class="container">
+    <div class="content content--blank">
 
-        <div class="data-grid data-grid--grid" data-grid="examples">
+        <div class="data-grid data-grid--blocks" data-grid="examples">
 
-            <div class="mdl-grid" data-grid-layout="results"></div>
+            <div class="row small-up-1 medium-up-2 large-up-3" data-grid-layout="results"></div>
 
         </div>
 
@@ -48,37 +41,33 @@
 
 </section>
 
+
+
 <script type="text/template" data-grid="examples" data-grid-template="results">
 
     <% var results = response.results; %>
 
     <% if (_.isEmpty(results)) { %>
-        <tr>
-            <td colspan="6">No Results</td>
-        </tr>
+        No Results
     <% } else { %>
 
         <% _.each(results, function(r) { %>
 
-            <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-
-                <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                        <div class="mdl-card__title mdl-card--expand">
-                            <h2 class="mdl-card__title-text">
-                                <%= r.name %>
-                            </h2>
-                        </div>
-                        <div class="mdl-card__supporting-text">
-                            <p><%= r.description %></p>
-                            <p><%= r.features %></p>
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
+            <div class="column">
+                <div class="card">
+                    <div class="card-section">
+                        <h4>
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="<%= r.url %>">
                                 <%= r.name %>
                             </a>
-                        </div>
+                        </h4>
+                    </div>
+                    <div class="card-section">
+                        <p><%= r.description %></p>
+                        <p><%= r.features %></p>
                     </div>
                 </div>
+            </div>
 
         <% }); %>
 
