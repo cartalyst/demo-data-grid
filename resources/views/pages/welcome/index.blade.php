@@ -7,7 +7,7 @@
 
         <div class="welcome">
 
-            <div class="row">
+            <div class="row align-middle">
 
                 <div class="small-12 medium-7 small-order-2 medium-order-1 columns">
 
@@ -19,7 +19,9 @@
 
                 <div class="small-12 medium-5 small-order-1 medium-order-2 columns">
 
-                    <img class="brand brand--welcome" src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="">
+                    <div class="mascot">
+                        <img class="brand brand--welcome" src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="">
+                    </div>
 
                 </div>
 

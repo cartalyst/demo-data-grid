@@ -71,7 +71,6 @@
         height: 256px;
         width: auto;
         background: $amber;
-        overflow: hidden;
 
         &--tutorial {
             @extend .align-middle;
@@ -140,15 +139,8 @@
 
         .mascot {
             text-align: center;
-
-            img {
-                margin: 0 auto;
-                position: relative;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-            }
+            position: relative;
+            top:100px;
         }
     }
     .layout {
@@ -158,6 +150,7 @@
             position: relative;
             border:0;
             z-index: 1000;
+            background: transparent;
             .tabs-title {
                 a {
                     font-size:rem-calc(16);
