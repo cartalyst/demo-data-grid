@@ -17,6 +17,8 @@
 
     <main class="base">
 
+        <a name="top"></a>
+
         <header class="base__header">
             @include('partials/header')
         </header>

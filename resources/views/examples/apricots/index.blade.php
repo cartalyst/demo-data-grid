@@ -8,7 +8,7 @@
 {{-- Page Content --}}
 @section('example')
 
-<section class="example example--apricots">
+<section class="layout example example--apricots">
 
     {{-- Example Start --}}
 

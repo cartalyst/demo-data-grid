@@ -5,35 +5,6 @@
 // 1. Apricots
 // 2. Crops
 
-.example {
-    @include grid-row;
-    width: 100%;
-    .tabs {
-        position: relative;
-        border:0;
-        z-index: 1000;
-        .tabs-title {
-            a {
-                font-size:rem-calc(16);
-
-                &:hover {
-                    color: $amber;
-                }
-                span {
-                    @include show-for(medium);
-                }
-            }
-        }
-        .tabs-content {
-            border:none;
-
-            .tabs-panel {
-                padding:0;
-            }
-        }
-    }
-}
-
 // 1. Apricots
 // --------------
 

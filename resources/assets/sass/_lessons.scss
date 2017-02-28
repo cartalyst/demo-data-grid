@@ -1,0 +1,124 @@
+// Quickstart Application - Layouts
+// Copyright 2011-2017, Cartalyst LLC
+//--------------------------------------
+//
+// 1. Apricots
+// 2. Crops
+
+
+// 1. Apricots
+// --------------
+
+.lesson {
+
+    .lesson__article {
+        padding:1rem;
+        header {
+            padding: 16px;
+        }
+        p {
+            font-size: 1.6rem;
+            line-height: 2.5rem;
+            font-weight: 300;
+        }
+        blockquote p {
+            font-size: 2rem;
+        }
+        ul {
+            margin-top: 32px;
+            padding-left: 0;
+            border-left: 8px solid $amber;
+            padding-left: 16px;
+            li {
+                font-size: 1.5rem;
+                list-style-type: none;
+                line-height: 42px;
+                &:first-child {
+                    font-size: 1rem;
+                    color: $dark-gray;
+                    text-transform: uppercase;
+                }
+                a {
+                    font-weight: 300;
+                }
+            }
+        }
+        section {
+            margin: 32px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        p {
+            padding: 8px 0;
+            font-size: 1.3rem;
+            line-height: 2.2rem;
+            font-weight: 300;
+        }
+        ol {
+            counter-reset: li;
+            margin-left: 0;
+            padding-left: 0;
+        }
+        ol > li {
+            position: relative;
+            list-style: none;
+            background: #fff;
+            font-size: 1.1rem;
+        }
+        ol > li:before {
+            content: counter(li);
+            counter-increment: li;
+            display: inline-block;
+            width: 2em;
+            padding: 10px 4px;
+            margin-right: 16px;
+            color: #757575;
+            border-right: 4px solid $amber;
+            border-bottom: 1px solid #ddd;
+            background-color: #f5f5f5;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        li ol,
+        li ul {
+            margin-top: 6px;
+        }
+        ol ol li:last-child {
+            margin-bottom: 0;
+        }
+
+        // Code Blocks
+        .source_code {
+            //border-top: 1px solid #ddd;
+            position: relative;
+            .source_code__header {
+                background: #fff;
+                padding: 1rem;
+                margin: 0;
+                font-weight: 400;
+                border-bottom: 4px solid $amber;
+            }
+            .source_code__block {
+                overflow: none;
+                background: #f5f5f5;
+                padding: 1rem;
+                pre,
+                code {
+                    margin: 0;
+                    font-size: 1.1rem;
+                }
+            }
+            .source_code__actions {
+                position: absolute;
+                top: 8px;
+                right: 16px;
+            }
+            .action__message {
+                display: inline-block;
+                padding: 0 8px;
+                color: $amber;
+                font-weight: 400;
+            }
+        }
+    }
+}

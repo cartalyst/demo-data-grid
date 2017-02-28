@@ -3,7 +3,7 @@
 {{-- Tutorial --}}
 @section('tutorial')
 
-<section class="example">
+<section class="layout">
 
         <ul class="tabs" data-deep-link="true" data-tabs id="tutorial-tabs">
 
