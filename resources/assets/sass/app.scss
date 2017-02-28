@@ -7,9 +7,10 @@
 
 // Cartalyst Quickstart
 @import "quickstart";
-@import "quickstart-extras";
-@import "quickstart-layouts";
-@import "quickstart-examples";
+@import "extras";
+@import "layouts";
+@import "examples";
+@import "tutorials";
 
 .no-js {
   @include breakpoint(small only) {
