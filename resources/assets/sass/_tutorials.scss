@@ -1,11 +1,37 @@
-/*
- * Quickstart Application - Tutorial Styles
- * Copyright 2011-2015, Cartalyst LLC
- *
- */
-.tutorial--examples {
-    @extend .mdl-shadow--2dp;
-    background-color: white;
+// Quickstart Application - Layouts
+// Copyright 2011-2017, Cartalyst LLC
+//--------------------------------------
+//
+// 1. Apricots
+// 2. Crops
+
+.tutorial {
+
+    @include grid-column(12, 0);
+    background-color: $white;
+    box-shadow: 0 3px 8px;
+
+    .tabs {
+        .tabs-title {
+            a {
+                span {
+                    @include show-for(medium);
+                }
+            }
+        }
+        .tabs-content {
+            border:none;
+        }
+    }
+
+}
+
+// 1. Apricots
+// --------------
+
+.tutorial--apricots {
+
+
     .tutorial__article {
         header {
             padding: 16px;
@@ -29,7 +55,7 @@
                 line-height: 42px;
                 &:first-child {
                     font-size: 1rem;
-                    color: $grey-light;
+                    color: $light-gray;
                     text-transform: uppercase;
                 }
                 a {
@@ -51,7 +77,6 @@
             counter-reset: li;
             margin-left: 0;
             padding-left: 0;
-            @extend .mdl-shadow--2dp;
         }
         ol > li {
             position: relative;

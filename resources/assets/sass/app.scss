@@ -1,11 +1,17 @@
-// Foundation Sites
+// Quickstart Application - Extra Styles
+// Copyright 2011-2017, Cartalyst LLC
+//--------------------------------------
+// 1. Foundation Sites
+// 2. Cartalyst Quickstart
+
+// 1. Foundation Sites
+// -------------------
 @import "settings";
 @import "../../../node_modules/foundation-sites/scss/foundation";
-
-// Include Everything (True) for the Flex Grid :);
 @include foundation-everything(true);
 
-// Cartalyst Quickstart
+// 2. Cartalyst Quickstart
+// -------------------
 @import "quickstart";
 @import "extras";
 @import "layouts";

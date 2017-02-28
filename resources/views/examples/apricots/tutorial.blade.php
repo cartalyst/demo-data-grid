@@ -1,28 +1,55 @@
 @extends('layouts/tutorial')
 
-{{-- Tutorial Content --}}
+{{-- Tutorial --}}
 @section('tutorial')
 
+<section class="example">
 
-<section class="page__content">
+        <div class="tutorial tutorial--apricots">
 
-    <div class="content">
+            <ul class="tabs" data-deep-link="true" data-tabs id="tutorial-tabs">
 
+                <li class="tabs-title is-active">
+                    <a href="#controller" aria-selected="true">
+                        1. <span>Controller</span>
+                    </a>
+                </li>
 
-        <div class="tutorial tutorial--examples">
+                <li class="tabs-title">
+                    <a href="#route" aria-selected="true">
+                        2. <span>Route</span>
+                    </a>
+                </li>
 
-            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                <li class="tabs-title">
+                    <a href="#instansiate" aria-selected="true">
+                        3. <span>Instansiate</span>
+                    </a>
+                </li>
 
-                <div class="mdl-tabs__tab-bar">
-                    <a href="#panel-1" class="mdl-tabs__tab is-active">1. <span class="show-on-medium-and-up">Controller</span></a>
-                    <a href="#panel-2" class="mdl-tabs__tab">2. <span class="show-on-medium-and-up">Route</span></a>
-                    <a href="#panel-3" class="mdl-tabs__tab">3. <span class="show-on-medium-and-up">Instantiate</span></a>
-                    <a href="#panel-4" class="mdl-tabs__tab">4. <span class="show-on-medium-and-up">Grid</span></a>
-                    <a href="#panel-5" class="mdl-tabs__tab">5. <span class="show-on-medium-and-up">Results</span></a>
-                    <a href="#panel-6" class="mdl-tabs__tab">6. <span class="show-on-medium-and-up">Pagination</span></a>
-                </div>
+                <li class="tabs-title">
+                    <a href="#grid" aria-selected="true">
+                        4. <span>Grid</span>
+                    </a>
+                </li>
 
-                <div class="mdl-tabs__panel is-active" id="panel-1">
+                <li class="tabs-title">
+                    <a href="#results" aria-selected="true">
+                        5. <span>Results</span>
+                    </a>
+                </li>
+
+                <li class="tabs-title">
+                    <a href="#pagination" aria-selected="true">
+                        6. <span>Pagination</span>
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="tabs-content" data-tabs-content="tutorial-tabs">
+
+                <div class="tabs-panel is-active" id="controller">
 
                     <article class="tutorial__article">
                         <header>
@@ -38,7 +65,7 @@
 
                 </div>
 
-                <div class="mdl-tabs__panel" id="panel-2">
+                <div class="tabs-panel is-active" id="route">
 
                     <article class="tutorial__article">
                         <header>
@@ -54,7 +81,7 @@
 
                 </div>
 
-                <div class="mdl-tabs__panel" id="panel-3">
+                <div class="tabs-panel is-active" id="instantiate">
 
                     <article class="tutorial__article">
                         <header>
@@ -70,7 +97,7 @@
 
                 </div>
 
-                <div class="mdl-tabs__panel" id="panel-4">
+                <div class="tabs-panel is-active" id="grid">
 
                     <article class="tutorial__article">
                         <header>
@@ -86,7 +113,7 @@
 
                 </div>
 
-                <div class="mdl-tabs__panel" id="panel-5">
+                <div class="tabs-panel is-active" id="results">
 
                     <article class="tutorial__article">
                         <header>
@@ -102,7 +129,7 @@
 
                 </div>
 
-                <div class="mdl-tabs__panel" id="panel-6">
+                <div class="tabs-panel is-active" id="pagination">
 
                     <article class="tutorial__article">
                         <header>
@@ -119,6 +146,7 @@
                 </div>
 
             </div>
+
 
         </div>
 

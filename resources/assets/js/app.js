@@ -1,6 +1,6 @@
 /*
  * Cartalyst Quickstart
- * Copyright 2015 Cartalyst LLC. All Rights Reserved.
+ * Copyright 2017 Cartalyst LLC. All Rights Reserved.
  *
  * Provides helpers for various sections of the application.
  *
@@ -25,11 +25,10 @@ var Quickstart;
         Quickstart.App
             .foundation()
             .listeners()
+            .wrapCodeBlocks()
             .initHighlightJs()
+            .initClipboard()
             .addClasses()
-            //.wrapCodeBlocks()
-            //.initClipboard()
-
         ;
     };
 
@@ -50,14 +49,6 @@ var Quickstart;
 
         return this;
     }
-
-    // Syntax highlighting for code blocks.
-    Quickstart.App.initHighlightJs = function () {
-
-        hljs.initHighlightingOnLoad();
-
-        return this;
-    };
 
     // Show preview of data-grid attributes from element on hover.
     Quickstart.App.previewAttributes = function (event) {
@@ -87,6 +78,51 @@ var Quickstart;
         //update preview area with code example.
         $('.preview > div').fadeIn();
         $('.preview pre code').text(element);
+
+        return this;
+    };
+
+    // Create code blocks generated from markdown.
+    Quickstart.App.wrapCodeBlocks = function () {
+        $('.tutorial__article h5').each(function () {
+
+            var el = $(this);
+            console.log(el);
+
+            $(this)
+                .addClass('example__header')
+                .next('p')
+                .addClass('example__block')
+                .wrapInner('<pre></pre>')
+            ;
+
+            $(this).next().addBack().wrapAll('<div class="example"></div>');
+        });
+
+        // Add Actions
+        $('.example').each(function () {
+            var el = $(this);
+
+            var slug = Quickstart.App.slugify(el.children('.example__header').html());
+
+            $(this).append('<nav class="example__actions"></nav>');
+
+            // Add the copy to clipboard button
+            el
+                .find('.example__actions')
+                .append('<button class="mdl-button mdl-js-button mdl-button--icon" data-copy-text data-clipboard-target="#'+slug+'"><i class="material-icons">content_cut</i></button>')
+            ;
+
+            el.find('.example__block > pre > code').attr('id', slug);
+        });
+
+        return this;
+    };
+
+    // Syntax highlighting for code blocks.
+    Quickstart.App.initHighlightJs = function () {
+
+        hljs.initHighlightingOnLoad();
 
         return this;
     };
@@ -144,6 +180,61 @@ var Quickstart;
         return this;
     };
 
+    // Initializes the Clipboard.js
+    Quickstart.App.initClipboard = function () {
+        var clipboard = new Clipboard('[data-copy-text]');
+
+        clipboard.on('success', function (e) {
+            e.clearSelection();
+
+            // Show success notice
+            $('.example__actions').prepend('<span class="action__message">Copied!</span>')
+
+            $('.action__message').fadeOut(2500, function () {
+                $(this).remove();
+            });
+        });
+
+        clipboard.on('error', function (e) {
+            // Show fallback tooltip
+            $('.example__actions').prepend('<span class="action__message">'+Quickstart.App.fallbackMessage()+'</span>')
+
+            $('.action__message').fadeOut(4500, function () {
+                $(this).remove();
+            });
+        });
+
+        return this;
+    };
+
+    // Slugifies the given string
+    Quickstart.App.slugify = function (str) {
+        if (str === undefined) return;
+
+        return str
+            .replace(/[^a-zA-Z0-9\s]/g, '')
+            .toLowerCase()
+            .replace(/\s/g,'-')
+        ;
+    };
+
+    Quickstart.App.fallbackMessage = function () {
+        var message = '';
+
+        if(/iPhone|iPad/i.test(navigator.userAgent)) {
+            message = 'No support :(';
+        }
+        else if (/Mac/i.test(navigator.userAgent)) {
+            message = 'Press ⌘-C to copy';
+        }
+        else {
+            message = 'Press Ctrl-C to copy';
+        }
+
+        return message;
+    };
+
     // Job done, lets run
     Quickstart.App.init();
+    
 })(window, document, jQuery);
