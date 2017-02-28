@@ -73,6 +73,10 @@
         background: $amber;
         overflow: hidden;
 
+        &--tutorial {
+            @extend .align-middle;
+        }
+
         .welcome {
             @include flex-grid-column(12, 0);
             text-align: center;

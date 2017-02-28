@@ -11,26 +11,12 @@
     background-color: $white;
     box-shadow: 0 3px 8px;
 
-    .tabs {
-        .tabs-title {
-            a {
-                span {
-                    @include show-for(medium);
-                }
-            }
-        }
-        .tabs-content {
-            border:none;
-        }
-    }
-
 }
 
 // 1. Apricots
 // --------------
 
 .tutorial--apricots {
-
 
     .tutorial__article {
         header {

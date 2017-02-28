@@ -7,15 +7,37 @@
 
 .example {
     @include grid-row;
-    position: relative;
-    //top: -48px;
     width: 100%;
+    .tabs {
+        position: relative;
+        border:0;
+        z-index: 1000;
+        .tabs-title {
+            &.is-active {
+            
+            }
+            a {
+                font-size:rem-calc(16);
+                span {
+                    @include show-for(medium);
+                }
+            }
+        }
+        .tabs-content {
+            border:none;
+
+            .tabs-panel {
+                padding:0;
+            }
+        }
+    }
 }
 
 // 1. Apricots
 // --------------
 
 .example--apricots {
+
     .data-grid {
         @include grid-column(12);
         background-color: $white;

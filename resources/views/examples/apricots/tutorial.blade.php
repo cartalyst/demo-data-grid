@@ -5,47 +5,47 @@
 
 <section class="example">
 
+        <ul class="tabs" data-deep-link="true" data-tabs id="tutorial-tabs">
+
+            <li class="tabs-title is-active">
+                <a href="#controller" aria-selected="true">
+                    1. <span>Controller</span>
+                </a>
+            </li>
+
+            <li class="tabs-title">
+                <a href="#route" aria-selected="true">
+                    2. <span>Route</span>
+                </a>
+            </li>
+
+            <li class="tabs-title">
+                <a href="#instansiate" aria-selected="true">
+                    3. <span>Instansiate</span>
+                </a>
+            </li>
+
+            <li class="tabs-title">
+                <a href="#grid" aria-selected="true">
+                    4. <span>Grid</span>
+                </a>
+            </li>
+
+            <li class="tabs-title">
+                <a href="#results" aria-selected="true">
+                    5. <span>Results</span>
+                </a>
+            </li>
+
+            <li class="tabs-title">
+                <a href="#pagination" aria-selected="true">
+                    6. <span>Pagination</span>
+                </a>
+            </li>
+
+        </ul>
+
         <div class="tutorial tutorial--apricots">
-
-            <ul class="tabs" data-deep-link="true" data-tabs id="tutorial-tabs">
-
-                <li class="tabs-title is-active">
-                    <a href="#controller" aria-selected="true">
-                        1. <span>Controller</span>
-                    </a>
-                </li>
-
-                <li class="tabs-title">
-                    <a href="#route" aria-selected="true">
-                        2. <span>Route</span>
-                    </a>
-                </li>
-
-                <li class="tabs-title">
-                    <a href="#instansiate" aria-selected="true">
-                        3. <span>Instansiate</span>
-                    </a>
-                </li>
-
-                <li class="tabs-title">
-                    <a href="#grid" aria-selected="true">
-                        4. <span>Grid</span>
-                    </a>
-                </li>
-
-                <li class="tabs-title">
-                    <a href="#results" aria-selected="true">
-                        5. <span>Results</span>
-                    </a>
-                </li>
-
-                <li class="tabs-title">
-                    <a href="#pagination" aria-selected="true">
-                        6. <span>Pagination</span>
-                    </a>
-                </li>
-
-            </ul>
 
             <div class="tabs-content" data-tabs-content="tutorial-tabs">
 
@@ -65,7 +65,7 @@
 
                 </div>
 
-                <div class="tabs-panel is-active" id="route">
+                <div class="tabs-panel" id="route">
 
                     <article class="tutorial__article">
                         <header>
@@ -81,7 +81,7 @@
 
                 </div>
 
-                <div class="tabs-panel is-active" id="instantiate">
+                <div class="tabs-panel" id="instantiate">
 
                     <article class="tutorial__article">
                         <header>
@@ -97,7 +97,7 @@
 
                 </div>
 
-                <div class="tabs-panel is-active" id="grid">
+                <div class="tabs-panel" id="grid">
 
                     <article class="tutorial__article">
                         <header>
@@ -113,7 +113,7 @@
 
                 </div>
 
-                <div class="tabs-panel is-active" id="results">
+                <div class="tabs-panel" id="results">
 
                     <article class="tutorial__article">
                         <header>
@@ -129,7 +129,7 @@
 
                 </div>
 
-                <div class="tabs-panel is-active" id="pagination">
+                <div class="tabs-panel" id="pagination">
 
                     <article class="tutorial__article">
                         <header>
