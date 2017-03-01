@@ -53,7 +53,7 @@
                     <header>
                         <h3>Create the Controller</h3>
                         <p>
-                            introduction to this particular section. Clear, concise summary of the file / code and its purpose.
+                            The controller defines the main grid view and the data grid source that is reponsible for retrieving the data. This is the route the data grid js will consume in order to return the data.
                         </p>
                     </header>
 
@@ -69,7 +69,7 @@
                     <header>
                         <h3>Register the Route</h3>
                         <p>
-                            introduction to this particular section. Clear, concise summary of the file / code and its purpose.
+                            Define the data grid route and the data grid source route.
                         </p>
                     </header>
 
@@ -85,7 +85,7 @@
                     <header>
                         <h3>Instantiate A Data Grid.</h3>
                         <p>
-                            introduction to this particular section. Clear, concise summary of the file / code and its purpose.
+                            Instantiating the data grid by calling the js initialization code.
                         </p>
                     </header>
 
@@ -101,7 +101,7 @@
                     <header>
                         <h3>Create A Layout</h3>
                         <p>
-                            introduction to this particular section. Clear, concise summary of the file / code and its purpose.
+                            Defining the grid layout including the main markup elements that construct our grid.
                         </p>
                     </header>
 
@@ -117,7 +117,7 @@
                     <header>
                         <h3>Build A Results Template</h3>
                         <p>
-                            introduction to this particular section. Clear, concise summary of the file / code and its purpose.
+                            The results template is responsible for rendering the retrieved data.
                         </p>
                     </header>
 
@@ -133,7 +133,7 @@
                     <header>
                         <h3>Build A Pagination Template</h3>
                         <p>
-                            introduction to this particular section. Clear, concise summary of the file / code and its purpose.
+                            Pagination template is responsible for the pagination elements to navigate the grid.
                         </p>
                     </header>
 
