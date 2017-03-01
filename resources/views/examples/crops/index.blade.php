@@ -8,17 +8,13 @@
 {{-- Page Content --}}
 @section('example')
 
-<section class="page__showcase">
+<section class="section section--box crops">
 
-    <div class="container">
+    {{-- Example Start --}}
 
-        {{-- Example Start --}}
+    @include('examples/crops/grid')
 
-        @include('examples/crops/grid')
-
-        {{-- Example End --}}
-
-    </div>
+    {{-- Example End --}}
 
 </section>
 

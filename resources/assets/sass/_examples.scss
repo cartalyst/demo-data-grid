@@ -8,7 +8,8 @@
 // 1. Apricots
 // --------------
 
-.apricots {
+.apricots,
+.crops {
     width:100%;
     .data-grid {
         background-color: $white;
@@ -49,6 +50,7 @@
                     @extend .button;
                 }
             }
+
         }
 
         [data-grid-layout="results"] {
@@ -71,6 +73,129 @@
                 }
             }
         }
+
+        [data-grid-layout="pagination"] {
+            margin: 1rem 0;
+
+            button {
+                @extend .expanded;
+                @extend .large;
+                @extend .button;
+            }
+        }
+    }
+}
+
+// 1. Crops
+// --------------
+
+.crops {
+    width:100%;
+    .data-grid {
+        background-color: $white;
+
+        > header {
+            @include flex-grid-row;
+            @extend .align-bottom;
+            border-bottom: 1px solid $light-gray;
+
+            h3 {
+                @include grid-column(12);
+                margin: 0;
+                padding: 1rem 0;
+                text-align: center;
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include grid-column(3);
+                }
+
+                span {
+                    display: block;
+                    font-size: 1rem;
+                }
+            }
+
+            .search {
+                @include grid-column(12);
+                @extend .expanded;
+                @include breakpoint(medium) {
+                     @include grid-column(3);
+                }
+            }
+
+            .filters {
+                @include grid-column(12);
+                @extend .expanded;
+                @include breakpoint(medium) {
+                     @include grid-column(3);
+                }
+            }
+
+            .layouts {
+                @include grid-column(12);
+                @extend .expanded;
+                @extend .button-group;
+
+                margin: 0;
+                padding: 1rem 0;
+                .material-icons {
+                    display: none;
+                }
+                @include breakpoint(medium) {
+                     @include grid-column(3);
+                }
+
+                button {
+                    @extend .secondary;
+                    @extend .button;
+                }
+            }
+
+        }
+
+        [data-grid-sort] {
+            cursor: pointer;
+            *cursor: hand;
+            position: relative;
+            font-fami
+
+            &:after {
+                content: ' \f0dc';
+                font-family: FontAwesome;
+                text-decoration: inherit;
+            }
+
+            &.asc:after {
+                content: ' \f0dd';
+            }
+
+            &.desc:after {
+                content: ' \f0de';
+            }
+        }
+
+        [data-grid-layout="results"] {
+            min-height: 480px;
+
+            .row {
+                @include grid-row;
+                padding: 1rem;
+
+                &:nth-of-type(even) {
+                    background: $light-gray;
+                }
+
+                div {
+                    @include grid-column(4);
+
+                    &:last-child {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+
 
         [data-grid-layout="pagination"] {
             margin: 1rem 0;

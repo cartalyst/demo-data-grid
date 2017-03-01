@@ -1,114 +1,99 @@
-<div class="data-grid data-grid--table" data-example="table" data-grid="crops">
-
-    {{-- Loader --}}
-    <div class="loading"></div>
+<div class="data-grid" data-example="crops" data-grid="crops">
 
     <header>
 
         <h3>Crop Harvests <span>Crop production 2010-2013</span></h3>
 
-        <nav>
+        {{-- Search Form --}}
+        <div class="search">
 
-            {{-- Search Form --}}
-            <div class="search">
+            <form method="post" accept-charset="utf-8" data-grid-search>
+                <div>
+                    <input type="text" id="search" placeholder="Search...">
+                    <label class="mdl-textfield__label" for="search"></label>
+                </div>
+            </form>
 
-                <form method="post" accept-charset="utf-8" data-grid-search>
-                    <div>
-                        <input type="text" id="search" placeholder="Search...">
-                        <label class="mdl-textfield__label" for="search"></label>
-                    </div>
-                </form>
+        </div>
 
-            </div>
+        {{-- Filters --}}
+        <div class="filters">
+            <select data-grid-group="filters" data-grid-reset-group>
 
-            {{-- Filters --}}
-            <div class="filters">
+                <option data-grid-reset-group="filters">
+                    Less than 10,000
+                </option>
 
-                <button id="filters">
-                    <i class="material-icons">filter_list</i>
-                </button>
 
-                <ul for="filters" data-grid-group data-grid-reset-group>
-                    <li data-grid-filter="less-than-10000"
-                        data-grid-query="value:<:10000">
-                        Less than 10,000
-                    </li>
+                <option data-grid-filter="less-than-10000"
+                    data-grid-query="value:<:10000">
+                    Less than 10,000
+                </option>
 
-                    <li data-grid-filter="greater-than-100000"
-                        data-grid-query="value:>:100000">
-                        Greater than 100,000
-                    </li>
+                <option data-grid-filter="greater-than-100000"
+                    data-grid-query="value:>:100000">
+                    Greater than 100,000
+                </option>
 
-                    <li data-grid-filter="only-portugal"
-                        data-grid-query="country:=:portugal">
-                        Equal to Portugal
-                    </li>
+                <option data-grid-filter="only-portugal"
+                    data-grid-query="country:=:portugal">
+                    Equal to Portugal
+                </option>
 
-                    <li data-grid-filter="melons"
-                        data-grid-query="item:melons">
-                        Contains Melons
-                    </li>
+                <option data-grid-filter="melons"
+                    data-grid-query="item:melons">
+                    Contains Melons
+                </option>
 
-                    <li data-grid-filter="exclude-agave"
-                        data-grid-query="item:!=:Agave fibres nes">
-                        Not equal to Agave
-                    </li>
+                <option data-grid-filter="exclude-agave"
+                    data-grid-query="item:!=:Agave fibres nes">
+                    Not equal to Agave
+                </option>
 
-                    <li data-grid-filter="portugal-egypt"
-                        data-grid-query="country:portugal, egypt">
-                        Only Portugal, Egypt
-                    </li>
+                <option data-grid-filter="portugal-egypt"
+                    data-grid-query="country:portugal, egypt">
+                    Only Portugal, Egypt
+                </option>
 
-                    <li data-grid-filter="portugal-egypt-value-desc"
-                        data-grid-query="country:portugal, egypt"
-                        data-grid-sort="value:desc">
-                        Portugal, Egypt, Sort Value Desc
-                    </li>
+                <option data-grid-filter="portugal-egypt-value-desc"
+                    data-grid-query="country:portugal, egypt"
+                    data-grid-sort="value:desc">
+                    Portugal, Egypt, Sort Value Desc
+                </option>
 
-                    <li data-grid-filter="portugal-apples"
-                        data-grid-query="country:portugal; item:apples">
-                        Portugal, Contains Apples
-                    </li>
-                </ul>
+                <option data-grid-filter="portugal-apples"
+                    data-grid-query="country:portugal; item:apples">
+                    Portugal, Contains Apples
+                </option>
 
-            </div>
+            </select>
+        </div>
 
-            {{-- Layouts --}}
-            <div class="layouts">
+        {{-- Layouts --}}
+        <div class="layouts">
 
-                <button data-grid-switch-layout="table:table">
-                    <i class="material-icons">view_list</i>
-                </button>
+            <button data-grid-switch-layout="table:table">
+                <i class="material-icons">view_list</i> <span>Table Layout</span>
+            </button>
 
-                <button data-grid-switch-layout="table:grid">
-                    <i class="material-icons">view_module</i>
-                </button>
+            <button data-grid-switch-layout="table:grid">
+                <i class="material-icons">view_module</i> <span>Grid Layout</span>
+            </button>
 
-            </div>
-
-        </nav>
+        </div>
 
     </header>
+
+    {{-- Loader --}}
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
 
     {{-- Applied filters container --}}
     <div data-grid-layout="filters"></div>
 
-    <table>
-
-        {{-- Column sorts --}}
-        <thead>
-            <tr>
-                <th data-grid-sort="country">Country</th>
-                <th data-grid-sort="date">Year</th>
-                <th data-grid-sort="item">item</th>
-                <th data-grid-sort="value">Production <span>(Tonnes)</span></th>
-            </tr>
-        </thead>
-
-        {{-- Results container --}}
-        <tbody data-grid-layout="table"></tbody>
-
-    </table>
+    {{-- Applied filters container --}}
+    <div data-grid-layout="table"></div>
 
     {{-- Pagination container --}}
     <footer data-grid-layout="pagination"></footer>

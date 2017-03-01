@@ -3293,7 +3293,8 @@ var Quickstart;
 	{
         Quickstart.Cache.$body
 			.on('mouseover', '.js-quickstart-preview:not(code .js-quickstart-preview)', Quickstart.App.previewAttributes)
-		;
+            .on('mouseenter', 'option.js-quickstart-preview:not(code .js-quickstart-preview)', Quickstart.App.previewAttributes)
+        ;
 
 		return this;
 	};
@@ -3386,29 +3387,26 @@ var Quickstart;
             var type = $('[data-example]').data('example');
 
             switch(type) {
-                case 'table':
+                case 'crops':
 
                     // Filters
-                    // $('.filters > button').addClass('mdl-button mdl-js-button mdl-button--icon');
-                    // $('.filters > ul').addClass('mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect');
-                    // $('.filters > ul li').addClass('mdl-menu__item js-quickstart-preview');
+                    $('[data-grid-filter]').addClass('js-quickstart-preview');
 
                     // Layouts
-                    //$('[data-grid-switch-layout]').addClass('mdl-button mdl-js-button mdl-button--icon js-quickstart-preview');
+                    $('[data-grid-switch-layout]').addClass('js-quickstart-preview');
 
                     // Search Form
-                    // $('.search form > div').addClass('mdl-textfield mdl-js-textfield');
-                    // $('.search form > div input').addClass('mdl-textfield__input');
-                    // $('.search form > div label').addClass('mdl-textfield__label');
+                    $('.search form > div').addClass('mdl-textfield mdl-js-textfield');
+                    $('.search form > div input').addClass('mdl-textfield__input');
+                    $('.search form > div label').addClass('mdl-textfield__label');
 
                     // Table
-                    //$('table').addClass('mdl-data-table');
                     $('th').addClass('js-quickstart-preview');
 
                     // Applied filters
-                    // $('[data-grid-layout="filters"]').on('dg:layout_rendered', function() {
-                    //     $(this).find('button').addClass('mdl-button mdl-js-button mdl-js-ripple-effect js-quickstart-preview');
-                    // });
+                    $('[data-grid-layout="filters"]').on('dg:layout_rendered', function() {
+                        $(this).find('button').addClass('js-quickstart-preview');
+                    });
 
                     // Pagination
                     $('[data-grid-layout="pagination"]').on('dg:layout_rendered', function() {
