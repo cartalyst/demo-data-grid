@@ -18,11 +18,13 @@
                 li {
                     a {
                         color: $white;
+                        border-bottom:2px solid transparent;
 
                         &:active,
                         &:hover {
                             transition: 0.3s;
-                            color: $dark-gray;
+                            color: $white;
+                            border-bottom:2px solid $white;
                         }
 
                         &:focus {
@@ -36,8 +38,8 @@
     &__footer {
         @include flex-grid-row;
         @extend .align-middle;
-        color: $white;
         padding: 1rem 0;
+        border-top:1px solid $light-gray;
         text-align: center;
         @include breakpoint(medium) {
             text-align: left;
@@ -64,67 +66,68 @@
 }
 // 2. Page
 // --------------
-.page {
+.layout {
+
     &__header {
-        @include flex-grid-row;
-        @extend .align-bottom;
-        height: 256px;
+        min-height: 256px;
         width: auto;
         background: $amber;
+        padding-bottom:64px;
 
-        &--tutorial {
+        > .row {
+            @include flex-grid-row;
             @extend .align-middle;
-        }
-
-        .welcome {
-            @include flex-grid-column(12, 0);
             text-align: center;
+
             @include breakpoint(medium) {
                 text-align: left;
             }
+        }
 
-            h1 {
-                font-size: 3rem;
-                font-weight: 200;
-                color: $white;
-                margin:0.5rem 0 0;
+        .tagline {
+            font-size: rem-calc(28);
+            font-weight: 300;
+            color: $white;
+            margin-bottom:1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 200;
+            color: $white;
+            margin:0.5rem 0 0;
+        }
+
+        .call-to-action {
+            background: transparent;
+            color: $white;
+            border-color: $white;
+
+            &:active,
+            &:hover {
+                color: $amber;
+                background: $white;
+                border-color: $white;
             }
 
-            .tutorial-link {
+            &:focus {
                 color: $white;
-                text-decoration: none;
-                font-weight: 400;
-                font-size: rem-calc(18);
-                padding-bottom:0.25rem;
-                border-bottom: 2px solid transparent;
-                display: inline-block;
-                margin-top:16px;
-
-                &:hover {
-                    border-color: $white;
-                }
-
-                i {
-                    display: inline-flex;
-                    vertical-align: middle;
-                    margin-bottom: 4px;
-                }
-            }
-
-            .tagline {
-                font-size: rem-calc(28);
-                font-weight: 300;
-                color: $white;
-                margin: 0;
+                background: transparent;
             }
         }
 
+        .mascot {
+            position: relative;
+            bottom:-64px;
+            text-align: center;
+        }
+
         .preview {
-            @include flex-grid-column(12, 0);
             height: 48px;
             margin-bottom: 2px;
 
             div {
+                width:100%;
                 background: $alabaster;
                 display: none;
                 padding: 8px;
@@ -137,40 +140,64 @@
             }
         }
 
-        .mascot {
-            text-align: center;
-            position: relative;
-            top:100px;
-        }
-    }
-    .layout {
-        @include grid-row;
-        width: 100%;
-        .tabs {
-            position: relative;
-            border:0;
-            z-index: 1000;
-            background: transparent;
-            .tabs-title {
-                a {
-                    font-size:rem-calc(16);
-
-                    &:hover {
-                        color: $amber;
-                    }
-                    span {
-                        @include show-for(medium);
-                    }
-                }
-            }
-            .tabs-content {
-                border:none;
-
-                .tabs-panel {
-                    padding:0;
-                }
-            }
-        }
     }
 
+    &__body {
+        min-height: 320px;
+    }
+
+}
+
+.page {
+    @include flex-grid-row;
+    position: relative;
+    top:-48px;
+
+
+
+
+    // .layout {
+    //     @include grid-row;
+    //     width: 100%;
+    //
+    //
+    //
+    //     .tabs {
+    //         position: relative;
+    //         border:0;
+    //         z-index: 1000;
+    //         background: transparent;
+    //         .tabs-title {
+    //             a {
+    //                 font-size:rem-calc(16);
+    //
+    //                 &:hover {
+    //                     color: $amber;
+    //                 }
+    //                 span {
+    //                     @include show-for(medium);
+    //                 }
+    //             }
+    //         }
+    //         .tabs-content {
+    //             border:none;
+    //
+    //             .tabs-panel {
+    //                 padding:0;
+    //             }
+    //         }
+    //     }
+    // }
+
+}
+
+// 2. Section
+// --------------
+.section {
+    width: 100%;
+    margin-bottom:2rem;
+    &--box {
+        background-color: $white;
+        box-shadow: 0 3px 8px;
+    }
 }

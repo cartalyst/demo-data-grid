@@ -17,13 +17,11 @@
 
     <main class="base">
 
-        <a name="top"></a>
-
         <header class="base__header">
             @include('partials/header')
         </header>
 
-        <div class="page">
+        <div class="layout">
             @yield('page')
         </div>
 

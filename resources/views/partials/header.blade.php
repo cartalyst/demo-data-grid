@@ -11,11 +11,15 @@
     </div>
     <div class="top-bar-right">
         <ul class="menu" data-dropdown-menu>
-            <li>
+            <li class="menu-title">
+                <a href="">Install</a>
+            </li>
+            <li class="menu-title">
                 <a href="{{ route('examples') }}">Examples</a>
             </li>
-            <li class="menu-text">
-                <a href="">Docs</a>
+
+            <li class="menu-title">
+                <a href="https://cartalyst.com/manual/data-grid">Manual</a>
             </li>
         </ul>
     </div>

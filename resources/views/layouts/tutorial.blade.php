@@ -3,20 +3,34 @@
 {{-- Page Content --}}
 @section('page')
 
-<header class="page__header page__header--tutorial">
+<header class="layout__header">
 
-    <div class="welcome">
+    <div class="welcome row">
 
-        <h1>{{ $example->name }} Tutorial</h1>
+        <div>
 
-        <h2 class="tagline">Breaking down the {{ $example->name }} example</h2>
+            <h1>{{ $example->name }} Tutorial</h1>
 
-        <a class="tutorial-link" href="{{ $example->route }}">Back to {{ $example->name }} Example <i class="material-icons">devices</i></a>
+            <h2 class="tagline">Breaking down the {{ $example->name }} example</h2>
+
+            <a class="tutorial-link" href="{{ $example->route }}">Back to {{ $example->name }} Example <i class="material-icons">devices</i></a>
+
+        </div>
 
     </div>
 
 </header>
 
-@yield('tutorial')
+<div class="layout__body">
+
+    <div class="page row">
+
+        @yield('tutorial')
+
+    </div>
+
+</div>
+
+
 
 @stop

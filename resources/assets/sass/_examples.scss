@@ -8,12 +8,10 @@
 // 1. Apricots
 // --------------
 
-.example--apricots {
-
+.apricots {
+    width:100%;
     .data-grid {
-        @include grid-column(12);
         background-color: $white;
-        box-shadow: 0 3px 8px;
 
         > header {
             @include grid-row;

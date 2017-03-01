@@ -3,19 +3,23 @@
 {{-- Page --}}
 @section('page')
 
-<header class="page__header">
+<header class="layout__header">
 
-    <div class="welcome">
+    <div class="welcome row">
 
-        <h1>{{ $example->name }}</h1>
+        <div>
 
-        <h2 class="tagline">Showcasing {{ $example->description }}</h2>
+            <h1>{{ $example->name }}</h1>
 
-        <a class="tutorial-link" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial <i class="material-icons">library_books</i></a>
+            <h2 class="tagline">Showcasing {{ $example->description }}</h2>
+
+            <a class="hollow button call-to-action" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial</a>
+
+        </div>
 
     </div>
 
-    <div class="preview">
+    <div class="preview row">
         <div>
             <pre><code class="html"></code></pre>
         </div>
@@ -23,6 +27,14 @@
 
 </header>
 
-@yield('example')
+<div class="layout__body">
+
+    <div class="page row">
+
+        @yield('example')
+
+    </div>
+
+</div>
 
 @stop

@@ -568,10 +568,10 @@ $show-header-for-stacked: false;
 // --------
 
 $tab-margin: 0;
-$tab-background: $amber;
-$tab-color: $white;
+$tab-background: $white;
+$tab-color: $dark-gray;
 $tab-background-active: $white;
-$tab-active-color: $dark-gray;
+$tab-active-color: $amber;
 $tab-item-font-size: rem-calc(12);
 $tab-item-background-hover: $white;
 $tab-item-padding: 1.25rem 1.5rem;

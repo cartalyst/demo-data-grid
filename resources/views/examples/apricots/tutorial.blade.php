@@ -3,7 +3,7 @@
 {{-- Tutorial --}}
 @section('tutorial')
 
-<section class="layout">
+<section class="section section--box tutorial">
 
         <ul class="tabs" data-deep-link="true" data-tabs id="tutorial-tabs">
 
@@ -44,8 +44,6 @@
             </li>
 
         </ul>
-
-        <div class="tutorial tutorial--apricots">
 
             <div class="tabs-content" data-tabs-content="tutorial-tabs">
 
@@ -146,9 +144,6 @@
                 </div>
 
             </div>
-
-
-        </div>
 
     </div>
 
