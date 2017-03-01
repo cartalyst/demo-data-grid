@@ -84,7 +84,7 @@ var Quickstart;
 
     // Create code blocks generated from markdown.
     Quickstart.App.wrapCodeBlocks = function () {
-        $('.tutorial__article h5').each(function () {
+        $('.article--tutorial h5').each(function () {
             $(this)
                 .addClass('source_code__header')
                 .next('p')

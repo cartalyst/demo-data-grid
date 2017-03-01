@@ -13,7 +13,7 @@
 
             <h2 class="tagline">Breaking down the {{ $example->name }} example</h2>
 
-            <a class="tutorial-link" href="{{ $example->route }}">Back to {{ $example->name }} Example <i class="material-icons">devices</i></a>
+            <a class="large hollow button call-to-action" href="{{ $example->route }}">Back to {{ $example->name }} Example</a>
 
         </div>
 

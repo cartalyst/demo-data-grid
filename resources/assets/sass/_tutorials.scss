@@ -2,35 +2,35 @@
 // Copyright 2011-2017, Cartalyst LLC
 //--------------------------------------
 //
-// 1. Apricots
-// 2. Crops
+// 1. Tutorials
 
-
-// 1. Apricots
-// --------------
-
-
+.tutorial {
     .tabs {
-            position: relative;
-            border:0;
-            .tabs-title {
-                a {
-                    font-size:rem-calc(16);
+        position: relative;
+        background: $white;
 
-                    &:hover {
-                        color: $amber;
-                    }
-                    span {
-                        @include show-for(medium);
-                    }
+        .tabs-title {
+            border-right: 1px solid $medium-gray;
+
+            a {
+                font-size: rem-calc(16);
+
+                &:hover {
+                    color: $amber;
                 }
-            }
-            .tabs-content {
-                border:none;
 
-                .tabs-panel {
-                    padding:0;
+                span {
+                    @include show-for(medium);
                 }
             }
         }
+
+        .tabs-content {
+            border: none;
+
+            .tabs-panel {
+                padding: 0;
+            }
+        }
     }
+}

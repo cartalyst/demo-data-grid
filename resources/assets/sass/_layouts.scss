@@ -64,7 +64,7 @@
         }
     }
 }
-// 2. Page
+// 2. Layout
 // --------------
 .layout {
 
@@ -152,43 +152,6 @@
     @include flex-grid-row;
     position: relative;
     top:-48px;
-
-
-
-
-    // .layout {
-    //     @include grid-row;
-    //     width: 100%;
-    //
-    //
-    //
-    //     .tabs {
-    //         position: relative;
-    //         border:0;
-    //         z-index: 1000;
-    //         background: transparent;
-    //         .tabs-title {
-    //             a {
-    //                 font-size:rem-calc(16);
-    //
-    //                 &:hover {
-    //                     color: $amber;
-    //                 }
-    //                 span {
-    //                     @include show-for(medium);
-    //                 }
-    //             }
-    //         }
-    //         .tabs-content {
-    //             border:none;
-    //
-    //             .tabs-panel {
-    //                 padding:0;
-    //             }
-    //         }
-    //     }
-    // }
-
 }
 
 // 2. Section

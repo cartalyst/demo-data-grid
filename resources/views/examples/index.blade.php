@@ -15,33 +15,36 @@
 
 {{-- Content --}}
 @section('page')
-<header class="page__header">
 
-    <div class="welcome">
+<header class="layout__header">
 
-        <h1>Examples</h1>
+    <div class="welcome row">
 
-        <h2 class="tagline">A collection of implementations using Cartalyst Data Grid</h2>
+        <div>
 
-    </div>
+            <h1>Examples</h1>
 
-</header>
-
-<section class="page__content">
-
-    <div class="content content--blank">
-
-        <div class="data-grid data-grid--blocks" data-grid="examples">
-
-            <div class="row small-up-1 medium-up-2 large-up-3" data-grid-layout="results"></div>
+            <h2 class="tagline">A collection of implementations using Cartalyst Data Grid</h2>
 
         </div>
 
     </div>
 
-</section>
+</header>
 
+<div class="layout__body">
 
+    <div class="page row">
+
+        <div class="data-grid data-grid--blocks" data-grid="examples">
+
+            <div class="row small-up-1 medium-up-2" data-grid-layout="results"></div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script type="text/template" data-grid="examples" data-grid-template="results">
 

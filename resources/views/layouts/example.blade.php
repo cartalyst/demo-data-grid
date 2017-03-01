@@ -13,7 +13,7 @@
 
             <h2 class="tagline">Showcasing {{ $example->description }}</h2>
 
-            <a class="hollow button call-to-action" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial</a>
+            <a class="large hollow button call-to-action" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial</a>
 
         </div>
 
