@@ -38,7 +38,7 @@
 
     <div class="page row">
 
-        <section class="section section--box example example--apricots">
+        <section class="section section--box apricots">
 
             @include('examples/apricots/grid')
 

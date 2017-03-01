@@ -49,7 +49,7 @@
 
                 <div class="tabs-panel is-active" id="controller">
 
-                    <article class="tutorial__article">
+                    <article class="tutorial__article article">
                         <header>
                             <h3>Create the Controller</h3>
                             <p>
