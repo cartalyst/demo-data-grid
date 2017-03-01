@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "cartalyst/data-grid",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:cartalyst/data-grid.git",
-                "reference": "a7c2f8ae5bbaef6e6eeacc68c8745153000835e6"
+                "reference": "01f6e8eaf17f057649b3d53c102c02af340e6102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/a7c2f8ae5bbaef6e6eeacc68c8745153000835e6",
-                "reference": "a7c2f8ae5bbaef6e6eeacc68c8745153000835e6",
+                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/01f6e8eaf17f057649b3d53c102c02af340e6102",
+                "reference": "01f6e8eaf17f057649b3d53c102c02af340e6102",
                 "shasum": ""
             },
             "require": {
@@ -72,10 +72,10 @@
                 "search"
             ],
             "support": {
-                "source": "https://github.com/cartalyst/data-grid/tree/master",
+                "source": "https://github.com/cartalyst/data-grid/tree/v4.0.1",
                 "issues": "https://github.com/cartalyst/data-grid/issues"
             },
-            "time": "2017-02-20T06:21:47+00:00"
+            "time": "2017-03-01T16:52:22+00:00"
         },
         {
             "name": "cartalyst/data-grid-export",
@@ -524,16 +524,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.13",
+            "version": "v5.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "3eebfaa759156e06144892b00bb95304aa5a71c1"
+                "reference": "b4f9e2b7d146d677e8c360df02beaa9391da1fb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/3eebfaa759156e06144892b00bb95304aa5a71c1",
-                "reference": "3eebfaa759156e06144892b00bb95304aa5a71c1",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b4f9e2b7d146d677e8c360df02beaa9391da1fb1",
+                "reference": "b4f9e2b7d146d677e8c360df02beaa9391da1fb1",
                 "shasum": ""
             },
             "require": {
@@ -649,7 +649,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-02-22T16:07:04+00:00"
+            "time": "2017-03-01T15:59:14+00:00"
         },
         {
             "name": "laravel/tinker",
