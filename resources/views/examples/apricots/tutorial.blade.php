@@ -20,8 +20,8 @@
             </li>
 
             <li class="tabs-title">
-                <a href="#instansiate" aria-selected="true">
-                    3. <span>Instansiate</span>
+                <a href="#instantiate" aria-selected="true">
+                    3. <span>Instantiate</span>
                 </a>
             </li>
 
