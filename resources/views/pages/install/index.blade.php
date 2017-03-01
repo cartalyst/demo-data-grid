@@ -1,10 +1,5 @@
 @extends('layouts.default')
 
-{{-- Inline Scripts --}}
-@section('scripts')
-    @include('examples/apricots/init-js')
-@stop
-
 {{-- Page --}}
 @section('page')
 
@@ -16,7 +11,7 @@
 
             <h1>Getting Started</h1>
 
-            <h2 class="tagline">How to install the blarg</h2>
+            <h2 class="tagline">How to install</h2>
 
         </div>
 
@@ -32,7 +27,7 @@
         <section class="section section--box lesson">
 
             <article class="article">
-                <p>{!! renderMarkdown('lessons/install-quickstart/install-quicksart.md') !!}
+                <p>{!! renderMarkdown('install/install.md') !!}
             </article>
 
         </section>

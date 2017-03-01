@@ -53,4 +53,14 @@ class PagesController extends Controller
     {
         return view('pages/managers/index');
     }
+
+    /**
+     * Shows the managers page.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function install()
+    {
+        return view('pages/install/index');
+    }
 }

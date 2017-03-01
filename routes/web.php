@@ -24,6 +24,7 @@ use Illuminate\Routing\Router;
 $router->get('/', 'PagesController@welcome')->name('home');
 $router->get('developers', 'PagesController@developers')->name('developers');
 $router->get('managers', 'PagesController@managers')->name('managers');
+$router->get('install', 'PagesController@install')->name('install');
 
 // Sources
 $router->group([ 'prefix' => 'source' ], function (Router $router) {
