@@ -1,9 +1,9 @@
-<div class="title-bar" data-responsive-toggle="quickstart-menu" data-hide-for="medium">
+<div class="title-bar" data-responsive-toggle="demo-menu" data-hide-for="medium">
     <button class="menu-icon" type="button" data-toggle></button>
     <div class="title-bar-title">Data Grid 4</div>
 </div>
 
-<div class="top-bar" id="quickstart-menu">
+<div class="top-bar" id="demo-menu">
     <div class="top-bar-left">
         <ul class="menu">
             <li class="menu-text"><a href="{{ route('home') }}">{{ trans('app.title') }}</a></li>

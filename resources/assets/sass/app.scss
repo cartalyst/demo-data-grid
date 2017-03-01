@@ -1,8 +1,8 @@
-// Quickstart Application - Extra Styles
+// Demo Application - Extra Styles
 // Copyright 2011-2017, Cartalyst LLC
 //--------------------------------------
 // 1. Foundation Sites
-// 2. Cartalyst Quickstart
+// 2. Cartalyst Demo
 
 // 1. Foundation Sites
 // -------------------
@@ -10,9 +10,9 @@
 @import "../../../node_modules/foundation-sites/scss/foundation";
 @include foundation-everything(true);
 
-// 2. Cartalyst Quickstart
+// 2. Cartalyst Demo
 // -------------------
-@import "quickstart";
+@import "demo";
 @import "extras";
 @import "layouts";
 @import "examples";

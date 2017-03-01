@@ -1,28 +1,28 @@
 /*
- * Cartalyst Quickstart
+ * Cartalyst Demo
  * Copyright 2017 Cartalyst LLC. All Rights Reserved.
  *
  * Provides helpers for various sections of the application.
  *
  */
 
-var Quickstart;
+var Demo;
 
 ;(function (window, document, $, undefined) {
     'use strict';
 
-    Quickstart = Quickstart || {
+    Demo = Demo || {
         App: {},
         Cache: {},
     };
 
     // Cache common selectors
-    Quickstart.Cache.$win  = $(window);
-    Quickstart.Cache.$body = $(document.body);
+    Demo.Cache.$win  = $(window);
+    Demo.Cache.$body = $(document.body);
 
     // Initialize functions
-    Quickstart.App.init = function () {
-        Quickstart.App
+    Demo.App.init = function () {
+        Demo.App
             .foundation()
             .listeners()
             .wrapCodeBlocks()
@@ -33,30 +33,30 @@ var Quickstart;
     };
 
     // Add Listeners
-	Quickstart.App.listeners = function()
+	Demo.App.listeners = function()
 	{
-        Quickstart.Cache.$body
-			.on('mouseover', '.js-quickstart-preview:not(code .js-quickstart-preview)', Quickstart.App.previewAttributes)
-            .on('mouseenter', 'option.js-quickstart-preview:not(code .js-quickstart-preview)', Quickstart.App.previewAttributes)
+        Demo.Cache.$body
+			.on('mouseover', '.js-demo-preview:not(code .js-demo-preview)', Demo.App.previewAttributes)
+            .on('mouseenter', 'option.js-demo-preview:not(code .js-demo-preview)', Demo.App.previewAttributes)
         ;
 
 		return this;
 	};
 
     // Initialize Foundation 6
-    Quickstart.App.foundation = function ()
+    Demo.App.foundation = function ()
     {
-        Quickstart.Cache.$body.foundation();
+        Demo.Cache.$body.foundation();
 
         return this;
     }
 
     // Show preview of data-grid attributes from element on hover.
-    Quickstart.App.previewAttributes = function (event) {
+    Demo.App.previewAttributes = function (event) {
 
         var target = $(event.target);
-        var tag = target.closest('.js-quickstart-preview').prop('tagName').toLowerCase();
-        var attributes = target.closest('.js-quickstart-preview').data();
+        var tag = target.closest('.js-demo-preview').prop('tagName').toLowerCase();
+        var attributes = target.closest('.js-demo-preview').data();
 
         // find all data-grid attributes
         var filteredAttributes = _.forEach(attributes, function(val, key) {
@@ -84,7 +84,7 @@ var Quickstart;
     };
 
     // Create code blocks generated from markdown.
-    Quickstart.App.wrapCodeBlocks = function () {
+    Demo.App.wrapCodeBlocks = function () {
         $('.article--tutorial h5').each(function () {
             $(this)
                 .addClass('source_code__header')
@@ -99,7 +99,7 @@ var Quickstart;
         // Add Actions
         $('.source_code').each(function () {
             var el = $(this);
-            var slug = Quickstart.App.slugify(el.children('.source_code__header').html());
+            var slug = Demo.App.slugify(el.children('.source_code__header').html());
 
             $(this).append('<nav class="source_code__actions"></nav>');
 
@@ -116,7 +116,7 @@ var Quickstart;
     };
 
     // Syntax highlighting for code blocks.
-    Quickstart.App.initHighlightJs = function () {
+    Demo.App.initHighlightJs = function () {
 
         hljs.initHighlightingOnLoad();
 
@@ -124,7 +124,7 @@ var Quickstart;
     };
 
     // Readability for examples, add framework, app specific classes here.
-    Quickstart.App.addClasses = function () {
+    Demo.App.addClasses = function () {
         if ($('[data-example]').length) {
 
             // What example is being displayed
@@ -134,10 +134,10 @@ var Quickstart;
                 case 'crops':
 
                     // Filters
-                    $('[data-grid-filter]').addClass('js-quickstart-preview');
+                    $('[data-grid-filter]').addClass('js-demo-preview');
 
                     // Layouts
-                    $('[data-grid-switch-layout]').addClass('js-quickstart-preview');
+                    $('[data-grid-switch-layout]').addClass('js-demo-preview');
 
                     // Search Form
                     $('.search form > div').addClass('mdl-textfield mdl-js-textfield');
@@ -145,23 +145,23 @@ var Quickstart;
                     $('.search form > div label').addClass('mdl-textfield__label');
 
                     // Table
-                    $('th').addClass('js-quickstart-preview');
+                    $('th').addClass('js-demo-preview');
 
                     // Applied filters
                     $('[data-grid-layout="filters"]').on('dg:layout_rendered', function() {
-                        $(this).find('button').addClass('js-quickstart-preview');
+                        $(this).find('button').addClass('js-demo-preview');
                     });
 
                     // Pagination
                     $('[data-grid-layout="pagination"]').on('dg:layout_rendered', function() {
-                        $(this).find('button').addClass('js-quickstart-preview');
+                        $(this).find('button').addClass('js-demo-preview');
                     });
 
                     break;
                 case 'apricots':
 
                     // Group Filters
-                    $('[data-grid-group] > button').addClass('js-quickstart-preview');
+                    $('[data-grid-group] > button').addClass('js-demo-preview');
 
                     break;
                 default:
@@ -174,7 +174,7 @@ var Quickstart;
     };
 
     // Initializes the Clipboard.js
-    Quickstart.App.initClipboard = function () {
+    Demo.App.initClipboard = function () {
         var clipboard = new Clipboard('[data-copy-text]');
 
         clipboard.on('success', function (e) {
@@ -190,7 +190,7 @@ var Quickstart;
 
         clipboard.on('error', function (e) {
             // Show fallback tooltip
-            $('.source_code__actions').prepend('<span class="action__message">'+Quickstart.App.fallbackMessage()+'</span>')
+            $('.source_code__actions').prepend('<span class="action__message">'+Demo.App.fallbackMessage()+'</span>')
 
             $('.action__message').fadeOut(4500, function () {
                 $(this).remove();
@@ -201,7 +201,7 @@ var Quickstart;
     };
 
     // Slugifies the given string
-    Quickstart.App.slugify = function (str) {
+    Demo.App.slugify = function (str) {
         if (str === undefined) return;
 
         return str
@@ -211,7 +211,7 @@ var Quickstart;
         ;
     };
 
-    Quickstart.App.fallbackMessage = function () {
+    Demo.App.fallbackMessage = function () {
         var message = '';
 
         if(/iPhone|iPad/i.test(navigator.userAgent)) {
@@ -228,6 +228,6 @@ var Quickstart;
     };
 
     // Job done, lets run
-    Quickstart.App.init();
+    Demo.App.init();
 
 })(window, document, jQuery);

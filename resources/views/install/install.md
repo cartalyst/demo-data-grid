@@ -13,12 +13,12 @@
 
 #### Downloading
 
-Cloning the repository using the link below. You can also [download](https://github.com/cartalyst/data-grid-quickstart/archive/1.0/1.0.zip) the repository from [Github](https://github.com/cartalyst/data-grid-quickstart)
+Cloning the repository using the link below. You can also [download](https://github.com/cartalyst/demo-data-grid/archive/master.zip) the repository from [Github](https://github.com/cartalyst/demo-data-grid)
 
 ##### Cloning from github
 
 ```
-git clone -b 1.0 git@github.com:cartalyst/data-grid-quickstart.git
+git clone git@github.com:cartalyst/demo-data-grid.git
 ```
 
 ### Requirements
@@ -36,11 +36,11 @@ Ensure you meet the following requirements.
 
 ### Application Structure
 
-Quickstart applications are built on Laravel. If you're not familiar with the Laravel framework a good place to start is by reading through the [Laravel Documentation](http://laravel.com/docs).
+Demo applications are built on Laravel. If you're not familiar with the Laravel framework a good place to start is by reading through the [Laravel Documentation](http://laravel.com/docs).
 
 ##### App Structure
 ```
-├── quickstart/
+├── demo/
 │   ├── app
 │   ├── bootstrap
 │   ├── config

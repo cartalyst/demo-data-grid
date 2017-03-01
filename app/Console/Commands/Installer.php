@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Data Grid Quickstart application.
+ * Part of the Data Grid Demo application.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * This source file is subject to the Cartalyst PSL License that is
  * bundled with this package in the LICENSE file.
  *
- * @package    Data Grid Quickstart
+ * @package    Data Grid Demo
  * @version    1.0.0
  * @author     Cartalyst LLC
  * @license    Cartalyst PSL
@@ -40,7 +40,7 @@ class Installer extends Command
      *
      * @var string
      */
-    protected $description = 'Install Data Grid Quickstart.';
+    protected $description = 'Install Data Grid Demo.';
 
     /**
      * The installer configuration repository.
@@ -112,11 +112,11 @@ class Installer extends Command
 <fg=white>
 *-----------------------------------------------*
 |                                               |
-| Welcome to the Data Grid Quickstart Installer |
-|            Copyright (c) 2011-2015            |
+|    Welcome to the Data Grid Demo Installer    |
+|            Copyright (c) 2011-2017            |
 |                 Cartalyst LLC.                |
 |                                               |
-|  Data Grid  Quickstart is released under the  |
+|     Data Grid Demo is released under the      |
 |                 Cartalyst PSL                 |
 |         https://cartalyst.com/license         |
 |          Thanks for using Cartalyst!          |

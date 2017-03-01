@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Data Grid Quickstart application.
+ * Part of the Data Grid Demo application.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * This source file is subject to the Cartalyst PSL License that is
  * bundled with this package in the license.txt file.
  *
- * @package    Data Grid Quickstart
+ * @package    Data Grid Demo
  * @version    1.0.0
  * @author     Cartalyst LLC
  * @license    Cartalyst PSL
