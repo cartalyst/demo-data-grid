@@ -13,7 +13,7 @@
                 <i class="material-icons">view_list</i> <span>Table Layout</span>
             </button>
 
-            <button class="tabs-title" data-grid-switch-layout="table:grid">
+            <button class="tabs-title" data-grid-switch-layout="table:blocks">
                 <i class="material-icons">view_module</i> <span>Grid Layout</span>
             </button>
 
@@ -104,7 +104,7 @@
 
 {{-- Templates --}}
 @include('examples/crops/grid/table')
-@include('examples/crops/grid/grid')
+@include('examples/crops/grid/blocks')
 @include('examples/crops/grid/pagination')
 @include('examples/crops/grid/filters')
 @include('examples/crops/grid/count')

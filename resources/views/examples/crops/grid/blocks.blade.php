@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="crops" data-grid-template="grid">
+<script type="text/template" data-grid="crops" data-grid-template="blocks">
 
 <% var results = response.results; %>
 
