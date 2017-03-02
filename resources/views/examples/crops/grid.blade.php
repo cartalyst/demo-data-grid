@@ -78,7 +78,7 @@
             <form method="post" accept-charset="utf-8" data-grid-search>
                 <div>
                     <input type="text" id="search" placeholder="Search...">
-                    <label class="mdl-textfield__label" for="search"></label>
+                    <label class="" for="search"></label>
                 </div>
             </form>
 

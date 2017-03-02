@@ -30,11 +30,11 @@
 
                     <% if (dateRegex.test(f.query.from) && dateRegex.test(f.query.to)) { %>
 
-                        <%- f.label.from %> <em><%- moment(f.query.from).format('MMM DD, YYYY') %></em> <%- f.label.to %> <em><%- moment(f.query.to).format('MMM DD, YYYY') %></em>
+                        <%- f.label.from %> <i><%- moment(f.query.from).format('MMM DD, YYYY') %></i> <%- f.label.to %> <i><%- moment(f.query.to).format('MMM DD, YYYY') %></i>
 
                     <% } else { %>
 
-                        <%- f.label.from %> <em><%- f.query.from %></em> <%- f.label.to %> <em><%- f.query.to %></em>
+                        <%- f.label.from %> <i><%- f.query.from %></i> <%- f.label.to %> <i><%- f.query.to %></i>
 
                     <% } %>
 
@@ -44,7 +44,7 @@
 
                 <% } else if (f.type === 'search') { %>
 
-                    <%- f.query.value %> in <em><%- f.query.column %>
+                    <%- f.query.value %> in <i><%- f.query.column %></i>
 
                 <% } else { %>
 

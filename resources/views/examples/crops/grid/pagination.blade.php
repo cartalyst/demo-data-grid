@@ -11,7 +11,7 @@
         var nextButton = nextPage ? 'data-grid-page="' + nextPage + '"' : 'disabled';
     %>
 
-    <p><%- pagination.pageStart %> to <%- pagination.pageLimit %> of <%- pagination.filtered %></p>
+    <p>Page <%- pagination.pageStart %> to <%- pagination.pageLimit %> of <%- pagination.filtered %></p>
 
     <nav>
 
