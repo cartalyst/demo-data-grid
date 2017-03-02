@@ -4,12 +4,12 @@
 //
 // 1. Apricots
 // 2. Crops
-
 // 1. Apricots
 // --------------
 
 .apricots {
-    width:100%;
+    width: 100%;
+
     .data-grid {
         background-color: $white;
 
@@ -49,7 +49,6 @@
                     @extend .button;
                 }
             }
-
         }
 
         [data-grid-layout="results"] {
@@ -84,17 +83,19 @@
         }
     }
 }
-
 // 1. Crops
 // --------------
 
 .crops {
-    width:100%;
+    width: 100%;
+
     .data-grid {
         background-color: $white;
+
         > header {
             @include flex-grid-row;
             @extend .align-middle;
+
             h3 {
                 @include grid-column(12);
                 margin: 0;
@@ -110,13 +111,13 @@
 
                 small {
                     display: block;
-                    padding:0.5rem 0;
+                    padding: 0.5rem 0;
                     font-size: 1rem;
                     color: $medium-gray;
                 }
             }
-
         }
+
         > nav {
             @include flex-grid-row;
             @extend .align-bottom;
@@ -126,26 +127,24 @@
                 @include grid-column(12);
                 @extend .button-group;
                 margin: 0;
-                // .material-icons {
-                //     display: none;
-                // }
+
                 @include breakpoint(medium) {
-                    @include grid-column(6);
+                     @include grid-column(6);
                 }
 
                 button {
                     float: none;
                     display: inline-block;
                     cursor: pointer;
-                    margin:0 0 -1px 0;
-                    padding:0;
-                    border:1px solid $medium-gray;
-                    border-left:0;
+                    margin: 0 0 -1px;
+                    padding: 0;
+                    border: 1px solid $medium-gray;
+                    border-left: 0;
                     padding: 1rem;
                     color: $dark-gray;
                     text-transform: uppercase;
                     display: block;
-                    font-size:1rem;
+                    font-size: 1rem;
                     line-height: 1rem;
                     font-weight: 400;
                     border-bottom: 1px solid transparent;
@@ -155,25 +154,20 @@
                     }
 
                     &:first-child {
-                        border-left:1px solid $medium-gray;
+                        border-left: 1px solid $medium-gray;
                     }
 
                     &:hover {
-                        color:$amber;
-                        //border-bottom: 1px solid $white;
+                        color: $amber;
                     }
 
                     &.is-active {
-
-                            color: $amber;
-                            border-bottom: 1px solid $white;
-
+                        color: $amber;
+                        border-bottom: 1px solid $white;
                     }
                 }
 
-                &__container {
-
-                }
+                &__container {}
             }
 
             .search {
@@ -191,23 +185,22 @@
                      @include grid-column(3);
                 }
             }
-
-
-
         }
 
         .progress__wrapper {
-            height:8px;
-            margin-top:8px
+            height: 8px;
+            margin-top: 8px;
         }
 
         [data-grid-layout="filters"] {
             padding: 0.5rem 0;
+
             span {
                 @extend .label;
                 background: $light-gray;
                 color: $dark-gray;
                 cursor: pointer;
+
                 .material-icons {
                     vertical-align: middle;
                 }
@@ -229,7 +222,7 @@
 
                 &:after {
                     position: absolute;
-                    right:4px;
+                    right: 4px;
                     font-family: "Material Icons";
                     content: "\E164";
                     text-decoration: inherit;
@@ -245,18 +238,16 @@
             }
 
             table {
-
                 thead {
-                    color:$dark-gray;
+                    color: $dark-gray;
                 }
-
             }
-
         }
 
-        .data-grid__grid  {
+        .data-grid__grid {
             min-height: 480px;
-            padding:0 1rem;
+            padding: 0 1rem;
+
             nav {
                 @extend .expanded;
                 @extend .button-group;
@@ -270,37 +261,32 @@
             .card {
                 background: $alabaster;
 
-
-
                 .card-section {
                     text-align: center;
 
                     h4 {
                         color: $amber;
-                        font-size:2rem;
+                        font-size: 2rem;
                     }
 
                     &:last-child {
-                        color:$dark-gray;
-                        font-size:1.2rem;
+                        color: $dark-gray;
+                        font-size: 1.2rem;
+
                         span {
                             display: block;
                         }
                     }
                 }
-
                 @include breakpoint(medium) {
                     text-align: left;
                 }
-
-
-
             }
-
         }
 
         [data-grid-layout="pagination"] {
             margin: 1rem 0;
+
             p {
                 @include grid-column(12);
                 margin: 0;
@@ -325,13 +311,13 @@
                 > div {
                     @extend .expanded;
                     @extend .button-group;
+
                     button {
                         @extend .expanded;
                         @extend .button;
                     }
                 }
             }
-
         }
     }
 }

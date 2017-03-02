@@ -75,11 +75,8 @@
         {{-- Search Form --}}
         <div class="search">
 
-            <form method="post" accept-charset="utf-8" data-grid-search>
-                <div>
-                    <input type="text" id="search" placeholder="Search...">
-                    <label class="" for="search"></label>
-                </div>
+            <form data-grid-search>
+                <input type="text" id="search" placeholder="Search...">
             </form>
 
         </div>
