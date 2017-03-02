@@ -9,7 +9,7 @@
     ],
     "require": {
         "php": ">=5.6.4",
-        "cartalyst/data-grid": "~4.0",
+        "cartalyst/data-grid": "~4.0@dev",
         "cartalyst/data-grid-export": "~1.0",
         "cartalyst/data-grid-laravel": "~1.0",
         "cartalyst/interpret": "^1.1",

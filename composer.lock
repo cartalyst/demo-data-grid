@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c769d614de243b3d14d6e9045049c25c",
+    "content-hash": "81470f3ae9bdabf0df173b60640fe876",
     "packages": [
         {
             "name": "cartalyst/data-grid",
-            "version": "v4.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:cartalyst/data-grid.git",
-                "reference": "01f6e8eaf17f057649b3d53c102c02af340e6102"
+                "reference": "cbc3942b64eeef9f08dbb55a4a143dfec0698119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/01f6e8eaf17f057649b3d53c102c02af340e6102",
-                "reference": "01f6e8eaf17f057649b3d53c102c02af340e6102",
+                "url": "https://api.github.com/repos/cartalyst/data-grid/zipball/cbc3942b64eeef9f08dbb55a4a143dfec0698119",
+                "reference": "cbc3942b64eeef9f08dbb55a4a143dfec0698119",
                 "shasum": ""
             },
             "require": {
@@ -72,10 +72,10 @@
                 "search"
             ],
             "support": {
-                "source": "https://github.com/cartalyst/data-grid/tree/v4.0.1",
+                "source": "https://github.com/cartalyst/data-grid/tree/master",
                 "issues": "https://github.com/cartalyst/data-grid/issues"
             },
-            "time": "2017-03-01T16:52:22+00:00"
+            "time": "2017-03-02T20:05:04+00:00"
         },
         {
             "name": "cartalyst/data-grid-export",
@@ -524,16 +524,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.14",
+            "version": "v5.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b4f9e2b7d146d677e8c360df02beaa9391da1fb1"
+                "reference": "ecc6468b8af30b77566a8519ce8898740ef691d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b4f9e2b7d146d677e8c360df02beaa9391da1fb1",
-                "reference": "b4f9e2b7d146d677e8c360df02beaa9391da1fb1",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ecc6468b8af30b77566a8519ce8898740ef691d7",
+                "reference": "ecc6468b8af30b77566a8519ce8898740ef691d7",
                 "shasum": ""
             },
             "require": {
@@ -649,7 +649,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-03-01T15:59:14+00:00"
+            "time": "2017-03-02T14:41:40+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2970,16 +2970,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.14",
+            "version": "5.7.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "4906b8faf23e42612182fd212eb6f4c0f2954b57"
+                "reference": "b99112aecc01f62acf3d81a3f59646700a1849e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4906b8faf23e42612182fd212eb6f4c0f2954b57",
-                "reference": "4906b8faf23e42612182fd212eb6f4c0f2954b57",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b99112aecc01f62acf3d81a3f59646700a1849e5",
+                "reference": "b99112aecc01f62acf3d81a3f59646700a1849e5",
                 "shasum": ""
             },
             "require": {
@@ -3048,7 +3048,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-19T07:22:16+00:00"
+            "time": "2017-03-02T15:22:43+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3730,7 +3730,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "cartalyst/data-grid": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -9,7 +9,7 @@
         {{-- Layouts --}}
         <div class="layout">
 
-            <button class="tabs-title is-active" data-grid-switch-layout="table:table">
+            <button class="tabs-title is-active" data-grid-switch-layout="table:table" class="active">
                 <i class="material-icons">view_list</i> <span>Table Layout</span>
             </button>
 

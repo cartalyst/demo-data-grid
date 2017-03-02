@@ -10,6 +10,9 @@ $(function () {
         },
         loader: {
             element: '.progress'
+        },
+        cssClasses: {
+            activeLayout: 'is-active'
         }
     });
 });

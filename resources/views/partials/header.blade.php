@@ -12,7 +12,7 @@
     <div class="top-bar-right">
         <ul class="menu" data-dropdown-menu>
             <li class="menu-title">
-                <a href="">Install</a>
+                <a href="{{ route('install') }}">Install</a>
             </li>
             <li class="menu-title">
                 <a href="{{ route('examples') }}">Examples</a>

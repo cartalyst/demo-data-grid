@@ -2,7 +2,7 @@
 
 {{-- Inline Scripts --}}
 @section('scripts')
-    @include('examples/apricots/init-js')
+    @include('examples/crops/init-js')
 @stop
 
 {{-- Page --}}
@@ -38,9 +38,9 @@
 
     <div class="page row">
 
-        <section class="section section--box apricots">
+        <section class="section section--box crops">
 
-            @include('examples/apricots/grid')
+            @include('examples/crops/grid')
 
         </section>
 
