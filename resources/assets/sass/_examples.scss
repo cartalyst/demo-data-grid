@@ -8,8 +8,7 @@
 // 1. Apricots
 // --------------
 
-.apricots,
-.crops {
+.apricots {
     width:100%;
     .data-grid {
         background-color: $white;
@@ -93,12 +92,9 @@
     width:100%;
     .data-grid {
         background-color: $white;
-
         > header {
             @include flex-grid-row;
-            @extend .align-bottom;
-            border-bottom: 1px solid $light-gray;
-
+            @extend .align-middle;
             h3 {
                 @include grid-column(12);
                 margin: 0;
@@ -106,12 +102,77 @@
                 text-align: center;
                 @include breakpoint(medium) {
                     text-align: left;
-                    @include grid-column(3);
                 }
 
-                span {
+                span [data-grid-layout="count"] {
+                    display: inline-block;
+                }
+
+                small {
                     display: block;
+                    padding:0.5rem 0;
                     font-size: 1rem;
+                    color: $medium-gray;
+                }
+            }
+
+        }
+        > nav {
+            @include flex-grid-row;
+            @extend .align-bottom;
+            border-bottom: 1px solid $medium-gray;
+
+            .layout {
+                @include grid-column(12);
+                @extend .button-group;
+                margin: 0;
+                // .material-icons {
+                //     display: none;
+                // }
+                @include breakpoint(medium) {
+                    @include grid-column(6);
+                }
+
+                button {
+                    float: none;
+                    display: inline-block;
+                    cursor: pointer;
+                    margin:0 0 -1px 0;
+                    padding:0;
+                    border:1px solid $medium-gray;
+                    border-left:0;
+                    padding: 1rem;
+                    color: $dark-gray;
+                    text-transform: uppercase;
+                    display: block;
+                    font-size:1rem;
+                    line-height: 1rem;
+                    font-weight: 400;
+                    border-bottom: 1px solid transparent;
+
+                    i {
+                        vertical-align: middle;
+                    }
+
+                    &:first-child {
+                        border-left:1px solid $medium-gray;
+                    }
+
+                    &:hover {
+                        color:$amber;
+                        //border-bottom: 1px solid $white;
+                    }
+
+                    &.is-active {
+
+                            color: $amber;
+                            border-bottom: 1px solid $white;
+
+                    }
+                }
+
+                &__container {
+
                 }
             }
 
@@ -131,80 +192,98 @@
                 }
             }
 
-            .layouts {
-                @include grid-column(12);
-                @extend .expanded;
-                @extend .button-group;
 
-                margin: 0;
-                padding: 1rem 0;
-                .material-icons {
-                    display: none;
-                }
-                @include breakpoint(medium) {
-                     @include grid-column(3);
-                }
-
-                button {
-                    @extend .secondary;
-                    @extend .button;
-                }
-            }
 
         }
 
-        [data-grid-sort] {
-            cursor: pointer;
-            *cursor: hand;
-            position: relative;
-            font-fami
+        .progress__wrapper {
+            height:8px;
+            margin-top:8px
+        }
 
-            &:after {
-                content: ' \f0dc';
-                font-family: FontAwesome;
-                text-decoration: inherit;
-            }
-
-            &.asc:after {
-                content: ' \f0dd';
-            }
-
-            &.desc:after {
-                content: ' \f0de';
+        [data-grid-layout="filters"] {
+            padding: 0.5rem 0;
+            @extend .button-group;
+            span {
+                @extend .label;
+                background: $light-gray;
+                color: $dark-gray;
+                cursor: pointer;
+                i {
+                    vertical-align: middle;
+                }
             }
         }
 
-        [data-grid-layout="results"] {
+        [data-grid-layout="table"] {
             min-height: 480px;
 
-            .row {
-                @include grid-row;
-                padding: 1rem;
+            table {
 
-                &:nth-of-type(even) {
-                    background: $light-gray;
-                }
+                thead {
+                    color:$dark-gray;
 
-                div {
-                    @include grid-column(4);
+                    [data-grid-sort] {
+                        cursor: pointer;
+                        *cursor: hand;
+                        position: relative;
 
-                    &:last-child {
-                        text-align: right;
+                        &:after {
+                            position: absolute;
+                            right:4px;
+                            font-family: "Material Icons";
+                            content: "\E164";
+                            text-decoration: inherit;
+                        }
+
+                        &.asc:after {
+                            content: ' \E5C7';
+                        }
+
+                        &.desc:after {
+                            content: ' \E5C5';
+                        }
                     }
                 }
-            }
-        }
 
+            }
+
+        }
 
 
         [data-grid-layout="pagination"] {
             margin: 1rem 0;
-
-            button {
-                @extend .expanded;
-                @extend .large;
-                @extend .button;
+            p {
+                @include grid-column(12);
+                margin: 0;
+                padding: 1rem 0;
+                text-align: center;
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include grid-column(8);
+                }
             }
+
+            nav {
+                @include grid-column(12);
+                margin: 0;
+                padding: 1rem 0;
+                text-align: center;
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include grid-column(4);
+                }
+
+                > div {
+                    @extend .expanded;
+                    @extend .button-group;
+                    button {
+                        @extend .expanded;
+                        @extend .button;
+                    }
+                }
+            }
+
         }
     }
 }

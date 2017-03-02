@@ -1,18 +1,21 @@
 <div class="data-grid" data-example="crops" data-grid="crops">
 
     <header>
+        <h3><span data-grid-layout="count"></span> Crop Harvests <small>Crop production 2010-2013</small></h3>
+    </header>
 
-        <h3>Crop Harvests <span>Crop production 2010-2013</span></h3>
+    <nav>
 
-        {{-- Search Form --}}
-        <div class="search">
+        {{-- Layouts --}}
+        <div class="layout">
 
-            <form method="post" accept-charset="utf-8" data-grid-search>
-                <div>
-                    <input type="text" id="search" placeholder="Search...">
-                    <label class="mdl-textfield__label" for="search"></label>
-                </div>
-            </form>
+            <button class="tabs-title is-active" data-grid-switch-layout="table:table">
+                <i class="material-icons">view_list</i> <span>Table Layout</span>
+            </button>
+
+            <button class="tabs-title" data-grid-switch-layout="table:grid">
+                <i class="material-icons">view_module</i> <span>Grid Layout</span>
+            </button>
 
         </div>
 
@@ -69,24 +72,26 @@
             </select>
         </div>
 
-        {{-- Layouts --}}
-        <div class="layouts">
+        {{-- Search Form --}}
+        <div class="search">
 
-            <button data-grid-switch-layout="table:table">
-                <i class="material-icons">view_list</i> <span>Table Layout</span>
-            </button>
-
-            <button data-grid-switch-layout="table:grid">
-                <i class="material-icons">view_module</i> <span>Grid Layout</span>
-            </button>
+            <form method="post" accept-charset="utf-8" data-grid-search>
+                <div>
+                    <input type="text" id="search" placeholder="Search...">
+                    <label class="mdl-textfield__label" for="search"></label>
+                </div>
+            </form>
 
         </div>
 
-    </header>
+    </nav>
 
     {{-- Loader --}}
-    <div class="progress">
-      <div class="indeterminate"></div>
+
+    <div class="progress__wrapper">
+        <div class="progress">
+          <div class="indeterminate"></div>
+        </div>
     </div>
 
     {{-- Applied filters container --}}
@@ -105,3 +110,4 @@
 @include('examples/crops/grid/grid')
 @include('examples/crops/grid/pagination')
 @include('examples/crops/grid/filters')
+@include('examples/crops/grid/count')

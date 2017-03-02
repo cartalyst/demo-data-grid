@@ -22,7 +22,7 @@
 
         <% _.each(filters, function(f) { %>
 
-            <button data-grid-reset-filter="<%- f.name %>">
+            <span data-grid-reset-filter="<%- f.name %>">
 
                 <i class="material-icons">close</i>
 
@@ -58,7 +58,7 @@
 
                 <% } %>
 
-            </button>
+            </span>
 
         <% }); %>
 

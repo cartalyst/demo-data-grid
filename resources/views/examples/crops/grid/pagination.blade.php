@@ -11,16 +11,22 @@
         var nextButton = nextPage ? 'data-grid-page="' + nextPage + '"' : 'disabled';
     %>
 
+    <p><%- pagination.pageStart %> to <%- pagination.pageLimit %> of <%- pagination.filtered %></p>
+
     <nav>
-        <%- pagination.pageStart %> {{ trans('pagination.to') }} <%- pagination.pageLimit %> {{ trans('pagination.of') }} <%- pagination.filtered %>
 
-        <button <%= previousButton %>>
-            <i class="material-icons">chevron_left</i>
-        </button>
+        <div>
 
-        <button <%= nextButton %>>
-            <i class="material-icons">chevron_right</i>
-        </button>
+            <button <%= previousButton %>>
+                <i class="material-icons">chevron_left</i>
+            </button>
+
+            <button <%= nextButton %>>
+                <i class="material-icons">chevron_right</i>
+            </button>
+
+        </div>
+
     </nav>
 
 </script>
