@@ -18,14 +18,14 @@
 
             <h2 class="tagline">Data Filtration Over Pagination</h2>
 
-            <a class="hollow button call-to-action" href="#getting-started">Get Started</a>
+            <a class="hollow large button call-to-action" href="{{ route('examples') }}">Examples &amp; Tutorials</a>
 
         </div>
 
         <div class="small-12 medium-7 small-order-1 medium-order-2 columns">
 
             <div class="mascot">
-                <img src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="">
+                <img src="{{ URL::to('images/apricot.svg') }}" alt="">
             </div>
 
         </div>
@@ -43,7 +43,7 @@
             <article class="article article--welcome">
                 {!! renderMarkdown('content/introduction.md') !!}
 
-                <a href="" class="large primary button">Purchase</a>
+                <a href="https://cartalyst.com/pricing" class="primary button">Subscribe</a>
 
             </article>
 
