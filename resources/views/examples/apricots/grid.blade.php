@@ -15,16 +15,22 @@
 
     </header>
 
-    {{-- Loader --}}
-    <div class="progress">
-      <div class="indeterminate"></div>
+    <div class="grid__wrapper">
+
+        {{-- Loader --}}
+        <div class="progress__wrapper">
+            <div class="progress">
+              <div class="indeterminate"></div>
+            </div>
+        </div>
+
+        {{-- Results container --}}
+        <section data-grid-layout="results"></section>
+
+        {{-- Pagination container --}}
+        <footer data-grid-layout="pagination"></footer>
+
     </div>
-
-    {{-- Results container --}}
-    <section data-grid-layout="results"></section>
-
-    {{-- Pagination container --}}
-    <footer data-grid-layout="pagination"></footer>
 
 </div>
 

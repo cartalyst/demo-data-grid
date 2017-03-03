@@ -140,8 +140,19 @@
     }
 }
 
+.grid__wrapper {
+    position: relative;
+}
+
+.progress__wrapper {
+    position: absolute;
+    width: 100%;
+    height: 8px;
+}
+
 .progress {
     position: relative;
+    top: 0;
     height: 6px;
     display: block;
     width: 100%;

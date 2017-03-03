@@ -8,7 +8,7 @@
 
 1. Change directories into the location you cloned/downloaded the application.
 2. Make sure composer is installed and run `composer install`
-3.  `php artisan install` & follow instructions.
+3. `php artisan install` & follow instructions.
 4. Installation Complete.
 
 #### Downloading
