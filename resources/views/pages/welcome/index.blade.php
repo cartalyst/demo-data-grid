@@ -59,19 +59,6 @@
 
         </div>
 
-
-        <section class="section row">
-
-            <div class="small-12 medium-8 columns">
-
-            </div>
-
-            <div class="small-12 medium-4 columns">
-
-            </div>
-
-        </section>
-
     </div>
 
 </div>

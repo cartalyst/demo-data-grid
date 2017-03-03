@@ -34,7 +34,7 @@
 
 <div class="layout__body">
 
-    <div class="page row">
+    <div class="showcase row">
 
         <div class="data-grid data-grid--blocks" data-grid="examples">
 
