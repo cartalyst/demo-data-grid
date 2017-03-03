@@ -23,7 +23,7 @@
 
 <div class="layout__body">
 
-    <div class="page row">
+    <div class="showcase row">
 
         @yield('tutorial')
 

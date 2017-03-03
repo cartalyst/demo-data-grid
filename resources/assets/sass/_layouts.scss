@@ -94,7 +94,7 @@
         > .row {
             @include flex-grid-row;
             @extend .align-bottom;
-            min-height: 256px;
+            max-height: 256px;
 
             &--welcome {
                 @extend .align-middle;
