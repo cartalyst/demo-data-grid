@@ -217,6 +217,26 @@ blockquote {
     }
 }
 
+// 4. Cards
+
+.card {
+
+    .card-section {
+        img {
+            height: 196px;
+            margin-bottom:16px;
+        }
+        h4 {
+            font-size:2rem;
+        }
+        text-align: center;
+        p {
+            color:$dark-gray;
+            font-size:1.2rem;
+        }
+    }
+}
+
 // 3. Article
 // --------------
 // .article {

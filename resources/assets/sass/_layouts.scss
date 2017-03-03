@@ -96,9 +96,9 @@
             @extend .align-bottom;
             min-height: 256px;
 
-            // > div {
-            //     @include flex-grid-column(12);
-            // }
+            &--welcome {
+                @extend .align-middle;
+            }
 
         }
 
@@ -176,6 +176,14 @@
     @include flex-grid-row;
     position: relative;
     top:-64px;
+    margin:0 8px;
+    @include breakpoint(medium) {
+        margin:0 auto;
+    }
+
+    &--examples {
+        @include grid-row;
+    }
 }
 // 2. Section
 // --------------

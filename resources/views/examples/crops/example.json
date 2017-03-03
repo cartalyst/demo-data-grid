@@ -1,6 +1,6 @@
 {
     "name": "Crops",
-    "description": "something in table layout",
+    "description": "A more advanced data grid using layouts, advanced filters, and a larger data set",
     "source": "database",
     "features": [
         "filters",

@@ -18,7 +18,7 @@
 
 <header class="layout__header">
 
-    <div class="welcome row">
+    <div class="row row--welcome">
 
         <div>
 
@@ -34,11 +34,11 @@
 
 <div class="layout__body">
 
-    <div class="showcase row">
+    <div class="showcase showcase--examples row">
 
         <div class="data-grid data-grid--blocks" data-grid="examples">
 
-            <div class="row small-up-1 medium-up-2" data-grid-layout="results"></div>
+            <div class="row small-up-1 medium-up-3" data-grid-layout="results"></div>
 
         </div>
 
@@ -59,15 +59,16 @@
             <div class="column">
                 <div class="card">
                     <div class="card-section">
+                        <img src="images/<%= r.name %>.svg" alt="<%= r.name %>">
                         <h4>
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="<%= r.url %>">
+                            <a class="large hollow button" href="<%= r.url %>">
                                 <%= r.name %>
                             </a>
                         </h4>
                     </div>
                     <div class="card-section">
                         <p><%= r.description %></p>
-                        <p><%= r.features %></p>
+                        <p><i><%= r.features %></i></p>
                     </div>
                 </div>
             </div>
