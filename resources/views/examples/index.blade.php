@@ -38,7 +38,7 @@
 
         <div class="data-grid data-grid--blocks" data-grid="examples">
 
-            <div class="row small-up-1 medium-up-3" data-grid-layout="results"></div>
+            <div class="row small-up-1 medium-up-2" data-grid-layout="results"></div>
 
         </div>
 
