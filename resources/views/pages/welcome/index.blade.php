@@ -25,7 +25,7 @@
         <div class="small-12 medium-7 small-order-1 medium-order-2 columns">
 
             <div class="mascot">
-                <img src="{{ URL::to('images/apricots.svg') }}" alt="">
+                <img src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="">
             </div>
 
         </div>

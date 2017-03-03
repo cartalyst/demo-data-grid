@@ -73,7 +73,12 @@
         }
 
         [data-grid-layout="pagination"] {
-            margin: 1rem 0;
+            margin: 1rem;
+            &:after {
+                display: block;
+                height: 4px;
+                content:" ";
+            }
 
             button {
                 @extend .expanded;

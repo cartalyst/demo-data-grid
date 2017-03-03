@@ -5,7 +5,7 @@
 
 <header class="layout__header">
 
-    <div class="welcome row">
+    <div class="row row--welcome">
 
         <div>
 
