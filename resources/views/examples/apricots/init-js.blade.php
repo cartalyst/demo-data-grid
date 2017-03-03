@@ -6,7 +6,7 @@ $(function () {
         source: '{{ route('example.apricots.source') }}',
         pagination: {
             method: 'infinite',
-            threshold: '100',
+            threshold: '10',
             throttle: '10'
         },
         loader: {

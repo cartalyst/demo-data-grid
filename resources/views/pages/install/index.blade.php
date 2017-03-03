@@ -9,9 +9,9 @@
 
         <div>
 
-            <h1>Getting Started</h1>
+            <h1>Installable Demo</h1>
 
-            <h2 class="tagline">How to install</h2>
+            <h2 class="tagline">An installable application built on Laravel</h2>
 
         </div>
 
@@ -27,7 +27,7 @@
         <section class="section section--box lesson">
 
             <article class="article">
-                <p>{!! renderMarkdown('install/install.md') !!}
+                <p>{!! renderMarkdown('content/install.md') !!}
             </article>
 
         </section>

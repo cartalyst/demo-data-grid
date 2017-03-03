@@ -11,6 +11,7 @@ const { mix } = require('laravel-mix');
  |
  */
 
+ mix.copy('resources/assets/images/**/*', 'public/images');
  mix.combine([
      'node_modules/lodash/lodash.min.js',
      'node_modules/jquery/dist/jquery.min.js',

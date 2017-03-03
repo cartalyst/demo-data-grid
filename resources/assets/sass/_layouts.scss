@@ -2,44 +2,57 @@
 // Copyright 2011-2017, Cartalyst LLC
 //--------------------------------------
 //
-// 1. Base
-// 2. Page
-
-// 1. Base Layout
+// 1. Layout
+// 2. Base
+// 1. Page
 // --------------
+
 .base {
     &__header {
-        .title-bar {
+        background-color: $amber;
+        border-bottom: 1px solid lighten($amber-dark, 5%);
 
+        .title-bar {
+            background-color: $amber-dark;
         }
 
         .top-bar {
-            .menu {
-                li {
-                    a {
+            @include flex-grid-row;
+
+            .top-bar-right {
+                .menu {
+                    @include flex-align(center, middle);
+                    @include breakpoint(medium) {
+                         @include flex-align(right, middle);
+                    }
+                }
+            }
+
+            li {
+                a {
+                    color: $white;
+                    border-bottom: 2px solid transparent;
+
+                    &:active,
+                    &:hover {
+                        transition: 0.3s;
                         color: $white;
-                        border-bottom:2px solid transparent;
+                        border-bottom: 2px solid $white;
+                    }
 
-                        &:active,
-                        &:hover {
-                            transition: 0.3s;
-                            color: $white;
-                            border-bottom:2px solid $white;
-                        }
-
-                        &:focus {
-                            color: $white;
-                        }
+                    &:focus {
+                        color: $white;
                     }
                 }
             }
         }
     }
+
     &__footer {
         @include flex-grid-row;
         @extend .align-middle;
         padding: 1rem 0;
-        border-top:1px solid $light-gray;
+        border-top: 1px solid $light-gray;
         text-align: center;
         @include breakpoint(medium) {
             text-align: left;
@@ -66,36 +79,41 @@
 }
 // 2. Layout
 // --------------
-.layout {
 
+.layout {
     &__header {
-        min-height: 256px;
-        width: auto;
+        padding:32px 0 64px 0;
         background: $amber;
-        padding-bottom:64px;
+        padding-bottom: 64px;
+        text-align: center;
+
+        @include breakpoint(medium) {
+            text-align: left;
+        }
 
         > .row {
             @include flex-grid-row;
-            @extend .align-middle;
-            text-align: center;
+            @extend .align-bottom;
+            min-height: 256px;
 
-            @include breakpoint(medium) {
-                text-align: left;
-            }
-        }
+            // > div {
+            //     @include flex-grid-column(12);
+            // }
 
-        .tagline {
-            font-size: rem-calc(28);
-            font-weight: 300;
-            color: $white;
-            margin-bottom:1rem;
         }
 
         h1 {
             font-size: 3rem;
             font-weight: 200;
             color: $white;
-            margin:0.5rem 0 0;
+            margin: 0.5rem 0 0;
+        }
+
+        .tagline {
+            font-size: rem-calc(28);
+            font-weight: 300;
+            color: $white;
+            margin-bottom: 1rem;
         }
 
         .call-to-action {
@@ -117,9 +135,18 @@
         }
 
         .mascot {
-            position: relative;
-            bottom:-64px;
-            text-align: center;
+            overflow: hidden;
+            img {
+                height:196px;
+                text-align: center;
+                @include breakpoint(medium) {
+                    height: 320px;
+                    display: block;
+                    margin: 0 auto -64px auto;
+                    text-align: center;
+
+                }
+            }
         }
 
         .preview {
@@ -127,7 +154,7 @@
             margin-bottom: 2px;
 
             div {
-                width:100%;
+                width: 100%;
                 background: $alabaster;
                 display: none;
                 padding: 8px;
@@ -139,26 +166,24 @@
                 }
             }
         }
-
     }
 
     &__body {
         min-height: 320px;
     }
-
 }
-
-.page {
+.showcase {
     @include flex-grid-row;
     position: relative;
-    top:-48px;
+    top:-64px;
 }
-
 // 2. Section
 // --------------
+
 .section {
-    width: 100%;
-    margin-bottom:2rem;
+    //width: 100%;
+    margin-bottom: 2rem;
+
     &--box {
         background-color: $white;
         box-shadow: 0 3px 8px;

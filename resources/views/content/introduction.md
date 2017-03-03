@@ -1,5 +1,5 @@
 ## Getting Started
 
-blurb about how demos work. i.e. subscribers can download the app and learn directly from the code. each example contains a tutorial.
+Data Grid makes consumption, and manipulation of large datasets easy to handle. Giving you the ability to create amazing user experiences through fantastically simple data attributes.
 
-Data Grid comes chalk full of features that allow developers and designers alike focus on data filtration over data pagination.
+The library requires PHP 5.6.4+ and follows the FIG standards PSR-1, PSR-2, and PSR-4 to ensure a high level of interoperability between shared PHP code. Oh and it's fully unit-tested.

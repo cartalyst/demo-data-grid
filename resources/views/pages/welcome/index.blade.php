@@ -2,7 +2,7 @@
 
 {{-- Inline Scripts --}}
 @section('scripts')
-    @include('examples/crops/init-js')
+    @include('examples/apricots/init-js')
 @stop
 
 {{-- Page --}}
@@ -12,20 +12,20 @@
 
     <div class="row">
 
-        <div class="small-12 medium-7 small-order-2 medium-order-1 columns">
+        <div class="small-12 medium-5 small-order-2 medium-order-1 columns">
 
             <h1>Data Grid 4</h1>
 
-            <h2 class="tagline">Amazing User Experiences Powered by a Fantastically Simple Data Filtration Library.</h2>
+            <h2 class="tagline">Data Filtration Over Pagination</h2>
 
             <a class="hollow button call-to-action" href="#getting-started">Get Started</a>
 
         </div>
 
-        <div class="small-12 medium-5 small-order-1 medium-order-2 columns">
+        <div class="small-12 medium-7 small-order-1 medium-order-2 columns">
 
             <div class="mascot">
-                <img class="brand brand--welcome" src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="">
+                <img src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="">
             </div>
 
         </div>
@@ -36,27 +36,37 @@
 
 <div class="layout__body">
 
-    <div class="page row">
+    <div class="showcase row">
 
-        <section class="section section--box crops">
+        <div class="small-12 medium-5">
 
-            @include('examples/crops/grid')
+            <article class="article article--welcome">
+                {!! renderMarkdown('content/introduction.md') !!}
 
-        </section>
+                <a href="" class="large primary button">Purchase</a>
+
+            </article>
+
+        </div>
+
+        <div class="small-12 medium-7">
+
+            <section class="section section--box apricots">
+
+                @include('examples/apricots/grid')
+
+            </section>
+
+        </div>
+
 
         <section class="section row">
 
-            <div id="getting-started" class="small-12 medium-8 columns">
-
-                {!! renderMarkdown('content/introduction.md') !!}
-
-                <p>not a member? <a href="" class="large primary button">subscribe</a></p>
+            <div class="small-12 medium-8 columns">
 
             </div>
 
             <div class="small-12 medium-4 columns">
-
-                {!! renderMarkdown('content/requirements.md') !!}
 
             </div>
 
