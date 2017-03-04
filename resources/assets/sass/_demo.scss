@@ -60,6 +60,20 @@ blockquote {
     }
 }
 
+.row {
+    @include flex-grid-row;
+    position: relative;
+    top:-64px;
+    margin:0 8px;
+
+    @include breakpoint(medium) {
+        margin:0 auto;
+    }
+
+    &--welcome {}
+    &--showcase {}
+}
+
 // 2. Brand
 // --------------
 .brand {
@@ -220,11 +234,47 @@ blockquote {
 // 4. Cards
 
 .card {
+    background-color: $white;
+    @include box_shadow();
+    height: 98%;
+
+    &--example {
+        .card-section {
+            h4 {
+                margin-top:-48px;
+                .button {
+                    width:80%;
+                    margin:0 auto;
+                }
+            }
+            p {
+                padding:16px 0;
+                font-weight: 400;
+                i {
+                    font-size:1rem;
+                }
+            }
+        }
+
+        .card-mascot {
+           background-size: 64%;
+           background-position: center bottom;
+           background-repeat: no-repeat;
+           height: 228px;
+
+           &--Apricots {
+               background-image: url("images/apricots.svg");
+           }
+           &--Crops {
+               background-image: url("images/crops.svg");
+           }
+        }
+    }
 
     .card-section {
+
         img {
             height: 196px;
-            margin-bottom:16px;
         }
         h4 {
             font-size:2rem;

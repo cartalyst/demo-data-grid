@@ -18,7 +18,7 @@
 
 <header class="layout__header">
 
-    <div class="row row--welcome">
+    <div class="row align-middle">
 
         <div>
 
@@ -34,15 +34,7 @@
 
 <div class="layout__body">
 
-    <div class="showcase showcase--examples row">
-
-        <div class="data-grid data-grid--blocks" data-grid="examples">
-
-            <div class="row small-up-1 medium-up-2" data-grid-layout="results"></div>
-
-        </div>
-
-    </div>
+    <div class="row row--showcase align-stretch small-up-1 medium-up-2" data-grid="examples" data-grid-layout="results"></div>
 
 </div>
 
@@ -57,20 +49,21 @@
         <% _.each(results, function(r) { %>
 
             <div class="column">
-                <div class="card">
+
+                <div class="card card--example">
+                    <div class="card-mascot card-mascot--<%= r.name %>"></div>
                     <div class="card-section">
-                        <img src="images/<%= r.name %>.svg" alt="<%= r.name %>">
                         <h4>
-                            <a class="large hollow button" href="<%= r.url %>">
+                            <a class="large button" href="<%= r.url %>">
                                 <%= r.name %>
                             </a>
                         </h4>
-                    </div>
-                    <div class="card-section">
                         <p><%= r.description %></p>
                         <p><i><%= r.features %></i></p>
+
                     </div>
                 </div>
+
             </div>
 
         <% }); %>
