@@ -22,7 +22,7 @@ const { mix } = require('laravel-mix');
      'vendor/cartalyst/data-grid/resources/assets/js/data-grid.js',
      'resources/assets/js/app.js'
  ], 'public/js/app.js');
- mix.sass('resources/assets/sass/app.scss', 'public/css').sourceMaps();
+ mix.sass('resources/assets/sass/app.scss', 'public/css');
  mix.browserSync({
           files: [
               'public/**/*.css',

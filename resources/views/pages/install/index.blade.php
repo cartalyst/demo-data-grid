@@ -3,11 +3,12 @@
 {{-- Page --}}
 @section('page')
 
+
 <header class="page__header">
 
-    <div class="row align-middle">
+    <div class="welcome row">
 
-        <div class="column">
+        <div class="small-12 align-self-middle columns">
 
             <h1>Installable Demo</h1>
 
@@ -23,7 +24,7 @@
 
     <div class="row align-top">
 
-        <section class="section section--box lesson">
+        <section class="tutorial">
 
             <article class="article">
                 <p>{!! renderMarkdown('content/install.md') !!}
