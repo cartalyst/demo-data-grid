@@ -3,11 +3,11 @@
 {{-- Page --}}
 @section('page')
 
-<header class="layout__header">
+<header class="page__header">
 
-    <div class="row">
+    <div class="row align-middle">
 
-        <div>
+        <div class="column">
 
             <h1>Installable Demo</h1>
 
@@ -15,14 +15,13 @@
 
         </div>
 
-
     </div>
 
 </header>
 
-<div class="layout__body">
+<div class="page__body">
 
-    <div class="page row">
+    <div class="row align-top">
 
         <section class="section section--box lesson">
 

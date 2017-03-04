@@ -3,9 +3,9 @@
 {{-- Tutorial --}}
 @section('tutorial')
 
-<section class="section section--box tutorial">
+<section class="tutorial">
 
-        <ul class="expanded tabs" data-deep-link="true" data-tabs id="tutorial-tabs">
+        <ul class="tabs" data-deep-link="true" data-tabs id="tutorial-tabs">
 
             <li class="tabs-title is-active">
                 <a href="#controller" aria-selected="true">

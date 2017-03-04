@@ -3,35 +3,45 @@
 {{-- Page --}}
 @section('page')
 
-<header class="layout__header">
+<header class="page__header">
 
-    <div class="row row--welcome">
+    <div class="example mascot mascot--example mascot--{{ $example->name }} row">
 
-        <div>
+        <div class="small-12 medium-5 align-self-middle columns">
 
             <h1>{{ $example->name }}</h1>
 
             <h2 class="tagline">Showcasing {{ $example->description }}</h2>
 
-            <a class="large hollow button call-to-action" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial</a>
+        </div>
+
+        <div class="call-to-action small-12 medium-7 columns">
+
+            <a class="large hollow button" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial</a>
 
         </div>
 
     </div>
 
-    <div class="preview row">
-        <div>
-            <pre><code class="html"></code></pre>
+    <div class="preview row align-middle">
+        <div class="column">
+            <div>
+                <pre><code class="html">Hover Around, See the code!</code></pre>
+            </div>
         </div>
     </div>
 
 </header>
 
-<div class="layout__body">
+<div class="page__body">
 
-    <div class="showcase row">
+    <div class="row align-top">
 
-        @yield('example')
+        <div class="column">
+
+            @yield('example')
+
+        </div>
 
     </div>
 

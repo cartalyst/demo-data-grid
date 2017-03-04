@@ -2,8 +2,8 @@
 // Copyright 2011-2017, Cartalyst LLC
 //--------------------------------------
 //
-// 1. Layout
-// 2. Base
+// 1. Base
+// 2. Page
 // 1. Page
 // --------------
 
@@ -33,6 +33,7 @@
                     color: $white;
                     border-bottom: 2px solid transparent;
                     @include disable-mouse-outline;
+
                     &:active,
                     &:hover {
                         transition: 0.3s;
@@ -77,20 +78,25 @@
         }
     }
 }
-// 2. Layout
+// 2. Page
 // --------------
 
-.layout {
+.page {
     &__header {
         background: $amber;
         text-align: center;
-
+        padding-bottom: 64px;
         @include breakpoint(medium) {
             text-align: left;
         }
 
-        > .row {
-            height: 320px;
+        > .example,
+        > .tutorial {
+            min-height: 320px;
+
+            .call-to-action {
+                margin: 0 auto;
+            }
         }
 
         h1 {
@@ -104,75 +110,74 @@
             font-size: rem-calc(28);
             font-weight: 300;
             color: $white;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .call-to-action {
-            background: transparent;
-            color: $white;
-            border-color: $white;
+            text-align: center;
+            @include flex-align-self(top);
+            @include breakpoint(medium) {
+                 @include flex-align-self(middle);
+            }
 
-            &:active,
-            &:hover {
-                color: $amber;
+            .button {
+                @include box_shadow;
                 background: $white;
-                border-color: $white;
-            }
+                color: $dark-gray;
+                border-color: $amber-dark;
+                margin: 0 auto;
+                width: 60%;
 
-            &:focus {
-                color: $white;
-                background: transparent;
-            }
-        }
+                &:active,
+                &:hover {
+                    color: $amber;
+                    background: $white;
+                    border-color: $amber;
+                }
 
-        .mascot {
-            overflow: hidden;
-            img {
-                height:196px;
-                text-align: center;
-                @include breakpoint(medium) {
-                    height: 320px;
-                    display: block;
-                    margin: 0 auto -64px auto;
-                    text-align: center;
-
+                &:focus {
+                    color: $white;
+                    background: transparent;
                 }
             }
         }
 
         .preview {
-            height: 48px;
-            margin-bottom: 2px;
+            @include grid-row;
 
-            div {
-                width: 100%;
-                background: $alabaster;
-                display: none;
-                padding: 8px;
+            .column {
+                @include grid-column(12);
 
-                .hljs {
-                    padding: 4px;
-                    //margin: 4px;
-                    background: transparent;
+                div {
+                    background: $alabaster;
+                    overflow-x: scroll;
+                    padding: 0.5rem 0;
+                    @include breakpoint(large) {
+                        overflow-x: hidden;
+                    }
+
+                    .hljs {
+                        color: $dark-gray;
+                        background: transparent;
+
+                        &:before {
+                            display: inline-block;
+                            content: "\E7F4";
+                            font-family: "Material Icons";
+                            padding: 0 1rem 0 0.5rem;
+                            color: $amber-dark;
+                            font-size: 1.2rem;
+                            vertical-align: middle;
+                        }
+                    }
                 }
             }
         }
     }
 
     &__body {
+        position: relative;
+        top: -64px;
         min-height: 320px;
-    }
-}
-
-// 2. Section
-// --------------
-
-.section {
-    width: 100%;
-    margin-bottom: 2rem;
-
-    &--box {
-        background-color: $white;
-        box-shadow: 0 3px 8px;
     }
 }

@@ -16,7 +16,7 @@
 {{-- Content --}}
 @section('page')
 
-<header class="layout__header">
+<header class="page__header">
 
     <div class="row align-middle">
 
@@ -32,9 +32,9 @@
 
 </header>
 
-<div class="layout__body">
+<div class="page__body">
 
-    <div class="row row--showcase align-stretch small-up-1 medium-up-2" data-grid="examples" data-grid-layout="results"></div>
+    <div class="row align-stretch small-up-1 medium-up-2" data-grid="examples" data-grid-layout="results"></div>
 
 </div>
 

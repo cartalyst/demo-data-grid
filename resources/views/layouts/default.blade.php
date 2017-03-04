@@ -21,7 +21,7 @@
             @include('partials/header')
         </header>
 
-        <div class="layout">
+        <div class="page">
             @yield('page')
         </div>
 

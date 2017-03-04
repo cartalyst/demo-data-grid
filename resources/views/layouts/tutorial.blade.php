@@ -3,17 +3,19 @@
 {{-- Page Content --}}
 @section('page')
 
-<header class="layout__header">
+<header class="page__header">
 
-    <div class="row row--welcome">
+    <div class="example mascot mascot--example mascot--{{ $example->name }} row">
 
-        <div>
+        <div class="small-12 medium-5 align-self-middle columns">
 
             <h1>{{ $example->name }} Tutorial</h1>
 
-            <h2 class="tagline">Breaking down the {{ $example->name }} example</h2>
+        </div>
 
-            <a class="large hollow button call-to-action" href="{{ $example->route }}">Back to {{ $example->name }} Example</a>
+        <div class="call-to-action small-12 medium-7 columns">
+
+            <a class="large hollow button" href="{{ $example->route }}">Back to {{ $example->name }} Example</a>
 
         </div>
 
@@ -21,11 +23,15 @@
 
 </header>
 
-<div class="layout__body">
+<div class="page__body">
 
-    <div class="showcase row">
+    <div class="row align-top">
 
-        @yield('tutorial')
+        <div class="column">
+
+            @yield('tutorial')
+
+        </div>
 
     </div>
 

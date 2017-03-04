@@ -5,6 +5,9 @@
 // 1. Tutorials
 
 .tutorial {
+    @include box_shadow;
+    background: $alabaster;
+
     .tabs {
         position: relative;
         background: $white;
@@ -14,6 +17,11 @@
 
             a {
                 font-size: rem-calc(16);
+                padding:1rem 1.1rem;
+
+                @include breakpoint(medium) {
+                    padding:1.25rem 1.5rem;
+                }
 
                 &:hover {
                     color: $amber;

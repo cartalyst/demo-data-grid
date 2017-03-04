@@ -2,54 +2,67 @@
 // Copyright 2011-2017, Cartalyst LLC
 //--------------------------------------
 //
-// 1. Apricots
+// 1. Data Grid
 // 2. Crops
 // 1. Apricots
 // --------------
 
-.apricots {
-    width: 100%;
+// 1. Data Grid
+// --------------
 
-    .data-grid {
-        background-color: $white;
+.data-grid {
+    background-color: $white;
 
-        > header {
-            @include grid-row;
-            border-bottom: 1px solid $light-gray;
+    > header {
+        @include flex-grid-row;
+        @extend .align-middle;
+        border-bottom: 1px solid $light-gray;
+        padding: 1rem 0;
 
-            h3 {
-                @include grid-column(12);
-                margin: 0;
-                padding: 1rem 0;
-                text-align: center;
-                @include breakpoint(medium) {
-                    text-align: left;
-                    @include grid-column(6);
-                }
+        h3 {
+            @include flex-grid-column(12);
+            text-align: center;
+            font-size:rem-calc(24);
+            font-weight: 500;
 
-                span {
-                    display: block;
-                    font-size: 1rem;
-                }
+            span {
+                display: block;
+                font-weight: 400;
+                font-size:rem-calc(18);
             }
 
-            nav {
-                @include grid-column(12);
-                @extend .expanded;
-                @extend .button-group;
-                @extend .align-bottom;
-                margin: 0;
-                padding: 1rem 0;
-                @include breakpoint(medium) {
-                     @include grid-column(6);
-                }
-
-                button {
-                    @extend .secondary;
-                    @extend .button;
-                }
+            @include breakpoint(medium) {
+                text-align: left;
+                @include flex-grid-column(6);
             }
         }
+
+        nav {
+            @include flex-grid-column(12);
+            @extend .button-group;
+            @extend .expanded;
+            margin:0;
+            padding:0;
+            @include breakpoint(medium) {
+                 @include flex-grid-column(6);
+            }
+
+            button {
+                @extend .secondary;
+                @extend .button;
+            }
+        }
+    }
+}
+
+// 2. Apricots
+// --------------
+
+.apricots {
+    width: 100%;
+    @include box_shadow;
+
+    .data-grid {
 
         [data-grid-layout="results"] {
             min-height: 480px;
@@ -88,6 +101,7 @@
         }
     }
 }
+
 // 1. Crops
 // --------------
 
