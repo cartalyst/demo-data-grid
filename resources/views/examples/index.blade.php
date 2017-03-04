@@ -51,7 +51,7 @@
             <div class="column">
 
                 <div class="card card--example">
-                    <div class="card-mascot card-mascot--<%= r.name %>"></div>
+                    <div class="mascot mascot--card mascot--<%= r.name %>"></div>
                     <div class="card-section">
                         <h4>
                             <a class="large button" href="<%= r.url %>">

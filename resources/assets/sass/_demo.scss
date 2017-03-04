@@ -101,6 +101,12 @@ blockquote {
        background-position: 80% 32px;
    }
 
+   &--card {
+       height: 256px;
+       margin:1rem;
+       background-position: 80% 32px;
+   }
+
    &--Apricots {
        background-image: url("images/apricots.svg");
    }
@@ -245,10 +251,6 @@ blockquote {
     height: 98%;
 
     &--example {
-        .card-mascot {
-            height: 256px;
-            margin:1rem;
-        }
         .card-section {
             h4 {
                 margin-top:-64px;
