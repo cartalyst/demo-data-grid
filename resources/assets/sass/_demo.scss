@@ -241,7 +241,7 @@ blockquote {
     &--example {
         .card-section {
             h4 {
-                margin-top:-48px;
+                margin-top:-64px;
                 .button {
                     width:80%;
                     margin:0 auto;
@@ -257,10 +257,11 @@ blockquote {
         }
 
         .card-mascot {
-           background-size: 64%;
+           background-size: contain;
            background-position: center bottom;
            background-repeat: no-repeat;
-           height: 228px;
+           height: 256px;
+           margin:1rem;
 
            &--Apricots {
                background-image: url("images/apricots.svg");

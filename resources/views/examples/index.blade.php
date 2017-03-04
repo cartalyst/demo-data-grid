@@ -20,7 +20,7 @@
 
     <div class="row align-middle">
 
-        <div>
+        <div class="column">
 
             <h1>Examples</h1>
 

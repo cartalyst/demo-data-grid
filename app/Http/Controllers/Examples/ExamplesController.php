@@ -57,6 +57,7 @@ class ExamplesController extends Controller
             ],
             'transformer' => function ($example) {
                 $example['url'] = route('example.'.$example['id']);
+                $example['features'] = ucwords(join(' &amp; ', array_filter(array_merge(array(join(', ', array_slice($example['features'], 0, -1))), array_slice($example['features'], -1)), 'strlen')));
 
                 return $example;
             }
