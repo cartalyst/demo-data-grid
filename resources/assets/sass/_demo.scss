@@ -97,6 +97,16 @@ blockquote {
    background-position: center bottom;
    background-repeat: no-repeat;
 
+   &--welcome {
+       background-position: center top;
+       background-size: 40%;
+
+       @include breakpoint(medium) {
+           background-position: 84% 16px;
+           background-size: 40%;
+       }
+   }
+
    &--example {
        background-position: 80% 32px;
    }
@@ -105,6 +115,10 @@ blockquote {
        height: 256px;
        margin:1rem;
        background-position: 80% 32px;
+   }
+
+   &--brand {
+       background-image: url("images/brand-cartalyst.svg");
    }
 
    &--Apricots {

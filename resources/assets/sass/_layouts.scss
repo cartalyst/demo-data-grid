@@ -91,8 +91,13 @@
         }
 
         > .example,
-        > .tutorial {
+        > .tutorial,
+        > .welcome {
             min-height: 320px;
+
+            .mask {
+                background: rgba(255,160,0, 0.5);
+            }
 
             .call-to-action {
                 margin: 0 auto;
@@ -115,9 +120,18 @@
 
         .call-to-action {
             text-align: center;
-            @include flex-align-self(top);
+            @include flex-align-self(bottom);
+
             @include breakpoint(medium) {
                  @include flex-align-self(middle);
+            }
+
+            &--welcome {
+
+                @include breakpoint(medium) {
+                     @include flex-align-self(bottom);
+                     padding-bottom:1rem;
+                }
             }
 
             .button {

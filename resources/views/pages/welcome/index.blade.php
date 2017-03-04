@@ -8,25 +8,21 @@
 {{-- Page --}}
 @section('page')
 
-<header class="layout__header">
+<header class="page__header">
 
-    <div class="row">
+    <div class="welcome mascot mascot--welcome mascot--brand row align-stretch">
 
-        <div class="small-12 medium-5 small-order-2 medium-order-1 columns">
+        <div class="small-12 medium-5 align-self-bottom columns">
 
             <h1>Data Grid 4</h1>
 
             <h2 class="tagline">Data Filtration Over Pagination</h2>
 
-            <a class="hollow large button call-to-action" href="{{ route('examples') }}">Examples &amp; Tutorials</a>
-
         </div>
 
-        <div class="small-12 medium-7 small-order-1 medium-order-2 columns">
+        <div class="call-to-action call-to-action--welcome small-12 medium-7 columns">
 
-            <div class="mascot">
-                <img src="{{ URL::to('images/brand-cartalyst.svg') }}" alt="">
-            </div>
+            <a class="hollow large button" href="{{ route('examples') }}">Examples &amp; Tutorials</a
 
         </div>
 
@@ -34,9 +30,9 @@
 
 </header>
 
-<div class="layout__body">
+<div class="page__body">
 
-    <div class="showcase row">
+    <div class="row align-top">
 
         <div class="small-12 medium-5">
 
