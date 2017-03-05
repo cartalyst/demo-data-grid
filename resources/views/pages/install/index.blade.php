@@ -1,5 +1,11 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+@parent
+    Demo Installation
+@stop
+
 {{-- Page --}}
 @section('page')
 

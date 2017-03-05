@@ -3,10 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{{ trans('app.description') }}">
+    <meta name="description" content="{{ trans('app.tagline') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ trans('app.title') }}</title>
-
+    <title>
+		@section('title')
+			{{ trans('app.title') }}
+		@show
+	</title>
+        
     <link href="https://fonts.googleapis.com/css?family=Exo+2:300,400,400i,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type='text/css'>
 

@@ -1,5 +1,12 @@
 @extends('layouts/default')
 
+{{-- Page title --}}
+@section('title')
+@parent
+    Examples
+@stop
+
+
 {{-- Inline scripts --}}
 @section('scripts')
 <script>

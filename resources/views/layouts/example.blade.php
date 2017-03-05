@@ -1,5 +1,11 @@
 @extends('layouts/default')
 
+{{-- Page title --}}
+@section('title')
+@parent
+{{{ $example->name }}}
+@stop
+
 {{-- Page --}}
 @section('page')
 
