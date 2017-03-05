@@ -24,7 +24,6 @@
 @import "layouts";
 @import "examples";
 @import "tutorials";
-@import "lessons";
 
 .no-js {
   @include breakpoint(small only) {
