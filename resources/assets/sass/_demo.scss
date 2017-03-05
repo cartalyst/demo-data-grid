@@ -49,6 +49,16 @@ h2 {
     //margin:0;
 }
 
+h3 {
+    font-size: rem-calc(32);
+    font-weight: 400;
+}
+
+h4 {
+    font-size: rem-calc(24);
+    font-weight: 400;
+}
+
 .tagline {
     font-size: rem-calc(28);
     font-weight: 400;
@@ -158,13 +168,22 @@ blockquote {
 // --------------
 .article {
 
+    padding:1rem;
+
     header {
-        padding: 16px;
+
         border-bottom:1px solid $medium-gray;
+
+    }
+
+    h3 {
+        padding-top: 1rem;
     }
 
     p {
         font-size: rem-calc(20);
+        font-weight: 300;
+        padding: 0.5rem 0 0;
         font-weight: 300;
     }
 
@@ -183,63 +202,34 @@ blockquote {
         }
     }
 
-    // ul {
-    //     margin:0;
-    //     padding:0;
-    //     li {
-    //         border-left: 8px solid $amber;
-    //         padding:0 0 0 8px;
-    //         margin:2px 0;
-    //         font-size: 1.5rem;
-    //         list-style-type: none;
-    //         line-height: 42px;
-    //         &:first-child {
-    //             font-size: 1rem;
-    //             color: $dark-gray;
-    //             text-transform: uppercase;
-    //         }
-    //         a {
-    //             font-weight: 300;
-    //         }
-    //     }
-    // }
     section {
         margin: 32px 0;
         border-bottom: 1px solid #ddd;
     }
-    p {
-        padding: 8px 0;
-        font-size: 1.3rem;
-        line-height: 2.2rem;
-        font-weight: 300;
-    }
+
     ol {
         counter-reset: li;
         margin-left: 0;
-        padding-left: 0;
+        //padding-left: 0;
     }
     ol > li {
         position: relative;
         list-style: none;
-        background: #fff;
-        font-size: 1.1rem;
+        padding:0.5rem 0;
+        margin-bottom:0.5rem;
+        border-bottom:1px dotted $light-gray;
     }
     ol > li:before {
         content: counter(li);
         counter-increment: li;
         display: inline-block;
-        width: 2em;
-        padding: 10px 4px;
-        margin-right: 16px;
-        color: #757575;
-        border-right: 4px solid $amber;
-        border-bottom: 1px solid #ddd;
-        background-color: #f5f5f5;
-        font-size: 1.5rem;
-        font-weight: bold;
+        font-size: rem-calc(16);
+        margin-right:8px;
+        padding:0 8px;
         text-align: center;
+        font-weight: 500;
     }
-    li ol,
+
     li ul {
         margin-top: 6px;
     }

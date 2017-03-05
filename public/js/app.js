@@ -3296,6 +3296,7 @@ var Demo;
             .initHighlightJs()
             .initClipboard()
             .addClasses()
+            .createTutorial()
         ;
     };
 
@@ -3493,6 +3494,14 @@ var Demo;
 
         return message;
     };
+
+    Demo.App.createTutorial = function () {
+        $("article h3").each(function() {
+            var slug = Demo.App.slugify($(this).text());
+            $(this).attr('id',slug);
+          }
+        );
+    }
 
     // Job done, lets run
     Demo.App.init();

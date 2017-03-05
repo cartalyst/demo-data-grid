@@ -6,7 +6,25 @@
 
 .tutorial {
     @include box_shadow;
-    background: $alabaster;
+    background: $white;
+
+    .sticky {
+        border-bottom: 1px solid lighten($amber-dark, 5%);
+        height:64px;
+        background: $alabaster;
+        nav {
+            padding-top:12px;
+            ul li {
+                text-align: center;
+            }
+        }
+    }
+
+    .article {
+        // h3 {
+        //     border-top:1px solid $medium-gray;
+        // }
+    }
 
     .tabs {
         position: relative;
