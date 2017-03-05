@@ -4,7 +4,6 @@
 //
 // 1. Base
 // 2. Page
-// 1. Page
 // --------------
 
 .base {
@@ -31,6 +30,7 @@
 
         .top-bar {
             @include flex-grid-row;
+
             .top-bar-right {
                 .menu {
                     @include flex-align(center, middle);
@@ -79,6 +79,7 @@
         background: $amber;
         text-align: center;
         padding-bottom: 64px;
+        min-height: 320px;
         @include breakpoint(medium) {
             text-align: left;
         }
@@ -107,22 +108,6 @@
                 //background: transparent;
             }
         }
-
-
-        // .call-to-action {
-        //     text-align: center;
-        //     margin:0 auto;
-        //
-        //     // &--welcome {
-        //     //
-        //     //     @include breakpoint(medium) {
-        //     //          @include flex-align-self(bottom);
-        //     //          padding-bottom:1rem;
-        //     //     }
-        //     // }
-        //
-        //
-        // }
 
         .preview {
             @include grid-row;

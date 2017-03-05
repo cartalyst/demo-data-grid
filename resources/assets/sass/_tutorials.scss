@@ -2,7 +2,7 @@
 // Copyright 2011-2017, Cartalyst LLC
 //--------------------------------------
 //
-// 1. Tutorials
+// Tutorial Layout
 
 .tutorial {
     @include box_shadow;
@@ -10,20 +10,16 @@
 
     .sticky {
         border-bottom: 1px solid lighten($amber-dark, 5%);
-        height:64px;
+        height: 64px;
         background: $alabaster;
+
         nav {
-            padding-top:12px;
+            padding-top: 12px;
+
             ul li {
                 text-align: center;
             }
         }
-    }
-
-    .article {
-        // h3 {
-        //     border-top:1px solid $medium-gray;
-        // }
     }
 
     .tabs {
@@ -35,10 +31,9 @@
 
             a {
                 font-size: rem-calc(16);
-                padding:1rem 1.1rem;
-
+                padding: 1rem 1.1rem;
                 @include breakpoint(medium) {
-                    padding:1.25rem 1.5rem;
+                    padding: 1.25rem 1.5rem;
                 }
 
                 &:hover {

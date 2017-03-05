@@ -7,15 +7,13 @@
 
     <div class="example mascot mascot--example mascot--{{ $example->name }} row">
 
-        <div class="small-12 medium-5 align-self-middle columns">
+        <div class="small-12 align-self-middle columns">
 
             <h1>{{ $example->name }} Tutorial</h1>
 
-        </div>
+            <h2 class="tagline">Disecting the {{ $example->name }} example</h2>
 
-        <div class="call-to-action small-12 medium-7 columns">
-
-            <a class="large hollow button" href="{{ $example->route }}">Back to {{ $example->name }} Example</a>
+            <a class="large button call-to-action" href="{{ $example->route }}">Back to {{ $example->name }} Example</a>
 
         </div>
 
@@ -27,7 +25,7 @@
 
     <div class="row align-top">
 
-        <div class="column">
+        <div class="small-12 columns">
 
             @yield('tutorial')
 

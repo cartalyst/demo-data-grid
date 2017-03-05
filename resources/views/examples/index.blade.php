@@ -18,9 +18,9 @@
 
 <header class="page__header">
 
-    <div class="row align-middle">
+    <div class="welcome row">
 
-        <div class="column">
+        <div class="small-12 align-self-middle columns">
 
             <h1>Examples</h1>
 

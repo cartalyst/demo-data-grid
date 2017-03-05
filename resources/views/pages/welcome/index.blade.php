@@ -18,7 +18,7 @@
 
             <h2 class="tagline">{{ trans('app.tagline') }}</h2>
 
-            <a href="{{ route('install') }}" class="button call-to-action">Getting Started</a>
+            <a href="{{ route('install') }}" class="large button call-to-action">Getting Started</a>
 
         </div>
 

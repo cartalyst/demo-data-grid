@@ -13,11 +13,7 @@
 
             <h2 class="tagline">Showcasing {{ $example->description }}</h2>
 
-        </div>
-
-        <div class="call-to-action small-12 medium-7 columns">
-
-            <a class="large hollow button" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial</a>
+            <a class="large button call-to-action" href="{{ route('example.tutorial', $example->id) }}">Read the Tutorial</a>
 
         </div>
 
