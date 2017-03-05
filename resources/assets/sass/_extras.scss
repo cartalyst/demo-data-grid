@@ -145,14 +145,17 @@
 }
 
 .progress__wrapper {
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: 8px;
+    height: 12px;
 }
 
 .progress {
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 6px;
+    left:0;
+    right:0;
+    bottom:0;
     height: 6px;
     display: block;
     width: 100%;

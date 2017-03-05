@@ -3403,6 +3403,7 @@ var Demo;
 
                     // Filters
                     $('[data-grid-filter]').addClass('js-demo-preview');
+                    $('[data-grid-sort]').addClass('js-demo-preview');
 
                     // Layouts
                     $('[data-grid-switch-layout]').addClass('js-demo-preview');

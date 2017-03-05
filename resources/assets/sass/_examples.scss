@@ -6,55 +6,12 @@
 // 2. Crops
 // 1. Apricots
 // --------------
-
 // 1. Data Grid
 // --------------
 
 .data-grid {
     background-color: $white;
-
-    > header {
-        @include flex-grid-row;
-        @extend .align-middle;
-        border-bottom: 1px solid $light-gray;
-        padding: 1rem 0;
-
-        h3 {
-            @include flex-grid-column(12);
-            text-align: center;
-            font-size:rem-calc(24);
-            font-weight: 500;
-
-            span {
-                display: block;
-                font-weight: 400;
-                font-size:rem-calc(18);
-            }
-
-            @include breakpoint(medium) {
-                text-align: left;
-                @include flex-grid-column(6);
-            }
-        }
-
-        nav {
-            @include flex-grid-column(12);
-            @extend .button-group;
-            @extend .expanded;
-            margin:0;
-            padding:0;
-            @include breakpoint(medium) {
-                 @include flex-grid-column(6);
-            }
-
-            button {
-                @extend .secondary;
-                @extend .button;
-            }
-        }
-    }
 }
-
 // 2. Apricots
 // --------------
 
@@ -63,6 +20,45 @@
     @include box_shadow;
 
     .data-grid {
+        > header {
+            @include flex-grid-row;
+            @extend .align-middle;
+            border-bottom: 1px solid $light-gray;
+            padding: 1rem 0;
+
+            h3 {
+                @include flex-grid-column(12);
+                text-align: center;
+                font-size: rem-calc(24);
+                font-weight: 500;
+
+                span {
+                    display: block;
+                    font-weight: 400;
+                    font-size: rem-calc(18);
+                }
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include flex-grid-column(6);
+                }
+            }
+
+            nav {
+                @include flex-grid-column(12);
+                @extend .button-group;
+                @extend .expanded;
+                margin: 0;
+                padding: 0;
+                @include breakpoint(medium) {
+                     @include flex-grid-column(6);
+                }
+
+                button {
+                    @extend .secondary;
+                    @extend .button;
+                }
+            }
+        }
 
         [data-grid-layout="results"] {
             min-height: 480px;
@@ -87,10 +83,11 @@
 
         [data-grid-layout="pagination"] {
             margin: 1rem;
+
             &:after {
                 display: block;
                 height: 4px;
-                content:" ";
+                content: " ";
             }
 
             button {
@@ -101,12 +98,12 @@
         }
     }
 }
-
 // 1. Crops
 // --------------
 
 .crops {
     width: 100%;
+    @include box_shadow;
 
     .data-grid {
         background-color: $white;
@@ -114,66 +111,61 @@
         > header {
             @include flex-grid-row;
             @extend .align-middle;
+            padding: 1rem 0;
 
             h3 {
-                @include grid-column(12);
-                margin: 0;
-                padding: 2rem 0;
+                @include flex-grid-column(12);
                 text-align: center;
-                @include breakpoint(medium) {
-                    text-align: left;
+                font-size: rem-calc(24);
+                font-weight: 500;
+
+                span {
+                    display: block;
+                    font-weight: 400;
+                    font-size: rem-calc(18);
                 }
 
-                span [data-grid-layout="count"] {
+                [data-grid-layout="count"] {
                     display: inline-block;
                 }
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include flex-grid-column(7);
+                }
+            }
 
-                small {
-                    display: block;
-                    padding: 0.5rem 0;
-                    font-size: 1rem;
-                    color: $medium-gray;
+            .search {
+                @include grid-column(12);
+                @extend .expanded;
+                @include breakpoint(medium) {
+                     @include grid-column(5);
                 }
             }
         }
 
-        > nav {
+        nav {
             @include flex-grid-row;
-            @extend .align-bottom;
-            border-bottom: 1px solid $medium-gray;
+            @extend .align-middle;
+            border-bottom: 1px solid $light-gray;
 
             .layout {
-                @include grid-column(12);
+                @include flex-grid-column(12);
                 @extend .button-group;
-                margin: 0;
-
+                @extend .expanded;
+                margin: 0 0 -2px;
+                padding: 0;
                 @include breakpoint(medium) {
-                     @include grid-column(6);
+                     @include flex-grid-column(4);
                 }
 
                 button {
-                    float: none;
-                    display: inline-block;
-                    cursor: pointer;
-                    margin: 0 0 -1px;
-                    padding: 0;
-                    border: 1px solid $medium-gray;
-                    border-left: 0;
-                    padding: 1rem;
+                    outline: none;
+                    background: $white;
                     color: $dark-gray;
-                    text-transform: uppercase;
-                    display: block;
-                    font-size: 1rem;
-                    line-height: 1rem;
-                    font-weight: 400;
-                    border-bottom: 1px solid transparent;
+                    border: 1px solid $medium-gray;
 
                     i {
                         vertical-align: middle;
-                    }
-
-                    &:first-child {
-                        border-left: 1px solid $medium-gray;
                     }
 
                     &:hover {
@@ -185,23 +177,13 @@
                         border-bottom: 1px solid $white;
                     }
                 }
-
-                &__container {}
-            }
-
-            .search {
-                @include grid-column(12);
-                @extend .expanded;
-                @include breakpoint(medium) {
-                     @include grid-column(3);
-                }
             }
 
             .filters {
-                @include grid-column(12);
-                @extend .expanded;
+                @include flex-grid-column(12);
+                //@extend .expanded;
                 @include breakpoint(medium) {
-                     @include grid-column(3);
+                     @include flex-grid-column(8);
                 }
             }
         }
@@ -299,32 +281,34 @@
         }
 
         [data-grid-layout="pagination"] {
-            margin: 1rem 0;
+            @include flex-grid-row;
+            @extend .align-middle;
 
             p {
-                @include grid-column(12);
+                @include flex-grid-column(12);
                 margin: 0;
                 padding: 1rem 0;
                 text-align: center;
                 @include breakpoint(medium) {
                     text-align: left;
-                    @include grid-column(8);
+                    @include flex-grid-column(9);
                 }
             }
 
             nav {
-                @include grid-column(12);
+                @include flex-grid-column(12);
                 margin: 0;
                 padding: 1rem 0;
                 text-align: center;
                 @include breakpoint(medium) {
-                    text-align: left;
-                    @include grid-column(4);
+                    text-align: right;
+                    @include flex-grid-column(3);
                 }
 
                 > div {
                     @extend .expanded;
                     @extend .button-group;
+                    width: 100%;
 
                     button {
                         @extend .expanded;

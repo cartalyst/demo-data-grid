@@ -1,76 +1,8 @@
 <div class="data-grid" data-example="crops" data-grid="crops">
 
     <header>
-        <h3><span data-grid-layout="count"></span> Crop Harvests <small>Crop production 2010-2013</small></h3>
-    </header>
 
-    <nav>
-
-        {{-- Layouts --}}
-        <div class="layout">
-
-            <button class="tabs-title is-active" data-grid-switch-layout="table:table" class="active">
-                <i class="material-icons">view_list</i> <span>Table Layout</span>
-            </button>
-
-            <button class="tabs-title" data-grid-switch-layout="table:blocks">
-                <i class="material-icons">view_module</i> <span>Grid Layout</span>
-            </button>
-
-        </div>
-
-        {{-- Filters --}}
-        <div class="filters">
-            <select data-grid-group="filters" data-grid-reset-group>
-
-                <option data-grid-reset-group="filters">
-                    Less than 10,000
-                </option>
-
-
-                <option data-grid-filter="less-than-10000"
-                    data-grid-query="value:<:10000">
-                    Less than 10,000
-                </option>
-
-                <option data-grid-filter="greater-than-100000"
-                    data-grid-query="value:>:100000">
-                    Greater than 100,000
-                </option>
-
-                <option data-grid-filter="only-portugal"
-                    data-grid-query="country:=:portugal">
-                    Equal to Portugal
-                </option>
-
-                <option data-grid-filter="melons"
-                    data-grid-query="item:melons">
-                    Contains Melons
-                </option>
-
-                <option data-grid-filter="exclude-agave"
-                    data-grid-query="item:!=:Agave fibres nes">
-                    Not equal to Agave
-                </option>
-
-                <option data-grid-filter="portugal-egypt"
-                    data-grid-query="country:portugal, egypt">
-                    Only Portugal, Egypt
-                </option>
-
-                <option data-grid-filter="portugal-egypt-value-desc"
-                    data-grid-query="country:portugal, egypt"
-                    data-grid-sort="value:desc">
-                    Portugal, Egypt, Sort Value Desc
-                </option>
-
-                <option data-grid-filter="portugal-apples"
-                    data-grid-query="country:portugal; item:apples">
-                    Portugal, Contains Apples
-                </option>
-
-            </select>
-        </div>
+        <h3><div data-grid-layout="count"></div> Crop Harvests <span>Crop production 2010-2013</span></h3>
 
         {{-- Search Form --}}
         <div class="search">
@@ -81,10 +13,95 @@
 
         </div>
 
+    </header>
+
+    <nav>
+
+        {{-- Filters --}}
+        <ul class="filters dropdown menu" data-dropdown-menu data-grid-group="filters">
+            <li>
+                <a>Production</a>
+                <ul class="menu">
+                    <li>
+                        <a
+                            data-grid-filter="less-than-10000"
+                            data-grid-query="value:<:10000">
+                            Less than 10,000
+                        </a>
+                    </li>
+                    <li>
+                        <a  data-grid-filter="greater-than-100000"
+                            data-grid-query="value:>:100000">
+                            Greater than 100,000
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>Countries</a>
+                <ul class="menu">
+                    <li>
+                        <a  data-grid-filter="only-portugal"
+                            data-grid-query="country:=:portugal">
+                            Equal to Portugal
+                        </a>
+                    </li>
+                    <li>
+                        <a  data-grid-filter="portugal-egypt"
+                            data-grid-query="country:portugal, egypt">
+                            Only Portugal, Egypt
+                        </a>
+                    </li>
+                    <li>
+                        <a  data-grid-filter="portugal-egypt-value-desc"
+                            data-grid-query="country:portugal, egypt"
+                            data-grid-sort="value:desc">
+                            Portugal, Egypt, Sort Value Desc
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>Types</a>
+                <ul class="menu">
+                    <li>
+                        <a  data-grid-filter="melons"
+                            data-grid-query="item:melons">
+                            Contains Melons
+                        </a>
+                    </li>
+                    <li>
+                        <a  data-grid-filter="exclude-agave"
+                            data-grid-query="item:!=:Agave fibres nes">
+                            Not equal to Agave
+                        </a>
+                    </li>
+                    <li>
+                        <a  data-grid-filter="portugal-apples"
+                            data-grid-query="country:portugal; item:apples">
+                            Portugal, Contains Apples
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        {{-- Layouts --}}
+        <div class="layout">
+
+            <button class="button is-active" data-grid-switch-layout="table:table" class="active">
+                <i class="material-icons">view_list</i> <span>Table</span>
+            </button>
+
+            <button class="button" data-grid-switch-layout="table:blocks">
+                <i class="material-icons">view_module</i> <span>Grid</span>
+            </button>
+
+        </div>
+
     </nav>
 
     {{-- Loader --}}
-
     <div class="progress__wrapper">
         <div class="progress">
           <div class="indeterminate"></div>
