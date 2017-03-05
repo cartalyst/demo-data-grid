@@ -2,25 +2,13 @@
 // Copyright 2011-2017, Cartalyst LLC
 //--------------------------------------
 // 1. Global
-// 2. Brand
+// 2. Typography
 
 // 1. Global Styles
 // --------------
 body {
     margin: 0;
     background-color: $alabaster;
-    color: $dark-gray;
-}
-/* Disable ugly boxes around images in IE10 */
-a img {
-    border: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
     color: $dark-gray;
 }
 
@@ -32,6 +20,40 @@ h5 {
 ::selection {
     background-color: $amber;
     color: $white;
+}
+
+/* Disable ugly boxes around images in IE10 */
+a img {
+    border: 0;
+}
+
+// 2. Typography
+// --------------
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: $dark-gray;
+}
+
+h1 {
+    font-size: rem-calc(64);
+    font-weight: 500;
+    color: $white;
+}
+
+h2 {
+    font-size: rem-calc(36);
+    font-weight: 400;
+    //margin:0;
+}
+
+.tagline {
+    font-size: rem-calc(28);
+    font-weight: 400;
+    color: $white;
+    //margin:;
 }
 
 blockquote {
@@ -98,8 +120,9 @@ blockquote {
    background-repeat: no-repeat;
 
    &--welcome {
-       background-position: center top;
-       background-size: 40%;
+       background-position: center 16px;
+       background-size: 46%;
+       //@include flex-align(center, bottom);
 
        @include breakpoint(medium) {
            background-position: 84% 16px;
@@ -135,48 +158,51 @@ blockquote {
 // --------------
 .article {
 
-    &--welcome {
-        margin-top:96px;
-        padding:0 8px;
-        text-align: center;
-
-        @include breakpoint(medium) {
-            text-align: left;
-            padding:0 16px 0 0;
-        }
-    }
     header {
         padding: 16px;
         border-bottom:1px solid $medium-gray;
     }
+
     p {
-        font-size: 1.6rem;
-        line-height: 2.5rem;
+        font-size: rem-calc(20);
         font-weight: 300;
     }
+
     blockquote p {
         font-size: 2rem;
     }
+
     ul {
-        margin:0;
+        font-weight: 300;
+        margin:1rem 0;
         padding:0;
         li {
-            border-left: 8px solid $amber;
-            padding:0 0 0 8px;
-            margin:2px 0;
-            font-size: 1.5rem;
             list-style-type: none;
-            line-height: 42px;
-            &:first-child {
-                font-size: 1rem;
-                color: $dark-gray;
-                text-transform: uppercase;
-            }
-            a {
-                font-weight: 300;
-            }
+            margin:0.5rem 0;
+            font-size: rem-calc(20);
         }
     }
+
+    // ul {
+    //     margin:0;
+    //     padding:0;
+    //     li {
+    //         border-left: 8px solid $amber;
+    //         padding:0 0 0 8px;
+    //         margin:2px 0;
+    //         font-size: 1.5rem;
+    //         list-style-type: none;
+    //         line-height: 42px;
+    //         &:first-child {
+    //             font-size: 1rem;
+    //             color: $dark-gray;
+    //             text-transform: uppercase;
+    //         }
+    //         a {
+    //             font-weight: 300;
+    //         }
+    //     }
+    // }
     section {
         margin: 32px 0;
         border-bottom: 1px solid #ddd;
@@ -221,42 +247,62 @@ blockquote {
         margin-bottom: 0;
     }
 
-    // Code Blocks
-    .source_code {
-        //border-top: 1px solid #ddd;
-        position: relative;
-        .source_code__header {
-            background: #fff;
-            padding: 1rem;
-            margin: 0;
+    &--welcome {
+        margin-top:96px;
+        //padding:0 8px;
+        text-align: center;
+
+        p:first-child {
+            font-size: rem-calc(24);
             font-weight: 400;
-            border-bottom: 4px solid $amber;
         }
-        .source_code__block {
-            overflow-x:scroll;
-            overflow: none;
-            background: #f5f5f5;
-            padding: 1rem;
-            pre,
-            code {
-                margin: 0;
-                font-size: 1.1rem;
-            }
+
+        p:last-child{
+            font-size: rem-calc(18);
+            font-weight: 300;
         }
-        .source_code__actions {
-            position: absolute;
-            top: 8px;
-            right: 16px;
-        }
-        .action__message {
-            display: inline-block;
-            padding: 0 8px;
-            color: $amber;
-            font-weight: 400;
+
+        @include breakpoint(medium) {
+            text-align: left;
+            padding:0 16px 0 0;
         }
     }
 }
 
+// Code Blocks
+.source_code {
+    //border-top: 1px solid #ddd;
+    position: relative;
+    .source_code__header {
+        background: #fff;
+        padding: 1rem;
+        margin: 0;
+        font-weight: 400;
+        border-bottom: 4px solid $amber;
+    }
+    .source_code__block {
+        overflow-x:scroll;
+        overflow: none;
+        background: #f5f5f5;
+        padding: 1rem;
+        pre,
+        code {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+    }
+    .source_code__actions {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+    }
+    .action__message {
+        display: inline-block;
+        padding: 0 8px;
+        color: $amber;
+        font-weight: 400;
+    }
+}
 // 4. Cards
 
 .card {
