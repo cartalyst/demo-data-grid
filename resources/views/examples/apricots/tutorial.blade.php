@@ -57,8 +57,8 @@
                         </p>
                     </header>
 
-                    <h5>apricotsController.php</h5>
-                    <p>{!! renderCode('app/Http/Controllers/Examples/apricotsController.php', 'php') !!}</p>
+                    <h5>ApricotsController.php</h5>
+                    <p>{!! renderCode('app/Http/Controllers/Examples/ApricotsController.php', 'php') !!}</p>
                 </article>
 
             </div>
