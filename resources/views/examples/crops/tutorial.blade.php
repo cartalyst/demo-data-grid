@@ -63,8 +63,8 @@
                         </p>
                     </header>
 
-                    <h5>cropsController.php</h5>
-                    <p>{!! renderCode('app/Http/Controllers/Examples/cropsController.php', 'php') !!}</p>
+                    <h5>CropsController.php</h5>
+                    <p>{!! renderCode('app/Http/Controllers/Examples/CropsController.php', 'php') !!}</p>
                 </article>
 
             </div>
