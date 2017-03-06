@@ -10,7 +10,7 @@
 			{{ trans('app.title') }}
 		@show
 	</title>
-        
+
     <link href="https://fonts.googleapis.com/css?family=Exo+2:300,400,400i,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type='text/css'>
 
@@ -37,7 +37,7 @@
 
     <script src="{{ url('js/app.js') }}"></script>
 
-    @yield('scripts')
+    @includeIf('partials/google-analytics')
 
 </body>
 </html>
