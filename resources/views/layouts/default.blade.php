@@ -39,5 +39,7 @@
 
     @includeIf('partials/google-analytics')
 
+    @yield('scripts')
+
 </body>
 </html>
