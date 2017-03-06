@@ -170,8 +170,15 @@
                         </p>
                     </header>
 
-                    <h5>grid/results.blade.php</h5>
-                    <p>{!! renderCode('resources/views/examples/crops/grid/results.blade.php', 'js') !!}</p>
+                    <h4>Table Template</h4>
+
+                    <h5>grid/table.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/crops/grid/table.blade.php', 'js') !!}</p>
+
+                    <h4>Blocks Template</h4>
+
+                    <h5>grid/blocks.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/crops/grid/blocks.blade.php', 'js') !!}</p>
                 </article>
 
             </div>
