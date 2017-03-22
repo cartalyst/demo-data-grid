@@ -41,7 +41,7 @@
 
 <div class="page__body">
 
-    <div class="row align-stretch small-up-1 medium-up-2" data-grid="examples" data-grid-layout="results"></div>
+    <div class="row small-collapse medium-uncollapse align-stretch small-up-1 medium-up-2" data-grid="examples" data-grid-layout="results"></div>
 
 </div>
 
