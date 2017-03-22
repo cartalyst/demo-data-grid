@@ -9,7 +9,7 @@ Data Grid makes the consumption, manipulation, and filtration of large datasets 
 - Multiple pagination methods.
 - Single and multi-column sorting.
 - Ability to define custom labels.
-- Fully context event lifestyle.
+- Fully context event lifecycle.
 - History states & cleaner urls.
 
 The library requires PHP 5.6.4+ and follows the FIG standards PSR-1, PSR-2, and PSR-4 to ensure a high level of interoperability between shared PHP code. Oh and it's fully unit-tested.
