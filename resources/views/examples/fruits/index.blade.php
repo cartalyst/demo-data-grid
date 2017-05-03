@@ -8,28 +8,36 @@
 {{-- Page Content --}}
 @section('example')
 
-<section class="apples">
+<div class="row fruits">
 
-    {{-- Example Start --}}
+    <div class="column">
 
-    @include('examples/fruits/apples')
+        <section class="apples">
 
-    {{-- Example End --}}
+            {{-- Example Start --}}
 
-</section>
+            @include('examples/fruits/apples')
 
-<hr>
+            {{-- Example End --}}
 
-<h2>Compared to Oranges</h2>
+        </section>
 
-<section class="oranges">
+    </div>
 
-    {{-- Example Start --}}
+    <div class="column">
 
-    @include('examples/fruits/oranges')
+        <section class="oranges">
 
-    {{-- Example End --}}
+            {{-- Example Start --}}
 
-</section>
+            @include('examples/fruits/oranges')
+
+            {{-- Example End --}}
+
+        </section>
+
+    </div>
+
+</div>
 
 @stop

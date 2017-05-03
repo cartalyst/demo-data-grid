@@ -26,13 +26,6 @@ $router->get('developers', 'PagesController@developers')->name('developers');
 $router->get('managers', 'PagesController@managers')->name('managers');
 $router->get('install', 'PagesController@install')->name('install');
 
-// Sources
-$router->group([ 'prefix' => 'source' ], function (Router $router) {
-    $router->get('collection', 'SourceController@collection')->name('source.collection');
-    $router->get('database', 'SourceController@database')->name('source.database');
-    $router->get('database/export', 'SourceController@databaseExport')->name('source.database.export');
-});
-
 // Examples
 $router->group([ 'prefix' => 'examples', 'namespace' => 'Examples' ], function(Router $router) {
     // Main examples route
@@ -48,6 +41,9 @@ $router->group([ 'prefix' => 'examples', 'namespace' => 'Examples' ], function(R
 
         // Apricots:
         require __DIR__.'/examples/apricots.php';
+
+        // Fruits:
+        require __DIR__.'/examples/fruits.php';
 
     });
 });

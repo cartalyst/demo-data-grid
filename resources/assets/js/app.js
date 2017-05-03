@@ -166,6 +166,12 @@ var Demo;
                     $('[data-grid-group] > button').addClass('js-demo-preview');
 
                     break;
+                case 'fruits':
+
+                    // Group Filters
+                    $('[data-grid-group] > button').addClass('js-demo-preview');
+
+                    break;
                 default:
                     // Default
                 ;

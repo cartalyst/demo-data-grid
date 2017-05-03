@@ -58,7 +58,7 @@
                     </header>
 
                     <h5>ApricotsController.php</h5>
-                    <p>{!! renderCode('app/Http/Controllers/Examples/ApricotsController.php', 'php') !!}</p>
+                    <p>{!! renderCode('app/Http/Controllers/Examples/FruitsController.php', 'php') !!}</p>
                 </article>
 
             </div>
@@ -73,8 +73,8 @@
                         </p>
                     </header>
 
-                    <h5>apricots.php</h5>
-                    <p>{!! renderCode('routes/examples/apricots.php', 'php') !!}</p>
+                    <h5>fruits.php</h5>
+                    <p>{!! renderCode('routes/examples/fruits.php', 'php') !!}</p>
                 </article>
 
             </div>
@@ -90,7 +90,7 @@
                     </header>
 
                     <h5>init-js.blade.php</h5>
-                    <p>{!! renderCode('resources/views/examples/apricots/init-js.blade.php', 'js') !!}</p>
+                    <p>{!! renderCode('resources/views/examples/fruits/init-js.blade.php', 'js') !!}</p>
                 </article>
 
             </div>
@@ -105,8 +105,11 @@
                         </p>
                     </header>
 
-                    <h5>grid.blade.php</h5>
-                    <p>{!! renderCode('resources/views/examples/apricots/grid.blade.php', 'html') !!}</p>
+                    <h5>apples.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/fruits/apples.blade.php', 'html') !!}</p>
+
+                    <h5>oranges.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/fruits/oranges.blade.php', 'html') !!}</p>
                 </article>
 
             </div>
@@ -121,8 +124,12 @@
                         </p>
                     </header>
 
-                    <h5>grid/results.blade.php</h5>
-                    <p>{!! renderCode('resources/views/examples/apricots/grid/results.blade.php', 'js') !!}</p>
+                    <h5>grid/apples-results.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/fruits/grid/apples-results.blade.php', 'js') !!}</p>
+
+                    <h5>grid/oranges-results.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/fruits/grid/oranges-results.blade.php', 'js') !!}</p>
+
                 </article>
 
             </div>
@@ -137,8 +144,12 @@
                         </p>
                     </header>
 
-                    <h5>grid/pagination.blade.php</h5>
-                    <p>{!! renderCode('resources/views/examples/apricots/grid/pagination.blade.php', 'js') !!}</p>
+                    <h5>grid/apples-pagination.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/fruits/grid/apples-pagination.blade.php', 'js') !!}</p>
+
+                    <h5>grid/oranges-pagination.blade.php</h5>
+                    <p>{!! renderCode('resources/views/examples/fruits/grid/oranges-pagination.blade.php', 'js') !!}</p>
+
                 </article>
 
             </div>

@@ -3,8 +3,9 @@
 //--------------------------------------
 //
 // 1. Data Grid
-// 2. Crops
-// 1. Apricots
+// 2. Apricots, Apples, Oranges
+// 3. Fruits
+// 4. Crops
 // --------------
 // 1. Data Grid
 // --------------
@@ -12,10 +13,12 @@
 .data-grid {
     background-color: $white;
 }
-// 2. Apricots
+// 2. Apricots, Apples, Oranges
 // --------------
 
-.apricots {
+.apricots,
+.apples,
+.oranges {
     width: 100%;
     @include box_shadow;
 
@@ -27,7 +30,7 @@
             padding: 1rem 0;
 
             h3 {
-                @include flex-grid-column(12);
+                @include flex-grid-column;
                 text-align: center;
                 font-size: rem-calc(24);
                 font-weight: 500;
@@ -39,18 +42,18 @@
                 }
                 @include breakpoint(medium) {
                     text-align: left;
-                    @include flex-grid-column(6);
+                    @include flex-grid-column;
                 }
             }
 
             nav {
-                @include flex-grid-column(12);
+                @include flex-grid-column;
                 @extend .button-group;
                 @extend .expanded;
                 margin: 0;
                 padding: 0;
                 @include breakpoint(medium) {
-                     @include flex-grid-column(6);
+                     @include flex-grid-column;
                 }
 
                 button {
@@ -98,7 +101,15 @@
         }
     }
 }
-// 1. Crops
+
+// 3. Fruits
+// --------------
+
+.fruits {
+    margin-top:16px;
+}
+
+// 4. Crops
 // --------------
 
 .crops {
