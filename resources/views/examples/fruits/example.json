@@ -1,0 +1,9 @@
+{
+    "name": "Fruits",
+    "description": "Two data grids on same page",
+    "features": [
+        "infinite-load",
+        "filters",
+        "loader"
+    ]
+}
