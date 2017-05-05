@@ -166,7 +166,13 @@ var Demo;
                     $('[data-grid-group] > button').addClass('js-demo-preview');
 
                     break;
-                case 'fruits':
+                case 'apples':
+
+                    // Group Filters
+                    $('[data-grid-group] > button').addClass('js-demo-preview');
+
+                    break;
+                case 'oranges':
 
                     // Group Filters
                     $('[data-grid-group] > button').addClass('js-demo-preview');
