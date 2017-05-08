@@ -169,7 +169,7 @@ var Demo;
                 case 'fruits':
 
                     // Group Filters
-                    $('[data-grid-group] > button').addClass('js-demo-preview');
+                    $('[data-grid*]').addClass('js-demo-preview');
 
                     break;
                 default:
