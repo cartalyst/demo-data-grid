@@ -11,5 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix
+    .options({ processCssUrls: false })
+    .copy('resources/assets/images/**/*', 'public/assets/demo/images')
+    .sass('resources/assets/sass/app.scss', 'public/assets/demo/css')
+    .combine([
+        'node_modules/lodash/lodash.min.js',
+        'node_modules/jquery/dist/jquery.min.js',
+        'resources/assets/js/highlight.pack.js',
+        'node_modules/clipboard/dist/clipboard.min.js',
+        'node_modules/foundation-sites/dist/js/foundation.min.js',
+        'vendor/cartalyst/data-grid/resources/assets/js/exoskeleton.min.js',
+        'vendor/cartalyst/data-grid/resources/assets/js/data-grid.js',
+        'resources/assets/js/app.js'
+    ], 'public/assets/demo/js/app.js')
+    .version()

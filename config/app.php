@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Cartalyst\Interpret\Laravel\InterpretServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -1,0 +1,14 @@
+{
+    "name": "Crops",
+    "description": "A more advanced data grid using layouts, advanced filters, and a larger data set",
+    "source": "database",
+    "features": [
+        "filters",
+        "ranges",
+        "sorting",
+        "pagination",
+        "searching",
+        "loader",
+        "multiple layouts"
+    ]
+}

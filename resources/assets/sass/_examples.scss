@@ -1,0 +1,332 @@
+// Demo Application - Examples
+// Copyright 2011-2019, Cartalyst LLC
+//--------------------------------------
+//
+// 1. Data Grid
+// 2. Apricots, Apples, Oranges
+// 3. Fruits
+// 4. Crops
+// --------------
+// 1. Data Grid
+// --------------
+
+.data-grid {
+    background-color: $white;
+}
+// 2. Apricots, Apples, Oranges
+// --------------
+
+.apricots,
+.apples,
+.oranges {
+    width: 100%;
+    @include box_shadow;
+
+    .data-grid {
+        > header {
+            @include flex-grid-row;
+            @extend .align-middle;
+            border-bottom: 1px solid $light-gray;
+            padding: 1rem 0;
+
+            h3 {
+                @include flex-grid-column;
+                text-align: center;
+                font-size: rem-calc(24);
+                font-weight: 500;
+
+                span {
+                    display: block;
+                    font-weight: 400;
+                    font-size: rem-calc(18);
+                }
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include flex-grid-column;
+                }
+            }
+
+            nav {
+                @include flex-grid-column;
+                @extend .button-group;
+                @extend .expanded;
+                margin: 0;
+                padding: 0;
+                @include breakpoint(medium) {
+                     @include flex-grid-column;
+                }
+
+                button {
+                    @extend .secondary;
+                    @extend .button;
+                }
+            }
+        }
+
+        [data-grid-layout="results"] {
+            min-height: 480px;
+
+            .row {
+                @include grid-row;
+                padding: 1rem;
+
+                &:nth-of-type(even) {
+                    background: $light-gray;
+                }
+
+                div {
+                    @include grid-column(4);
+
+                    &:last-child {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        [data-grid-layout="pagination"] {
+            margin: 1rem;
+
+            &:after {
+                display: block;
+                height: 4px;
+                content: " ";
+            }
+
+            button {
+                @extend .expanded;
+                @extend .large;
+                @extend .button;
+            }
+        }
+    }
+}
+
+// 3. Fruits
+// --------------
+
+.fruits {
+    margin-top:16px;
+}
+
+// 4. Crops
+// --------------
+
+.crops {
+    width: 100%;
+    @include box_shadow;
+
+    .data-grid {
+        background-color: $white;
+
+        > header {
+            @include flex-grid-row;
+            @extend .align-middle;
+            padding: 1rem 0;
+
+            h3 {
+                @include flex-grid-column(12);
+                text-align: center;
+                font-size: rem-calc(24);
+                font-weight: 500;
+
+                span {
+                    display: block;
+                    font-weight: 400;
+                    font-size: rem-calc(18);
+                }
+
+                [data-grid-layout="count"] {
+                    display: inline-block;
+                }
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include flex-grid-column(7);
+                }
+            }
+
+            .search {
+                @include grid-column(12);
+                @extend .expanded;
+                @include breakpoint(medium) {
+                     @include grid-column(5);
+                }
+            }
+        }
+
+        nav {
+            @include flex-grid-row;
+            @extend .align-middle;
+            border-bottom: 1px solid $light-gray;
+
+            .layout {
+                @include flex-grid-column(12);
+                @extend .button-group;
+                @extend .expanded;
+                margin: 0 0 -2px;
+                padding: 0;
+                @include breakpoint(medium) {
+                     @include flex-grid-column(4);
+                }
+
+                button {
+                    outline: none;
+                    background: $white;
+                    color: $dark-gray;
+                    border: 1px solid $medium-gray;
+
+                    i {
+                        vertical-align: middle;
+                    }
+
+                    &:hover {
+                        color: $amber;
+                    }
+
+                    &.is-active {
+                        color: $amber;
+                        border-bottom: 1px solid $white;
+                    }
+                }
+            }
+
+            .filters {
+                @include flex-grid-column(12);
+                //@extend .expanded;
+                @include breakpoint(medium) {
+                     @include flex-grid-column(8);
+                }
+            }
+        }
+
+        [data-grid-layout="filters"] {
+            padding: 0.5rem 0;
+
+            span {
+                @extend .label;
+                background: $light-gray;
+                color: $dark-gray;
+                cursor: pointer;
+
+                .material-icons {
+                    vertical-align: middle;
+                }
+
+                i {
+                    font-weight: bold;
+                    font-style: normal;
+                }
+            }
+        }
+
+        [data-grid-layout="table"] {
+            min-height: 480px;
+
+            [data-grid-sort] {
+                cursor: pointer;
+                *cursor: hand;
+                position: relative;
+
+                &:after {
+                    position: absolute;
+                    right: 4px;
+                    font-family: "Material Icons";
+                    content: "\E164";
+                    text-decoration: inherit;
+                }
+
+                &.asc:after {
+                    content: ' \E5C7';
+                }
+
+                &.desc:after {
+                    content: ' \E5C5';
+                }
+            }
+
+            table {
+                thead {
+                    color: $dark-gray;
+                }
+            }
+        }
+
+        .data-grid__grid {
+            min-height: 480px;
+            padding: 0 1rem;
+
+            nav {
+                @extend .expanded;
+                @extend .button-group;
+
+                button {
+                    @extend .secondary;
+                    @extend .button;
+                }
+            }
+
+            .card {
+                background: $alabaster;
+
+                .card-section {
+                    text-align: center;
+
+                    h4 {
+                        color: $amber;
+                        font-size: 2rem;
+                    }
+
+                    &:last-child {
+                        color: $dark-gray;
+                        font-size: 1.2rem;
+
+                        span {
+                            display: block;
+                        }
+                    }
+                }
+                @include breakpoint(medium) {
+                    text-align: left;
+                }
+            }
+        }
+
+        [data-grid-layout="pagination"] {
+            @include flex-grid-row;
+            @extend .align-middle;
+
+            p {
+                @include flex-grid-column(12);
+                margin: 0;
+                padding: 1rem 0;
+                text-align: center;
+                @include breakpoint(medium) {
+                    text-align: left;
+                    @include flex-grid-column(9);
+                }
+            }
+
+            nav {
+                @include flex-grid-column(12);
+                margin: 0;
+                padding: 1rem 0;
+                text-align: center;
+                @include breakpoint(medium) {
+                    text-align: right;
+                    @include flex-grid-column(3);
+                }
+
+                > div {
+                    @extend .expanded;
+                    @extend .button-group;
+                    width: 100%;
+
+                    button {
+                        @extend .expanded;
+                        @extend .button;
+                    }
+                }
+            }
+        }
+    }
+}

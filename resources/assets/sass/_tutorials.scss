@@ -1,0 +1,57 @@
+// Demo Application - Layouts
+// Copyright 2011-2019, Cartalyst LLC
+//--------------------------------------
+//
+// Tutorial Layout
+
+.tutorial {
+    @include box_shadow;
+    background: $white;
+
+    .sticky {
+        border-bottom: 1px solid lighten($amber-dark, 5%);
+        height: 64px;
+        background: $alabaster;
+
+        nav {
+            padding-top: 12px;
+
+            ul li {
+                text-align: center;
+            }
+        }
+    }
+
+    .tabs {
+        position: relative;
+        background: $white;
+
+        .tabs-title {
+            border-right: 1px solid $medium-gray;
+
+            a {
+                font-size: rem-calc(16);
+                padding: 1rem 1.1rem;
+                @include breakpoint(medium) {
+                    padding: 1.25rem 1.5rem;
+                }
+
+                &:hover {
+                    color: $amber;
+                }
+
+                span {
+                    @include show-for(medium);
+                }
+            }
+        }
+
+        .tabs-content {
+            border: none;
+
+            .tabs-panel {
+                padding: 0;
+            }
+        }
+    }
+}

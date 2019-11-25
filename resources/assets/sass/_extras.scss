@@ -1,0 +1,212 @@
+// Demo Application - Layouts
+// Copyright 2011-2019, Cartalyst LLC
+//--------------------------------------
+//
+// 1. HighlightJs
+// 2. Progress Bar
+// 2. Highlightjs
+// --------------
+// github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    color: #333;
+    border: 0;
+    background: transparent;
+    -webkit-text-size-adjust: none;
+}
+
+.diff .hljs-header,
+.hljs-comment {
+    color: #998;
+    font-style: italic;
+}
+
+.css .rule .hljs-keyword,
+.hljs-keyword,
+.hljs-request,
+.hljs-status,
+.hljs-subst,
+.hljs-winutils,
+.nginx .hljs-title {
+    color: #333;
+    font-weight: bold;
+}
+
+.hljs-hexcolor,
+.hljs-number,
+.ruby .hljs-constant {
+    color: #008080;
+}
+
+.hljs-doctag,
+.hljs-string,
+.hljs-tag .hljs-value,
+.tex .hljs-formula {
+    color: #d14;
+}
+
+.hljs-id,
+.hljs-title,
+.scss .hljs-preprocessor {
+    color: #900;
+    font-weight: bold;
+}
+
+.hljs-list .hljs-keyword,
+.hljs-subst {
+    font-weight: normal;
+}
+
+.hljs-class .hljs-title,
+.hljs-type,
+.tex .hljs-command,
+.vhdl .hljs-literal {
+    color: #458;
+    font-weight: bold;
+}
+
+.django .hljs-tag .hljs-keyword,
+.hljs-rule .hljs-property,
+.hljs-tag,
+.hljs-tag .hljs-title {
+    color: #000080;
+    font-weight: normal;
+}
+
+.hljs-attribute,
+.hljs-name,
+.hljs-variable,
+.lisp .hljs-body {
+    color: #008080;
+}
+
+.hljs-regexp {
+    color: #009926;
+}
+
+.clojure .hljs-keyword,
+.hljs-prompt,
+.hljs-symbol,
+.lisp .hljs-keyword,
+.ruby .hljs-symbol .hljs-string,
+.scheme .hljs-keyword,
+.tex .hljs-special {
+    color: #990073;
+}
+
+.hljs-built_in {
+    color: #0086b3;
+}
+
+.hljs-cdata,
+.hljs-doctype,
+.hljs-pi,
+.hljs-pragma,
+.hljs-preprocessor,
+.hljs-shebang {
+    color: #999;
+    font-weight: bold;
+}
+
+.hljs-deletion {
+    background: #fdd;
+}
+
+.hljs-addition {
+    background: #dfd;
+}
+
+.diff .hljs-change {
+    background: #0086b3;
+}
+
+.hljs-chunk {
+    color: #aaa;
+}
+// 2. Progress Bar
+// --------------
+// Keyframes
+@mixin keyframes($animation-name) {
+     @-webkit-keyframes #{$animation-name}{
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+         @content;
+    }
+    @keyframes #{$animation-name} {
+         @content;
+    }
+}
+
+.grid__wrapper {
+    position: relative;
+}
+
+.progress__wrapper {
+    position: relative;
+    width: 100%;
+    height: 12px;
+}
+
+.progress {
+    position: absolute;
+    top: 6px;
+    left:0;
+    right:0;
+    bottom:0;
+    height: 6px;
+    display: block;
+    width: 100%;
+    background-color: lighten( $amber, 40%);
+    border-radius: 2px;
+    //background-clip: padding-box;
+    //margin: 0.5rem 0 1rem;
+    overflow: hidden;
+
+    .indeterminate {
+        background-color: $amber;
+
+        &:before {
+            content: '';
+            position: absolute;
+            background-color: inherit;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            will-change: left, right;
+            // Custom bezier
+            animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            background-color: inherit;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            will-change: left, right;
+            // Custom bezier
+            animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+            animation-delay: 1.15s;
+        }
+    }
+}
+@include keyframes(indeterminate) {
+    0% {
+        left: -35%;
+        right: 100%;
+    }
+
+    60% {
+        left: 100%;
+        right: -90%;
+    }
+
+    100% {
+        left: 100%;
+        right: -90%;
+    }
+}

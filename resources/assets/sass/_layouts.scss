@@ -1,0 +1,150 @@
+// Demo Application - Layouts
+// Copyright 2011-2019, Cartalyst LLC
+//--------------------------------------
+//
+// 1. Base
+// 2. Page
+// --------------
+
+.base {
+    &__header {
+        background-color: $amber;
+        border-bottom: 1px solid lighten($amber-dark, 5%);
+
+        a {
+            color: $white;
+            border-bottom: 2px solid transparent;
+            @include disable-mouse-outline;
+
+            &:active,
+            &:hover {
+                transition: 0.3s;
+                color: $white;
+                border-bottom: 2px solid $white;
+            }
+
+            &:focus {
+                color: $white;
+            }
+        }
+
+        .top-bar {
+            @include flex-grid-row;
+
+            .top-bar-right {
+                .menu {
+                    @include flex-align(center, middle);
+                    @include breakpoint(medium) {
+                         @include flex-align(right, middle);
+                    }
+                }
+            }
+        }
+    }
+
+    &__footer {
+        @include flex-grid-row;
+        @extend .align-middle;
+        padding: 1rem 0;
+        border-top: 1px solid $light-gray;
+        text-align: center;
+        @include breakpoint(medium) {
+            text-align: left;
+        }
+
+        .mark {
+            @include flex-grid-column(12);
+            @include breakpoint(medium) {
+                 @include flex-grid-column(1);
+            }
+        }
+
+        .copyright {
+            @include flex-grid-column(12);
+            @include breakpoint(medium) {
+                 @include flex-grid-column(11);
+            }
+
+            small {
+                display: block;
+            }
+        }
+    }
+}
+// 2. Page
+// --------------
+
+.page {
+    &__header {
+        background: $amber;
+        text-align: center;
+        padding-bottom: 64px;
+        min-height: 320px;
+        @include breakpoint(medium) {
+            text-align: left;
+        }
+
+        .example,
+        .tutorial,
+        .welcome {
+            min-height: 320px;
+        }
+
+        .call-to-action {
+            @include box_shadow;
+            background: $white;
+            color: $dark-gray;
+            border-color: $amber-dark;
+
+            &:active,
+            &:hover {
+                color: $amber;
+                background: $white;
+                border-color: $amber;
+            }
+
+            &:focus {
+                color: $white;
+                //background: transparent;
+            }
+        }
+
+        .preview {
+            @include grid-row;
+
+            .column {
+                @include grid-column(12);
+
+                div {
+                    background: $alabaster;
+                    overflow-x: scroll;
+                    padding: 0.5rem 0;
+                    @include breakpoint(large) {
+                        overflow-x: hidden;
+                    }
+
+                    .hljs {
+                        color: $dark-gray;
+                        background: transparent;
+
+                        &:before {
+                            display: inline-block;
+                            content: "\E7F4";
+                            font-family: "Material Icons";
+                            padding: 0 1rem 0 0.5rem;
+                            color: $amber-dark;
+                            font-size: 1.2rem;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__body {
+        position: relative;
+        top: -64px;
+        min-height: 320px;
+    }
+}

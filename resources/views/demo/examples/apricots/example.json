@@ -1,0 +1,9 @@
+{
+    "name": "Apricots",
+    "description": "A very basic data grid for getting started",
+    "features": [
+        "infinite-load",
+        "filters",
+        "loader"
+    ]
+}

@@ -1,0 +1,349 @@
+// Demo Application - Extra Styles
+// Copyright 2011-2019, Cartalyst LLC
+//--------------------------------------
+// 1. Global
+// 2. Typography
+// 3. Global Styles
+// --------------
+
+body {
+    margin: 0;
+    background-color: $alabaster;
+    color: $dark-gray;
+}
+
+::-moz-selection {
+    background-color: $amber;
+    color: $white;
+}
+
+::selection {
+    background-color: $amber;
+    color: $white;
+}
+/* Disable ugly boxes around images in IE10 */
+a img {
+    border: 0;
+}
+// 2. Typography
+// --------------
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: $dark-gray;
+}
+
+h1 {
+    font-size: rem-calc(64);
+    font-weight: 500;
+    color: $white;
+}
+
+h2 {
+    font-size: rem-calc(36);
+    font-weight: 400;
+    //margin:0;
+}
+
+h3 {
+    font-size: rem-calc(32);
+    font-weight: 400;
+}
+
+h4 {
+    font-size: rem-calc(24);
+    font-weight: 400;
+}
+
+.tagline {
+    font-size: rem-calc(28);
+    font-weight: 400;
+    color: $white;
+    //margin:;
+}
+
+blockquote {
+    margin: 16px 0;
+    position: relative;
+    color: $dark-gray;
+    font-style: italic;
+    font-size: 2rem;
+    padding: 32px 0;
+    font-family: 'Roboto', serif;
+    font-weight: 100;
+
+    &:before {
+        position: absolute;
+        width: 20%;
+        left: 0;
+        top: 8px;
+        border-top: 1px solid $light-gray;
+        display: block;
+        content: "";
+        text-align: center;
+    }
+
+    &:after {
+        display: none;
+    }
+}
+// 2. Brand
+// --------------
+
+.brand {
+    &--header {
+        height: 48px;
+        margin: 0 auto;
+        display: inline-flex;
+        @include breakpoint(medium) {
+            height: 48px;
+        }
+    }
+
+    &--footer {
+        height: 72px;
+        margin: 0 auto;
+        @include breakpoint(medium) {
+            height: 96px;
+        }
+    }
+
+    &--welcome {
+        height: 124px;
+        margin: 0 auto;
+        @include breakpoint(medium) {
+            height: 320px;
+        }
+    }
+}
+// 3. Mascots
+// --------------
+
+.mascot {
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+
+    &--welcome {
+        background-position: center 16px;
+        background-size: 46%;
+        //@include flex-align(center, bottom);
+        @include breakpoint(medium) {
+            background-position: 84% 16px;
+            background-size: 40%;
+        }
+    }
+
+    &--example {
+        background-position: 80% 32px;
+    }
+
+    &--card {
+        height: 256px;
+        margin: 1rem;
+        background-position: center 32px;
+        @include breakpoint(medium) {
+            background-position: center 32px;
+            background-size: contain;
+        }
+    }
+
+    &--brand {
+        background-image: url("../images/brand-cartalyst.svg");
+    }
+
+    &--Apricots {
+        background-image: url("../images/apricots.svg");
+    }
+
+    &--Fruits {
+        background-image: url("../images/fruits.svg");
+    }
+
+    &--Crops {
+        background-image: url("../images/crops.svg");
+    }
+}
+// 3. Article
+// --------------
+
+.article {
+    padding: 1rem;
+
+    h3 {
+        padding-top: 1rem;
+    }
+
+    p {
+        font-size: rem-calc(20);
+        font-weight: 300;
+        padding: 0.5rem 0 0;
+        font-weight: 300;
+    }
+
+    blockquote p {
+        font-size: 2rem;
+    }
+
+    ul {
+        font-weight: 300;
+        margin: 1rem 0;
+        padding: 0;
+
+        li {
+            list-style-type: none;
+            margin: 0.5rem 0;
+            font-size: rem-calc(20);
+        }
+    }
+
+    section {
+        margin: 32px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    ol {
+        counter-reset: li;
+        margin-left: 0;
+        //padding-left: 0;
+    }
+
+    ol > li {
+        position: relative;
+        list-style: none;
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px dotted $light-gray;
+    }
+
+    ol > li:before {
+        content: counter(li);
+        counter-increment: li;
+        display: inline-block;
+        font-size: rem-calc(16);
+        margin-right: 8px;
+        padding: 0 8px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    li ul {
+        margin-top: 6px;
+    }
+
+    ol ol li:last-child {
+        margin-bottom: 0;
+    }
+
+    &--welcome {
+        margin-top: 96px;
+        //padding:0 8px;
+        text-align: center;
+
+        p:first-child {
+            font-size: rem-calc(24);
+            font-weight: 400;
+        }
+
+        p:last-child {
+            font-size: rem-calc(18);
+            font-weight: 300;
+        }
+        @include breakpoint(medium) {
+            text-align: left;
+            padding: 0 16px 0 0;
+        }
+    }
+}
+// Code Blocks
+.source_code {
+    border: 1px solid $medium-gray;
+    position: relative;
+
+    .source_code__header {
+        background: #fff;
+        padding: 1rem;
+        margin: 0;
+        //height:48px;
+        font-weight: 400;
+        border-bottom: 4px solid $amber;
+    }
+
+    .source_code__block {
+        overflow-x: scroll;
+        overflow: none;
+        background: #f5f5f5;
+        padding: 1rem;
+
+        code,
+        pre {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+    }
+
+    .source_code__actions {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+
+        .button {
+            padding: 0.6rem;
+        }
+    }
+
+    .action__message {
+        display: inline-block;
+        padding: 0 8px;
+        color: $amber;
+        font-weight: 400;
+    }
+}
+// 4. Cards
+
+.card {
+    background-color: $white;
+    @include box_shadow();
+    height: 98%;
+
+    &--example {
+        .card-section {
+            h4 {
+                margin-top: -64px;
+
+                .button {
+                    width: 80%;
+                    margin: 0 auto;
+                }
+            }
+
+            p {
+                padding: 16px 0;
+                font-weight: 400;
+
+                i {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+
+    .card-section {
+        img {
+            height: 196px;
+        }
+
+        h4 {
+            font-size: 2rem;
+        }
+        text-align: center;
+
+        p {
+            color: $dark-gray;
+            font-size: 1.2rem;
+        }
+    }
+}

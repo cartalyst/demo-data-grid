@@ -1,0 +1,9 @@
+{
+    "name": "Fruits",
+    "description": "Showcasing multiple grids on a single page",
+    "features": [
+        "Multiple Grids",
+        "infinite-load",
+        "loader"
+    ]
+}
