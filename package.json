@@ -14,7 +14,7 @@
         "clipboard": "^1.5.5",
         "cross-env": "^5.1",
         "foundation-sites": "6.3.1",
-        "jquery": "^3.1.1",
+        "jquery": "^3.5.0",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
         "resolve-url-loader": "^2.3.1",
